@@ -1,75 +1,56 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
-<meta name="theme-color" content="#17243A">
+<meta
+    name="theme-color"
+    content="#17243a"
+>
 
-<title>Tutor Manager · 補習管理</title>
-
-<link rel="icon" type="image/png" sizes="192x192" href="./icon-home-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="./icon-home-512.png">
-
-<link rel="apple-touch-icon" href="./icon-home-192.png">
-
-<link rel="manifest" href="./manifest.json">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Tutor Manager">
+<title>Tutor Manager</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
+/* =====================================================
+ROOT
+===================================================== */
+
 :root {
-    --navy: #17243A;
-    --navy-dark: #101A2B;
-    --navy-soft: #263650;
+    --navy: #17243a;
+    --navy-light: #263752;
+    --blue: #3568d4;
+    --green: #21875a;
+    --red: #c94b4b;
+    --orange: #c98328;
 
-    --cream: #F7F5EF;
-    --cream-dark: #EEEAE0;
-
-    --gold: #C9A96E;
-    --gold-dark: #AA8952;
-    --gold-light: #F2E8D2;
-
-    --white: #FFFFFF;
-
-    --text: #17243A;
-    --muted: #747A84;
-
-    --border: #E5E1D8;
-
-    --success: #287A55;
-    --success-bg: #EFF8F3;
-
-    --danger: #B84646;
-    --danger-bg: #FFF1F1;
-
-    --warning: #9A7225;
-    --warning-bg: #FFF7E5;
-
-    --blue: #315E9B;
-    --blue-bg: #EEF4FF;
-
-    --radius: 18px;
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --border: #e2e7ef;
+    --text: #17243a;
+    --muted: #718096;
 
     --shadow:
-        0 8px 28px rgba(23, 36, 58, 0.07);
+        0 8px 30px rgba(23,36,58,0.08);
+
+    --radius: 16px;
 }
 
-/* RESET */
+/* =====================================================
+RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 html {
@@ -77,20 +58,18 @@ html {
 }
 
 body {
-    min-height: 100vh;
-    background: var(--cream);
+    margin: 0;
+
+    background: var(--bg);
     color: var(--text);
 
     font-family:
         -apple-system,
         BlinkMacSystemFont,
-        "SF Pro Display",
         "Segoe UI",
-        Roboto,
+        "Noto Sans TC",
         Arial,
         sans-serif;
-
-    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -102,14 +81,6 @@ textarea {
 
 button {
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
-input,
-select,
-textarea {
-    -webkit-appearance: none;
-    appearance: none;
 }
 
 .hidden {
@@ -127,20 +98,7 @@ AUTH
     align-items: center;
     justify-content: center;
 
-    padding: 20px;
-
-    background:
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(201,169,110,0.18),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 90% 90%,
-            rgba(23,36,58,0.08),
-            transparent 35%
-        ),
-        var(--cream);
+    padding: 24px;
 }
 
 .auth-wrapper {
@@ -150,104 +108,101 @@ AUTH
 
 .brand {
     text-align: center;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 .brand-icon {
-    width: 84px;
-    height: 84px;
+    width: 82px;
+    height: 82px;
 
     object-fit: contain;
 
-    margin: 0 auto 14px;
-
     border-radius: 22px;
 
-    box-shadow:
-        0 12px 30px rgba(23,36,58,0.14);
+    margin-bottom: 12px;
 }
 
 .brand h1 {
-    font-size: 27px;
-    letter-spacing: -0.7px;
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: 850;
 }
 
 .brand p {
-    margin-top: 5px;
+    margin: 8px 0 0;
 
     color: var(--muted);
-
     font-size: 13px;
 }
 
 .auth-card {
-    background: var(--white);
+    background: var(--card);
 
-    border:
-        1px solid var(--border);
-
+    border: 1px solid var(--border);
     border-radius: 22px;
 
-    padding: 25px;
+    padding: 28px;
 
     box-shadow: var(--shadow);
 }
 
 .auth-heading {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .auth-heading h2 {
-    font-size: 22px;
+    margin: 0 0 6px;
+
+    font-size: 23px;
 }
 
 .auth-heading p {
-    margin-top: 5px;
+    margin: 0;
 
     color: var(--muted);
-
     font-size: 13px;
 }
 
 .login-method {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
 
-    gap: 4px;
+    gap: 6px;
 
-    background: var(--cream);
-
-    padding: 4px;
-
-    border-radius: 13px;
+    padding: 5px;
 
     margin-bottom: 18px;
+
+    background: #f0f3f8;
+
+    border-radius: 12px;
 }
 
 .method-button {
     border: 0;
-
     background: transparent;
-
-    color: var(--muted);
 
     padding: 10px;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
-    font-size: 13px;
-    font-weight: 800;
+    color: var(--muted);
+
+    font-weight: 700;
 }
 
 .method-button.active {
     background: white;
-
     color: var(--navy);
 
     box-shadow:
-        0 3px 10px rgba(23,36,58,0.08);
+        0 2px 8px rgba(23,36,58,0.08);
 }
+
+/* =====================================================
+FIELDS
+===================================================== */
 
 .field {
     margin-bottom: 15px;
@@ -258,10 +213,8 @@ AUTH
 
     margin-bottom: 7px;
 
-    color: var(--navy);
-
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 750;
 }
 
 .field input,
@@ -269,57 +222,60 @@ AUTH
 .field textarea {
     width: 100%;
 
-    border:
-        1px solid var(--border);
-
-    border-radius: 13px;
-
-    padding: 12px 13px;
+    border: 1px solid var(--border);
 
     background: white;
 
     color: var(--text);
 
-    outline: none;
-}
+    border-radius: 10px;
 
-.field textarea {
-    min-height: 90px;
-    resize: vertical;
+    padding: 11px 12px;
+
+    outline: none;
+
+    transition:
+        border-color .15s,
+        box-shadow .15s;
 }
 
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-    border-color: var(--gold);
+    border-color: var(--blue);
 
     box-shadow:
-        0 0 0 3px rgba(201,169,110,0.15);
+        0 0 0 3px rgba(53,104,212,0.10);
+}
+
+.field textarea {
+    min-height: 100px;
+
+    resize: vertical;
 }
 
 .phone-row {
-    display: flex;
+    display: grid;
+
+    grid-template-columns: 105px 1fr;
+
     gap: 8px;
 }
 
 .country-code {
-    width: 78px;
-
-    flex-shrink: 0;
-
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    border:
-        1px solid var(--border);
+    padding: 0 10px;
 
-    border-radius: 13px;
+    border: 1px solid var(--border);
 
-    background: var(--cream);
+    border-radius: 10px;
+
+    background: #f8fafc;
 
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .main-button {
@@ -327,73 +283,58 @@ AUTH
 
     border: 0;
 
-    border-radius: 13px;
-
-    padding: 14px;
-
     background: var(--navy);
-
     color: white;
 
-    font-weight: 800;
-}
+    border-radius: 11px;
 
-.main-button:active {
-    transform: scale(0.99);
+    padding: 12px;
+
+    font-weight: 800;
+
+    margin-top: 5px;
 }
 
 .main-button:disabled {
-    opacity: 0.6;
+    opacity: .6;
+    cursor: wait;
 }
 
 .switch-area {
+    margin-top: 20px;
+
     text-align: center;
 
-    margin-top: 16px;
+    font-size: 13px;
 
     color: var(--muted);
-
-    font-size: 13px;
 }
 
 .switch-button {
     border: 0;
-
     background: transparent;
 
-    color: var(--gold-dark);
+    color: var(--blue);
 
     font-weight: 800;
 }
 
 .message {
-    display: none;
+    margin-top: 15px;
 
-    margin-top: 14px;
-
-    padding: 11px 12px;
-
-    border-radius: 11px;
+    min-height: 20px;
 
     font-size: 13px;
 
-    line-height: 1.5;
+    text-align: center;
 }
 
 .message.error {
-    display: block;
-
-    background: var(--danger-bg);
-
-    color: var(--danger);
+    color: var(--red);
 }
 
 .message.success {
-    display: block;
-
-    background: var(--success-bg);
-
-    color: var(--success);
+    color: var(--green);
 }
 
 /* =====================================================
@@ -405,25 +346,22 @@ APP
 }
 
 .topbar {
-    height: 68px;
+    height: 66px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 20px;
+    padding: 0 24px;
 
-    background: var(--navy);
+    background: white;
 
-    color: white;
+    border-bottom: 1px solid var(--border);
 
     position: sticky;
     top: 0;
 
-    z-index: 50;
-
-    box-shadow:
-        0 5px 20px rgba(23,36,58,0.15);
+    z-index: 100;
 }
 
 .topbar-left {
@@ -432,105 +370,104 @@ APP
 
     gap: 10px;
 
-    font-weight: 800;
+    font-weight: 850;
 }
 
 .topbar-icon {
-    width: 40px;
-    height: 40px;
-
-    border-radius: 11px;
-
-    object-fit: contain;
-
-    background: white;
-}
-
-.logout-button {
-    border:
-        1px solid rgba(255,255,255,0.18);
-
-    background:
-        rgba(255,255,255,0.08);
-
-    color: white;
+    width: 38px;
+    height: 38px;
 
     border-radius: 10px;
 
-    padding: 8px 11px;
-
-    font-size: 12px;
-    font-weight: 700;
+    object-fit: contain;
 }
 
-.app-layout {
-    display: flex;
-
-    min-height:
-        calc(100vh - 68px);
-}
-
-/* =====================================================
-SIDEBAR
-===================================================== */
-
-.sidebar {
-    width: 235px;
-
-    flex-shrink: 0;
+.logout-button {
+    border: 1px solid var(--border);
 
     background: white;
 
-    border-right:
-        1px solid var(--border);
+    color: var(--text);
 
-    padding: 18px 12px;
+    border-radius: 9px;
+
+    padding: 8px 12px;
+
+    font-size: 12px;
+
+    font-weight: 750;
+}
+
+/* =====================================================
+LAYOUT
+===================================================== */
+
+.app-layout {
+    min-height: calc(100vh - 66px);
+
+    display: grid;
+
+    grid-template-columns: 235px 1fr;
+}
+
+.sidebar {
+    background: white;
+
+    border-right: 1px solid var(--border);
+
+    padding: 22px 13px;
+
+    position: sticky;
+    top: 66px;
+
+    height: calc(100vh - 66px);
 }
 
 .nav-section-title {
-    padding: 8px 11px;
-
-    margin-bottom: 6px;
+    padding: 7px 12px;
 
     color: var(--muted);
 
     font-size: 10px;
 
-    font-weight: 900;
-
-    letter-spacing: 0.8px;
+    font-weight: 850;
 
     text-transform: uppercase;
+
+    letter-spacing: .06em;
 }
 
 .nav-button {
     width: 100%;
 
+    display: block;
+
+    text-align: left;
+
     border: 0;
 
     background: transparent;
 
-    color: #59606B;
+    color: var(--muted);
 
-    text-align: left;
+    padding: 11px 12px;
 
-    padding: 11px;
+    margin: 2px 0;
 
-    margin-bottom: 4px;
-
-    border-radius: 12px;
+    border-radius: 10px;
 
     font-size: 13px;
-    font-weight: 750;
+
+    font-weight: 700;
 }
 
 .nav-button:hover {
-    background: var(--cream);
+    background: #f4f6fa;
+    color: var(--navy);
 }
 
 .nav-button.active {
-    background: var(--gold-light);
-
+    background: #edf2ff;
     color: var(--navy);
 }
 
@@ -539,13 +476,9 @@ MAIN
 ===================================================== */
 
 .main {
-    flex: 1;
+    min-width: 0;
 
-    width: 100%;
-
-    max-width: 1450px;
-
-    padding: 27px;
+    padding: 28px;
 }
 
 .welcome {
@@ -553,13 +486,13 @@ MAIN
 }
 
 .welcome h2 {
-    font-size: 27px;
+    margin: 0 0 5px;
 
-    letter-spacing: -0.5px;
+    font-size: 25px;
 }
 
 .welcome p {
-    margin-top: 5px;
+    margin: 0;
 
     color: var(--muted);
 
@@ -567,7 +500,7 @@ MAIN
 }
 
 /* =====================================================
-PAGE
+PAGES
 ===================================================== */
 
 .page {
@@ -579,14 +512,14 @@ PAGE
 }
 
 /* =====================================================
-DASHBOARD
+STATS
 ===================================================== */
 
 .stats {
     display: grid;
 
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(5, minmax(0, 1fr));
 
     gap: 12px;
 
@@ -596,75 +529,80 @@ DASHBOARD
 .stat-card {
     background: white;
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 
     border-radius: var(--radius);
 
     padding: 17px;
 
-    box-shadow:
-        0 4px 15px rgba(23,36,58,0.04);
+    box-shadow: 0 3px 15px rgba(23,36,58,.04);
 }
 
 .stat-label {
     color: var(--muted);
 
     font-size: 11px;
+
     font-weight: 750;
 }
 
 .stat-value {
     margin-top: 8px;
 
-    color: var(--navy);
+    font-size: 26px;
 
-    font-size: 25px;
-    font-weight: 900;
+    font-weight: 850;
 }
 
 .stat-small {
-    margin-top: 3px;
+    margin-top: 4px;
 
     color: var(--muted);
 
     font-size: 10px;
 }
 
+/* =====================================================
+DASHBOARD
+===================================================== */
+
 .dashboard-grid {
     display: grid;
 
     grid-template-columns:
-        1.3fr 1fr;
+        minmax(0, 1.4fr)
+        minmax(0, 1fr);
 
-    gap: 17px;
+    gap: 18px;
 }
 
 .content-card {
     background: white;
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 
     border-radius: var(--radius);
 
-    padding: 19px;
+    padding: 18px;
 
     box-shadow:
-        0 4px 15px rgba(23,36,58,0.04);
+        0 3px 15px rgba(23,36,58,.04);
 }
 
 .card-heading {
     display: flex;
 
-    align-items: center;
-
+    align-items: baseline;
     justify-content: space-between;
+
+    gap: 10px;
 
     margin-bottom: 14px;
 }
 
 .card-heading h3 {
+    margin: 0;
+
     font-size: 16px;
 }
 
@@ -672,18 +610,6 @@ DASHBOARD
     color: var(--muted);
 
     font-size: 11px;
-}
-
-.empty {
-    padding: 30px 10px;
-
-    text-align: center;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.7;
 }
 
 /* =====================================================
@@ -694,30 +620,33 @@ TOOLBAR
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
-    gap: 10px;
+    gap: 15px;
 
-    margin-bottom: 14px;
+    margin-bottom: 15px;
 }
 
 .toolbar h3 {
-    font-size: 19px;
+    margin: 0;
+
+    font-size: 18px;
 }
 
 .toolbar-actions {
     display: flex;
 
-    gap: 7px;
-
-    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.secondary-button,
+/* =====================================================
+BUTTONS
+===================================================== */
+
 .primary-small,
-.danger-small {
-    border-radius: 10px;
+.secondary-button,
+.danger-button {
+    border-radius: 9px;
 
     padding: 9px 12px;
 
@@ -726,29 +655,38 @@ TOOLBAR
     font-weight: 800;
 }
 
-.secondary-button {
-    border:
-        1px solid var(--border);
-
-    background: white;
-
-    color: var(--navy);
-}
-
 .primary-small {
     border: 0;
 
     background: var(--navy);
-
     color: white;
 }
 
-.danger-small {
+.secondary-button {
+    border: 1px solid var(--border);
+
+    background: white;
+
+    color: var(--text);
+}
+
+.danger-button {
     border: 0;
 
-    background: var(--danger-bg);
+    background: #fff0f0;
 
-    color: var(--danger);
+    color: var(--red);
+}
+
+.icon-button {
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid var(--border);
+
+    background: white;
+
+    border-radius: 8px;
 }
 
 /* =====================================================
@@ -756,28 +694,28 @@ DATA
 ===================================================== */
 
 .data-list {
-    display: grid;
+    display: flex;
 
-    gap: 9px;
+    flex-direction: column;
+
+    gap: 8px;
 }
 
 .data-item {
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     gap: 12px;
 
-    padding: 14px;
+    padding: 13px;
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 
-    border-radius: 13px;
+    border-radius: 11px;
 
-    background: white;
+    background: #fff;
 }
 
 .data-item-main {
@@ -785,10 +723,9 @@ DATA
 }
 
 .data-item-title {
-    color: var(--navy);
-
     font-size: 13px;
-    font-weight: 850;
+
+    font-weight: 800;
 }
 
 .data-item-subtitle {
@@ -798,61 +735,100 @@ DATA
 
     font-size: 11px;
 
-    line-height: 1.55;
+    line-height: 1.6;
+
+    word-break: break-word;
 }
 
 .item-actions {
     display: flex;
+
+    align-items: center;
 
     gap: 5px;
 
     flex-shrink: 0;
 }
 
-.icon-button {
-    width: 34px;
-    height: 34px;
+.loading,
+.empty {
+    padding: 25px 10px;
 
-    border:
-        1px solid var(--border);
+    text-align: center;
 
-    background: white;
+    color: var(--muted);
 
-    border-radius: 9px;
-
-    font-size: 14px;
+    font-size: 13px;
 }
 
-.badge {
-    flex-shrink: 0;
+/* =====================================================
+BADGES
+===================================================== */
 
-    padding: 5px 8px;
+.badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 4px 8px;
 
     border-radius: 999px;
 
     font-size: 10px;
 
-    font-weight: 850;
+    font-weight: 800;
+
+    white-space: nowrap;
 }
 
 .badge-success {
-    background: var(--success-bg);
-    color: var(--success);
+    background: #e9f8f0;
+    color: var(--green);
 }
 
 .badge-warning {
-    background: var(--warning-bg);
-    color: var(--warning);
+    background: #fff5df;
+    color: var(--orange);
 }
 
 .badge-danger {
-    background: var(--danger-bg);
-    color: var(--danger);
+    background: #fff0f0;
+    color: var(--red);
 }
 
-.badge-blue {
-    background: var(--blue-bg);
+.badge-info {
+    background: #edf2ff;
     color: var(--blue);
+}
+
+/* =====================================================
+PRIVATE NOTE BOX
+===================================================== */
+
+.private-note-box {
+    margin-top: 16px;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #f4f1ff;
+
+    border: 1px solid #e4dcff;
+}
+
+.private-note-title {
+    font-size: 13px;
+
+    font-weight: 850;
+}
+
+.private-note-description {
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 11px;
 }
 
 /* =====================================================
@@ -864,20 +840,19 @@ MODAL
 
     inset: 0;
 
-    z-index: 200;
+    z-index: 500;
 
     display: none;
 
     align-items: center;
     justify-content: center;
 
-    padding: 16px;
+    padding: 20px;
 
     background:
-        rgba(16,26,43,0.55);
+        rgba(10,18,32,.48);
 
-    backdrop-filter:
-        blur(4px);
+    backdrop-filter: blur(4px);
 }
 
 .modal-backdrop.open {
@@ -887,9 +862,9 @@ MODAL
 .modal {
     width: 100%;
 
-    max-width: 520px;
+    max-width: 620px;
 
-    max-height: 92vh;
+    max-height: calc(100vh - 40px);
 
     overflow-y: auto;
 
@@ -897,23 +872,24 @@ MODAL
 
     border-radius: 20px;
 
-    padding: 21px;
+    padding: 22px;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,0.25);
+        0 20px 60px rgba(0,0,0,.18);
 }
 
 .modal-header {
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
-    margin-bottom: 17px;
+    margin-bottom: 18px;
 }
 
 .modal-header h3 {
+    margin: 0;
+
     font-size: 18px;
 }
 
@@ -923,13 +899,13 @@ MODAL
 
     border: 0;
 
-    border-radius: 9px;
+    background: #f2f4f8;
 
-    background: var(--cream);
+    border-radius: 50%;
 
-    color: var(--navy);
+    font-size: 20px;
 
-    font-size: 17px;
+    color: var(--muted);
 }
 
 .form-grid {
@@ -938,7 +914,7 @@ MODAL
     grid-template-columns:
         1fr 1fr;
 
-    gap: 11px;
+    gap: 13px;
 }
 
 .form-full {
@@ -948,64 +924,11 @@ MODAL
 .modal-actions {
     display: flex;
 
+    justify-content: flex-end;
+
     gap: 8px;
 
-    margin-top: 17px;
-}
-
-.modal-actions button {
-    flex: 1;
-}
-
-/* =====================================================
-PRIVATE NOTE
-===================================================== */
-
-.private-note-box {
-    margin-top: 16px;
-
-    padding: 15px;
-
-    border:
-        1px solid #E5D5B7;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #FFFDF8,
-            #F7F1E5
-        );
-}
-
-.private-note-title {
-    font-size: 13px;
-    font-weight: 850;
-}
-
-.private-note-description {
-    margin-top: 5px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    line-height: 1.5;
-}
-
-/* =====================================================
-LOADING
-===================================================== */
-
-.loading {
-    padding: 25px;
-
-    text-align: center;
-
-    color: var(--muted);
-
-    font-size: 13px;
+    margin-top: 20px;
 }
 
 /* =====================================================
@@ -1017,10 +940,10 @@ MOBILE NAV
 }
 
 /* =====================================================
-MOBILE
+RESPONSIVE
 ===================================================== */
 
-@media (max-width: 1050px) {
+@media (max-width: 1150px) {
 
     .stats {
         grid-template-columns:
@@ -1043,21 +966,16 @@ MOBILE
     }
 
     .app-layout {
-        min-height: auto;
+        display: block;
     }
 
     .main {
-        padding:
-            18px
-            13px
-            25px;
+        padding: 18px 13px 25px;
     }
 
     .topbar {
         height: 62px;
-
-        padding:
-            0 13px;
+        padding: 0 13px;
     }
 
     .topbar-icon {
@@ -1071,7 +989,6 @@ MOBILE
 
     .logout-button {
         padding: 7px 9px;
-
         font-size: 11px;
     }
 
@@ -1108,7 +1025,6 @@ MOBILE
 
     .toolbar {
         align-items: flex-start;
-
         flex-direction: column;
     }
 
@@ -1122,7 +1038,6 @@ MOBILE
 
     .data-item {
         align-items: flex-start;
-
         padding: 12px;
     }
 
@@ -1144,22 +1059,19 @@ MOBILE
         z-index: 150;
 
         align-items: center;
-
         justify-content: space-around;
 
         background:
-            rgba(255,255,255,0.97);
+            rgba(255,255,255,.97);
 
-        border:
-            1px solid var(--border);
+        border: 1px solid var(--border);
 
         border-radius: 18px;
 
         box-shadow:
-            0 10px 35px rgba(23,36,58,0.16);
+            0 10px 35px rgba(23,36,58,.16);
 
-        backdrop-filter:
-            blur(12px);
+        backdrop-filter: blur(12px);
     }
 
     .mobile-nav button {
@@ -1222,31 +1134,14 @@ MOBILE
         font-size: 24px;
     }
 
-    .stats {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-    .stat-card {
-        min-width: 0;
-    }
-
-    .stat-label {
-        font-size: 10px;
-    }
-
-    .stat-value {
-        font-size: 21px;
-    }
-
     .modal {
         padding: 18px;
-
         border-radius: 18px;
     }
 }
 
 </style>
+
 </head>
 
 <body>
@@ -1318,20 +1213,27 @@ AUTH SCREEN
                     class="field hidden"
                     id="nameField"
                 >
-                    <label>姓名 Name</label>
+
+                    <label>
+                        姓名 Name
+                    </label>
 
                     <input
                         id="fullName"
                         type="text"
                         placeholder="你的姓名"
                     >
+
                 </div>
 
                 <div
                     class="field hidden"
                     id="phoneField"
                 >
-                    <label>電話 Phone</label>
+
+                    <label>
+                        電話 Phone
+                    </label>
 
                     <div class="phone-row">
 
@@ -1348,13 +1250,17 @@ AUTH SCREEN
                         >
 
                     </div>
+
                 </div>
 
                 <div
                     class="field hidden"
                     id="roleField"
                 >
-                    <label>帳戶類型 Account Type</label>
+
+                    <label>
+                        帳戶類型 Account Type
+                    </label>
 
                     <select id="role">
 
@@ -1367,6 +1273,7 @@ AUTH SCREEN
                         </option>
 
                     </select>
+
                 </div>
 
                 <div
@@ -1374,7 +1281,9 @@ AUTH SCREEN
                     id="emailField"
                 >
 
-                    <label>Email 電郵</label>
+                    <label>
+                        Email 電郵
+                    </label>
 
                     <input
                         id="email"
@@ -1387,13 +1296,15 @@ AUTH SCREEN
 
                 <div class="field">
 
-                    <label>Password 密碼</label>
+                    <label>
+                        Password 密碼
+                    </label>
 
                     <input
                         id="password"
                         type="password"
-                        autocomplete="current-password"
                         minlength="6"
+                        autocomplete="current-password"
                         placeholder="至少 6 個字元"
                         required
                     >
@@ -1437,7 +1348,6 @@ AUTH SCREEN
 
 </section>
 
-
 <!-- =====================================================
 APP
 ===================================================== -->
@@ -1471,7 +1381,6 @@ APP
     </button>
 
 </header>
-
 
 <div class="app-layout">
 
@@ -1545,11 +1454,11 @@ SIDEBAR
 
     </div>
 
-    <div class="nav-section-title"
-         style="margin-top:15px;">
-
+    <div
+        class="nav-section-title"
+        style="margin-top:15px;"
+    >
         Account
-
     </div>
 
     <button
@@ -1560,7 +1469,6 @@ SIDEBAR
     </button>
 
 </aside>
-
 
 <!-- =====================================================
 MAIN
@@ -1580,7 +1488,6 @@ MAIN
 
 </div>
 
-
 <!-- =====================================================
 DASHBOARD
 ===================================================== -->
@@ -1593,7 +1500,6 @@ DASHBOARD
 <div class="stats">
 
     <div class="stat-card">
-
         <div class="stat-label">
             Students · 學生
         </div>
@@ -1604,12 +1510,9 @@ DASHBOARD
         >
             0
         </div>
-
     </div>
 
-
     <div class="stat-card">
-
         <div class="stat-label">
             Upcoming · 即將上堂
         </div>
@@ -1620,12 +1523,9 @@ DASHBOARD
         >
             0
         </div>
-
     </div>
 
-
     <div class="stat-card">
-
         <div class="stat-label">
             Hours · 工時
         </div>
@@ -1640,12 +1540,9 @@ DASHBOARD
         <div class="stat-small">
             已完成課堂
         </div>
-
     </div>
 
-
     <div class="stat-card">
-
         <div class="stat-label">
             Income · 收入
         </div>
@@ -1660,12 +1557,9 @@ DASHBOARD
         <div class="stat-small">
             已付款
         </div>
-
     </div>
 
-
     <div class="stat-card">
-
         <div class="stat-label">
             Outstanding · 欠款
         </div>
@@ -1680,11 +1574,9 @@ DASHBOARD
         <div class="stat-small">
             尚未付款
         </div>
-
     </div>
 
 </div>
-
 
 <div class="dashboard-grid">
 
@@ -1706,15 +1598,12 @@ DASHBOARD
             id="dashboardLessons"
             class="data-list"
         >
-
             <div class="loading">
                 載入中...
             </div>
-
         </div>
 
     </div>
-
 
     <div class="content-card">
 
@@ -1759,7 +1648,6 @@ DASHBOARD
 
 </section>
 
-
 <!-- =====================================================
 CALENDAR
 ===================================================== -->
@@ -1785,14 +1673,14 @@ CALENDAR
         </button>
 
         <button
-            class="primary-small"
+            class="primary-small tutor-only-control"
             onclick="openLessonModal()"
         >
             ＋ 新增課堂
         </button>
 
         <button
-            class="primary-small"
+            class="primary-small tutor-only-control"
             onclick="openSeriesModal()"
         >
             ＋ 每週循環
@@ -1806,15 +1694,12 @@ CALENDAR
     id="calendarList"
     class="content-card"
 >
-
     <div class="loading">
         載入課堂資料中...
     </div>
-
 </div>
 
 </section>
-
 
 <!-- =====================================================
 STUDENTS
@@ -1841,7 +1726,7 @@ STUDENTS
         </button>
 
         <button
-            class="primary-small"
+            class="primary-small tutor-only-control"
             onclick="openStudentModal()"
         >
             ＋ 新增學生
@@ -1855,15 +1740,12 @@ STUDENTS
     id="studentsList"
     class="content-card"
 >
-
     <div class="loading">
         載入學生資料中...
     </div>
-
 </div>
 
 </section>
-
 
 <!-- =====================================================
 PARENTS
@@ -1890,7 +1772,7 @@ PARENTS
         </button>
 
         <button
-            class="primary-small"
+            class="primary-small tutor-only-control"
             onclick="openParentModal()"
         >
             ＋ 新增家長
@@ -1904,15 +1786,12 @@ PARENTS
     id="parentsList"
     class="content-card"
 >
-
     <div class="loading">
         載入家長資料中...
     </div>
-
 </div>
 
 </section>
-
 
 <!-- =====================================================
 PAYMENTS
@@ -1939,7 +1818,7 @@ PAYMENTS
         </button>
 
         <button
-            class="primary-small"
+            class="primary-small tutor-only-control"
             onclick="openPaymentModal()"
         >
             ＋ 記錄收款
@@ -1953,15 +1832,12 @@ PAYMENTS
     id="paymentsList"
     class="content-card"
 >
-
     <div class="loading">
         載入付款資料中...
     </div>
-
 </div>
 
 </section>
-
 
 <!-- =====================================================
 NOTIFICATIONS
@@ -1991,15 +1867,12 @@ NOTIFICATIONS
     id="notificationsList"
     class="content-card"
 >
-
     <div class="loading">
         載入通知中...
     </div>
-
 </div>
 
 </section>
-
 
 <!-- =====================================================
 PRIVATE NOTES
@@ -2029,15 +1902,12 @@ PRIVATE NOTES
     id="privateNotesList"
     class="content-card"
 >
-
     <div class="loading">
         載入私人備註中...
     </div>
-
 </div>
 
 </section>
-
 
 <!-- =====================================================
 PROFILE
@@ -2085,6 +1955,7 @@ PROFILE
             <input
                 id="profilePhone"
                 type="tel"
+                maxlength="8"
             >
 
         </div>
@@ -2119,19 +1990,23 @@ PROFILE
 
     </div>
 
-    <button
-        class="primary-small"
-        type="submit"
-    >
-        儲存個人資料
-    </button>
+    <div class="modal-actions">
 
-    <div
-        id="profileMessage"
-        class="message"
-    ></div>
+        <button
+            type="submit"
+            class="primary-small"
+        >
+            儲存修改
+        </button>
+
+    </div>
 
 </form>
+
+<div
+    id="profileMessage"
+    class="message"
+></div>
 
 </div>
 
@@ -2140,7 +2015,6 @@ PROFILE
 </main>
 
 </div>
-
 
 <!-- =====================================================
 MOBILE NAV
@@ -2156,38 +2030,29 @@ MOBILE NAV
         <span class="mobile-nav-label">主頁</span>
     </button>
 
-    <button
-        data-page="calendar"
-    >
+    <button data-page="calendar">
         <span class="mobile-nav-icon">📅</span>
         <span class="mobile-nav-label">日曆</span>
     </button>
 
-    <button
-        data-page="students"
-    >
+    <button data-page="students">
         <span class="mobile-nav-icon">👨‍🎓</span>
         <span class="mobile-nav-label">學生</span>
     </button>
 
-    <button
-        data-page="parents"
-    >
-        <span class="mobile-nav-icon">👨‍👩‍👧</span>
-        <span class="mobile-nav-label">家長</span>
-    </button>
-
-    <button
-        data-page="payments"
-    >
+    <button data-page="payments">
         <span class="mobile-nav-icon">💰</span>
         <span class="mobile-nav-label">收款</span>
+    </button>
+
+    <button data-page="profile">
+        <span class="mobile-nav-icon">👤</span>
+        <span class="mobile-nav-label">我的</span>
     </button>
 
 </nav>
 
 </section>
-
 
 <!-- =====================================================
 STUDENT MODAL
@@ -2208,6 +2073,7 @@ STUDENT MODAL
 
         <button
             class="close-button"
+            type="button"
             onclick="closeModal('studentModal')"
         >
             ×
@@ -2218,8 +2084,8 @@ STUDENT MODAL
     <form id="studentForm">
 
         <input
-            id="studentId"
             type="hidden"
+            id="studentId"
         >
 
         <div class="form-grid">
@@ -2233,7 +2099,6 @@ STUDENT MODAL
                 <input
                     id="studentName"
                     required
-                    placeholder="例如：陳小明"
                 >
 
             </div>
@@ -2258,10 +2123,7 @@ STUDENT MODAL
                     學校
                 </label>
 
-                <input
-                    id="studentSchool"
-                    placeholder="學校名稱"
-                >
+                <input id="studentSchool">
 
             </div>
 
@@ -2271,10 +2133,7 @@ STUDENT MODAL
                     年級
                 </label>
 
-                <input
-                    id="studentGrade"
-                    placeholder="例如：中一"
-                >
+                <input id="studentGrade">
 
             </div>
 
@@ -2284,17 +2143,14 @@ STUDENT MODAL
                     電話
                 </label>
 
-                <input
-                    id="studentPhone"
-                    type="tel"
-                >
+                <input id="studentPhone">
 
             </div>
 
             <div class="field">
 
                 <label>
-                    每小時收費
+                    時薪
                 </label>
 
                 <input
@@ -2302,7 +2158,6 @@ STUDENT MODAL
                     type="number"
                     min="0"
                     step="0.01"
-                    placeholder="例如：250"
                 >
 
             </div>
@@ -2310,13 +2165,10 @@ STUDENT MODAL
             <div class="field form-full">
 
                 <label>
-                    上門地址
+                    地址
                 </label>
 
-                <input
-                    id="studentAddress"
-                    placeholder="例如：九龍塘..."
-                >
+                <input id="studentAddress">
 
             </div>
 
@@ -2326,10 +2178,7 @@ STUDENT MODAL
                     備註
                 </label>
 
-                <textarea
-                    id="studentNotes"
-                    placeholder="學生學習情況、注意事項等"
-                ></textarea>
+                <textarea id="studentNotes"></textarea>
 
             </div>
 
@@ -2349,7 +2198,7 @@ STUDENT MODAL
                 type="submit"
                 class="primary-small"
             >
-                儲存學生
+                儲存
             </button>
 
         </div>
@@ -2359,7 +2208,6 @@ STUDENT MODAL
 </div>
 
 </div>
-
 
 <!-- =====================================================
 PARENT MODAL
@@ -2380,6 +2228,7 @@ PARENT MODAL
 
         <button
             class="close-button"
+            type="button"
             onclick="closeModal('parentModal')"
         >
             ×
@@ -2390,8 +2239,8 @@ PARENT MODAL
     <form id="parentForm">
 
         <input
-            id="parentId"
             type="hidden"
+            id="parentId"
         >
 
         <div class="form-grid">
@@ -2415,10 +2264,7 @@ PARENT MODAL
                     電話
                 </label>
 
-                <input
-                    id="parentPhone"
-                    type="tel"
-                >
+                <input id="parentPhone">
 
             </div>
 
@@ -2435,15 +2281,13 @@ PARENT MODAL
 
             </div>
 
-            <div class="field form-full">
+            <div class="field">
 
                 <label>
                     地址
                 </label>
 
-                <input
-                    id="parentAddress"
-                >
+                <input id="parentAddress">
 
             </div>
 
@@ -2453,9 +2297,7 @@ PARENT MODAL
                     備註
                 </label>
 
-                <textarea
-                    id="parentNotes"
-                ></textarea>
+                <textarea id="parentNotes"></textarea>
 
             </div>
 
@@ -2475,7 +2317,7 @@ PARENT MODAL
                 type="submit"
                 class="primary-small"
             >
-                儲存家長
+                儲存
             </button>
 
         </div>
@@ -2485,7 +2327,6 @@ PARENT MODAL
 </div>
 
 </div>
-
 
 <!-- =====================================================
 LESSON MODAL
@@ -2500,12 +2341,13 @@ LESSON MODAL
 
     <div class="modal-header">
 
-        <h3>
+        <h3 id="lessonModalTitle">
             新增課堂
         </h3>
 
         <button
             class="close-button"
+            type="button"
             onclick="closeModal('lessonModal')"
         >
             ×
@@ -2516,8 +2358,8 @@ LESSON MODAL
     <form id="lessonForm">
 
         <input
-            id="lessonId"
             type="hidden"
+            id="lessonId"
         >
 
         <div class="form-grid">
@@ -2546,11 +2388,9 @@ LESSON MODAL
                 </label>
 
                 <select id="lessonParent">
-
                     <option value="">
                         未指定
                     </option>
-
                 </select>
 
             </div>
@@ -2586,60 +2426,37 @@ LESSON MODAL
             <div class="field">
 
                 <label>
-                    地點類型
+                    地點
                 </label>
 
-                <select id="lessonLocationType">
-
-                    <option value="home">
-                        🏠 學生家中
-                    </option>
-
-                    <option value="tutor_home">
-                        🏠 導師家中
-                    </option>
-
-                    <option value="online">
-                        💻 Online
-                    </option>
-
-                    <option value="school">
-                        🏫 學校
-                    </option>
-
-                    <option value="other">
-                        📍 其他
-                    </option>
-
-                </select>
+                <input
+                    id="lessonLocation"
+                    placeholder="例如：學生家中 / Zoom"
+                >
 
             </div>
 
             <div class="field">
 
                 <label>
-                    收費／小時
+                    狀態
                 </label>
 
-                <input
-                    id="lessonRate"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                >
+                <select id="lessonStatus">
 
-            </div>
+                    <option value="scheduled">
+                        📅 已安排
+                    </option>
 
-            <div class="field form-full">
+                    <option value="completed">
+                        ✅ 已完成
+                    </option>
 
-                <label>
-                    詳細地點／上門地址
-                </label>
+                    <option value="cancelled">
+                        ❌ 已取消
+                    </option>
 
-                <input
-                    id="lessonLocation"
-                    placeholder="例如：太和邨 / Zoom / 九龍塘..."
-                >
+                </select>
 
             </div>
 
@@ -2650,8 +2467,7 @@ LESSON MODAL
                 </label>
 
                 <textarea
-                    id="lessonNote"
-                    placeholder="例如：帶數學練習"
+                    id="lessonNotes"
                 ></textarea>
 
             </div>
@@ -2683,9 +2499,8 @@ LESSON MODAL
 
 </div>
 
-
 <!-- =====================================================
-RECURRING SERIES MODAL
+RECURRING LESSON MODAL
 ===================================================== -->
 
 <div
@@ -2703,6 +2518,7 @@ RECURRING SERIES MODAL
 
         <button
             class="close-button"
+            type="button"
             onclick="closeModal('seriesModal')"
         >
             ×
@@ -2714,7 +2530,7 @@ RECURRING SERIES MODAL
 
         <div class="form-grid">
 
-            <div class="field form-full">
+            <div class="field">
 
                 <label>
                     學生 *
@@ -2734,13 +2550,28 @@ RECURRING SERIES MODAL
             <div class="field">
 
                 <label>
+                    家長
+                </label>
+
+                <select id="seriesParent">
+                    <option value="">
+                        未指定
+                    </option>
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
                     星期 *
                 </label>
 
-                <select
-                    id="seriesDay"
-                    required
-                >
+                <select id="seriesDay">
+
+                    <option value="0">
+                        星期日
+                    </option>
 
                     <option value="1">
                         星期一
@@ -2766,11 +2597,38 @@ RECURRING SERIES MODAL
                         星期六
                     </option>
 
-                    <option value="0">
-                        星期日
-                    </option>
-
                 </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    開始時間 *
+                </label>
+
+                <input
+                    id="seriesTime"
+                    type="time"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    每堂時間（分鐘）*
+                </label>
+
+                <input
+                    id="seriesDuration"
+                    type="number"
+                    min="15"
+                    step="15"
+                    value="90"
+                    required
+                >
 
             </div>
 
@@ -2791,40 +2649,13 @@ RECURRING SERIES MODAL
             <div class="field">
 
                 <label>
-                    開始時間 *
-                </label>
-
-                <input
-                    id="seriesStartTime"
-                    type="time"
-                    required
-                >
-
-            </div>
-
-            <div class="field">
-
-                <label>
-                    結束時間 *
-                </label>
-
-                <input
-                    id="seriesEndTime"
-                    type="time"
-                    required
-                >
-
-            </div>
-
-            <div class="field">
-
-                <label>
-                    結束日期
+                    結束日期 *
                 </label>
 
                 <input
                     id="seriesEndDate"
                     type="date"
+                    required
                 >
 
             </div>
@@ -2832,59 +2663,10 @@ RECURRING SERIES MODAL
             <div class="field">
 
                 <label>
-                    收費／小時
+                    地點
                 </label>
 
-                <input
-                    id="seriesRate"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                >
-
-            </div>
-
-            <div class="field">
-
-                <label>
-                    地點類型
-                </label>
-
-                <select id="seriesLocationType">
-
-                    <option value="home">
-                        🏠 學生家中
-                    </option>
-
-                    <option value="tutor_home">
-                        🏠 導師家中
-                    </option>
-
-                    <option value="online">
-                        💻 Online
-                    </option>
-
-                    <option value="school">
-                        🏫 學校
-                    </option>
-
-                    <option value="other">
-                        📍 其他
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="field form-full">
-
-                <label>
-                    地點／上門地址
-                </label>
-
-                <input
-                    id="seriesLocation"
-                >
+                <input id="seriesLocation">
 
             </div>
 
@@ -2904,7 +2686,7 @@ RECURRING SERIES MODAL
                 type="submit"
                 class="primary-small"
             >
-                建立每週課堂
+                建立循環課堂
             </button>
 
         </div>
@@ -2914,7 +2696,6 @@ RECURRING SERIES MODAL
 </div>
 
 </div>
-
 
 <!-- =====================================================
 PAYMENT MODAL
@@ -2929,12 +2710,13 @@ PAYMENT MODAL
 
     <div class="modal-header">
 
-        <h3>
+        <h3 id="paymentModalTitle">
             記錄收款
         </h3>
 
         <button
             class="close-button"
+            type="button"
             onclick="closeModal('paymentModal')"
         >
             ×
@@ -2943,6 +2725,11 @@ PAYMENT MODAL
     </div>
 
     <form id="paymentForm">
+
+        <input
+            type="hidden"
+            id="paymentId"
+        >
 
         <div class="form-grid">
 
@@ -3113,7 +2900,6 @@ PAYMENT MODAL
 
 </div>
 
-
 <!-- =====================================================
 PRIVATE NOTE MODAL
 ===================================================== -->
@@ -3127,12 +2913,13 @@ PRIVATE NOTE MODAL
 
     <div class="modal-header">
 
-        <h3>
+        <h3 id="noteModalTitle">
             私人備註
         </h3>
 
         <button
             class="close-button"
+            type="button"
             onclick="closeModal('noteModal')"
         >
             ×
@@ -3142,21 +2929,24 @@ PRIVATE NOTE MODAL
 
     <form id="noteForm">
 
+        <input
+            type="hidden"
+            id="noteId"
+        >
+
         <div class="field">
 
             <label>
-                學生
+                學生 *
             </label>
 
             <select
                 id="noteStudent"
                 required
             >
-
                 <option value="">
                     請選擇學生
                 </option>
-
             </select>
 
         </div>
@@ -3200,7 +2990,6 @@ PRIVATE NOTE MODAL
 
 </div>
 
-
 <script>
 
 /* =====================================================
@@ -3219,17 +3008,15 @@ const supabaseClient =
         SUPABASE_ANON_KEY
     );
 
-
 /* =====================================================
 STATE
 ===================================================== */
 
-let isSignUp = false;
-let loginType = "email";
-
 let currentUser = null;
 let currentProfile = null;
 
+let isSignUp = false;
+let loginType = "email";
 
 /* =====================================================
 HELPERS
@@ -3252,29 +3039,6 @@ function escapeHTML(value) {
         .replace(/'/g, "&#039;");
 }
 
-
-function showMessage(
-    element,
-    message,
-    type = "error"
-) {
-
-    element.textContent = message;
-
-    element.className =
-        "message " + type;
-}
-
-
-function clearElementMessage(element) {
-
-    element.textContent = "";
-
-    element.className =
-        "message";
-}
-
-
 function formatMoney(value) {
 
     return "$" +
@@ -3288,7 +3052,6 @@ function formatMoney(value) {
             );
 }
 
-
 function formatDateTime(value) {
 
     if (!value) {
@@ -3297,7 +3060,11 @@ function formatDateTime(value) {
 
     const date = new Date(value);
 
-    if (Number.isNaN(date.getTime())) {
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
         return value;
     }
 
@@ -3313,7 +3080,6 @@ function formatDateTime(value) {
     );
 }
 
-
 function formatDate(value) {
 
     if (!value) {
@@ -3325,7 +3091,11 @@ function formatDate(value) {
             value + "T00:00:00"
         );
 
-    if (Number.isNaN(date.getTime())) {
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
         return value;
     }
 
@@ -3339,6 +3109,23 @@ function formatDate(value) {
     );
 }
 
+function todayString() {
+
+    const now = new Date();
+
+    const offset =
+        now.getTimezoneOffset();
+
+    const local =
+        new Date(
+            now.getTime() -
+            offset * 60000
+        );
+
+    return local
+        .toISOString()
+        .slice(0, 10);
+}
 
 function normalizeHKPhone(phone) {
 
@@ -3372,26 +3159,6 @@ function normalizeHKPhone(phone) {
     );
 }
 
-
-function todayString() {
-
-    const date = new Date();
-
-    const offset =
-        date.getTimezoneOffset();
-
-    const local =
-        new Date(
-            date.getTime() -
-            offset * 60000
-        );
-
-    return local
-        .toISOString()
-        .slice(0, 10);
-}
-
-
 function toDateTimeLocal(value) {
 
     if (!value) {
@@ -3400,7 +3167,11 @@ function toDateTimeLocal(value) {
 
     const date = new Date(value);
 
-    if (Number.isNaN(date.getTime())) {
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
         return "";
     }
 
@@ -3418,7 +3189,6 @@ function toDateTimeLocal(value) {
         .slice(0, 16);
 }
 
-
 function openModal(id) {
 
     document
@@ -3427,7 +3197,6 @@ function openModal(id) {
         .add("open");
 }
 
-
 function closeModal(id) {
 
     document
@@ -3435,7 +3204,6 @@ function closeModal(id) {
         .classList
         .remove("open");
 }
-
 
 function getRole() {
 
@@ -3446,6 +3214,34 @@ function getRole() {
     );
 }
 
+function isTutor() {
+
+    return getRole() === "tutor";
+}
+
+function isParent() {
+
+    return getRole() === "parent";
+}
+
+function showMessage(
+    element,
+    message,
+    type = "error"
+) {
+
+    element.textContent = message;
+
+    element.className =
+        "message " + type;
+}
+
+function clearMessage(element) {
+
+    element.textContent = "";
+
+    element.className = "message";
+}
 
 /* =====================================================
 PROFILE
@@ -3466,15 +3262,15 @@ async function ensureProfile(user) {
             .select(
                 "id, full_name, role, phone, created_at"
             )
-            .eq("id", user.id)
+            .eq(
+                "id",
+                user.id
+            )
             .maybeSingle();
 
     if (error) {
 
-        console.error(
-            "Profile select error:",
-            error
-        );
+        console.error(error);
 
         return null;
     }
@@ -3486,7 +3282,7 @@ async function ensureProfile(user) {
     const metadata =
         user.user_metadata || {};
 
-    const profileRole =
+    const role =
         metadata.role === "parent"
             ? "parent"
             : "tutor";
@@ -3508,8 +3304,8 @@ async function ensureProfile(user) {
             .insert({
                 id: user.id,
                 full_name: fullName,
-                role: profileRole,
-                phone: phone
+                role,
+                phone
             })
             .select()
             .single();
@@ -3517,7 +3313,6 @@ async function ensureProfile(user) {
     if (result.error) {
 
         console.error(
-            "Profile insert error:",
             result.error
         );
 
@@ -3527,9 +3322,8 @@ async function ensureProfile(user) {
     return result.data;
 }
 
-
 /* =====================================================
-AUTH UI
+AUTH ELEMENTS
 ===================================================== */
 
 const authScreen =
@@ -3567,41 +3361,6 @@ const authMessage =
         "authMessage"
     );
 
-const switchMode =
-    document.getElementById(
-        "switchMode"
-    );
-
-const switchText =
-    document.getElementById(
-        "switchText"
-    );
-
-const nameField =
-    document.getElementById(
-        "nameField"
-    );
-
-const phoneField =
-    document.getElementById(
-        "phoneField"
-    );
-
-const roleField =
-    document.getElementById(
-        "roleField"
-    );
-
-const emailField =
-    document.getElementById(
-        "emailField"
-    );
-
-const loginMethod =
-    document.getElementById(
-        "loginMethod"
-    );
-
 const emailMethod =
     document.getElementById(
         "emailMethod"
@@ -3612,12 +3371,62 @@ const phoneMethod =
         "phoneMethod"
     );
 
+const loginMethod =
+    document.getElementById(
+        "loginMethod"
+    );
+
+const emailField =
+    document.getElementById(
+        "emailField"
+    );
+
+const phoneField =
+    document.getElementById(
+        "phoneField"
+    );
+
+const nameField =
+    document.getElementById(
+        "nameField"
+    );
+
+const roleField =
+    document.getElementById(
+        "roleField"
+    );
+
+const switchMode =
+    document.getElementById(
+        "switchMode"
+    );
+
+const switchText =
+    document.getElementById(
+        "switchText"
+    );
+
+/* =====================================================
+LOGIN TYPE
+===================================================== */
 
 function setLoginType(type) {
 
     loginType = type;
 
-    if (type === "email") {
+    const email =
+        document.getElementById(
+            "email"
+        );
+
+    const phone =
+        document.getElementById(
+            "phone"
+        );
+
+    if (
+        type === "email"
+    ) {
 
         emailMethod.classList.add(
             "active"
@@ -3635,13 +3444,8 @@ function setLoginType(type) {
             "hidden"
         );
 
-        document
-            .getElementById("email")
-            .required = true;
-
-        document
-            .getElementById("phone")
-            .required = false;
+        email.required = true;
+        phone.required = false;
 
     } else {
 
@@ -3661,16 +3465,10 @@ function setLoginType(type) {
             "hidden"
         );
 
-        document
-            .getElementById("email")
-            .required = false;
-
-        document
-            .getElementById("phone")
-            .required = true;
+        email.required = false;
+        phone.required = true;
     }
 }
-
 
 emailMethod.addEventListener(
     "click",
@@ -3682,6 +3480,9 @@ phoneMethod.addEventListener(
     () => setLoginType("phone")
 );
 
+/* =====================================================
+AUTH MODE
+===================================================== */
 
 switchMode.addEventListener(
     "click",
@@ -3689,7 +3490,7 @@ switchMode.addEventListener(
 
         isSignUp = !isSignUp;
 
-        clearElementMessage(
+        clearMessage(
             authMessage
         );
 
@@ -3798,7 +3599,6 @@ switchMode.addEventListener(
     }
 );
 
-
 /* =====================================================
 AUTH SUBMIT
 ===================================================== */
@@ -3809,7 +3609,7 @@ authForm.addEventListener(
 
         event.preventDefault();
 
-        clearElementMessage(
+        clearMessage(
             authMessage
         );
 
@@ -3819,7 +3619,9 @@ authForm.addEventListener(
 
             const password =
                 document
-                    .getElementById("password")
+                    .getElementById(
+                        "password"
+                    )
                     .value;
 
             if (
@@ -3829,9 +3631,6 @@ authForm.addEventListener(
                     "密碼最少需要 6 個字元。"
                 );
             }
-
-
-            /* REGISTER */
 
             if (isSignUp) {
 
@@ -3867,18 +3666,6 @@ authForm.addEventListener(
                         .value
                         .trim();
 
-                if (!fullName) {
-                    throw new Error(
-                        "請輸入姓名。"
-                    );
-                }
-
-                if (!email) {
-                    throw new Error(
-                        "請輸入 Email。"
-                    );
-                }
-
                 const {
                     data,
                     error
@@ -3892,10 +3679,8 @@ authForm.addEventListener(
                                 data: {
                                     full_name:
                                         fullName,
-                                    phone:
-                                        phone,
-                                    role:
-                                        role
+                                    phone,
+                                    role
                                 }
                             }
                         });
@@ -3916,30 +3701,19 @@ authForm.addEventListener(
                         data.user
                     );
 
-                    showMessage(
-                        authMessage,
-                        "帳戶建立成功！正在進入系統。",
-                        "success"
-                    );
-
                     await loadApp();
 
-                    return;
+                } else {
+
+                    showMessage(
+                        authMessage,
+                        "帳戶建立成功！請先確認電郵，再登入。",
+                        "success"
+                    );
                 }
-
-                showMessage(
-                    authMessage,
-                    "帳戶建立成功！請先確認電郵，再登入。",
-                    "success"
-                );
-
-                isSignUp = false;
 
                 return;
             }
-
-
-            /* LOGIN */
 
             if (
                 loginType === "email"
@@ -3952,12 +3726,6 @@ authForm.addEventListener(
                         )
                         .value
                         .trim();
-
-                if (!email) {
-                    throw new Error(
-                        "請輸入 Email。"
-                    );
-                }
 
                 const {
                     error
@@ -4003,10 +3771,7 @@ authForm.addEventListener(
 
         } catch (error) {
 
-            console.error(
-                "Authentication error:",
-                error
-            );
+            console.error(error);
 
             showMessage(
                 authMessage,
@@ -4020,7 +3785,6 @@ authForm.addEventListener(
         }
     }
 );
-
 
 /* =====================================================
 LOAD APP
@@ -4051,6 +3815,18 @@ async function loadApp() {
             user
         );
 
+    if (!currentProfile) {
+
+        showMessage(
+            authMessage,
+            "無法載入帳戶資料，請檢查 Supabase profiles table / RLS。"
+        );
+
+        showAuth();
+
+        return;
+    }
+
     authScreen.classList.add(
         "hidden"
     );
@@ -4059,12 +3835,10 @@ async function loadApp() {
         "hidden"
     );
 
-    const role =
-        getRole();
+    applyRoleUI();
 
     const name =
-        currentProfile?.full_name ||
-        user.user_metadata?.full_name ||
+        currentProfile.full_name ||
         user.email ||
         "User";
 
@@ -4075,68 +3849,33 @@ async function loadApp() {
         .textContent =
             `Welcome, ${name} 👋`;
 
-    if (
-        role === "parent"
-    ) {
+    document
+        .getElementById(
+            "welcomeSubtitle"
+        )
+        .textContent =
+            isParent()
+                ? "Parent Dashboard · 家長管理中心"
+                : "Tutor Dashboard · 導師管理中心";
 
-        document
-            .getElementById(
-                "welcomeSubtitle"
-            )
-            .textContent =
-                "Parent Dashboard · 家長管理中心";
+    await Promise.all([
+        loadDashboard(),
+        loadStudentsPage(),
+        loadParentsPage(),
+        loadLessonsPage(),
+        loadPaymentsPage(),
+        loadNotificationsPage(),
+        loadProfilePage()
+    ]);
 
-        document
-            .getElementById(
-                "privateNotesNavSection"
-            )
-            .classList
-            .add("hidden");
+    await populateStudentSelects();
 
-        document
-            .getElementById(
-                "privateNoteBox"
-            )
-            .classList
-            .add("hidden");
+    await populateParentSelects();
 
-    } else {
-
-        document
-            .getElementById(
-                "welcomeSubtitle"
-            )
-            .textContent =
-                "Tutor Dashboard · 導師管理中心";
-
-        document
-            .getElementById(
-                "privateNotesNavSection"
-            )
-            .classList
-            .remove("hidden");
-
-        document
-            .getElementById(
-                "privateNoteBox"
-            )
-            .classList
-            .remove("hidden");
+    if (isTutor()) {
+        await loadPrivateNotesPage();
     }
-
-    await loadDashboard();
-
-    await loadStudentsPage();
-
-    await loadParentsPage();
-
-    populateStudentSelects();
-
-    populateParentSelects();
-
-    loadProfilePage();
 }
-
 
 function showAuth() {
 
@@ -4149,6 +3888,166 @@ function showAuth() {
     );
 }
 
+function applyRoleUI() {
+
+    const privateSection =
+        document.getElementById(
+            "privateNotesNavSection"
+        );
+
+    const privateBox =
+        document.getElementById(
+            "privateNoteBox"
+        );
+
+    if (isParent()) {
+
+        privateSection.classList.add(
+            "hidden"
+        );
+
+        privateBox.classList.add(
+            "hidden"
+        );
+
+        document
+            .querySelectorAll(
+                ".tutor-only-control"
+            )
+            .forEach(
+                element =>
+                    element.classList.add(
+                        "hidden"
+                    )
+            );
+
+    } else {
+
+        privateSection.classList.remove(
+            "hidden"
+        );
+
+        privateBox.classList.remove(
+            "hidden"
+        );
+
+        document
+            .querySelectorAll(
+                ".tutor-only-control"
+            )
+            .forEach(
+                element =>
+                    element.classList.remove(
+                        "hidden"
+                    )
+            );
+    }
+}
+
+/* =====================================================
+NAVIGATION
+===================================================== */
+
+function navigateTo(page) {
+
+    document
+        .querySelectorAll(
+            ".page"
+        )
+        .forEach(
+            element => {
+                element.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+    const target =
+        document.getElementById(
+            "page-" + page
+        );
+
+    if (target) {
+        target.classList.add(
+            "active"
+        );
+    }
+
+    document
+        .querySelectorAll(
+            ".nav-button, .mobile-nav button"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.page === page
+                );
+
+            }
+        );
+
+    if (
+        page === "private-notes" &&
+        !isTutor()
+    ) {
+
+        navigateTo("dashboard");
+
+        return;
+    }
+
+    if (page === "dashboard") {
+        loadDashboard();
+    }
+
+    if (page === "calendar") {
+        loadLessonsPage();
+    }
+
+    if (page === "students") {
+        loadStudentsPage();
+    }
+
+    if (page === "parents") {
+        loadParentsPage();
+    }
+
+    if (page === "payments") {
+        loadPaymentsPage();
+    }
+
+    if (page === "notifications") {
+        loadNotificationsPage();
+    }
+
+    if (page === "private-notes") {
+        loadPrivateNotesPage();
+    }
+
+    if (page === "profile") {
+        loadProfilePage();
+    }
+}
+
+document
+    .querySelectorAll(
+        ".nav-button, .mobile-nav button"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () =>
+                    navigateTo(
+                        button.dataset.page
+                    )
+            );
+
+        }
+    );
 
 /* =====================================================
 DASHBOARD
@@ -4160,312 +4059,318 @@ async function loadDashboard() {
         return;
     }
 
-    const role =
-        getRole();
+    try {
 
-
-    /* STUDENTS */
-
-    let studentQuery =
-        supabaseClient
-            .from("students")
-            .select(
-                "id",
-                {
-                    count: "exact",
-                    head: true
-                }
-            );
-
-    if (role === "parent") {
-
-        const {
-            data: parentRows
-        } =
-            await supabaseClient
-                .from("parents")
-                .select("id")
-                .eq(
-                    "user_id",
-                    currentUser.id
+        let studentQuery =
+            supabaseClient
+                .from("students")
+                .select(
+                    "id",
+                    {
+                        count: "exact",
+                        head: true
+                    }
                 );
 
-        const parentIds =
-            (parentRows || [])
-                .map(row => row.id);
-
-        if (
-            parentIds.length
-        ) {
+        if (isTutor()) {
 
             studentQuery =
-                studentQuery.in(
-                    "parent_id",
-                    parentIds
+                studentQuery.eq(
+                    "tutor_id",
+                    currentUser.id
                 );
 
         } else {
 
-            studentQuery =
-                studentQuery.eq(
-                    "parent_id",
-                    "00000000-0000-0000-0000-000000000000"
-                );
-        }
+            const {
+                data: parents
+            } =
+                await supabaseClient
+                    .from("parents")
+                    .select("id")
+                    .eq(
+                        "user_id",
+                        currentUser.id
+                    );
 
-    } else {
-
-        studentQuery =
-            studentQuery.eq(
-                "tutor_id",
-                currentUser.id
-            );
-    }
-
-    const {
-        count: students
-    } =
-        await studentQuery;
-
-    document
-        .getElementById(
-            "studentCount"
-        )
-        .textContent =
-            students || 0;
-
-
-    /* UPCOMING LESSONS */
-
-    let lessonQuery =
-        supabaseClient
-            .from("lessons")
-            .select(
-                "id",
-                {
-                    count: "exact",
-                    head: true
-                }
-            )
-            .gte(
-                "start_time",
-                new Date().toISOString()
-            )
-            .neq(
-                "status",
-                "cancelled"
-            );
-
-    lessonQuery =
-        role === "parent"
-            ? lessonQuery.eq(
-                "parent_id",
-                currentUser.id
-            )
-            : lessonQuery.eq(
-                "tutor_id",
-                currentUser.id
-            );
-
-    const {
-        count: lessons
-    } =
-        await lessonQuery;
-
-    document
-        .getElementById(
-            "lessonCount"
-        )
-        .textContent =
-            lessons || 0;
-
-
-    /* COMPLETED HOURS */
-
-    let completedQuery =
-        supabaseClient
-            .from("lessons")
-            .select(
-                "start_time, end_time"
-            )
-            .eq(
-                "status",
-                "completed"
-            );
-
-    completedQuery =
-        role === "parent"
-            ? completedQuery.eq(
-                "parent_id",
-                currentUser.id
-            )
-            : completedQuery.eq(
-                "tutor_id",
-                currentUser.id
-            );
-
-    const {
-        data: completedLessons
-    } =
-        await completedQuery;
-
-    let hours = 0;
-
-    (
-        completedLessons || []
-    ).forEach(
-        lesson => {
-
-            const start =
-                new Date(
-                    lesson.start_time
-                );
-
-            const end =
-                new Date(
-                    lesson.end_time
-                );
-
-            const diff =
+            const parentIds =
                 (
-                    end.getTime() -
-                    start.getTime()
-                ) /
-                3600000;
-
-            if (
-                Number.isFinite(diff) &&
-                diff > 0
-            ) {
-                hours += diff;
-            }
-        }
-    );
-
-    document
-        .getElementById(
-            "totalHours"
-        )
-        .textContent =
-            hours.toFixed(1);
-
-
-    /* PAYMENTS */
-
-    let paymentQuery =
-        supabaseClient
-            .from("payments")
-            .select(
-                "amount, status"
-            );
-
-    paymentQuery =
-        role === "parent"
-            ? paymentQuery.eq(
-                "parent_id",
-                currentUser.id
-            )
-            : paymentQuery.eq(
-                "tutor_id",
-                currentUser.id
-            );
-
-    const {
-        data: paymentRows
-    } =
-        await paymentQuery;
-
-    let income = 0;
-    let outstanding = 0;
-
-    (
-        paymentRows || []
-    ).forEach(
-        payment => {
-
-            const amount =
-                Number(
-                    payment.amount || 0
+                    parents || []
+                ).map(
+                    row => row.id
                 );
 
-            if (
-                payment.status ===
-                "paid"
-            ) {
-                income += amount;
-            }
+            if (parentIds.length) {
 
-            if (
-                payment.status ===
-                "pending"
-            ) {
-                outstanding += amount;
+                studentQuery =
+                    studentQuery.in(
+                        "parent_id",
+                        parentIds
+                    );
+
+            } else {
+
+                studentQuery =
+                    studentQuery.eq(
+                        "parent_id",
+                        "00000000-0000-0000-0000-000000000000"
+                    );
             }
         }
-    );
 
-    document
-        .getElementById(
-            "totalIncome"
-        )
-        .textContent =
-            formatMoney(income);
+        const {
+            count: students
+        } =
+            await studentQuery;
 
-    document
-        .getElementById(
-            "totalOutstanding"
-        )
-        .textContent =
-            formatMoney(outstanding);
+        document
+            .getElementById(
+                "studentCount"
+            )
+            .textContent =
+                students || 0;
 
+        let lessonQuery =
+            supabaseClient
+                .from("lessons")
+                .select(
+                    "id",
+                    {
+                        count: "exact",
+                        head: true
+                    }
+                )
+                .gte(
+                    "start_time",
+                    new Date().toISOString()
+                )
+                .neq(
+                    "status",
+                    "cancelled"
+                );
 
-    await loadDashboardLessons();
+        lessonQuery =
+            isTutor()
+                ? lessonQuery.eq(
+                    "tutor_id",
+                    currentUser.id
+                )
+                : lessonQuery.eq(
+                    "parent_id",
+                    currentUser.id
+                );
 
-    document
-        .getElementById(
-            "paymentSummary"
-        )
-        .innerHTML = `
-            <div class="data-list">
+        const {
+            count: lessons
+        } =
+            await lessonQuery;
 
-                <div class="data-item">
-                    <div class="data-item-main">
-                        <div class="data-item-title">
-                            已收款
+        document
+            .getElementById(
+                "lessonCount"
+            )
+            .textContent =
+                lessons || 0;
+
+        let completedQuery =
+            supabaseClient
+                .from("lessons")
+                .select(
+                    "start_time, end_time"
+                )
+                .eq(
+                    "status",
+                    "completed"
+                );
+
+        completedQuery =
+            isTutor()
+                ? completedQuery.eq(
+                    "tutor_id",
+                    currentUser.id
+                )
+                : completedQuery.eq(
+                    "parent_id",
+                    currentUser.id
+                );
+
+        const {
+            data: completedLessons
+        } =
+            await completedQuery;
+
+        let hours = 0;
+
+        (
+            completedLessons || []
+        ).forEach(
+            lesson => {
+
+                const start =
+                    new Date(
+                        lesson.start_time
+                    );
+
+                const end =
+                    new Date(
+                        lesson.end_time
+                    );
+
+                const diff =
+                    (
+                        end - start
+                    ) / 3600000;
+
+                if (
+                    Number.isFinite(diff) &&
+                    diff > 0
+                ) {
+                    hours += diff;
+                }
+
+            }
+        );
+
+        document
+            .getElementById(
+                "totalHours"
+            )
+            .textContent =
+                hours.toFixed(1);
+
+        let paymentQuery =
+            supabaseClient
+                .from("payments")
+                .select(
+                    "amount, status"
+                );
+
+        paymentQuery =
+            isTutor()
+                ? paymentQuery.eq(
+                    "tutor_id",
+                    currentUser.id
+                )
+                : paymentQuery.eq(
+                    "parent_id",
+                    currentUser.id
+                );
+
+        const {
+            data: payments
+        } =
+            await paymentQuery;
+
+        let income = 0;
+        let outstanding = 0;
+
+        (
+            payments || []
+        ).forEach(
+            payment => {
+
+                const amount =
+                    Number(
+                        payment.amount || 0
+                    );
+
+                if (
+                    payment.status ===
+                    "paid"
+                ) {
+                    income += amount;
+                }
+
+                if (
+                    payment.status ===
+                    "pending"
+                ) {
+                    outstanding += amount;
+                }
+            }
+        );
+
+        document
+            .getElementById(
+                "totalIncome"
+            )
+            .textContent =
+                formatMoney(income);
+
+        document
+            .getElementById(
+                "totalOutstanding"
+            )
+            .textContent =
+                formatMoney(outstanding);
+
+        await loadDashboardLessons();
+
+        document
+            .getElementById(
+                "paymentSummary"
+            )
+            .innerHTML = `
+
+                <div class="data-list">
+
+                    <div class="data-item">
+
+                        <div class="data-item-main">
+
+                            <div class="data-item-title">
+                                已收款
+                            </div>
+
+                            <div class="data-item-subtitle">
+                                Paid
+                            </div>
+
                         </div>
-                        <div class="data-item-subtitle">
-                            Paid
-                        </div>
+
+                        <span class="badge badge-success">
+                            ${escapeHTML(
+                                formatMoney(income)
+                            )}
+                        </span>
+
                     </div>
 
-                    <span class="badge badge-success">
-                        ${escapeHTML(
-                            formatMoney(income)
-                        )}
-                    </span>
-                </div>
+                    <div class="data-item">
 
-                <div class="data-item">
-                    <div class="data-item-main">
-                        <div class="data-item-title">
-                            尚未付款
+                        <div class="data-item-main">
+
+                            <div class="data-item-title">
+                                尚未付款
+                            </div>
+
+                            <div class="data-item-subtitle">
+                                Outstanding
+                            </div>
+
                         </div>
-                        <div class="data-item-subtitle">
-                            Outstanding
-                        </div>
+
+                        <span class="badge badge-warning">
+                            ${escapeHTML(
+                                formatMoney(
+                                    outstanding
+                                )
+                            )}
+                        </span>
+
                     </div>
 
-                    <span class="badge badge-warning">
-                        ${escapeHTML(
-                            formatMoney(outstanding)
-                        )}
-                    </span>
                 </div>
+            `;
 
-            </div>
-        `;
+    } catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+    }
 }
-
 
 /* =====================================================
 DASHBOARD LESSONS
@@ -4482,9 +4387,6 @@ async function loadDashboardLessons() {
         `<div class="loading">
             載入中...
         </div>`;
-
-    const role =
-        getRole();
 
     let query =
         supabaseClient
@@ -4509,13 +4411,13 @@ async function loadDashboardLessons() {
             .limit(5);
 
     query =
-        role === "parent"
+        isTutor()
             ? query.eq(
-                "parent_id",
+                "tutor_id",
                 currentUser.id
             )
             : query.eq(
-                "tutor_id",
+                "parent_id",
                 currentUser.id
             );
 
@@ -4529,18 +4431,13 @@ async function loadDashboardLessons() {
 
         container.innerHTML =
             `<div class="empty">
-                ${escapeHTML(
-                    error.message
-                )}
+                ${escapeHTML(error.message)}
             </div>`;
 
         return;
     }
 
-    if (
-        !data ||
-        data.length === 0
-    ) {
+    if (!data?.length) {
 
         container.innerHTML =
             `<div class="empty">
@@ -4596,36 +4493,45 @@ async function loadDashboardLessons() {
                     "Student";
 
                 return `
+
                     <div class="data-item">
 
                         <div class="data-item-main">
 
                             <div class="data-item-title">
-                                ${escapeHTML(
-                                    student
-                                )}
+                                ${escapeHTML(student)}
                             </div>
 
                             <div class="data-item-subtitle">
+
                                 ${escapeHTML(
                                     formatDateTime(
                                         lesson.start_time
                                     )
                                 )}
+
                                 ·
+
                                 ${escapeHTML(
                                     lesson.location ||
                                     "地點未設定"
                                 )}
+
                             </div>
 
                         </div>
 
-                        <span class="badge badge-success">
+                        <span class="badge ${
+                            lesson.status === "completed"
+                                ? "badge-success"
+                                : "badge-info"
+                        }">
+
                             ${escapeHTML(
                                 lesson.status ||
                                 "scheduled"
                             )}
+
                         </span>
 
                     </div>
@@ -4633,7 +4539,6 @@ async function loadDashboardLessons() {
             }
         ).join("");
 }
-
 
 /* =====================================================
 STUDENTS
@@ -4651,9 +4556,6 @@ async function loadStudentsPage() {
             載入學生資料中...
         </div>`;
 
-    const role =
-        getRole();
-
     let query =
         supabaseClient
             .from("students")
@@ -4667,9 +4569,15 @@ async function loadStudentsPage() {
                 }
             );
 
-    if (
-        role === "parent"
-    ) {
+    if (isTutor()) {
+
+        query =
+            query.eq(
+                "tutor_id",
+                currentUser.id
+            );
+
+    } else {
 
         const {
             data: parents
@@ -4686,7 +4594,8 @@ async function loadStudentsPage() {
             (
                 parents || []
             ).map(
-                parent => parent.id
+                parent =>
+                    parent.id
             );
 
         if (!ids.length) {
@@ -4704,14 +4613,6 @@ async function loadStudentsPage() {
                 "parent_id",
                 ids
             );
-
-    } else {
-
-        query =
-            query.eq(
-                "tutor_id",
-                currentUser.id
-            );
     }
 
     const {
@@ -4724,18 +4625,13 @@ async function loadStudentsPage() {
 
         container.innerHTML =
             `<div class="empty">
-                ${escapeHTML(
-                    error.message
-                )}
+                ${escapeHTML(error.message)}
             </div>`;
 
         return;
     }
 
-    if (
-        !data ||
-        data.length === 0
-    ) {
+    if (!data?.length) {
 
         container.innerHTML =
             `<div class="empty">
@@ -4759,9 +4655,7 @@ async function loadStudentsPage() {
 
     let parents = [];
 
-    if (
-        parentIds.length
-    ) {
+    if (parentIds.length) {
 
         const result =
             await supabaseClient
@@ -4801,6 +4695,7 @@ async function loadStudentsPage() {
                             );
 
                         return `
+
                             <div class="data-item">
 
                                 <div class="data-item-main">
@@ -4813,9 +4708,11 @@ async function loadStudentsPage() {
 
                                         ${
                                             student.active === false
-                                            ? `<span class="badge badge-danger">
-                                                已停用
-                                              </span>`
+                                            ? `
+                                                <span class="badge badge-danger">
+                                                    已停用
+                                                </span>
+                                            `
                                             : ""
                                         }
 
@@ -4827,7 +4724,7 @@ async function loadStudentsPage() {
                                             student.school
                                             ? escapeHTML(
                                                 student.school
-                                              )
+                                            )
                                             : "學校未設定"
                                         }
 
@@ -4837,7 +4734,7 @@ async function loadStudentsPage() {
                                             student.grade
                                             ? escapeHTML(
                                                 student.grade
-                                              )
+                                            )
                                             : "年級未設定"
                                         }
 
@@ -4847,7 +4744,7 @@ async function loadStudentsPage() {
                                             parent
                                             ? `家長：${escapeHTML(
                                                 parent.parent_name
-                                              )}`
+                                            )}`
                                             : "未設定家長"
                                         }
 
@@ -4855,7 +4752,7 @@ async function loadStudentsPage() {
                                             student.phone
                                             ? `<br>電話：${escapeHTML(
                                                 student.phone
-                                              )}`
+                                            )}`
                                             : ""
                                         }
 
@@ -4863,7 +4760,7 @@ async function loadStudentsPage() {
                                             student.address
                                             ? `<br>🏠 ${escapeHTML(
                                                 student.address
-                                              )}`
+                                            )}`
                                             : ""
                                         }
 
@@ -4873,7 +4770,7 @@ async function loadStudentsPage() {
                                                 formatMoney(
                                                     student.hourly_rate
                                                 )
-                                              )}/小時`
+                                            )}/小時`
                                             : ""
                                         }
 
@@ -4881,19 +4778,34 @@ async function loadStudentsPage() {
 
                                 </div>
 
-                                <div class="item-actions">
+                                ${
+                                    isTutor()
+                                    ? `
+                                        <div class="item-actions">
 
-                                    <button
-                                        class="icon-button"
-                                        onclick="editStudent('${student.id}')"
-                                        title="編輯"
-                                    >
-                                        ✏️
-                                    </button>
+                                            <button
+                                                class="icon-button"
+                                                onclick="editStudent('${student.id}')"
+                                                title="編輯"
+                                            >
+                                                ✏️
+                                            </button>
 
-                                </div>
+                                            <button
+                                                class="icon-button"
+                                                onclick="deleteStudent('${student.id}')"
+                                                title="刪除"
+                                            >
+                                                🗑️
+                                            </button>
+
+                                        </div>
+                                    `
+                                    : ""
+                                }
 
                             </div>
+
                         `;
                     }
                 ).join("")
@@ -4902,128 +4814,8 @@ async function loadStudentsPage() {
         </div>`;
 }
 
-
 /* =====================================================
-PARENTS
-===================================================== */
-
-async function loadParentsPage() {
-
-    const container =
-        document.getElementById(
-            "parentsList"
-        );
-
-    container.innerHTML =
-        `<div class="loading">
-            載入家長資料中...
-        </div>`;
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("parents")
-            .select(
-                "id, parent_name, phone, email, address, notes, created_at"
-            )
-            .order(
-                "parent_name",
-                {
-                    ascending: true
-                }
-            );
-
-    if (error) {
-
-        container.innerHTML =
-            `<div class="empty">
-                ${escapeHTML(
-                    error.message
-                )}
-            </div>`;
-
-        return;
-    }
-
-    if (
-        !data ||
-        data.length === 0
-    ) {
-
-        container.innerHTML =
-            `<div class="empty">
-                暫時沒有家長資料。
-            </div>`;
-
-        return;
-    }
-
-    container.innerHTML =
-        `<div class="data-list">
-
-            ${
-                data.map(
-                    parent => `
-                        <div class="data-item">
-
-                            <div class="data-item-main">
-
-                                <div class="data-item-title">
-                                    ${escapeHTML(
-                                        parent.parent_name
-                                    )}
-                                </div>
-
-                                <div class="data-item-subtitle">
-
-                                    ${
-                                        parent.phone
-                                        ? `電話：${escapeHTML(
-                                            parent.phone
-                                          )}`
-                                        : ""
-                                    }
-
-                                    ${
-                                        parent.email
-                                        ? `<br>Email：${escapeHTML(
-                                            parent.email
-                                          )}`
-                                        : ""
-                                    }
-
-                                    ${
-                                        parent.address
-                                        ? `<br>🏠 ${escapeHTML(
-                                            parent.address
-                                          )}`
-                                        : ""
-                                    }
-
-                                </div>
-
-                            </div>
-
-                            <button
-                                class="icon-button"
-                                onclick="editParent('${parent.id}')"
-                            >
-                                ✏️
-                            </button>
-
-                        </div>
-                    `
-                ).join("")
-            }
-
-        </div>`;
-}
-
-
-/* =====================================================
-POPULATE SELECTS
+STUDENT SELECTS
 ===================================================== */
 
 async function populateStudentSelects() {
@@ -5031,9 +4823,6 @@ async function populateStudentSelects() {
     if (!currentUser) {
         return;
     }
-
-    const role =
-        getRole();
 
     let query =
         supabaseClient
@@ -5045,16 +4834,44 @@ async function populateStudentSelects() {
                 "student_name"
             );
 
-    query =
-        role === "parent"
-            ? query.eq(
-                "parent_id",
-                currentUser.id
-            )
-            : query.eq(
+    if (isTutor()) {
+
+        query =
+            query.eq(
                 "tutor_id",
                 currentUser.id
             );
+
+    } else {
+
+        const {
+            data: parents
+        } =
+            await supabaseClient
+                .from("parents")
+                .select("id")
+                .eq(
+                    "user_id",
+                    currentUser.id
+                );
+
+        const parentIds =
+            (
+                parents || []
+            ).map(
+                row => row.id
+            );
+
+        if (!parentIds.length) {
+            return;
+        }
+
+        query =
+            query.in(
+                "parent_id",
+                parentIds
+            );
+    }
 
     const {
         data
@@ -5064,14 +4881,12 @@ async function populateStudentSelects() {
     const students =
         data || [];
 
-    const ids = [
+    [
         "lessonStudent",
         "seriesStudent",
         "noteStudent",
         "paymentStudent"
-    ];
-
-    ids.forEach(
+    ].forEach(
         id => {
 
             const select =
@@ -5083,34 +4898,43 @@ async function populateStudentSelects() {
                 return;
             }
 
-            const first =
-                id === "paymentStudent"
-                    ? "未指定"
-                    : "請選擇學生";
+            const optional =
+                id === "paymentStudent";
 
             select.innerHTML =
                 `<option value="">
-                    ${first}
-                 </option>` +
+                    ${
+                        optional
+                            ? "未指定"
+                            : "請選擇學生"
+                    }
+                </option>` +
                 students.map(
                     student =>
-                        `<option value="${student.id}">
+                        `
+                        <option
+                            value="${escapeHTML(
+                                student.id
+                            )}"
+                        >
                             ${escapeHTML(
                                 student.student_name
                             )}
-                         </option>`
+                        </option>
+                        `
                 ).join("");
         }
     );
 }
 
+/* =====================================================
+PARENT SELECTS
+===================================================== */
 
 async function populateParentSelects() {
 
-    const {
-        data
-    } =
-        await supabaseClient
+    let query =
+        supabaseClient
             .from("parents")
             .select(
                 "id, parent_name"
@@ -5119,16 +4943,29 @@ async function populateParentSelects() {
                 "parent_name"
             );
 
+    if (isParent()) {
+
+        query =
+            query.eq(
+                "user_id",
+                currentUser.id
+            );
+    }
+
+    const {
+        data
+    } =
+        await query;
+
     const parents =
         data || [];
 
-    const ids = [
+    [
         "studentParent",
         "lessonParent",
+        "seriesParent",
         "paymentParent"
-    ];
-
-    ids.forEach(
+    ].forEach(
         id => {
 
             const select =
@@ -5141,21 +4978,28 @@ async function populateParentSelects() {
             }
 
             select.innerHTML =
-                `<option value="">
+                `
+                <option value="">
                     未指定
-                 </option>` +
+                </option>
+                ` +
                 parents.map(
                     parent =>
-                        `<option value="${parent.id}">
+                        `
+                        <option
+                            value="${escapeHTML(
+                                parent.id
+                            )}"
+                        >
                             ${escapeHTML(
                                 parent.parent_name
                             )}
-                         </option>`
+                        </option>
+                        `
                 ).join("");
         }
     );
 }
-
 
 /* =====================================================
 STUDENT MODAL
@@ -5164,6 +5008,10 @@ STUDENT MODAL
 async function openStudentModal(
     student = null
 ) {
+
+    if (!isTutor()) {
+        return;
+    }
 
     await populateParentSelects();
 
@@ -5191,61 +5039,45 @@ async function openStudentModal(
 
     if (student) {
 
-        document
-            .getElementById(
-                "studentName"
-            )
-            .value =
-                student.student_name || "";
+        document.getElementById(
+            "studentName"
+        ).value =
+            student.student_name || "";
 
-        document
-            .getElementById(
-                "studentParent"
-            )
-            .value =
-                student.parent_id || "";
+        document.getElementById(
+            "studentParent"
+        ).value =
+            student.parent_id || "";
 
-        document
-            .getElementById(
-                "studentSchool"
-            )
-            .value =
-                student.school || "";
+        document.getElementById(
+            "studentSchool"
+        ).value =
+            student.school || "";
 
-        document
-            .getElementById(
-                "studentGrade"
-            )
-            .value =
-                student.grade || "";
+        document.getElementById(
+            "studentGrade"
+        ).value =
+            student.grade || "";
 
-        document
-            .getElementById(
-                "studentPhone"
-            )
-            .value =
-                student.phone || "";
+        document.getElementById(
+            "studentPhone"
+        ).value =
+            student.phone || "";
 
-        document
-            .getElementById(
-                "studentRate"
-            )
-            .value =
-                student.hourly_rate || "";
+        document.getElementById(
+            "studentRate"
+        ).value =
+            student.hourly_rate || "";
 
-        document
-            .getElementById(
-                "studentAddress"
-            )
-            .value =
-                student.address || "";
+        document.getElementById(
+            "studentAddress"
+        ).value =
+            student.address || "";
 
-        document
-            .getElementById(
-                "studentNotes"
-            )
-            .value =
-                student.notes || "";
+        document.getElementById(
+            "studentNotes"
+        ).value =
+            student.notes || "";
     }
 
     openModal(
@@ -5253,8 +5085,11 @@ async function openStudentModal(
     );
 }
 
-
 async function editStudent(id) {
+
+    if (!isTutor()) {
+        return;
+    }
 
     const {
         data,
@@ -5263,7 +5098,10 @@ async function editStudent(id) {
         await supabaseClient
             .from("students")
             .select("*")
-            .eq("id", id)
+            .eq(
+                "id",
+                id
+            )
             .single();
 
     if (error) {
@@ -5278,6 +5116,47 @@ async function editStudent(id) {
     );
 }
 
+async function deleteStudent(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    if (
+        !confirm(
+            "確定要刪除呢位學生？\n\n如果學生仍然有課堂／付款紀錄，建議保留資料而改為停用。"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("students")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+    if (error) {
+
+        alert(
+            "刪除失敗：" +
+            error.message
+        );
+
+        return;
+    }
+
+    await loadStudentsPage();
+
+    await populateStudentSelects();
+
+    await loadDashboard();
+}
 
 document
     .getElementById(
@@ -5288,6 +5167,10 @@ document
         async event => {
 
             event.preventDefault();
+
+            if (!isTutor()) {
+                return;
+            }
 
             try {
 
@@ -5375,7 +5258,6 @@ document
                 };
 
                 if (!payload.student_name) {
-
                     throw new Error(
                         "請輸入學生姓名。"
                     );
@@ -5427,14 +5309,154 @@ document
         }
     );
 
-
 /* =====================================================
-PARENT MODAL
+PARENTS
 ===================================================== */
+
+async function loadParentsPage() {
+
+    const container =
+        document.getElementById(
+            "parentsList"
+        );
+
+    container.innerHTML =
+        `<div class="loading">
+            載入家長資料中...
+        </div>`;
+
+    let query =
+        supabaseClient
+            .from("parents")
+            .select(
+                "id, parent_name, phone, email, address, notes, user_id, created_at"
+            )
+            .order(
+                "parent_name"
+            );
+
+    if (isParent()) {
+
+        query =
+            query.eq(
+                "user_id",
+                currentUser.id
+            );
+    }
+
+    const {
+        data,
+        error
+    } =
+        await query;
+
+    if (error) {
+
+        container.innerHTML =
+            `<div class="empty">
+                ${escapeHTML(error.message)}
+            </div>`;
+
+        return;
+    }
+
+    if (!data?.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                暫時沒有家長資料。
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML =
+        `<div class="data-list">
+
+            ${
+                data.map(
+                    parent => `
+
+                        <div class="data-item">
+
+                            <div class="data-item-main">
+
+                                <div class="data-item-title">
+                                    ${escapeHTML(
+                                        parent.parent_name
+                                    )}
+                                </div>
+
+                                <div class="data-item-subtitle">
+
+                                    ${
+                                        parent.phone
+                                        ? `電話：${escapeHTML(
+                                            parent.phone
+                                        )}`
+                                        : ""
+                                    }
+
+                                    ${
+                                        parent.email
+                                        ? `<br>Email：${escapeHTML(
+                                            parent.email
+                                        )}`
+                                        : ""
+                                    }
+
+                                    ${
+                                        parent.address
+                                        ? `<br>🏠 ${escapeHTML(
+                                            parent.address
+                                        )}`
+                                        : ""
+                                    }
+
+                                </div>
+
+                            </div>
+
+                            ${
+                                isTutor()
+                                ? `
+                                    <div class="item-actions">
+
+                                        <button
+                                            class="icon-button"
+                                            onclick="editParent('${parent.id}')"
+                                        >
+                                            ✏️
+                                        </button>
+
+                                        <button
+                                            class="icon-button"
+                                            onclick="deleteParent('${parent.id}')"
+                                        >
+                                            🗑️
+                                        </button>
+
+                                    </div>
+                                `
+                                : ""
+                            }
+
+                        </div>
+
+                    `
+                ).join("")
+            }
+
+        </div>`;
+}
 
 function openParentModal(
     parent = null
 ) {
+
+    if (!isTutor()) {
+        return;
+    }
 
     document
         .getElementById(
@@ -5460,40 +5482,30 @@ function openParentModal(
 
     if (parent) {
 
-        document
-            .getElementById(
-                "parentName"
-            )
-            .value =
-                parent.parent_name || "";
+        document.getElementById(
+            "parentName"
+        ).value =
+            parent.parent_name || "";
 
-        document
-            .getElementById(
-                "parentPhone"
-            )
-            .value =
-                parent.phone || "";
+        document.getElementById(
+            "parentPhone"
+        ).value =
+            parent.phone || "";
 
-        document
-            .getElementById(
-                "parentEmail"
-            )
-            .value =
-                parent.email || "";
+        document.getElementById(
+            "parentEmail"
+        ).value =
+            parent.email || "";
 
-        document
-            .getElementById(
-                "parentAddress"
-            )
-            .value =
-                parent.address || "";
+        document.getElementById(
+            "parentAddress"
+        ).value =
+            parent.address || "";
 
-        document
-            .getElementById(
-                "parentNotes"
-            )
-            .value =
-                parent.notes || "";
+        document.getElementById(
+            "parentNotes"
+        ).value =
+            parent.notes || "";
     }
 
     openModal(
@@ -5501,8 +5513,11 @@ function openParentModal(
     );
 }
 
-
 async function editParent(id) {
+
+    if (!isTutor()) {
+        return;
+    }
 
     const {
         data,
@@ -5511,7 +5526,10 @@ async function editParent(id) {
         await supabaseClient
             .from("parents")
             .select("*")
-            .eq("id", id)
+            .eq(
+                "id",
+                id
+            )
             .single();
 
     if (error) {
@@ -5526,6 +5544,47 @@ async function editParent(id) {
     );
 }
 
+async function deleteParent(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    if (
+        !confirm(
+            "確定要刪除呢位家長？"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("parents")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+    if (error) {
+
+        alert(
+            "刪除失敗：" +
+            error.message
+        );
+
+        return;
+    }
+
+    await loadParentsPage();
+
+    await populateParentSelects();
+
+    await loadStudentsPage();
+}
 
 document
     .getElementById(
@@ -5537,6 +5596,10 @@ document
 
             event.preventDefault();
 
+            if (!isTutor()) {
+                return;
+            }
+
             try {
 
                 const id =
@@ -5547,11 +5610,6 @@ document
                         .value;
 
                 const payload = {
-
-                    user_id:
-                        getRole() === "parent"
-                            ? currentUser.id
-                            : null,
 
                     parent_name:
                         document
@@ -5599,7 +5657,6 @@ document
                 };
 
                 if (!payload.parent_name) {
-
                     throw new Error(
                         "請輸入家長姓名。"
                     );
@@ -5640,7 +5697,7 @@ document
 
                 await populateParentSelects();
 
-                await populateStudentSelects();
+                await loadStudentsPage();
 
             } catch (error) {
 
@@ -5651,301 +5708,8 @@ document
         }
     );
 
-
 /* =====================================================
-LESSON MODAL
-===================================================== */
-
-async function openLessonModal(
-    lesson = null
-) {
-
-    await populateStudentSelects();
-
-    await populateParentSelects();
-
-    document
-        .getElementById(
-            "lessonForm"
-        )
-        .reset();
-
-    document
-        .getElementById(
-            "lessonId"
-        )
-        .value =
-            lesson?.id || "";
-
-    if (lesson) {
-
-        document
-            .getElementById(
-                "lessonStudent"
-            )
-            .value =
-                lesson.student_id || "";
-
-        document
-            .getElementById(
-                "lessonParent"
-            )
-            .value =
-                lesson.parent_id || "";
-
-        document
-            .getElementById(
-                "lessonStart"
-            )
-            .value =
-                toDateTimeLocal(
-                    lesson.start_time
-                );
-
-        document
-            .getElementById(
-                "lessonEnd"
-            )
-            .value =
-                toDateTimeLocal(
-                    lesson.end_time
-                );
-
-        document
-            .getElementById(
-                "lessonLocationType"
-            )
-            .value =
-                lesson.location_type ||
-                "home";
-
-        document
-            .getElementById(
-                "lessonLocation"
-            )
-            .value =
-                lesson.location || "";
-
-        document
-            .getElementById(
-                "lessonRate"
-            )
-            .value =
-                lesson.hourly_rate || "";
-
-        document
-            .getElementById(
-                "lessonNote"
-            )
-            .value =
-                lesson.note || "";
-    }
-
-    openModal(
-        "lessonModal"
-    );
-}
-
-
-async function editLesson(id) {
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("lessons")
-            .select("*")
-            .eq("id", id)
-            .single();
-
-    if (error) {
-
-        alert(error.message);
-
-        return;
-    }
-
-    await openLessonModal(
-        data
-    );
-}
-
-
-document
-    .getElementById(
-        "lessonForm"
-    )
-    .addEventListener(
-        "submit",
-        async event => {
-
-            event.preventDefault();
-
-            try {
-
-                const id =
-                    document
-                        .getElementById(
-                            "lessonId"
-                        )
-                        .value;
-
-                const start =
-                    document
-                        .getElementById(
-                            "lessonStart"
-                        )
-                        .value;
-
-                const end =
-                    document
-                        .getElementById(
-                            "lessonEnd"
-                        )
-                        .value;
-
-                if (!start || !end) {
-
-                    throw new Error(
-                        "請輸入開始及結束時間。"
-                    );
-                }
-
-                if (
-                    new Date(end) <=
-                    new Date(start)
-                ) {
-
-                    throw new Error(
-                        "結束時間必須晚過開始時間。"
-                    );
-                }
-
-                const payload = {
-
-                    tutor_id:
-                        currentUser.id,
-
-                    student_id:
-                        document
-                            .getElementById(
-                                "lessonStudent"
-                            )
-                            .value,
-
-                    parent_id:
-                        document
-                            .getElementById(
-                                "lessonParent"
-                            )
-                            .value ||
-                        null,
-
-                    start_time:
-                        new Date(
-                            start
-                        ).toISOString(),
-
-                    end_time:
-                        new Date(
-                            end
-                        ).toISOString(),
-
-                    location_type:
-                        document
-                            .getElementById(
-                                "lessonLocationType"
-                            )
-                            .value,
-
-                    location:
-                        document
-                            .getElementById(
-                                "lessonLocation"
-                            )
-                            .value
-                            .trim() ||
-                        null,
-
-                    hourly_rate:
-                        Number(
-                            document
-                                .getElementById(
-                                    "lessonRate"
-                                )
-                                .value
-                        ) || null,
-
-                    note:
-                        document
-                            .getElementById(
-                                "lessonNote"
-                            )
-                            .value
-                            .trim() ||
-                        null,
-
-                    status:
-                        "scheduled"
-                };
-
-                if (
-                    !payload.student_id
-                ) {
-
-                    throw new Error(
-                        "請選擇學生。"
-                    );
-                }
-
-                let result;
-
-                if (id) {
-
-                    result =
-                        await supabaseClient
-                            .from("lessons")
-                            .update(payload)
-                            .eq(
-                                "id",
-                                id
-                            );
-
-                } else {
-
-                    result =
-                        await supabaseClient
-                            .from("lessons")
-                            .insert(
-                                payload
-                            );
-                }
-
-                if (result.error) {
-                    throw result.error;
-                }
-
-                closeModal(
-                    "lessonModal"
-                );
-
-                await loadLessonsPage();
-
-                await loadDashboard();
-
-            } catch (error) {
-
-                alert(
-                    error.message
-                );
-            }
-        }
-    );
-
-
-/* =====================================================
-LESSONS PAGE
+LESSONS
 ===================================================== */
 
 async function loadLessonsPage() {
@@ -5964,34 +5728,25 @@ async function loadLessonsPage() {
         supabaseClient
             .from("lessons")
             .select(
-                "*"
+                "id, student_id, parent_id, start_time, end_time, location, status, notes, created_at"
             )
             .order(
                 "start_time",
                 {
                     ascending: true
                 }
+            );
+
+    query =
+        isTutor()
+            ? query.eq(
+                "tutor_id",
+                currentUser.id
             )
-            .limit(100);
-
-    if (
-        getRole() === "parent"
-    ) {
-
-        query =
-            query.eq(
+            : query.eq(
                 "parent_id",
                 currentUser.id
             );
-
-    } else {
-
-        query =
-            query.eq(
-                "tutor_id",
-                currentUser.id
-            );
-    }
 
     const {
         data,
@@ -6003,23 +5758,17 @@ async function loadLessonsPage() {
 
         container.innerHTML =
             `<div class="empty">
-                ${escapeHTML(
-                    error.message
-                )}
+                ${escapeHTML(error.message)}
             </div>`;
 
         return;
     }
 
-    if (
-        !data ||
-        data.length === 0
-    ) {
+    if (!data?.length) {
 
         container.innerHTML =
             `<div class="empty">
-                暫時沒有課堂。<br>
-                按「新增課堂」開始。
+                暫時沒有課堂。
             </div>`;
 
         return;
@@ -6067,11 +5816,15 @@ async function loadLessonsPage() {
                 data.map(
                     lesson => {
 
+                        const status =
+                            lesson.status ||
+                            "scheduled";
+
                         let badge =
-                            "badge-warning";
+                            "badge-info";
 
                         if (
-                            lesson.status ===
+                            status ===
                             "completed"
                         ) {
                             badge =
@@ -6079,25 +5832,15 @@ async function loadLessonsPage() {
                         }
 
                         if (
-                            lesson.status ===
+                            status ===
                             "cancelled"
                         ) {
                             badge =
                                 "badge-danger";
                         }
 
-                        const duration =
-                            (
-                                new Date(
-                                    lesson.end_time
-                                ).getTime() -
-                                new Date(
-                                    lesson.start_time
-                                ).getTime()
-                            ) /
-                            3600000;
-
                         return `
+
                             <div class="data-item">
 
                                 <div class="data-item-main">
@@ -6115,15 +5858,15 @@ async function loadLessonsPage() {
 
                                     <div class="data-item-subtitle">
 
-                                        📅
-                                        ${escapeHTML(
+                                        📅 ${escapeHTML(
                                             formatDateTime(
                                                 lesson.start_time
                                             )
                                         )}
 
-                                        →
-                                        ${escapeHTML(
+                                        <br>
+
+                                        ⏰ ${escapeHTML(
                                             formatDateTime(
                                                 lesson.end_time
                                             )
@@ -6131,30 +5874,16 @@ async function loadLessonsPage() {
 
                                         <br>
 
-                                        ⏱️
-                                        ${duration.toFixed(1)}
-                                        小時
-
-                                        ·
-
-                                        ${
-                                            lesson.location_type ===
-                                            "online"
-                                            ? "💻 Online"
-                                            : "📍 " +
-                                              escapeHTML(
-                                                  lesson.location ||
-                                                  "地點未設定"
-                                              )
-                                        }
+                                        📍 ${escapeHTML(
+                                            lesson.location ||
+                                            "地點未設定"
+                                        )}
 
                                         ${
-                                            lesson.hourly_rate
-                                            ? `<br>💰 ${escapeHTML(
-                                                formatMoney(
-                                                    lesson.hourly_rate
-                                                )
-                                              )}/小時`
+                                            lesson.notes
+                                            ? `<br>📝 ${escapeHTML(
+                                                lesson.notes
+                                            )}`
                                             : ""
                                         }
 
@@ -6165,43 +5894,51 @@ async function loadLessonsPage() {
                                 <div class="item-actions">
 
                                     <span class="badge ${badge}">
-                                        ${escapeHTML(
-                                            lesson.status ||
-                                            "scheduled"
-                                        )}
+                                        ${escapeHTML(status)}
                                     </span>
 
-                                    <button
-                                        class="icon-button"
-                                        onclick="editLesson('${lesson.id}')"
-                                    >
-                                        ✏️
-                                    </button>
-
                                     ${
-                                        lesson.status !==
-                                        "cancelled"
+                                        isTutor()
                                         ? `
-                                            <button
-                                                class="icon-button"
-                                                onclick="completeLesson('${lesson.id}')"
-                                            >
-                                                ✓
-                                            </button>
 
                                             <button
                                                 class="icon-button"
-                                                onclick="cancelLesson('${lesson.id}')"
+                                                onclick="editLesson('${lesson.id}')"
+                                                title="編輯"
                                             >
-                                                ✕
+                                                ✏️
                                             </button>
-                                          `
+
+                                            ${
+                                                status === "scheduled"
+                                                ? `
+                                                    <button
+                                                        class="icon-button"
+                                                        onclick="completeLesson('${lesson.id}')"
+                                                        title="完成"
+                                                    >
+                                                        ✅
+                                                    </button>
+
+                                                    <button
+                                                        class="icon-button"
+                                                        onclick="cancelLesson('${lesson.id}')"
+                                                        title="取消"
+                                                    >
+                                                        ❌
+                                                    </button>
+                                                `
+                                                : ""
+                                            }
+
+                                        `
                                         : ""
                                     }
 
                                 </div>
 
                             </div>
+
                         `;
                     }
                 ).join("")
@@ -6210,109 +5947,351 @@ async function loadLessonsPage() {
         </div>`;
 }
 
+async function openLessonModal(
+    lesson = null
+) {
 
-async function completeLesson(id) {
-
-    if (
-        !confirm(
-            "確定要標記為已完成？"
-        )
-    ) {
+    if (!isTutor()) {
         return;
     }
 
-    const {
-        error
-    } =
-        await supabaseClient
-            .from("lessons")
-            .update({
-                status:
-                    "completed"
-            })
-            .eq(
-                "id",
-                id
-            );
+    await populateStudentSelects();
 
-    if (error) {
-
-        alert(
-            error.message
-        );
-
-        return;
-    }
-
-    await loadLessonsPage();
-
-    await loadDashboard();
-}
-
-
-async function cancelLesson(id) {
-
-    if (
-        !confirm(
-            "確定取消呢一堂？"
-        )
-    ) {
-        return;
-    }
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .from("lessons")
-            .update({
-                status:
-                    "cancelled"
-            })
-            .eq(
-                "id",
-                id
-            );
-
-    if (error) {
-
-        alert(
-            error.message
-        );
-
-        return;
-    }
-
-    await loadLessonsPage();
-
-    await loadDashboard();
-}
-
-
-/* =====================================================
-RECURRING SERIES
-===================================================== */
-
-function openSeriesModal() {
+    await populateParentSelects();
 
     document
         .getElementById(
-            "seriesForm"
+            "lessonForm"
         )
         .reset();
 
     document
         .getElementById(
-            "seriesStartDate"
+            "lessonId"
         )
         .value =
-            todayString();
+            lesson?.id || "";
+
+    document
+        .getElementById(
+            "lessonModalTitle"
+        )
+        .textContent =
+            lesson
+                ? "編輯課堂"
+                : "新增課堂";
+
+    if (lesson) {
+
+        document.getElementById(
+            "lessonStudent"
+        ).value =
+            lesson.student_id || "";
+
+        document.getElementById(
+            "lessonParent"
+        ).value =
+            lesson.parent_id || "";
+
+        document.getElementById(
+            "lessonStart"
+        ).value =
+            toDateTimeLocal(
+                lesson.start_time
+            );
+
+        document.getElementById(
+            "lessonEnd"
+        ).value =
+            toDateTimeLocal(
+                lesson.end_time
+            );
+
+        document.getElementById(
+            "lessonLocation"
+        ).value =
+            lesson.location || "";
+
+        document.getElementById(
+            "lessonStatus"
+        ).value =
+            lesson.status || "scheduled";
+
+        document.getElementById(
+            "lessonNotes"
+        ).value =
+            lesson.notes || "";
+    }
 
     openModal(
-        "seriesModal"
+        "lessonModal"
     );
 }
 
+async function editLesson(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("lessons")
+            .select("*")
+            .eq(
+                "id",
+                id
+            )
+            .single();
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    openLessonModal(
+        data
+    );
+}
+
+async function completeLesson(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("lessons")
+            .update({
+                status: "completed"
+            })
+            .eq(
+                "id",
+                id
+            );
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    await loadLessonsPage();
+
+    await loadDashboard();
+}
+
+async function cancelLesson(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    if (
+        !confirm(
+            "確定要取消呢堂課？"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("lessons")
+            .update({
+                status: "cancelled"
+            })
+            .eq(
+                "id",
+                id
+            );
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    await loadLessonsPage();
+
+    await loadDashboard();
+}
+
+document
+    .getElementById(
+        "lessonForm"
+    )
+    .addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+            if (!isTutor()) {
+                return;
+            }
+
+            try {
+
+                const id =
+                    document
+                        .getElementById(
+                            "lessonId"
+                        )
+                        .value;
+
+                const studentId =
+                    document
+                        .getElementById(
+                            "lessonStudent"
+                        )
+                        .value;
+
+                const start =
+                    document
+                        .getElementById(
+                            "lessonStart"
+                        )
+                        .value;
+
+                const end =
+                    document
+                        .getElementById(
+                            "lessonEnd"
+                        )
+                        .value;
+
+                if (
+                    !studentId ||
+                    !start ||
+                    !end
+                ) {
+                    throw new Error(
+                        "請填寫學生、開始及結束時間。"
+                    );
+                }
+
+                const startDate =
+                    new Date(start);
+
+                const endDate =
+                    new Date(end);
+
+                if (
+                    endDate <= startDate
+                ) {
+                    throw new Error(
+                        "結束時間必須晚過開始時間。"
+                    );
+                }
+
+                const payload = {
+
+                    tutor_id:
+                        currentUser.id,
+
+                    student_id:
+                        studentId,
+
+                    parent_id:
+                        document
+                            .getElementById(
+                                "lessonParent"
+                            )
+                            .value ||
+                        null,
+
+                    start_time:
+                        startDate.toISOString(),
+
+                    end_time:
+                        endDate.toISOString(),
+
+                    location:
+                        document
+                            .getElementById(
+                                "lessonLocation"
+                            )
+                            .value
+                            .trim() ||
+                        null,
+
+                    status:
+                        document
+                            .getElementById(
+                                "lessonStatus"
+                            )
+                            .value,
+
+                    notes:
+                        document
+                            .getElementById(
+                                "lessonNotes"
+                            )
+                            .value
+                            .trim() ||
+                        null
+                };
+
+                let result;
+
+                if (id) {
+
+                    result =
+                        await supabaseClient
+                            .from("lessons")
+                            .update(payload)
+                            .eq(
+                                "id",
+                                id
+                            );
+
+                } else {
+
+                    result =
+                        await supabaseClient
+                            .from("lessons")
+                            .insert(
+                                payload
+                            );
+                }
+
+                if (result.error) {
+                    throw result.error;
+                }
+
+                closeModal(
+                    "lessonModal"
+                );
+
+                await loadLessonsPage();
+
+                await loadDashboard();
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+            }
+        }
+    );
+
+/* =====================================================
+RECURRING LESSONS
+===================================================== */
 
 document
     .getElementById(
@@ -6324,6 +6303,10 @@ document
 
             event.preventDefault();
 
+            if (!isTutor()) {
+                return;
+            }
+
             try {
 
                 const studentId =
@@ -6333,12 +6316,38 @@ document
                         )
                         .value;
 
-                if (!studentId) {
+                const parentId =
+                    document
+                        .getElementById(
+                            "seriesParent"
+                        )
+                        .value ||
+                    null;
 
-                    throw new Error(
-                        "請選擇學生。"
+                const day =
+                    Number(
+                        document
+                            .getElementById(
+                                "seriesDay"
+                            )
+                            .value
                     );
-                }
+
+                const time =
+                    document
+                        .getElementById(
+                            "seriesTime"
+                        )
+                        .value;
+
+                const duration =
+                    Number(
+                        document
+                            .getElementById(
+                                "seriesDuration"
+                            )
+                            .value
+                    );
 
                 const startDate =
                     document
@@ -6352,135 +6361,153 @@ document
                         .getElementById(
                             "seriesEndDate"
                         )
-                        .value ||
-                        null;
-
-                const startTime =
-                    document
-                        .getElementById(
-                            "seriesStartTime"
-                        )
                         .value;
 
-                const endTime =
+                const location =
                     document
                         .getElementById(
-                            "seriesEndTime"
+                            "seriesLocation"
                         )
-                        .value;
+                        .value
+                        .trim() ||
+                    null;
 
                 if (
+                    !studentId ||
+                    !time ||
                     !startDate ||
-                    !startTime ||
-                    !endTime
+                    !endDate
                 ) {
-
                     throw new Error(
-                        "請完成日期及時間。"
+                        "請填寫完整資料。"
                     );
                 }
 
-                const payload = {
+                if (
+                    new Date(endDate) <
+                    new Date(startDate)
+                ) {
+                    throw new Error(
+                        "結束日期不能早過開始日期。"
+                    );
+                }
 
-                    tutor_id:
-                        currentUser.id,
+                const records = [];
 
-                    student_id:
-                        studentId,
+                let cursor =
+                    new Date(
+                        startDate +
+                        "T00:00:00"
+                    );
 
-                    parent_id:
-                        null,
+                const last =
+                    new Date(
+                        endDate +
+                        "T23:59:59"
+                    );
 
-                    title:
-                        "Weekly Lesson",
+                while (
+                    cursor <= last
+                ) {
 
-                    day_of_week:
-                        Number(
-                            document
-                                .getElementById(
-                                    "seriesDay"
-                                )
-                                .value
-                        ),
+                    if (
+                        cursor.getDay() === day
+                    ) {
 
-                    start_time:
-                        startTime,
+                        const [
+                            hour,
+                            minute
+                        ] =
+                            time
+                                .split(":")
+                                .map(Number);
 
-                    end_time:
-                        endTime,
+                        const start =
+                            new Date(cursor);
 
-                    start_date:
-                        startDate,
+                        start.setHours(
+                            hour,
+                            minute,
+                            0,
+                            0
+                        );
 
-                    end_date:
-                        endDate,
+                        const end =
+                            new Date(
+                                start.getTime() +
+                                duration *
+                                60000
+                            );
 
-                    location_type:
-                        document
-                            .getElementById(
-                                "seriesLocationType"
-                            )
-                            .value,
+                        records.push({
+                            tutor_id:
+                                currentUser.id,
 
-                    location:
-                        document
-                            .getElementById(
-                                "seriesLocation"
-                            )
-                            .value
-                            .trim() ||
-                        null,
+                            student_id:
+                                studentId,
 
-                    hourly_rate:
-                        Number(
-                            document
-                                .getElementById(
-                                    "seriesRate"
-                                )
-                                .value
-                        ) || null,
+                            parent_id:
+                                parentId,
 
-                    active:
-                        true
-                };
+                            start_time:
+                                start.toISOString(),
+
+                            end_time:
+                                end.toISOString(),
+
+                            location,
+
+                            status:
+                                "scheduled"
+                        });
+                    }
+
+                    cursor.setDate(
+                        cursor.getDate() + 1
+                    );
+                }
+
+                if (!records.length) {
+                    throw new Error(
+                        "指定日期範圍內沒有符合星期的課堂。"
+                    );
+                }
+
+                if (
+                    records.length > 100
+                ) {
+                    throw new Error(
+                        "一次最多建立 100 堂循環課堂。"
+                    );
+                }
 
                 const {
-                    data,
                     error
                 } =
                     await supabaseClient
-                        .from("lesson_series")
-                        .insert(
-                            payload
-                        )
-                        .select()
-                        .single();
+                        .from("lessons")
+                        .insert(records);
 
                 if (error) {
                     throw error;
                 }
 
-                /*
-                    Generate lesson records.
-                    This gives the Calendar actual lesson rows,
-                    while recurrence_group_id links them to
-                    the weekly series.
-                */
-
-                await generateRecurringLessons(
-                    data
-                );
-
                 closeModal(
                     "seriesModal"
                 );
+
+                document
+                    .getElementById(
+                        "seriesForm"
+                    )
+                    .reset();
 
                 await loadLessonsPage();
 
                 await loadDashboard();
 
                 alert(
-                    "每週循環課堂已建立。"
+                    `成功建立 ${records.length} 堂課。`
                 );
 
             } catch (error) {
@@ -6492,145 +6519,284 @@ document
         }
     );
 
+async function openSeriesModal() {
 
-async function generateRecurringLessons(
-    series
-) {
-
-    const start =
-        new Date(
-            series.start_date +
-            "T00:00:00"
-        );
-
-    const until =
-        series.end_date
-            ? new Date(
-                series.end_date +
-                "T23:59:59"
-              )
-            : new Date(
-                start.getTime() +
-                90 * 24 * 60 * 60 * 1000
-              );
-
-    const lessons = [];
-
-    const cursor =
-        new Date(start);
-
-    while (
-        cursor <= until
-    ) {
-
-        if (
-            cursor.getDay() ===
-            Number(
-                series.day_of_week
-            )
-        ) {
-
-            const date =
-                cursor
-                    .toISOString()
-                    .slice(0, 10);
-
-            const startLocal =
-                `${date}T${series.start_time}`;
-
-            const endLocal =
-                `${date}T${series.end_time}`;
-
-            lessons.push({
-
-                tutor_id:
-                    series.tutor_id,
-
-                student_id:
-                    series.student_id,
-
-                parent_id:
-                    series.parent_id,
-
-                recurrence_group_id:
-                    series.id,
-
-                start_time:
-                    new Date(
-                        startLocal
-                    ).toISOString(),
-
-                end_time:
-                    new Date(
-                        endLocal
-                    ).toISOString(),
-
-                location_type:
-                    series.location_type,
-
-                location:
-                    series.location,
-
-                hourly_rate:
-                    series.hourly_rate,
-
-                status:
-                    "scheduled"
-            });
-        }
-
-        cursor.setDate(
-            cursor.getDate() + 1
-        );
-    }
-
-    if (!lessons.length) {
+    if (!isTutor()) {
         return;
     }
 
-    /*
-        Insert in chunks.
-    */
+    await populateStudentSelects();
 
-    for (
-        let i = 0;
-        i < lessons.length;
-        i += 100
-    ) {
+    await populateParentSelects();
 
-        const chunk =
-            lessons.slice(
-                i,
-                i + 100
-            );
+    document
+        .getElementById(
+            "seriesForm"
+        )
+        .reset();
 
-        const {
-            error
-        } =
-            await supabaseClient
-                .from("lessons")
-                .insert(
-                    chunk
-                );
+    document
+        .getElementById(
+            "seriesDuration"
+        )
+        .value = 90;
 
-        if (error) {
-            throw error;
-        }
-    }
+    document
+        .getElementById(
+            "seriesStartDate"
+        )
+        .value =
+            todayString();
+
+    openModal(
+        "seriesModal"
+    );
 }
-
 
 /* =====================================================
 PAYMENTS
 ===================================================== */
 
-function openPaymentModal(
+async function loadPaymentsPage() {
+
+    const container =
+        document.getElementById(
+            "paymentsList"
+        );
+
+    container.innerHTML =
+        `<div class="loading">
+            載入付款資料中...
+        </div>`;
+
+    let query =
+        supabaseClient
+            .from("payments")
+            .select(
+                "id, student_id, parent_id, amount, payment_date, payment_method, status, note, created_at"
+            )
+            .order(
+                "payment_date",
+                {
+                    ascending: false
+                }
+            );
+
+    query =
+        isTutor()
+            ? query.eq(
+                "tutor_id",
+                currentUser.id
+            )
+            : query.eq(
+                "parent_id",
+                currentUser.id
+            );
+
+    const {
+        data,
+        error
+    } =
+        await query;
+
+    if (error) {
+
+        container.innerHTML =
+            `<div class="empty">
+                ${escapeHTML(error.message)}
+            </div>`;
+
+        return;
+    }
+
+    if (!data?.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                暫時沒有付款紀錄。
+            </div>`;
+
+        return;
+    }
+
+    const studentIds =
+        [
+            ...new Set(
+                data
+                    .map(
+                        payment =>
+                            payment.student_id
+                    )
+                    .filter(Boolean)
+            )
+        ];
+
+    const {
+        data: students
+    } =
+        studentIds.length
+        ? await supabaseClient
+            .from("students")
+            .select(
+                "id, student_name"
+            )
+            .in(
+                "id",
+                studentIds
+            )
+        : {
+            data: []
+        };
+
+    const studentMap =
+        new Map(
+            (
+                students || []
+            ).map(
+                student => [
+                    student.id,
+                    student.student_name
+                ]
+            )
+        );
+
+    container.innerHTML =
+        `<div class="data-list">
+
+            ${
+                data.map(
+                    payment => {
+
+                        let badge =
+                            "badge-info";
+
+                        if (
+                            payment.status ===
+                            "paid"
+                        ) {
+                            badge =
+                                "badge-success";
+                        }
+
+                        if (
+                            payment.status ===
+                            "pending"
+                        ) {
+                            badge =
+                                "badge-warning";
+                        }
+
+                        if (
+                            payment.status ===
+                            "cancelled"
+                        ) {
+                            badge =
+                                "badge-danger";
+                        }
+
+                        return `
+
+                            <div class="data-item">
+
+                                <div class="data-item-main">
+
+                                    <div class="data-item-title">
+
+                                        ${escapeHTML(
+                                            studentMap.get(
+                                                payment.student_id
+                                            ) ||
+                                            "未指定學生"
+                                        )}
+
+                                        ·
+
+                                        ${escapeHTML(
+                                            formatMoney(
+                                                payment.amount
+                                            )
+                                        )}
+
+                                    </div>
+
+                                    <div class="data-item-subtitle">
+
+                                        📅 ${escapeHTML(
+                                            formatDate(
+                                                payment.payment_date
+                                            )
+                                        )}
+
+                                        ·
+
+                                        ${escapeHTML(
+                                            payment.payment_method ||
+                                            "未指定"
+                                        )}
+
+                                        ${
+                                            payment.note
+                                            ? `<br>📝 ${escapeHTML(
+                                                payment.note
+                                            )}`
+                                            : ""
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                                <div class="item-actions">
+
+                                    <span class="badge ${badge}">
+                                        ${escapeHTML(
+                                            payment.status
+                                        )}
+                                    </span>
+
+                                    ${
+                                        isTutor()
+                                        ? `
+                                            <button
+                                                class="icon-button"
+                                                onclick="editPayment('${payment.id}')"
+                                            >
+                                                ✏️
+                                            </button>
+
+                                            <button
+                                                class="icon-button"
+                                                onclick="deletePayment('${payment.id}')"
+                                            >
+                                                🗑️
+                                            </button>
+                                        `
+                                        : ""
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        `;
+                    }
+                ).join("")
+            }
+
+        </div>`;
+}
+
+async function openPaymentModal(
     payment = null
 ) {
 
-    populateStudentSelects();
+    if (!isTutor()) {
+        return;
+    }
 
-    populateParentSelects();
+    await populateStudentSelects();
+
+    await populateParentSelects();
 
     document
         .getElementById(
@@ -6640,61 +6806,61 @@ function openPaymentModal(
 
     document
         .getElementById(
+            "paymentId"
+        )
+        .value =
+            payment?.id || "";
+
+    document
+        .getElementById(
+            "paymentModalTitle"
+        )
+        .textContent =
+            payment
+                ? "編輯付款"
+                : "記錄收款";
+
+    document
+        .getElementById(
             "paymentDate"
         )
         .value =
+            payment?.payment_date ||
             todayString();
 
     if (payment) {
 
-        document
-            .getElementById(
-                "paymentStudent"
-            )
-            .value =
-                payment.student_id || "";
+        document.getElementById(
+            "paymentStudent"
+        ).value =
+            payment.student_id || "";
 
-        document
-            .getElementById(
-                "paymentParent"
-            )
-            .value =
-                payment.parent_id || "";
+        document.getElementById(
+            "paymentParent"
+        ).value =
+            payment.parent_id || "";
 
-        document
-            .getElementById(
-                "paymentAmount"
-            )
-            .value =
-                payment.amount || "";
+        document.getElementById(
+            "paymentAmount"
+        ).value =
+            payment.amount || "";
 
-        document
-            .getElementById(
-                "paymentDate"
-            )
-            .value =
-                payment.payment_date || "";
+        document.getElementById(
+            "paymentMethod"
+        ).value =
+            payment.payment_method ||
+            "FPS";
 
-        document
-            .getElementById(
-                "paymentMethod"
-            )
-            .value =
-                payment.payment_method || "FPS";
+        document.getElementById(
+            "paymentStatus"
+        ).value =
+            payment.status ||
+            "paid";
 
-        document
-            .getElementById(
-                "paymentStatus"
-            )
-            .value =
-                payment.status || "paid";
-
-        document
-            .getElementById(
-                "paymentNote"
-            )
-            .value =
-                payment.note || "";
+        document.getElementById(
+            "paymentNote"
+        ).value =
+            payment.note || "";
     }
 
     openModal(
@@ -6702,6 +6868,73 @@ function openPaymentModal(
     );
 }
 
+async function editPayment(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("payments")
+            .select("*")
+            .eq(
+                "id",
+                id
+            )
+            .single();
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    openPaymentModal(
+        data
+    );
+}
+
+async function deletePayment(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    if (
+        !confirm(
+            "確定要刪除呢筆付款紀錄？"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("payments")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    await loadPaymentsPage();
+
+    await loadDashboard();
+}
 
 document
     .getElementById(
@@ -6713,7 +6946,36 @@ document
 
             event.preventDefault();
 
+            if (!isTutor()) {
+                return;
+            }
+
             try {
+
+                const id =
+                    document
+                        .getElementById(
+                            "paymentId"
+                        )
+                        .value;
+
+                const amount =
+                    Number(
+                        document
+                            .getElementById(
+                                "paymentAmount"
+                            )
+                            .value
+                    );
+
+                if (
+                    !Number.isFinite(amount) ||
+                    amount <= 0
+                ) {
+                    throw new Error(
+                        "請輸入有效付款金額。"
+                    );
+                }
 
                 const payload = {
 
@@ -6736,14 +6998,7 @@ document
                             .value ||
                         null,
 
-                    amount:
-                        Number(
-                            document
-                                .getElementById(
-                                    "paymentAmount"
-                                )
-                                .value
-                        ),
+                    amount,
 
                     payment_date:
                         document
@@ -6776,27 +7031,31 @@ document
                         null
                 };
 
-                if (
-                    !payload.amount ||
-                    payload.amount < 0
-                ) {
+                let result;
 
-                    throw new Error(
-                        "請輸入有效金額。"
-                    );
+                if (id) {
+
+                    result =
+                        await supabaseClient
+                            .from("payments")
+                            .update(payload)
+                            .eq(
+                                "id",
+                                id
+                            );
+
+                } else {
+
+                    result =
+                        await supabaseClient
+                            .from("payments")
+                            .insert(
+                                payload
+                            );
                 }
 
-                const {
-                    error
-                } =
-                    await supabaseClient
-                        .from("payments")
-                        .insert(
-                            payload
-                        );
-
-                if (error) {
-                    throw error;
+                if (result.error) {
+                    throw result.error;
                 }
 
                 closeModal(
@@ -6815,476 +7074,6 @@ document
             }
         }
     );
-
-
-async function loadPaymentsPage() {
-
-    const container =
-        document.getElementById(
-            "paymentsList"
-        );
-
-    container.innerHTML =
-        `<div class="loading">
-            載入付款資料中...
-        </div>`;
-
-    let query =
-        supabaseClient
-            .from("payments")
-            .select(
-                "*"
-            )
-            .order(
-                "payment_date",
-                {
-                    ascending: false
-                }
-            )
-            .limit(100);
-
-    query =
-        getRole() === "parent"
-            ? query.eq(
-                "parent_id",
-                currentUser.id
-            )
-            : query.eq(
-                "tutor_id",
-                currentUser.id
-            );
-
-    const {
-        data,
-        error
-    } =
-        await query;
-
-    if (error) {
-
-        container.innerHTML =
-            `<div class="empty">
-                ${escapeHTML(
-                    error.message
-                )}
-            </div>`;
-
-        return;
-    }
-
-    if (
-        !data ||
-        data.length === 0
-    ) {
-
-        container.innerHTML =
-            `<div class="empty">
-                暫時沒有付款紀錄。
-            </div>`;
-
-        return;
-    }
-
-    const studentIds =
-        [
-            ...new Set(
-                data
-                    .map(
-                        payment =>
-                            payment.student_id
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-    let students = [];
-
-    if (
-        studentIds.length
-    ) {
-
-        const result =
-            await supabaseClient
-                .from("students")
-                .select(
-                    "id, student_name"
-                )
-                .in(
-                    "id",
-                    studentIds
-                );
-
-        students =
-            result.data || [];
-    }
-
-    const studentMap =
-        new Map(
-            students.map(
-                student => [
-                    student.id,
-                    student.student_name
-                ]
-            )
-        );
-
-    container.innerHTML =
-        `<div class="data-list">
-
-            ${
-                data.map(
-                    payment => {
-
-                        const badge =
-                            payment.status ===
-                            "paid"
-                                ? "badge-success"
-                                : payment.status ===
-                                  "cancelled"
-                                    ? "badge-danger"
-                                    : "badge-warning";
-
-                        return `
-                            <div class="data-item">
-
-                                <div class="data-item-main">
-
-                                    <div class="data-item-title">
-
-                                        ${escapeHTML(
-                                            formatMoney(
-                                                payment.amount
-                                            )
-                                        )}
-
-                                        ·
-
-                                        ${escapeHTML(
-                                            studentMap.get(
-                                                payment.student_id
-                                            ) ||
-                                            "未指定學生"
-                                        )}
-
-                                    </div>
-
-                                    <div class="data-item-subtitle">
-
-                                        ${escapeHTML(
-                                            formatDate(
-                                                payment.payment_date
-                                            )
-                                        )}
-
-                                        ·
-
-                                        ${escapeHTML(
-                                            payment.payment_method ||
-                                            "付款方式未設定"
-                                        )}
-
-                                        ${
-                                            payment.note
-                                            ? `<br>${escapeHTML(
-                                                payment.note
-                                              )}`
-                                            : ""
-                                        }
-
-                                    </div>
-
-                                </div>
-
-                                <div class="item-actions">
-
-                                    <span class="badge ${badge}">
-                                        ${
-                                            payment.status ===
-                                            "paid"
-                                            ? "已付款"
-                                            : payment.status ===
-                                              "cancelled"
-                                                ? "已取消"
-                                                : "未付款"
-                                        }
-                                    </span>
-
-                                </div>
-
-                            </div>
-                        `;
-                    }
-                ).join("")
-            }
-
-        </div>`;
-}
-
-
-/* =====================================================
-PRIVATE NOTES
-===================================================== */
-
-function openNoteModal() {
-
-    populateStudentSelects();
-
-    document
-        .getElementById(
-            "noteForm"
-        )
-        .reset();
-
-    openModal(
-        "noteModal"
-    );
-}
-
-
-document
-    .getElementById(
-        "noteForm"
-    )
-    .addEventListener(
-        "submit",
-        async event => {
-
-            event.preventDefault();
-
-            try {
-
-                if (
-                    getRole() !==
-                    "tutor"
-                ) {
-
-                    throw new Error(
-                        "此功能只供導師使用。"
-                    );
-                }
-
-                const payload = {
-
-                    tutor_id:
-                        currentUser.id,
-
-                    student_id:
-                        document
-                            .getElementById(
-                                "noteStudent"
-                            )
-                            .value,
-
-                    note:
-                        document
-                            .getElementById(
-                                "noteText"
-                            )
-                            .value
-                            .trim()
-                };
-
-                if (
-                    !payload.student_id
-                ) {
-
-                    throw new Error(
-                        "請選擇學生。"
-                    );
-                }
-
-                if (!payload.note) {
-
-                    throw new Error(
-                        "請輸入備註。"
-                    );
-                }
-
-                const {
-                    error
-                } =
-                    await supabaseClient
-                        .from(
-                            "private_notes"
-                        )
-                        .insert(
-                            payload
-                        );
-
-                if (error) {
-                    throw error;
-                }
-
-                closeModal(
-                    "noteModal"
-                );
-
-                await loadPrivateNotesPage();
-
-            } catch (error) {
-
-                alert(
-                    error.message
-                );
-            }
-        }
-    );
-
-
-async function loadPrivateNotesPage() {
-
-    const container =
-        document.getElementById(
-            "privateNotesList"
-        );
-
-    if (
-        getRole() !==
-        "tutor"
-    ) {
-
-        container.innerHTML =
-            `<div class="empty">
-                此區域只供導師使用。
-            </div>`;
-
-        return;
-    }
-
-    container.innerHTML =
-        `<div class="loading">
-            載入私人備註中...
-        </div>`;
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from(
-                "private_notes"
-            )
-            .select(
-                "*"
-            )
-            .eq(
-                "tutor_id",
-                currentUser.id
-            )
-            .order(
-                "updated_at",
-                {
-                    ascending: false
-                }
-            );
-
-    if (error) {
-
-        container.innerHTML =
-            `<div class="empty">
-                ${escapeHTML(
-                    error.message
-                )}
-            </div>`;
-
-        return;
-    }
-
-    if (
-        !data ||
-        data.length === 0
-    ) {
-
-        container.innerHTML =
-            `<div class="empty">
-                暫時沒有私人備註。
-            </div>`;
-
-        return;
-    }
-
-    const studentIds =
-        [
-            ...new Set(
-                data.map(
-                    note =>
-                        note.student_id
-                )
-            )
-        ];
-
-    const {
-        data: students
-    } =
-        await supabaseClient
-            .from("students")
-            .select(
-                "id, student_name"
-            )
-            .in(
-                "id",
-                studentIds
-            );
-
-    const studentMap =
-        new Map(
-            (
-                students || []
-            ).map(
-                student => [
-                    student.id,
-                    student.student_name
-                ]
-            )
-        );
-
-    container.innerHTML =
-        `<div class="data-list">
-
-            ${
-                data.map(
-                    note => `
-                        <div class="data-item">
-
-                            <div class="data-item-main">
-
-                                <div class="data-item-title">
-                                    🔒
-                                    ${escapeHTML(
-                                        studentMap.get(
-                                            note.student_id
-                                        ) ||
-                                        "Student"
-                                    )}
-                                </div>
-
-                                <div class="data-item-subtitle">
-
-                                    ${escapeHTML(
-                                        note.note
-                                    )}
-
-                                    <br>
-
-                                    ${escapeHTML(
-                                        formatDateTime(
-                                            note.updated_at ||
-                                            note.created_at
-                                        )
-                                    )}
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    `
-                ).join("")
-            }
-
-        </div>`;
-}
-
 
 /* =====================================================
 NOTIFICATIONS
@@ -7309,7 +7098,7 @@ async function loadNotificationsPage() {
         await supabaseClient
             .from("notifications")
             .select(
-                "*"
+                "id, title, message, is_read, created_at"
             )
             .eq(
                 "user_id",
@@ -7320,25 +7109,19 @@ async function loadNotificationsPage() {
                 {
                     ascending: false
                 }
-            )
-            .limit(50);
+            );
 
     if (error) {
 
         container.innerHTML =
             `<div class="empty">
-                ${escapeHTML(
-                    error.message
-                )}
+                ${escapeHTML(error.message)}
             </div>`;
 
         return;
     }
 
-    if (
-        !data ||
-        data.length === 0
-    ) {
+    if (!data?.length) {
 
         container.innerHTML =
             `<div class="empty">
@@ -7354,25 +7137,32 @@ async function loadNotificationsPage() {
             ${
                 data.map(
                     notification => `
+
                         <div class="data-item">
 
                             <div class="data-item-main">
 
                                 <div class="data-item-title">
+
+                                    ${
+                                        !notification.is_read
+                                        ? "🔵 "
+                                        : ""
+                                    }
+
                                     ${escapeHTML(
-                                        notification.title
+                                        notification.title ||
+                                        "通知"
                                     )}
+
                                 </div>
 
                                 <div class="data-item-subtitle">
 
-                                    ${
-                                        notification.message
-                                        ? escapeHTML(
-                                            notification.message
-                                          )
-                                        : ""
-                                    }
+                                    ${escapeHTML(
+                                        notification.message ||
+                                        ""
+                                    )}
 
                                     <br>
 
@@ -7386,21 +7176,38 @@ async function loadNotificationsPage() {
 
                             </div>
 
-                            <span class="badge ${
-                                notification.is_read
-                                    ? "badge-success"
-                                    : "badge-warning"
-                            }">
+                            <div class="item-actions">
 
                                 ${
-                                    notification.is_read
-                                        ? "已讀"
-                                        : "未讀"
+                                    !notification.is_read
+                                    ? `
+                                        <button
+                                            class="icon-button"
+                                            onclick="markNotificationRead('${notification.id}')"
+                                            title="已讀"
+                                        >
+                                            ✓
+                                        </button>
+                                    `
+                                    : `
+                                        <span class="badge badge-success">
+                                            已讀
+                                        </span>
+                                    `
                                 }
 
-                            </span>
+                                <button
+                                    class="icon-button"
+                                    onclick="deleteNotification('${notification.id}')"
+                                    title="刪除"
+                                >
+                                    🗑️
+                                </button>
+
+                            </div>
 
                         </div>
+
                     `
                 ).join("")
             }
@@ -7408,12 +7215,465 @@ async function loadNotificationsPage() {
         </div>`;
 }
 
+async function markNotificationRead(id) {
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("notifications")
+            .update({
+                is_read: true
+            })
+            .eq(
+                "id",
+                id
+            )
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    await loadNotificationsPage();
+}
+
+async function deleteNotification(id) {
+
+    if (
+        !confirm(
+            "確定刪除通知？"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("notifications")
+            .delete()
+            .eq(
+                "id",
+                id
+            )
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    await loadNotificationsPage();
+}
 
 /* =====================================================
-PROFILE PAGE
+PRIVATE NOTES
 ===================================================== */
 
-function loadProfilePage() {
+async function loadPrivateNotesPage() {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    const container =
+        document.getElementById(
+            "privateNotesList"
+        );
+
+    container.innerHTML =
+        `<div class="loading">
+            載入私人備註中...
+        </div>`;
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("private_notes")
+            .select(
+                "id, student_id, note_text, created_at, updated_at"
+            )
+            .eq(
+                "tutor_id",
+                currentUser.id
+            )
+            .order(
+                "updated_at",
+                {
+                    ascending: false
+                }
+            );
+
+    if (error) {
+
+        container.innerHTML =
+            `<div class="empty">
+                ${escapeHTML(error.message)}
+            </div>`;
+
+        return;
+    }
+
+    if (!data?.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                暫時沒有私人備註。
+            </div>`;
+
+        return;
+    }
+
+    const ids =
+        [
+            ...new Set(
+                data.map(
+                    note =>
+                        note.student_id
+                )
+            )
+        ];
+
+    const {
+        data: students
+    } =
+        await supabaseClient
+            .from("students")
+            .select(
+                "id, student_name"
+            )
+            .in(
+                "id",
+                ids
+            );
+
+    const studentMap =
+        new Map(
+            (
+                students || []
+            ).map(
+                student => [
+                    student.id,
+                    student.student_name
+                ]
+            )
+        );
+
+    container.innerHTML =
+        `<div class="data-list">
+
+            ${
+                data.map(
+                    note => `
+
+                        <div class="data-item">
+
+                            <div class="data-item-main">
+
+                                <div class="data-item-title">
+                                    🔒 ${escapeHTML(
+                                        studentMap.get(
+                                            note.student_id
+                                        ) ||
+                                        "學生"
+                                    )}
+                                </div>
+
+                                <div class="data-item-subtitle">
+
+                                    ${escapeHTML(
+                                        note.note_text
+                                    )}
+
+                                    <br>
+
+                                    ${escapeHTML(
+                                        formatDateTime(
+                                            note.updated_at ||
+                                            note.created_at
+                                        )
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                            <div class="item-actions">
+
+                                <button
+                                    class="icon-button"
+                                    onclick="editPrivateNote('${note.id}')"
+                                >
+                                    ✏️
+                                </button>
+
+                                <button
+                                    class="icon-button"
+                                    onclick="deletePrivateNote('${note.id}')"
+                                >
+                                    🗑️
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `
+                ).join("")
+            }
+
+        </div>`;
+}
+
+async function openNoteModal(
+    note = null
+) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    await populateStudentSelects();
+
+    document
+        .getElementById(
+            "noteForm"
+        )
+        .reset();
+
+    document
+        .getElementById(
+            "noteId"
+        )
+        .value =
+            note?.id || "";
+
+    document
+        .getElementById(
+            "noteModalTitle"
+        )
+        .textContent =
+            note
+                ? "編輯私人備註"
+                : "新增私人備註";
+
+    if (note) {
+
+        document.getElementById(
+            "noteStudent"
+        ).value =
+            note.student_id || "";
+
+        document.getElementById(
+            "noteText"
+        ).value =
+            note.note_text || "";
+    }
+
+    openModal(
+        "noteModal"
+    );
+}
+
+async function editPrivateNote(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("private_notes")
+            .select("*")
+            .eq(
+                "id",
+                id
+            )
+            .eq(
+                "tutor_id",
+                currentUser.id
+            )
+            .single();
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    openNoteModal(
+        data
+    );
+}
+
+async function deletePrivateNote(id) {
+
+    if (!isTutor()) {
+        return;
+    }
+
+    if (
+        !confirm(
+            "確定刪除私人備註？"
+        )
+    ) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("private_notes")
+            .delete()
+            .eq(
+                "id",
+                id
+            )
+            .eq(
+                "tutor_id",
+                currentUser.id
+            );
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+    }
+
+    await loadPrivateNotesPage();
+}
+
+document
+    .getElementById(
+        "noteForm"
+    )
+    .addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+            if (!isTutor()) {
+                return;
+            }
+
+            try {
+
+                const id =
+                    document
+                        .getElementById(
+                            "noteId"
+                        )
+                        .value;
+
+                const studentId =
+                    document
+                        .getElementById(
+                            "noteStudent"
+                        )
+                        .value;
+
+                const noteText =
+                    document
+                        .getElementById(
+                            "noteText"
+                        )
+                        .value
+                        .trim();
+
+                if (
+                    !studentId ||
+                    !noteText
+                ) {
+                    throw new Error(
+                        "請選擇學生並輸入備註。"
+                    );
+                }
+
+                const payload = {
+
+                    tutor_id:
+                        currentUser.id,
+
+                    student_id:
+                        studentId,
+
+                    note_text:
+                        noteText
+                };
+
+                let result;
+
+                if (id) {
+
+                    result =
+                        await supabaseClient
+                            .from("private_notes")
+                            .update(payload)
+                            .eq(
+                                "id",
+                                id
+                            )
+                            .eq(
+                                "tutor_id",
+                                currentUser.id
+                            );
+
+                } else {
+
+                    result =
+                        await supabaseClient
+                            .from("private_notes")
+                            .insert(
+                                payload
+                            );
+                }
+
+                if (result.error) {
+                    throw result.error;
+                }
+
+                closeModal(
+                    "noteModal"
+                );
+
+                await loadPrivateNotesPage();
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+            }
+        }
+    );
+
+/* =====================================================
+PROFILE
+===================================================== */
+
+async function loadProfilePage() {
 
     if (!currentUser) {
         return;
@@ -7425,7 +7685,6 @@ function loadProfilePage() {
         )
         .value =
             currentProfile?.full_name ||
-            currentUser.user_metadata?.full_name ||
             "";
 
     document
@@ -7433,9 +7692,13 @@ function loadProfilePage() {
             "profilePhone"
         )
         .value =
-            currentProfile?.phone ||
-            currentUser.user_metadata?.phone ||
-            "";
+            (
+                currentProfile?.phone ||
+                ""
+            ).replace(
+                "+852",
+                ""
+            );
 
     document
         .getElementById(
@@ -7450,11 +7713,10 @@ function loadProfilePage() {
             "profileRole"
         )
         .value =
-            getRole() === "parent"
-                ? "Parent 家長"
-                : "Tutor 導師";
+            isTutor()
+                ? "Tutor 導師"
+                : "Parent 家長";
 }
-
 
 document
     .getElementById(
@@ -7466,15 +7728,9 @@ document
 
             event.preventDefault();
 
-            const message =
-                document
-                    .getElementById(
-                        "profileMessage"
-                    );
-
             try {
 
-                const name =
+                const fullName =
                     document
                         .getElementById(
                             "profileName"
@@ -7482,7 +7738,7 @@ document
                         .value
                         .trim();
 
-                const phone =
+                const rawPhone =
                     document
                         .getElementById(
                             "profilePhone"
@@ -7490,48 +7746,57 @@ document
                         .value
                         .trim();
 
-                if (!name) {
-
+                if (!fullName) {
                     throw new Error(
-                        "姓名不能留空。"
+                        "請輸入姓名。"
                     );
                 }
 
+                let phone = null;
+
+                if (rawPhone) {
+                    phone =
+                        normalizeHKPhone(
+                            rawPhone
+                        );
+                }
+
                 const {
+                    data,
                     error
                 } =
                     await supabaseClient
                         .from("profiles")
                         .update({
                             full_name:
-                                name,
-                            phone:
-                                phone ||
-                                null
+                                fullName,
+                            phone
                         })
                         .eq(
                             "id",
                             currentUser.id
-                        );
+                        )
+                        .select()
+                        .single();
 
                 if (error) {
                     throw error;
                 }
 
                 currentProfile =
-                    await ensureProfile(
-                        currentUser
-                    );
+                    data;
 
                 document
                     .getElementById(
                         "welcomeTitle"
                     )
                     .textContent =
-                        `Welcome, ${name} 👋`;
+                        `Welcome, ${fullName} 👋`;
 
                 showMessage(
-                    message,
+                    document.getElementById(
+                        "profileMessage"
+                    ),
                     "個人資料已更新。",
                     "success"
                 );
@@ -7539,290 +7804,14 @@ document
             } catch (error) {
 
                 showMessage(
-                    message,
+                    document.getElementById(
+                        "profileMessage"
+                    ),
                     error.message
                 );
             }
         }
     );
-
-
-/* =====================================================
-NAVIGATION
-===================================================== */
-
-function navigateToPage(page) {
-
-    document
-        .querySelectorAll(
-            ".page"
-        )
-        .forEach(
-            section => {
-
-                section.classList.remove(
-                    "active"
-                );
-            }
-        );
-
-    const target =
-        document.getElementById(
-            "page-" + page
-        );
-
-    if (target) {
-
-        target.classList.add(
-            "active"
-        );
-    }
-
-    document
-        .querySelectorAll(
-            ".nav-button"
-        )
-        .forEach(
-            button => {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.page ===
-                        page
-                );
-            }
-        );
-
-    document
-        .querySelectorAll(
-            ".mobile-nav button"
-        )
-        .forEach(
-            button => {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.page ===
-                        page
-                );
-            }
-        );
-
-
-    if (
-        page === "dashboard"
-    ) {
-
-        loadDashboard();
-
-    } else if (
-        page === "calendar"
-    ) {
-
-        loadLessonsPage();
-
-    } else if (
-        page === "students"
-    ) {
-
-        loadStudentsPage();
-
-    } else if (
-        page === "parents"
-    ) {
-
-        loadParentsPage();
-
-    } else if (
-        page === "payments"
-    ) {
-
-        loadPaymentsPage();
-
-    } else if (
-        page === "notifications"
-    ) {
-
-        loadNotificationsPage();
-
-    } else if (
-        page === "private-notes"
-    ) {
-
-        loadPrivateNotesPage();
-
-    } else if (
-        page === "profile"
-    ) {
-
-        loadProfilePage();
-    }
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-document
-    .querySelectorAll(
-        ".nav-button"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    navigateToPage(
-                        button.dataset.page
-                    );
-                }
-            );
-        }
-    );
-
-
-document
-    .querySelectorAll(
-        ".mobile-nav button"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    navigateToPage(
-                        button.dataset.page
-                    );
-                }
-            );
-        }
-    );
-
-
-/* =====================================================
-AUTO UPDATE PARENT FROM STUDENT
-===================================================== */
-
-document
-    .getElementById(
-        "lessonStudent"
-    )
-    .addEventListener(
-        "change",
-        async event => {
-
-            const studentId =
-                event.target.value;
-
-            if (!studentId) {
-                return;
-            }
-
-            const {
-                data
-            } =
-                await supabaseClient
-                    .from("students")
-                    .select(
-                        "parent_id, hourly_rate"
-                    )
-                    .eq(
-                        "id",
-                        studentId
-                    )
-                    .single();
-
-            if (!data) {
-                return;
-            }
-
-            document
-                .getElementById(
-                    "lessonParent"
-                )
-                .value =
-                    data.parent_id || "";
-
-            if (
-                data.hourly_rate
-            ) {
-
-                document
-                    .getElementById(
-                        "lessonRate"
-                    )
-                    .value =
-                        data.hourly_rate;
-            }
-        }
-    );
-
-
-document
-    .getElementById(
-        "seriesStudent"
-    )
-    .addEventListener(
-        "change",
-        async event => {
-
-            const studentId =
-                event.target.value;
-
-            if (!studentId) {
-                return;
-            }
-
-            const {
-                data
-            } =
-                await supabaseClient
-                    .from("students")
-                    .select(
-                        "hourly_rate, parent_id, address"
-                    )
-                    .eq(
-                        "id",
-                        studentId
-                    )
-                    .single();
-
-            if (!data) {
-                return;
-            }
-
-            if (
-                data.hourly_rate
-            ) {
-
-                document
-                    .getElementById(
-                        "seriesRate"
-                    )
-                    .value =
-                        data.hourly_rate;
-            }
-
-            if (
-                data.address
-            ) {
-
-                document
-                    .getElementById(
-                        "seriesLocation"
-                    )
-                    .value =
-                        data.address;
-            }
-        }
-    );
-
 
 /* =====================================================
 LOGOUT
@@ -7836,25 +7825,37 @@ document
         "click",
         async () => {
 
-            await supabaseClient
-                .auth
-                .signOut();
+            const {
+                error
+            } =
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+            if (error) {
+
+                alert(
+                    error.message
+                );
+
+                return;
+            }
 
             currentUser = null;
-
             currentProfile = null;
 
             showAuth();
 
-            clearElementMessage(
-                authMessage
-            );
+            document
+                .getElementById(
+                    "authForm"
+                )
+                .reset();
         }
     );
 
-
 /* =====================================================
-AUTH STATE
+AUTH SESSION
 ===================================================== */
 
 supabaseClient
@@ -7865,14 +7866,21 @@ supabaseClient
             session
         ) => {
 
-            if (session) {
+            if (
+                session?.user &&
+                !currentUser
+            ) {
 
                 await loadApp();
 
-            } else {
+            }
+
+            if (
+                event ===
+                "SIGNED_OUT"
+            ) {
 
                 currentUser = null;
-
                 currentProfile = null;
 
                 showAuth();
@@ -7880,12 +7888,41 @@ supabaseClient
         }
     );
 
+/* =====================================================
+CLOSE MODALS BY BACKDROP
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".modal-backdrop"
+    )
+    .forEach(
+        backdrop => {
+
+            backdrop.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        backdrop
+                    ) {
+
+                        backdrop.classList.remove(
+                            "open"
+                        );
+                    }
+
+                }
+            );
+        }
+    );
 
 /* =====================================================
 INITIALIZE
 ===================================================== */
 
-async function initializeApp() {
+(async function init() {
 
     try {
 
@@ -7898,7 +7935,7 @@ async function initializeApp() {
                 .auth
                 .getSession();
 
-        if (session) {
+        if (session?.user) {
 
             await loadApp();
 
@@ -7916,10 +7953,8 @@ async function initializeApp() {
 
         showAuth();
     }
-}
 
-
-initializeApp();
+})();
 
 </script>
 
