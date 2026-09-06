@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <meta name="theme-color" content="#f7f7f5">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Tutor Manager">
 
 <link rel="icon"
       type="image/png"
@@ -29,19 +27,25 @@
 
 <style>
 
+/* ========================================
+   RESET
+======================================== */
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 
-html,
-body {
+html {
     margin: 0;
     padding: 0;
-    min-height: 100%;
+    background: #f7f7f5;
 }
 
 body {
+    margin: 0;
+    min-height: 100vh;
+
     background:
         radial-gradient(
             circle at top left,
@@ -77,7 +81,6 @@ textarea {
 button {
     border: 0;
     cursor: pointer;
-    touch-action: manipulation;
 }
 
 input,
@@ -87,117 +90,26 @@ textarea {
 }
 
 
-/* ================================
-   HEADER
-================================ */
+/* ========================================
+   COMMON
+======================================== */
 
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-
-    padding:
-        calc(14px + env(safe-area-inset-top))
-        18px
-        13px;
-
-    background: rgba(247,247,245,.9);
-
-    border-bottom:
-        1px solid rgba(0,0,0,.06);
-
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+.hidden {
+    display: none !important;
 }
 
-.header-inner {
-    max-width: 760px;
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-}
-
-.logo {
-    width: 47px;
-    height: 47px;
-
-    border-radius: 15px;
-    overflow: hidden;
-
-    background: white;
-
-    border: 1px solid rgba(0,0,0,.07);
-
-    box-shadow:
-        0 7px 20px rgba(0,0,0,.1);
-}
-
-.logo img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
-
-.brand-name {
-    font-size: 17px;
-    font-weight: 780;
-    letter-spacing: -.4px;
-}
-
-.brand-sub {
-    margin-top: 3px;
-
+.muted {
     color: #858782;
-
-    font-size: 11px;
 }
 
-.account {
-    width: 43px;
-    height: 43px;
-
-    border-radius: 50%;
-
-    background: #e9e9e6;
-    color: #555;
-
-    font-size: 17px;
+.small {
+    font-size: 12px;
 }
-
-
-/* ================================
-   MAIN
-================================ */
-
-main {
-    width: 100%;
-    max-width: 760px;
-
-    margin: auto;
-
-    padding:
-        25px 18px 35px;
-}
-
-
-/* ================================
-   PAGE TITLE
-================================ */
 
 .eyebrow {
     margin: 0 0 6px;
 
-    color: #8a8d89;
+    color: #898c87;
 
     font-size: 11px;
     font-weight: 750;
@@ -219,18 +131,13 @@ main {
 .page-description {
     margin: 8px 0 0;
 
-    color: #81847f;
+    color: #858782;
 
     font-size: 13px;
 }
 
-
-/* ================================
-   CARDS
-================================ */
-
 .card {
-    margin-top: 13px;
+    margin-top: 12px;
 
     padding: 17px;
 
@@ -238,135 +145,300 @@ main {
 
     background: rgba(255,255,255,.93);
 
-    border:
-        1px solid rgba(0,0,0,.06);
+    border: 1px solid rgba(0,0,0,.06);
 
     box-shadow:
-        0 9px 28px rgba(0,0,0,.05);
+        0 8px 26px rgba(0,0,0,.045);
 }
 
+.primary {
+    width: 100%;
 
-/* ================================
-   SECTION
-================================ */
+    min-height: 51px;
 
-.section {
-    margin-top: 25px;
+    padding: 12px 16px;
+
+    border-radius: 16px;
+
+    background: #171717;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 720;
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,.13);
 }
 
-.section-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.secondary {
+    min-height: 43px;
 
-    margin-bottom: 11px;
-}
+    padding: 10px 15px;
 
-.section-title {
-    margin: 0;
+    border-radius: 14px;
 
-    font-size: 18px;
-    font-weight: 760;
+    background: #ededeb;
 
-    letter-spacing: -.35px;
-}
+    color: #252525;
 
-.section-link {
-    padding: 5px;
-
-    background: transparent;
-
-    color: #777a76;
-
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 650;
 }
 
 
-/* ================================
-   QUICK ACTIONS
-================================ */
+/* ========================================
+   LOGIN
+======================================== */
 
-.quick-grid {
-    display: grid;
+.login-screen {
+    position: fixed;
+    inset: 0;
 
-    grid-template-columns:
-        repeat(2, minmax(0,1fr));
-
-    gap: 10px;
-
-    margin-top: 22px;
-}
-
-.quick {
-    min-height: 82px;
-
-    padding: 14px;
+    z-index: 9999;
 
     display: flex;
-    align-items: center;
 
-    gap: 10px;
-
-    text-align: left;
-
-    border-radius: 20px;
-
-    background: rgba(255,255,255,.92);
-
-    border:
-        1px solid rgba(0,0,0,.06);
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.045);
-}
-
-.quick-icon {
-    width: 42px;
-    height: 42px;
-
-    flex: 0 0 42px;
-
-    display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 14px;
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #ffffff,
+            #f7f7f5 55%,
+            #eeeeeb
+        );
+}
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 30px 24px;
+
+    border-radius: 29px;
+
+    background: rgba(255,255,255,.92);
+
+    border: 1px solid rgba(0,0,0,.07);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.10);
+
+    backdrop-filter: blur(20px);
+}
+
+.login-logo {
+    width: 76px;
+    height: 76px;
+
+    margin: 0 auto 17px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: white;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.12);
+}
+
+.login-logo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.login-brand {
+    text-align: center;
+}
+
+.login-brand h1 {
+    margin: 0;
+
+    font-size: 27px;
+    font-weight: 790;
+}
+
+.login-brand p {
+    margin: 7px 0 0;
+
+    color: #858782;
+
+    font-size: 12px;
+}
+
+.roles {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 9px;
+
+    margin-top: 27px;
+}
+
+.role {
+    min-height: 75px;
+
+    border-radius: 17px;
 
     background: #eeeeeb;
 
-    font-size: 19px;
-}
-
-.quick-title {
-    display: block;
+    color: #777a76;
 
     font-size: 13px;
-    font-weight: 720;
+    font-weight: 700;
 }
 
-.quick-sub {
+.role.active {
+    background: #171717;
+    color: white;
+}
+
+.role-icon {
     display: block;
 
-    margin-top: 3px;
+    margin-bottom: 5px;
 
-    color: #898c88;
-
-    font-size: 10px;
+    font-size: 21px;
 }
 
 
-/* ================================
-   STATISTICS
-================================ */
+/* ========================================
+   HEADER
+======================================== */
+
+.header {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    padding:
+        calc(14px + env(safe-area-inset-top))
+        18px
+        13px;
+
+    background: rgba(247,247,245,.90);
+
+    border-bottom:
+        1px solid rgba(0,0,0,.06);
+
+    backdrop-filter: blur(24px);
+}
+
+.header-inner {
+    max-width: 760px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.logo {
+    width: 47px;
+    height: 47px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    background: white;
+
+    border: 1px solid rgba(0,0,0,.07);
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,.10);
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.brand-name {
+    font-size: 17px;
+
+    font-weight: 780;
+
+    letter-spacing: -.4px;
+}
+
+.brand-sub {
+    margin-top: 3px;
+
+    color: #858782;
+
+    font-size: 11px;
+}
+
+.account {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    background: #e9e9e6;
+
+    color: #555;
+
+    font-size: 17px;
+}
+
+
+/* ========================================
+   MAIN
+======================================== */
+
+main {
+    width: 100%;
+    max-width: 760px;
+
+    margin: auto;
+
+    padding:
+        25px 18px 35px;
+}
+
+
+/* ========================================
+   STATS
+======================================== */
 
 .stats {
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0,1fr));
+        repeat(2,minmax(0,1fr));
 
     gap: 10px;
+
+    margin-top: 20px;
 }
 
 .stat {
@@ -389,6 +461,7 @@ main {
     color: #858782;
 
     font-size: 11px;
+
     font-weight: 650;
 }
 
@@ -400,17 +473,121 @@ main {
     line-height: 1;
 
     font-weight: 780;
-
-    letter-spacing: -.8px;
 }
 
 
-/* ================================
-   STUDENT
-================================ */
+/* ========================================
+   QUICK ACTIONS
+======================================== */
+
+.quick-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.quick {
+    min-height: 84px;
+
+    padding: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-align: left;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.93);
+
+    border:
+        1px solid rgba(0,0,0,.06);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.045);
+}
+
+.quick-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #eeeeeb;
+
+    font-size: 19px;
+}
+
+.quick-title {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 720;
+}
+
+.quick-sub {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #898c88;
+
+    font-size: 10px;
+}
+
+
+/* ========================================
+   SECTION
+======================================== */
+
+.section {
+    margin-top: 25px;
+}
+
+.section-head {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 11px;
+}
+
+.section-title {
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 760;
+
+    letter-spacing: -.35px;
+}
+
+
+/* ========================================
+   STUDENTS
+======================================== */
 
 .student {
     display: flex;
+
     align-items: center;
 
     gap: 12px;
@@ -425,7 +602,7 @@ main {
         1px solid rgba(0,0,0,.06);
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.045);
+        0 7px 22px rgba(0,0,0,.04);
 }
 
 .avatar {
@@ -435,6 +612,7 @@ main {
     flex: 0 0 46px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -442,16 +620,18 @@ main {
 
     background: #e9e9e6;
 
-    font-size: 18px;
+    font-weight: 750;
 }
 
 .student-info {
-    flex: 1;
     min-width: 0;
+
+    flex: 1;
 }
 
 .student-name {
     font-size: 14px;
+
     font-weight: 720;
 }
 
@@ -464,12 +644,12 @@ main {
 }
 
 
-/* ================================
-   PRIVATE NOTE
-================================ */
+/* ========================================
+   PRIVATE NOTES
+======================================== */
 
 .private-note {
-    padding: 14px;
+    padding: 13px;
 
     border-radius: 17px;
 
@@ -481,193 +661,299 @@ main {
 
 .private-title {
     font-size: 12px;
+
     font-weight: 750;
 }
 
-.private-sub {
-    margin-top: 4px;
+.private-text {
+    margin-top: 5px;
 
     color: #858782;
 
-    font-size: 10px;
+    font-size: 11px;
+
+    white-space: pre-wrap;
 }
 
 
-/* ================================
-   BUTTON
-================================ */
+/* ========================================
+   CALENDAR
+======================================== */
 
-.primary {
-    width: 100%;
+.calendar-card {
+    padding: 15px;
 
-    min-height: 52px;
+    border-radius: 21px;
 
-    padding: 13px 17px;
-
-    border-radius: 16px;
-
-    background: #171717;
-
-    color: white;
-
-    font-size: 14px;
-    font-weight: 720;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.14);
-}
-
-.secondary {
-    min-height: 43px;
-
-    padding: 10px 15px;
-
-    border-radius: 14px;
-
-    background: #ededeb;
-
-    color: #242424;
-
-    font-size: 13px;
-    font-weight: 650;
-}
-
-
-/* ================================
-   BOTTOM NAV
-================================ */
-
-.bottom-nav {
-    position: fixed;
-
-    left: 12px;
-    right: 12px;
-
-    bottom:
-        calc(10px + env(safe-area-inset-bottom));
-
-    z-index: 500;
-
-    max-width: 570px;
-
-    margin: auto;
-
-    padding: 7px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(5, minmax(0,1fr));
-
-    gap: 4px;
-
-    border-radius: 25px;
-
-    background:
-        rgba(255,255,255,.93);
+    background: rgba(255,255,255,.94);
 
     border:
-        1px solid rgba(0,0,0,.08);
+        1px solid rgba(0,0,0,.06);
 
     box-shadow:
-        0 14px 40px rgba(0,0,0,.13);
-
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+        0 8px 26px rgba(0,0,0,.045);
 }
 
-.nav-button {
-    min-height: 58px;
-
-    padding: 6px 2px;
-
-    border-radius: 18px;
-
-    background: transparent;
-
-    color: #888b87;
-
-    font-size: 9px;
-    font-weight: 650;
-}
-
-.nav-button.active {
-    background: #171717;
-    color: white;
-}
-
-.nav-icon {
-    display: block;
-
-    margin-bottom: 5px;
-
-    font-size: 18px;
-    line-height: 1;
-}
-
-
-/* ================================
-   MODAL
-================================ */
-
-.modal {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 5000;
-
-    display: none;
-
-    align-items: flex-end;
-    justify-content: center;
-
-    padding: 12px;
-
-    background: rgba(0,0,0,.38);
-
-    backdrop-filter: blur(5px);
-}
-
-.modal.show {
+.calendar-header {
     display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
 }
 
-.modal-content {
-    width: 100%;
-    max-width: 600px;
+.calendar-month {
+    font-size: 17px;
 
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    padding: 22px;
-
-    border-radius:
-        27px 27px 20px 20px;
-
-    background: #fafaf9;
-}
-
-.modal-title {
-    margin: 0;
-
-    font-size: 21px;
     font-weight: 760;
 }
 
-.modal-sub {
-    margin: 5px 0 20px;
+.calendar-controls {
+    display: flex;
+
+    gap: 6px;
+}
+
+.calendar-controls button {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 11px;
+
+    background: #eeeeeb;
+
+    font-size: 17px;
+}
+
+.calendar-weekdays,
+.calendar-days {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap: 4px;
+}
+
+.calendar-weekdays div {
+    padding: 5px 0;
+
+    text-align: center;
+
+    color: #929590;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.day {
+    min-height: 54px;
+
+    padding: 5px 3px;
+
+    border-radius: 13px;
+
+    background: #f6f6f3;
+
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.day.empty {
+    background: transparent;
+
+    cursor: default;
+}
+
+.day-number {
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.day.today {
+    background: #171717;
+
+    color: white;
+}
+
+.day.selected {
+    outline:
+        2px solid #8a8d89;
+
+    outline-offset: -2px;
+}
+
+.day-dot {
+    width: 5px;
+    height: 5px;
+
+    margin: 5px auto 0;
+
+    border-radius: 50%;
+
+    background: #777;
+}
+
+.today .day-dot {
+    background: white;
+}
+
+
+/* ========================================
+   LESSON ITEM
+======================================== */
+
+.lesson-item {
+    padding: 15px;
+
+    border-radius: 18px;
+
+    background: rgba(255,255,255,.94);
+
+    border:
+        1px solid rgba(0,0,0,.06);
+}
+
+.lesson-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.lesson-name {
+    font-weight: 720;
+
+    font-size: 14px;
+}
+
+.lesson-time {
+    margin-top: 5px;
 
     color: #858782;
 
     font-size: 12px;
 }
 
+.lesson-location {
+    margin-top: 4px;
 
-/* ================================
+    color: #858782;
+
+    font-size: 11px;
+}
+
+.repeat-badge {
+    display: inline-flex;
+
+    padding: 4px 7px;
+
+    border-radius: 999px;
+
+    background: #eeeeeb;
+
+    color: #666963;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   NOTIFICATION
+======================================== */
+
+.notification-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 14px 0;
+
+    border-bottom:
+        1px solid #eeeeeb;
+}
+
+.notification-row:last-child {
+    border-bottom: 0;
+}
+
+.notification-info {
+    flex: 1;
+}
+
+.notification-title {
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.notification-description {
+    margin-top: 3px;
+
+    color: #858782;
+
+    font-size: 10px;
+}
+
+.switch {
+    position: relative;
+
+    width: 48px;
+    height: 29px;
+
+    flex: 0 0 48px;
+
+    border-radius: 999px;
+
+    background: #d9dad7;
+
+    transition: .2s;
+}
+
+.switch::after {
+    content: "";
+
+    position: absolute;
+
+    width: 23px;
+    height: 23px;
+
+    left: 3px;
+    top: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,.15);
+
+    transition: .2s;
+}
+
+.switch.on {
+    background: #171717;
+}
+
+.switch.on::after {
+    transform: translateX(19px);
+}
+
+
+/* ========================================
    FORM
-================================ */
+======================================== */
 
 .field {
     margin-top: 15px;
@@ -685,6 +971,7 @@ main {
     color: #5e615e;
 
     font-size: 11px;
+
     font-weight: 700;
 }
 
@@ -708,150 +995,160 @@ main {
 }
 
 .field textarea {
-    min-height: 100px;
+    min-height: 95px;
 
     resize: vertical;
 }
 
+.form-grid {
+    display: grid;
 
-/* ================================
-   LOGIN
-================================ */
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
-.login-screen {
+    gap: 10px;
+}
+
+
+/* ========================================
+   MODAL
+======================================== */
+
+.modal {
     position: fixed;
 
     inset: 0;
 
-    z-index: 9000;
+    z-index: 5000;
 
-    display: flex;
+    display: none;
 
-    align-items: center;
+    align-items: flex-end;
+
     justify-content: center;
 
-    padding: 20px;
+    padding: 12px;
 
-    background:
-        radial-gradient(
-            circle at top left,
-            #ffffff,
-            #f7f7f5 55%,
-            #eeeeeb
-        );
+    background: rgba(0,0,0,.38);
+
+    backdrop-filter: blur(5px);
 }
 
-.login-card {
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
     width: 100%;
-    max-width: 430px;
+    max-width: 610px;
 
-    padding: 30px 24px 25px;
+    max-height: 91vh;
 
-    border-radius: 29px;
+    overflow-y: auto;
 
-    background:
-        rgba(255,255,255,.9);
+    padding: 22px;
 
-    border:
-        1px solid rgba(0,0,0,.07);
+    border-radius:
+        27px 27px 20px 20px;
 
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.1);
+    background: #fafaf9;
 }
 
-.login-brand {
-    text-align: center;
-}
-
-.login-logo {
-    width: 76px;
-    height: 76px;
-
-    margin: auto auto 17px;
-
-    border-radius: 22px;
-
-    overflow: hidden;
-
-    background: white;
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.12);
-}
-
-.login-logo img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-}
-
-.login-brand h1 {
+.modal-title {
     margin: 0;
 
-    font-size: 27px;
-    font-weight: 780;
+    font-size: 21px;
+
+    font-weight: 760;
 }
 
-.login-brand p {
-    margin: 7px 0 0;
+.modal-subtitle {
+    margin: 5px 0 20px;
 
     color: #858782;
 
     font-size: 12px;
 }
 
-.roles {
+
+/* ========================================
+   NAVIGATION
+======================================== */
+
+.bottom-nav {
+    position: fixed;
+
+    left: 12px;
+    right: 12px;
+
+    bottom:
+        calc(10px + env(safe-area-inset-bottom));
+
+    z-index: 500;
+
+    max-width: 590px;
+
+    margin: auto;
+
+    padding: 7px;
+
     display: grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(5,1fr);
 
-    gap: 9px;
+    gap: 4px;
 
-    margin-top: 27px;
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.94);
+
+    border:
+        1px solid rgba(0,0,0,.08);
+
+    box-shadow:
+        0 14px 40px rgba(0,0,0,.13);
+
+    backdrop-filter: blur(25px);
 }
 
-.role {
-    min-height: 73px;
+.nav-button {
+    min-height: 58px;
 
-    border-radius: 17px;
+    padding: 6px 2px;
 
-    background: #eeeeeb;
+    border-radius: 18px;
 
-    color: #777a76;
+    background: transparent;
 
-    font-weight: 700;
+    color: #888b87;
+
+    font-size: 9px;
+
+    font-weight: 650;
 }
 
-.role.active {
+.nav-button.active {
     background: #171717;
+
     color: white;
 }
 
-.role-icon {
+.nav-icon {
     display: block;
 
     margin-bottom: 5px;
 
-    font-size: 20px;
+    font-size: 18px;
+
+    line-height: 1;
 }
 
 
-/* ================================
-   HIDDEN
-================================ */
-
-.hidden {
-    display: none !important;
-}
-
-
-/* ================================
+/* ========================================
    DESKTOP
-================================ */
+======================================== */
 
 @media (min-width:700px) {
 
@@ -870,15 +1167,16 @@ main {
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =====================================
+<!-- ========================================
      LOGIN
-====================================== -->
+======================================== -->
 
 <section
     id="loginScreen"
@@ -944,8 +1242,8 @@ main {
 
 
         <form
-            style="margin-top:22px"
             onsubmit="login(event)"
+            style="margin-top:22px"
         >
 
             <div class="field">
@@ -955,7 +1253,7 @@ main {
                 </label>
 
                 <input
-                    id="email"
+                    id="loginEmail"
                     type="email"
                     placeholder="your@email.com"
                     required
@@ -971,7 +1269,7 @@ main {
                 </label>
 
                 <input
-                    id="password"
+                    id="loginPassword"
                     type="password"
                     placeholder="••••••••"
                     required
@@ -994,11 +1292,14 @@ main {
 </section>
 
 
-<!-- =====================================
-     APP
-====================================== -->
+<!-- ========================================
+     APPLICATION
+======================================== -->
 
-<div id="app" class="hidden">
+<div
+    id="app"
+    class="hidden"
+>
 
 
 <header class="header">
@@ -1037,7 +1338,6 @@ main {
         <button
             class="account"
             onclick="logout()"
-            title="Logout · 登出"
         >
             ●
         </button>
@@ -1050,428 +1350,576 @@ main {
 <main>
 
 
-    <!-- DASHBOARD -->
+<!-- ========================================
+     DASHBOARD
+======================================== -->
 
-    <section id="dashboardPage">
+<section
+    id="dashboardPage"
+>
 
-        <p class="eyebrow">
-            DASHBOARD · 主頁
-        </p>
+    <p class="eyebrow">
+        DASHBOARD · 主頁
+    </p>
 
-        <h1 class="page-title">
-            Good afternoon.
-        </h1>
+    <h1 class="page-title">
+        Good afternoon.
+    </h1>
 
-        <p class="page-description">
-            Manage your students, lessons and payments.
-            管理學生、課堂及付款。
-        </p>
+    <p class="page-description">
+        Manage your teaching schedule.
+        管理你的教學日程。
+    </p>
 
 
-        <div
-            id="tutorQuickActions"
-            class="quick-grid"
+    <div
+        id="quickActions"
+        class="quick-grid"
+    >
+
+        <button
+            class="quick"
+            onclick="openStudentModal()"
         >
 
-            <button
-                class="quick"
-                onclick="openStudentModal()"
-            >
+            <span class="quick-icon">
+                ＋
+            </span>
 
-                <span class="quick-icon">
-                    ＋
+            <span>
+
+                <span class="quick-title">
+                    Add Student · 新增學生
                 </span>
 
-                <span>
-
-                    <span class="quick-title">
-                        Add Student · 新增學生
-                    </span>
-
-                    <span class="quick-sub">
-                        Create a student profile
-                    </span>
-
+                <span class="quick-sub">
+                    Create student profile
                 </span>
 
-            </button>
+            </span>
+
+        </button>
 
 
-            <button
-                class="quick"
-                onclick="openLessonModal()"
-            >
-
-                <span class="quick-icon">
-                    □
-                </span>
-
-                <span>
-
-                    <span class="quick-title">
-                        Add Lesson · 新增課堂
-                    </span>
-
-                    <span class="quick-sub">
-                        Schedule a lesson
-                    </span>
-
-                </span>
-
-            </button>
-
-        </div>
-
-
-        <section
-            id="overviewSection"
-            class="section"
+        <button
+            class="quick"
+            onclick="openLessonModal()"
         >
 
-            <div class="section-head">
+            <span class="quick-icon">
+                📅
+            </span>
 
-                <h2 class="section-title">
-                    Overview · 概覽
-                </h2>
+            <span>
 
+                <span class="quick-title">
+                    Add Lesson · 新增課堂
+                </span>
+
+                <span class="quick-sub">
+                    Schedule a lesson
+                </span>
+
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Students · 學生
             </div>
 
-
-            <div class="stats">
-
-                <div class="stat">
-
-                    <div class="stat-label">
-                        Students · 學生
-                    </div>
-
-                    <div
-                        id="studentCount"
-                        class="stat-value"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-label">
-                        Lessons · 課堂
-                    </div>
-
-                    <div
-                        id="lessonCount"
-                        class="stat-value"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-label">
-                        Unpaid · 未付款
-                    </div>
-
-                    <div
-                        id="unpaidAmount"
-                        class="stat-value"
-                    >
-                        $0
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-label">
-                        Income · 收入
-                    </div>
-
-                    <div
-                        id="incomeAmount"
-                        class="stat-value"
-                    >
-                        $0
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="section">
-
-            <div class="section-head">
-
-                <h2 class="section-title">
-                    Upcoming Lessons · 即將到來課堂
-                </h2>
-
-                <button
-                    class="section-link"
-                    onclick="showPage('lessons')"
-                >
-                    See all · 全部
-                </button>
-
-            </div>
-
-
-            <div id="upcomingLessons">
-
-                <div class="card">
-
-                    <div
-                        style="
-                        text-align:center;
-                        color:#888b87;
-                        font-size:13px;
-                        "
-                    >
-                        No lessons yet · 暫時未有課堂
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="section">
-
-            <div class="section-head">
-
-                <h2 class="section-title">
-                    Students · 學生
-                </h2>
-
-                <button
-                    class="section-link"
-                    onclick="showPage('students')"
-                >
-                    See all · 全部
-                </button>
-
-            </div>
-
-
-            <div id="dashboardStudents">
-
-                <div class="student">
-
-                    <div class="avatar">
-                        ＋
-                    </div>
-
-                    <div class="student-info">
-
-                        <div class="student-name">
-                            Add your first student · 新增第一位學生
-                        </div>
-
-                        <div class="student-detail">
-                            Student information will appear here.
-                            學生資料會顯示喺呢度。
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </section>
-
-
-    <!-- STUDENTS PAGE -->
-
-    <section
-        id="studentsPage"
-        class="hidden"
-    >
-
-        <p class="eyebrow">
-            STUDENTS · 學生
-        </p>
-
-        <h1 class="page-title">
-            Students · 學生
-        </h1>
-
-        <div style="margin-top:20px">
-
-            <button
-                class="primary"
-                onclick="openStudentModal()"
+            <div
+                id="studentCount"
+                class="stat-value"
             >
-                ＋ Add Student · 新增學生
-            </button>
+                0
+            </div>
 
         </div>
 
 
-        <div
-            id="studentsList"
-            class="section"
-        ></div>
+        <div class="stat">
 
-    </section>
+            <div class="stat-label">
+                Lessons · 課堂
+            </div>
 
-
-    <!-- LESSONS PAGE -->
-
-    <section
-        id="lessonsPage"
-        class="hidden"
-    >
-
-        <p class="eyebrow">
-            LESSONS · 課堂
-        </p>
-
-        <h1 class="page-title">
-            Lessons · 課堂
-        </h1>
-
-        <div style="margin-top:20px">
-
-            <button
-                class="primary"
-                onclick="openLessonModal()"
+            <div
+                id="lessonCount"
+                class="stat-value"
             >
-                ＋ Add Lesson · 新增課堂
-            </button>
+                0
+            </div>
 
         </div>
 
 
-        <div
-            id="lessonsList"
-            class="section"
-        ></div>
+        <div class="stat">
 
-    </section>
+            <div class="stat-label">
+                Unpaid · 未付款
+            </div>
 
-
-    <!-- PAYMENTS PAGE -->
-
-    <section
-        id="paymentsPage"
-        class="hidden"
-    >
-
-        <p class="eyebrow">
-            PAYMENTS · 付款
-        </p>
-
-        <h1 class="page-title">
-            Payments · 付款
-        </h1>
-
-
-        <div class="section">
-
-            <button
-                class="primary"
-                onclick="openPaymentModal()"
+            <div
+                id="unpaidAmount"
+                class="stat-value"
             >
-                ＋ Add Payment · 新增付款
-            </button>
+                $0
+            </div>
 
         </div>
 
 
-        <div
-            id="paymentsList"
-            class="section"
-        ></div>
+        <div class="stat">
 
-    </section>
+            <div class="stat-label">
+                Income · 收入
+            </div>
 
-
-    <!-- SETTINGS -->
-
-    <section
-        id="settingsPage"
-        class="hidden"
-    >
-
-        <p class="eyebrow">
-            SETTINGS · 設定
-        </p>
-
-        <h1 class="page-title">
-            Settings · 設定
-        </h1>
-
-
-        <div class="card">
-
-            <h3>
-                Account · 帳戶
-            </h3>
-
-            <p
-                id="settingsRole"
-                style="
-                color:#858782;
-                font-size:13px;
-                "
+            <div
+                id="incomeAmount"
+                class="stat-value"
             >
-                Tutor · 導師
-            </p>
+                $0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                Upcoming · 即將到來
+            </h2>
 
             <button
                 class="secondary"
-                onclick="logout()"
+                onclick="showPage('calendar')"
             >
-                Logout · 登出
+                Calendar · 日曆
             </button>
 
         </div>
 
+        <div id="upcomingLessons"></div>
 
-        <div class="card">
+    </section>
 
-            <h3>
-                Privacy · 私隱
-            </h3>
 
-            <div class="private-note">
+    <section class="section">
 
-                <div class="private-title">
-                    🔒 Private Notes · 私人備註
+        <div class="section-head">
+
+            <h2 class="section-title">
+                Students · 學生
+            </h2>
+
+        </div>
+
+        <div id="dashboardStudents"></div>
+
+    </section>
+
+</section>
+
+
+<!-- ========================================
+     CALENDAR PAGE
+======================================== -->
+
+<section
+    id="calendarPage"
+    class="hidden"
+>
+
+    <p class="eyebrow">
+        CALENDAR · 日曆
+    </p>
+
+    <h1 class="page-title">
+        Calendar · 日曆
+    </h1>
+
+    <p class="page-description">
+        View and manage your lessons.
+        查看及管理課堂。
+    </p>
+
+
+    <div class="section">
+
+        <div class="calendar-card">
+
+            <div class="calendar-header">
+
+                <button
+                    class="secondary"
+                    onclick="changeMonth(-1)"
+                >
+                    ‹
+                </button>
+
+                <div
+                    id="calendarMonth"
+                    class="calendar-month"
+                ></div>
+
+                <button
+                    class="secondary"
+                    onclick="changeMonth(1)"
+                >
+                    ›
+                </button>
+
+            </div>
+
+
+            <div
+                class="calendar-weekdays"
+            >
+
+                <div>
+                    Sun
                 </div>
 
-                <div class="private-sub">
-                    Tutor-only information is never shown in the Parent interface.
-                    導師私人資料不會顯示於家長介面。
+                <div>
+                    Mon
+                </div>
+
+                <div>
+                    Tue
+                </div>
+
+                <div>
+                    Wed
+                </div>
+
+                <div>
+                    Thu
+                </div>
+
+                <div>
+                    Fri
+                </div>
+
+                <div>
+                    Sat
                 </div>
 
             </div>
 
+
+            <div
+                id="calendarDays"
+                class="calendar-days"
+            ></div>
+
         </div>
 
+    </div>
+
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2 class="section-title">
+                Selected Day · 選擇日期
+            </h2>
+
+            <button
+                class="secondary"
+                onclick="openLessonModal()"
+            >
+                ＋ Add · 新增
+            </button>
+
+        </div>
+
+        <div
+            id="selectedDayLessons"
+        ></div>
+
     </section>
+
+</section>
+
+
+<!-- ========================================
+     STUDENTS PAGE
+======================================== -->
+
+<section
+    id="studentsPage"
+    class="hidden"
+>
+
+    <p class="eyebrow">
+        STUDENTS · 學生
+    </p>
+
+    <h1 class="page-title">
+        Students · 學生
+    </h1>
+
+    <div style="margin-top:20px">
+
+        <button
+            class="primary"
+            onclick="openStudentModal()"
+        >
+            ＋ Add Student · 新增學生
+        </button>
+
+    </div>
+
+    <div
+        id="studentsList"
+        class="section"
+    ></div>
+
+</section>
+
+
+<!-- ========================================
+     LESSONS PAGE
+======================================== -->
+
+<section
+    id="lessonsPage"
+    class="hidden"
+>
+
+    <p class="eyebrow">
+        LESSONS · 課堂
+    </p>
+
+    <h1 class="page-title">
+        Lessons · 課堂
+    </h1>
+
+    <div style="margin-top:20px">
+
+        <button
+            class="primary"
+            onclick="openLessonModal()"
+        >
+            ＋ Add Lesson · 新增課堂
+        </button>
+
+    </div>
+
+    <div
+        id="lessonsList"
+        class="section"
+    ></div>
+
+</section>
+
+
+<!-- ========================================
+     PAYMENTS PAGE
+======================================== -->
+
+<section
+    id="paymentsPage"
+    class="hidden"
+>
+
+    <p class="eyebrow">
+        PAYMENTS · 付款
+    </p>
+
+    <h1 class="page-title">
+        Payments · 付款
+    </h1>
+
+    <div style="margin-top:20px">
+
+        <button
+            class="primary"
+            onclick="openPaymentModal()"
+        >
+            ＋ Add Payment · 新增付款
+        </button>
+
+    </div>
+
+    <div
+        id="paymentsList"
+        class="section"
+    ></div>
+
+</section>
+
+
+<!-- ========================================
+     SETTINGS / NOTIFICATIONS
+======================================== -->
+
+<section
+    id="settingsPage"
+    class="hidden"
+>
+
+    <p class="eyebrow">
+        SETTINGS · 設定
+    </p>
+
+    <h1 class="page-title">
+        Settings · 設定
+    </h1>
+
+
+    <div class="card">
+
+        <h3>
+            Notifications · 通知
+        </h3>
+
+        <div class="notification-row">
+
+            <div class="notification-info">
+
+                <div class="notification-title">
+                    24 hours before · 課堂前 24 小時
+                </div>
+
+                <div class="notification-description">
+                    Remind me one day before each lesson.
+                    每堂課前一天提醒。
+                </div>
+
+            </div>
+
+            <button
+                id="notify24"
+                class="switch on"
+                onclick="toggleNotification('notify24')"
+            ></button>
+
+        </div>
+
+
+        <div class="notification-row">
+
+            <div class="notification-info">
+
+                <div class="notification-title">
+                    1 hour before · 課堂前 1 小時
+                </div>
+
+                <div class="notification-description">
+                    Reminder one hour before class.
+                    課堂前一小時提醒。
+                </div>
+
+            </div>
+
+            <button
+                id="notify1"
+                class="switch on"
+                onclick="toggleNotification('notify1')"
+            ></button>
+
+        </div>
+
+
+        <div class="notification-row">
+
+            <div class="notification-info">
+
+                <div class="notification-title">
+                    Unpaid · 未付款
+                </div>
+
+                <div class="notification-description">
+                    Remind me about unpaid lessons.
+                    提醒未付款課堂。
+                </div>
+
+            </div>
+
+            <button
+                id="notifyPayment"
+                class="switch on"
+                onclick="toggleNotification('notifyPayment')"
+            ></button>
+
+        </div>
+
+
+        <button
+            class="secondary"
+            style="margin-top:17px"
+            onclick="requestNotifications()"
+        >
+            Enable Notifications · 開啟通知權限
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Account · 帳戶
+        </h3>
+
+        <p
+            id="settingsRole"
+            class="muted"
+            style="font-size:13px"
+        >
+            Tutor · 導師
+        </p>
+
+        <button
+            class="secondary"
+            onclick="logout()"
+        >
+            Logout · 登出
+        </button>
+
+    </div>
+
+
+    <div
+        id="privateSettings"
+        class="card"
+    >
+
+        <h3>
+            🔒 Private Notes · 私人備註
+        </h3>
+
+        <p class="muted small">
+            Tutor-only information is separated from Parent view.
+            導師私人資料會與家長介面分開。
+        </p>
+
+    </div>
+
+</section>
 
 
 </main>
 
 
-<!-- =====================================
-     BOTTOM NAV
-====================================== -->
+<!-- ========================================
+     NAVIGATION
+======================================== -->
 
 <nav class="bottom-nav">
 
@@ -1491,14 +1939,14 @@ main {
 
     <button
         class="nav-button"
-        onclick="showPage('lessons')"
+        onclick="showPage('calendar')"
     >
 
         <span class="nav-icon">
-            □
+            ▦
         </span>
 
-        Lessons · 課堂
+        Calendar · 日曆
 
     </button>
 
@@ -1549,9 +1997,9 @@ main {
 </div>
 
 
-<!-- =====================================
+<!-- ========================================
      STUDENT MODAL
-====================================== -->
+======================================== -->
 
 <div
     id="studentModal"
@@ -1559,43 +2007,46 @@ main {
     onclick="closeOutside(event,'studentModal')"
 >
 
-    <div class="modal-content">
+<div class="modal-content">
 
-        <h2 class="modal-title">
-            Add Student · 新增學生
-        </h2>
+    <h2 class="modal-title">
+        Add Student · 新增學生
+    </h2>
 
-        <p class="modal-sub">
-            Create a complete student profile · 建立完整學生資料
-        </p>
+    <p class="modal-subtitle">
+        Create a complete student profile.
+        建立完整學生資料。
+    </p>
 
 
-        <form onsubmit="saveStudent(event)">
+    <form onsubmit="saveStudent(event)">
+
+        <div class="field">
+
+            <label>
+                Student Name · 學生姓名
+            </label>
+
+            <input
+                id="studentName"
+                required
+                placeholder="Student name · 學生姓名"
+            >
+
+        </div>
+
+
+        <div class="form-grid">
 
             <div class="field">
 
                 <label>
-                    Student Name · 學生姓名
-                </label>
-
-                <input
-                    id="studentName"
-                    required
-                    placeholder="Student name · 學生姓名"
-                >
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    School / Grade · 學校／年級
+                    Grade · 年級
                 </label>
 
                 <input
                     id="studentGrade"
-                    placeholder="e.g. Primary 5 · 例如：小五"
+                    placeholder="Primary 5"
                 >
 
             </div>
@@ -1609,96 +2060,98 @@ main {
 
                 <input
                     id="studentSubject"
-                    placeholder="e.g. English · 例如：英文"
+                    placeholder="English"
                 >
 
             </div>
 
-
-            <div class="field">
-
-                <label>
-                    Lesson Type · 課堂形式
-                </label>
-
-                <select id="studentLessonType">
-
-                    <option value="Centre">
-                        Centre · 補習社
-                    </option>
-
-                    <option value="Home">
-                        Home · 上門
-                    </option>
-
-                    <option value="Online">
-                        Online · 網上
-                    </option>
-
-                </select>
-
-            </div>
+        </div>
 
 
-            <div class="field">
+        <div class="field">
 
-                <label>
-                    Home Address · 上門地址
-                </label>
+            <label>
+                Lesson Type · 課堂形式
+            </label>
 
-                <input
-                    id="studentAddress"
-                    placeholder="Only needed for home lessons · 上門課堂使用"
-                >
+            <select id="studentLessonType">
 
-            </div>
+                <option value="Centre">
+                    Centre · 補習社
+                </option>
 
+                <option value="Home">
+                    Home · 上門
+                </option>
 
-            <div class="field">
+                <option value="Online">
+                    Online · 網上
+                </option>
 
-                <label>
-                    Transport / Access Notes · 交通／進入備註
-                </label>
+            </select>
 
-                <textarea
-                    id="studentTransport"
-                    placeholder="Building entrance, transport, access information...&#10;大廈入口、交通、進入方法等..."
-                ></textarea>
-
-            </div>
+        </div>
 
 
-            <div class="field">
+        <div class="field">
 
-                <label>
-                    🔒 Private Notes · 私人備註
-                </label>
+            <label>
+                🏠 Home Address · 上門地址
+            </label>
 
-                <textarea
-                    id="studentPrivateNotes"
-                    placeholder="Tutor-only notes · 僅限導師查看"
-                ></textarea>
-
-            </div>
-
-
-            <button
-                class="primary"
-                style="margin-top:20px"
+            <input
+                id="studentAddress"
+                placeholder="For home lessons · 上門課堂使用"
             >
-                Save Student · 儲存學生
-            </button>
 
-        </form>
+        </div>
 
-    </div>
+
+        <div class="field">
+
+            <label>
+                🚗 Transport / Access · 交通／進入方法
+            </label>
+
+            <textarea
+                id="studentTransport"
+                placeholder="Building entrance, transport, access information...&#10;大廈入口、交通、進入方法等..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                🔒 Private Notes · 私人備註
+            </label>
+
+            <textarea
+                id="studentPrivateNotes"
+                placeholder="Tutor-only notes · 僅限導師查看"
+            ></textarea>
+
+        </div>
+
+
+        <button
+            class="primary"
+            style="margin-top:20px"
+        >
+            Save Student · 儲存學生
+        </button>
+
+    </form>
+
+</div>
 
 </div>
 
 
-<!-- =====================================
+<!-- ========================================
      LESSON MODAL
-====================================== -->
+======================================== -->
 
 <div
     id="lessonModal"
@@ -1706,30 +2159,35 @@ main {
     onclick="closeOutside(event,'lessonModal')"
 >
 
-    <div class="modal-content">
+<div class="modal-content">
 
-        <h2 class="modal-title">
-            Add Lesson · 新增課堂
-        </h2>
+    <h2 class="modal-title">
+        Add Lesson · 新增課堂
+    </h2>
 
-        <p class="modal-sub">
-            Schedule a lesson · 安排課堂
-        </p>
+    <p class="modal-subtitle">
+        Schedule a lesson or a recurring lesson.
+        安排單次或重複課堂。
+    </p>
 
 
-        <form onsubmit="saveLesson(event)">
+    <form onsubmit="saveLesson(event)">
 
-            <div class="field">
+        <div class="field">
 
-                <label>
-                    Student · 學生
-                </label>
+            <label>
+                Student · 學生
+            </label>
 
-                <select id="lessonStudent">
-                </select>
+            <select
+                id="lessonStudent"
+                required
+            ></select>
 
-            </div>
+        </div>
 
+
+        <div class="form-grid">
 
             <div class="field">
 
@@ -1760,52 +2218,132 @@ main {
 
             </div>
 
+        </div>
+
+
+        <div class="form-grid">
 
             <div class="field">
 
                 <label>
-                    Location · 地點
+                    Duration · 時長
                 </label>
 
-                <input
-                    id="lessonLocation"
-                    placeholder="Location · 地點"
+                <select id="lessonDuration">
+
+                    <option value="60">
+                        60 min · 1 小時
+                    </option>
+
+                    <option value="90" selected>
+                        90 min · 1.5 小時
+                    </option>
+
+                    <option value="120">
+                        120 min · 2 小時
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Repeat · 重複
+                </label>
+
+                <select
+                    id="lessonRepeat"
+                    onchange="updateRepeatFields()"
                 >
 
+                    <option value="none">
+                        Does not repeat · 不重複
+                    </option>
+
+                    <option value="weekly">
+                        Every week · 每星期
+                    </option>
+
+                    <option value="biweekly">
+                        Every 2 weeks · 每兩星期
+                    </option>
+
+                    <option value="monthly">
+                        Every month · 每月
+                    </option>
+
+                </select>
+
             </div>
 
-
-            <div class="field">
-
-                <label>
-                    🔒 Private Notes · 私人備註
-                </label>
-
-                <textarea
-                    id="lessonNotes"
-                    placeholder="Tutor-only lesson notes · 僅限導師查看"
-                ></textarea>
-
-            </div>
+        </div>
 
 
-            <button
-                class="primary"
-                style="margin-top:20px"
+        <div
+            id="repeatEndField"
+            class="field hidden"
+        >
+
+            <label>
+                Repeat Until · 重複至
+            </label>
+
+            <input
+                id="repeatEnd"
+                type="date"
             >
-                Save Lesson · 儲存課堂
-            </button>
 
-        </form>
+        </div>
 
-    </div>
+
+        <div class="field">
+
+            <label>
+                Location · 地點
+            </label>
+
+            <input
+                id="lessonLocation"
+                placeholder="Location · 地點"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                🔒 Private Notes · 私人備註
+            </label>
+
+            <textarea
+                id="lessonNotes"
+                placeholder="Tutor-only notes · 僅限導師查看"
+            ></textarea>
+
+        </div>
+
+
+        <button
+            class="primary"
+            style="margin-top:20px"
+        >
+            Save Lesson · 儲存課堂
+        </button>
+
+    </form>
+
+</div>
 
 </div>
 
 
-<!-- =====================================
+<!-- ========================================
      PAYMENT MODAL
-====================================== -->
+======================================== -->
 
 <div
     id="paymentModal"
@@ -1813,30 +2351,35 @@ main {
     onclick="closeOutside(event,'paymentModal')"
 >
 
-    <div class="modal-content">
+<div class="modal-content">
 
-        <h2 class="modal-title">
-            Add Payment · 新增付款
-        </h2>
+    <h2 class="modal-title">
+        Add Payment · 新增付款
+    </h2>
 
-        <p class="modal-sub">
-            Record a payment · 記錄付款
-        </p>
+    <p class="modal-subtitle">
+        Record payment information.
+        記錄付款資料。
+    </p>
 
 
-        <form onsubmit="savePayment(event)">
+    <form onsubmit="savePayment(event)">
 
-            <div class="field">
+        <div class="field">
 
-                <label>
-                    Student · 學生
-                </label>
+            <label>
+                Student · 學生
+            </label>
 
-                <select id="paymentStudent">
-                </select>
+            <select
+                id="paymentStudent"
+                required
+            ></select>
 
-            </div>
+        </div>
 
+
+        <div class="form-grid">
 
             <div class="field">
 
@@ -1876,77 +2419,79 @@ main {
 
             </div>
 
-
-            <div class="field">
-
-                <label>
-                    Payment Method · 付款方式
-                </label>
-
-                <select id="paymentMethod">
-
-                    <option>
-                        Cash · 現金
-                    </option>
-
-                    <option>
-                        FPS · FPS
-                    </option>
-
-                    <option>
-                        PayMe · PayMe
-                    </option>
-
-                    <option>
-                        AlipayHK · 支付寶香港
-                    </option>
-
-                    <option>
-                        WeChat Pay · 微信支付
-                    </option>
-
-                    <option>
-                        Bank Transfer · 銀行轉帳
-                    </option>
-
-                </select>
-
-            </div>
+        </div>
 
 
-            <div class="field">
+        <div class="field">
 
-                <label>
-                    🔒 Private Notes · 私人備註
-                </label>
+            <label>
+                Payment Method · 付款方式
+            </label>
 
-                <textarea
-                    id="paymentNotes"
-                    placeholder="Tutor-only payment notes · 僅限導師查看"
-                ></textarea>
+            <select id="paymentMethod">
 
-            </div>
+                <option>
+                    Cash · 現金
+                </option>
+
+                <option>
+                    FPS · FPS
+                </option>
+
+                <option>
+                    PayMe · PayMe
+                </option>
+
+                <option>
+                    AlipayHK · 支付寶香港
+                </option>
+
+                <option>
+                    WeChat Pay · 微信支付
+                </option>
+
+                <option>
+                    Bank Transfer · 銀行轉帳
+                </option>
+
+            </select>
+
+        </div>
 
 
-            <button
-                class="primary"
-                style="margin-top:20px"
-            >
-                Save Payment · 儲存付款
-            </button>
+        <div class="field">
 
-        </form>
+            <label>
+                🔒 Private Notes · 私人備註
+            </label>
 
-    </div>
+            <textarea
+                id="paymentNotes"
+                placeholder="Tutor-only notes · 僅限導師查看"
+            ></textarea>
+
+        </div>
+
+
+        <button
+            class="primary"
+            style="margin-top:20px"
+        >
+            Save Payment · 儲存付款
+        </button>
+
+    </form>
+
+</div>
 
 </div>
 
 
 <script>
 
-/* =====================================
+/* ========================================
    DATA
-===================================== */
+======================================== */
 
 let currentRole = "Tutor";
 
@@ -1965,10 +2510,22 @@ let payments =
         localStorage.getItem("tm_payments") || "[]"
     );
 
+let notificationSettings =
+    JSON.parse(
+        localStorage.getItem("tm_notifications")
+        ||
+        '{"notify24":true,"notify1":true,"notifyPayment":true}'
+    );
 
-/* =====================================
+let calendarDate = new Date();
+
+let selectedDate =
+    new Date().toISOString().slice(0,10);
+
+
+/* ========================================
    LOGIN
-===================================== */
+======================================== */
 
 function chooseRole(button) {
 
@@ -1984,7 +2541,6 @@ function chooseRole(button) {
 
     currentRole =
         button.dataset.role;
-
 }
 
 
@@ -2000,24 +2556,9 @@ function login(event) {
         .getElementById("app")
         .classList.remove("hidden");
 
-    document
-        .getElementById("roleText")
-        .textContent =
-        currentRole === "Tutor"
-            ? "Tutor · 導師"
-            : "Parent · 家長";
-
-    document
-        .getElementById("settingsRole")
-        .textContent =
-        currentRole === "Tutor"
-            ? "Tutor · 導師"
-            : "Parent · 家長";
-
-    applyRolePermissions();
+    updateRoleUI();
 
     renderAll();
-
 }
 
 
@@ -2030,57 +2571,60 @@ function logout() {
     document
         .getElementById("loginScreen")
         .classList.remove("hidden");
-
 }
 
 
-/* =====================================
-   ROLE PERMISSIONS
-===================================== */
+function updateRoleUI() {
 
-function applyRolePermissions() {
-
-    const tutorOnly =
-        document.querySelectorAll(
-            "#tutorQuickActions"
-        );
-
-    tutorOnly.forEach(function(item) {
-
-        item.style.display =
-            currentRole === "Tutor"
-                ? ""
-                : "none";
-
-    });
+    const text =
+        currentRole === "Tutor"
+            ? "Tutor · 導師"
+            : "Parent · 家長";
 
     document
-        .querySelectorAll(".private-note")
-        .forEach(function(item) {
+        .getElementById("roleText")
+        .textContent = text;
 
-            item.style.display =
-                currentRole === "Tutor"
-                    ? ""
-                    : "none";
+    document
+        .getElementById("settingsRole")
+        .textContent = text;
 
-        });
+    const quick =
+        document.getElementById("quickActions");
 
+    const privateSettings =
+        document.getElementById("privateSettings");
+
+    if (currentRole === "Tutor") {
+
+        quick.classList.remove("hidden");
+
+        privateSettings.classList.remove("hidden");
+
+    } else {
+
+        quick.classList.add("hidden");
+
+        privateSettings.classList.add("hidden");
+
+    }
 }
 
 
-/* =====================================
+/* ========================================
    NAVIGATION
-===================================== */
+======================================== */
+
+const pages = [
+    "dashboard",
+    "calendar",
+    "students",
+    "lessons",
+    "payments",
+    "settings"
+];
 
 function showPage(page) {
-
-    const pages = [
-        "dashboard",
-        "students",
-        "lessons",
-        "payments",
-        "settings"
-    ];
 
     pages.forEach(function(name) {
 
@@ -2096,7 +2640,6 @@ function showPage(page) {
         }
 
     });
-
 
     const target =
         document.getElementById(
@@ -2136,13 +2679,12 @@ function showPage(page) {
 
 
     renderAll();
-
 }
 
 
-/* =====================================
+/* ========================================
    STORAGE
-===================================== */
+======================================== */
 
 function saveData() {
 
@@ -2161,12 +2703,16 @@ function saveData() {
         JSON.stringify(payments)
     );
 
+    localStorage.setItem(
+        "tm_notifications",
+        JSON.stringify(notificationSettings)
+    );
 }
 
 
-/* =====================================
+/* ========================================
    STUDENTS
-===================================== */
+======================================== */
 
 function openStudentModal() {
 
@@ -2174,24 +2720,21 @@ function openStudentModal() {
 
         alert(
             "Only Tutor accounts can add students.\n" +
-            "只有導師帳戶可以新增學生。"
+            "只有導師可以新增學生。"
         );
 
         return;
-
     }
 
     document
         .getElementById("studentModal")
         .classList.add("show");
-
 }
 
 
 function saveStudent(event) {
 
     event.preventDefault();
-
 
     const student = {
 
@@ -2240,7 +2783,6 @@ function saveStudent(event) {
 
     };
 
-
     students.push(student);
 
     saveData();
@@ -2250,7 +2792,6 @@ function saveStudent(event) {
     closeModal("studentModal");
 
     renderAll();
-
 }
 
 
@@ -2269,16 +2810,25 @@ function renderStudents() {
 
     if (!students.length) {
 
-        list.innerHTML = `
+        const empty = `
             <div class="card">
-                <div style="text-align:center;color:#888;font-size:13px">
+                <div
+                    style="
+                    text-align:center;
+                    color:#888;
+                    font-size:13px
+                    "
+                >
                     No students yet · 暫時未有學生
                 </div>
             </div>
         `;
 
-        return;
+        list.innerHTML = empty;
 
+        dashboard.innerHTML = empty;
+
+        return;
     }
 
 
@@ -2294,7 +2844,6 @@ function renderStudents() {
                             ${escapeHTML(
                                 student.name
                                     .charAt(0)
-                                    .toUpperCase()
                             )}
                         </div>
 
@@ -2305,11 +2854,17 @@ function renderStudents() {
                             </div>
 
                             <div class="student-detail">
-                                ${escapeHTML(student.grade || "—")}
+                                ${escapeHTML(
+                                    student.grade || "—"
+                                )}
                                 ·
-                                ${escapeHTML(student.subject || "—")}
+                                ${escapeHTML(
+                                    student.subject || "—"
+                                )}
                                 ·
-                                ${escapeHTML(student.lessonType)}
+                                ${escapeHTML(
+                                    student.lessonType
+                                )}
                             </div>
 
                         </div>
@@ -2319,58 +2874,54 @@ function renderStudents() {
                     ${
                         currentRole === "Tutor"
                         ? `
-                        <div
-                            class="private-note"
-                            style="margin-top:12px"
-                        >
-
-                            <div class="private-title">
-                                🔒 Private Notes · 私人備註
-                            </div>
-
-                            <div class="private-sub">
-                                ${escapeHTML(
-                                    student.privateNotes ||
-                                    "No private notes · 暫時未有備註"
-                                )}
-                            </div>
-
-                        </div>
-                        `
-                        : ""
-                    }
-
-                    ${
-                        currentRole === "Tutor" &&
-                        student.lessonType === "Home"
-                        ? `
-                        <div
-                            class="private-note"
-                            style="margin-top:9px"
-                        >
-
-                            <div class="private-title">
-                                🏠 Home Address · 上門地址
-                            </div>
-
-                            <div class="private-sub">
-                                ${escapeHTML(
-                                    student.address ||
-                                    "No address added · 暫時未有地址"
-                                )}
-                            </div>
-
                             <div
-                                class="private-sub"
-                                style="margin-top:7px"
+                                class="private-note"
+                                style="margin-top:10px"
                             >
-                                🚗 ${escapeHTML(
-                                    student.transport ||
-                                    "No transport notes · 暫時未有交通備註"
-                                )}
+
+                                <div class="private-title">
+                                    🔒 Private Notes · 私人備註
+                                </div>
+
+                                <div class="private-text">
+                                    ${escapeHTML(
+                                        student.privateNotes ||
+                                        "No private notes · 暫時未有備註"
+                                    )}
+                                </div>
+
                             </div>
 
-                        </div>
+                            ${
+                                student.lessonType === "Home"
+                                ? `
+                                <div
+                                    class="private-note"
+                                    style="margin-top:9px"
+                                >
+
+                                    <div class="private-title">
+                                        🏠 Home Address · 上門地址
+                                    </div>
+
+                                    <div class="private-text">
+                                        ${escapeHTML(
+                                            student.address ||
+                                            "No address · 暫時未有地址"
+                                        )}
+                                    </div>
+
+                                    <div class="private-text">
+                                        🚗 ${escapeHTML(
+                                            student.transport ||
+                                            "No transport notes · 暫時未有交通備註"
+                                        )}
+                                    </div>
+
+                                </div>
+                                `
+                                : ""
+                            }
                         `
                         : ""
                     }
@@ -2387,13 +2938,15 @@ function renderStudents() {
             .map(function(student) {
 
                 return `
-                    <div class="student" style="margin-bottom:9px">
+                    <div
+                        class="student"
+                        style="margin-bottom:9px"
+                    >
 
                         <div class="avatar">
                             ${escapeHTML(
                                 student.name
                                     .charAt(0)
-                                    .toUpperCase()
                             )}
                         </div>
 
@@ -2415,13 +2968,12 @@ function renderStudents() {
                 `;
 
             }).join("");
-
 }
 
 
-/* =====================================
+/* ========================================
    LESSONS
-===================================== */
+======================================== */
 
 function openLessonModal() {
 
@@ -2429,21 +2981,68 @@ function openLessonModal() {
 
         alert(
             "Only Tutor accounts can add lessons.\n" +
-            "只有導師帳戶可以新增課堂。"
+            "只有導師可以新增課堂。"
         );
 
         return;
-
     }
 
+    if (!students.length) {
+
+        alert(
+            "Please add a student first.\n" +
+            "請先新增學生。"
+        );
+
+        return;
+    }
 
     populateStudentSelects();
 
+    document
+        .getElementById("lessonDate")
+        .value = selectedDate;
 
     document
         .getElementById("lessonModal")
         .classList.add("show");
+}
 
+
+function updateRepeatFields() {
+
+    const repeat =
+        document
+            .getElementById("lessonRepeat")
+            .value;
+
+    const field =
+        document
+            .getElementById("repeatEndField");
+
+    if (repeat === "none") {
+
+        field.classList.add("hidden");
+
+    } else {
+
+        field.classList.remove("hidden");
+
+        if (!document.getElementById("repeatEnd").value) {
+
+            const end = new Date();
+
+            end.setMonth(
+                end.getMonth() + 3
+            );
+
+            document
+                .getElementById("repeatEnd")
+                .value =
+                end.toISOString()
+                    .slice(0,10);
+        }
+    }
 }
 
 
@@ -2451,10 +3050,25 @@ function saveLesson(event) {
 
     event.preventDefault();
 
+    const repeat =
+        document
+            .getElementById("lessonRepeat")
+            .value;
 
-    const lesson = {
+    const startDate =
+        document
+            .getElementById("lessonDate")
+            .value;
 
-        id: Date.now(),
+    const endDate =
+        repeat === "none"
+            ? startDate
+            : document
+                .getElementById("repeatEnd")
+                .value;
+
+
+    const base = {
 
         studentId:
             Number(
@@ -2463,15 +3077,17 @@ function saveLesson(event) {
                     .value
             ),
 
-        date:
-            document
-                .getElementById("lessonDate")
-                .value,
-
         time:
             document
                 .getElementById("lessonTime")
                 .value,
+
+        duration:
+            Number(
+                document
+                    .getElementById("lessonDuration")
+                    .value
+            ),
 
         location:
             document
@@ -2483,21 +3099,114 @@ function saveLesson(event) {
             document
                 .getElementById("lessonNotes")
                 .value
-                .trim()
+                .trim(),
+
+        repeat: repeat,
+
+        seriesId: Date.now()
 
     };
 
 
-    lessons.push(lesson);
+    const generated = [];
+
+
+    let cursor =
+        new Date(startDate + "T00:00:00");
+
+    const finish =
+        new Date(endDate + "T00:00:00");
+
+
+    while (cursor <= finish) {
+
+        generated.push({
+
+            id:
+                Date.now() +
+                Math.random(),
+
+            studentId:
+                base.studentId,
+
+            date:
+                cursor
+                    .toISOString()
+                    .slice(0,10),
+
+            time:
+                base.time,
+
+            duration:
+                base.duration,
+
+            location:
+                base.location,
+
+            notes:
+                base.notes,
+
+            repeat:
+                base.repeat,
+
+            seriesId:
+                base.seriesId
+
+        });
+
+
+        if (repeat === "none") {
+
+            break;
+
+        }
+
+
+        if (repeat === "weekly") {
+
+            cursor.setDate(
+                cursor.getDate() + 7
+            );
+
+        }
+
+        else if (repeat === "biweekly") {
+
+            cursor.setDate(
+                cursor.getDate() + 14
+            );
+
+        }
+
+        else if (repeat === "monthly") {
+
+            cursor.setMonth(
+                cursor.getMonth() + 1
+            );
+
+        }
+
+        else {
+
+            break;
+
+        }
+    }
+
+
+    lessons.push(...generated);
 
     saveData();
 
     event.target.reset();
 
+    document
+        .getElementById("repeatEndField")
+        .classList.add("hidden");
+
     closeModal("lessonModal");
 
     renderAll();
-
 }
 
 
@@ -2508,48 +3217,339 @@ function renderLessons() {
             "lessonsList"
         );
 
+
     if (!lessons.length) {
 
         list.innerHTML = `
             <div class="card">
-                <div style="text-align:center;color:#888;font-size:13px">
+                <div
+                    style="
+                    text-align:center;
+                    color:#888;
+                    font-size:13px
+                    "
+                >
                     No lessons yet · 暫時未有課堂
                 </div>
             </div>
         `;
 
         return;
-
     }
 
 
-    list.innerHTML =
+    const sorted =
         lessons
             .slice()
             .sort(function(a,b) {
 
                 return (
-                    (a.date + a.time)
-                    .localeCompare(
-                        b.date + b.time
-                    )
+                    a.date + a.time
+                ).localeCompare(
+                    b.date + b.time
                 );
 
-            })
-            .map(function(lesson) {
-
-                const student =
-                    students.find(function(s) {
-
-                        return s.id === lesson.studentId;
-
-                    });
+            });
 
 
-                return `
-                    <div class="card">
+    list.innerHTML =
+        sorted.map(function(lesson) {
 
-                        <div style="font-weight:720">
+            const student =
+                students.find(function(s) {
+
+                    return s.id === lesson.studentId;
+
+                });
+
+
+            return `
+                <div class="card">
+
+                    <div class="lesson-item">
+
+                        <div class="lesson-top">
+
+                            <div>
+
+                                <div class="lesson-name">
+                                    ${escapeHTML(
+                                        student
+                                            ? student.name
+                                            : "Unknown Student"
+                                    )}
+                                </div>
+
+                                <div class="lesson-time">
+                                    📅 ${escapeHTML(lesson.date)}
+                                    ·
+                                    ${escapeHTML(lesson.time)}
+                                    ·
+                                    ${lesson.duration} min
+                                </div>
+
+                                <div class="lesson-location">
+                                    📍 ${escapeHTML(
+                                        lesson.location || "—"
+                                    )}
+                                </div>
+
+                            </div>
+
+                            ${
+                                lesson.repeat !== "none"
+                                ? `
+                                    <span class="repeat-badge">
+                                        🔁 ${
+                                            lesson.repeat === "weekly"
+                                            ? "Weekly"
+                                            : lesson.repeat === "biweekly"
+                                            ? "Biweekly"
+                                            : "Monthly"
+                                        }
+                                    </span>
+                                `
+                                : ""
+                            }
+
+                        </div>
+
+
+                        ${
+                            currentRole === "Tutor"
+                            ? `
+                                <div
+                                    class="private-note"
+                                    style="margin-top:10px"
+                                >
+
+                                    <div class="private-title">
+                                        🔒 Private Notes · 私人備註
+                                    </div>
+
+                                    <div class="private-text">
+                                        ${escapeHTML(
+                                            lesson.notes ||
+                                            "No notes · 暫時未有備註"
+                                        )}
+                                    </div>
+
+                                </div>
+                            `
+                            : ""
+                        }
+
+                    </div>
+
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+/* ========================================
+   CALENDAR
+======================================== */
+
+function changeMonth(amount) {
+
+    calendarDate.setMonth(
+        calendarDate.getMonth() + amount
+    );
+
+    renderCalendar();
+}
+
+
+function renderCalendar() {
+
+    const monthTitle =
+        document.getElementById(
+            "calendarMonth"
+        );
+
+    const daysContainer =
+        document.getElementById(
+            "calendarDays"
+        );
+
+
+    const year =
+        calendarDate.getFullYear();
+
+    const month =
+        calendarDate.getMonth();
+
+
+    const monthNames = [
+        "January · 一月",
+        "February · 二月",
+        "March · 三月",
+        "April · 四月",
+        "May · 五月",
+        "June · 六月",
+        "July · 七月",
+        "August · 八月",
+        "September · 九月",
+        "October · 十月",
+        "November · 十一月",
+        "December · 十二月"
+    ];
+
+
+    monthTitle.textContent =
+        monthNames[month] +
+        " " +
+        year;
+
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+
+    const totalDays =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    let html = "";
+
+
+    for (let i = 0; i < firstDay; i++) {
+
+        html += `
+            <div class="day empty"></div>
+        `;
+
+    }
+
+
+    for (let day = 1; day <= totalDays; day++) {
+
+        const date =
+            `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+
+
+        const hasLesson =
+            lessons.some(function(lesson) {
+
+                return lesson.date === date;
+
+            });
+
+
+        const today =
+            date ===
+            new Date()
+                .toISOString()
+                .slice(0,10);
+
+
+        const selected =
+            date === selectedDate;
+
+
+        html += `
+
+            <div
+                class="day
+                    ${today ? "today" : ""}
+                    ${selected ? "selected" : ""}
+                "
+                onclick="selectCalendarDate('${date}')"
+            >
+
+                <div class="day-number">
+                    ${day}
+                </div>
+
+                ${
+                    hasLesson
+                    ? `<div class="day-dot"></div>`
+                    : ""
+                }
+
+            </div>
+
+        `;
+    }
+
+
+    daysContainer.innerHTML = html;
+
+    renderSelectedDayLessons();
+}
+
+
+function selectCalendarDate(date) {
+
+    selectedDate = date;
+
+    renderCalendar();
+}
+
+
+function renderSelectedDayLessons() {
+
+    const container =
+        document.getElementById(
+            "selectedDayLessons"
+        );
+
+
+    const dayLessons =
+        lessons.filter(function(lesson) {
+
+            return lesson.date === selectedDate;
+
+        });
+
+
+    if (!dayLessons.length) {
+
+        container.innerHTML = `
+            <div class="card">
+                <div
+                    style="
+                    text-align:center;
+                    color:#888;
+                    font-size:13px
+                    "
+                >
+                    No lessons on this day · 當日沒有課堂
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        dayLessons.map(function(lesson) {
+
+            const student =
+                students.find(function(s) {
+
+                    return s.id === lesson.studentId;
+
+                });
+
+
+            return `
+                <div class="card">
+
+                    <div class="lesson-item">
+
+                        <div class="lesson-name">
                             ${escapeHTML(
                                 student
                                     ? student.name
@@ -2557,60 +3557,29 @@ function renderLessons() {
                             )}
                         </div>
 
-                        <div
-                            style="
-                            margin-top:6px;
-                            color:#858782;
-                            font-size:12px
-                            "
-                        >
-                            📅 ${escapeHTML(lesson.date)}
-                            ·
-                            ${escapeHTML(lesson.time)}
+                        <div class="lesson-time">
+                            🕐 ${escapeHTML(lesson.time)}
+                            · ${lesson.duration} min
                         </div>
 
-                        <div
-                            style="
-                            margin-top:4px;
-                            color:#858782;
-                            font-size:12px
-                            "
-                        >
+                        <div class="lesson-location">
                             📍 ${escapeHTML(
                                 lesson.location || "—"
                             )}
                         </div>
 
-                        ${
-                            currentRole === "Tutor"
-                            ? `
-                            <div
-                                class="private-note"
-                                style="margin-top:11px"
-                            >
-                                🔒 Private Notes · 私人備註
-                                <div class="private-sub">
-                                    ${escapeHTML(
-                                        lesson.notes ||
-                                        "No notes · 暫時未有備註"
-                                    )}
-                                </div>
-                            </div>
-                            `
-                            : ""
-                        }
-
                     </div>
-                `;
 
-            }).join("");
+                </div>
+            `;
 
+        }).join("");
 }
 
 
-/* =====================================
+/* ========================================
    PAYMENTS
-===================================== */
+======================================== */
 
 function openPaymentModal() {
 
@@ -2618,28 +3587,33 @@ function openPaymentModal() {
 
         alert(
             "Only Tutor accounts can add payments.\n" +
-            "只有導師帳戶可以新增付款。"
+            "只有導師可以新增付款。"
         );
 
         return;
-
     }
 
+    if (!students.length) {
+
+        alert(
+            "Please add a student first.\n" +
+            "請先新增學生。"
+        );
+
+        return;
+    }
 
     populateStudentSelects();
-
 
     document
         .getElementById("paymentModal")
         .classList.add("show");
-
 }
 
 
 function savePayment(event) {
 
     event.preventDefault();
-
 
     const payment = {
 
@@ -2687,7 +3661,6 @@ function savePayment(event) {
     closeModal("paymentModal");
 
     renderAll();
-
 }
 
 
@@ -2703,14 +3676,19 @@ function renderPayments() {
 
         list.innerHTML = `
             <div class="card">
-                <div style="text-align:center;color:#888;font-size:13px">
+                <div
+                    style="
+                    text-align:center;
+                    color:#888;
+                    font-size:13px
+                    "
+                >
                     No payments yet · 暫時未有付款記錄
                 </div>
             </div>
         `;
 
         return;
-
     }
 
 
@@ -2732,13 +3710,17 @@ function renderPayments() {
                         style="
                         display:flex;
                         justify-content:space-between;
-                        gap:10px
+                        gap:12px
                         "
                     >
 
                         <div>
 
-                            <div style="font-weight:720">
+                            <div
+                                style="
+                                font-weight:720
+                                "
+                            >
                                 ${escapeHTML(
                                     student
                                         ? student.name
@@ -2747,54 +3729,55 @@ function renderPayments() {
                             </div>
 
                             <div
-                                style="
-                                margin-top:4px;
-                                color:#858782;
-                                font-size:11px
-                                "
+                                class="small muted"
+                                style="margin-top:4px"
                             >
-                                ${escapeHTML(payment.method)}
-                            </div>
-
-                        </div>
-
-                        <div style="font-weight:780">
-                            $${payment.amount.toFixed(2)}
-                        </div>
-
-                    </div>
-
-                    <div
-                        style="
-                        margin-top:9px;
-                        font-size:11px;
-                        color:#777
-                        "
-                    >
-                        ${
-                            payment.status === "Paid"
-                                ? "✓ Paid · 已付款"
-                                : "○ Unpaid · 未付款"
-                        }
-                    </div>
-
-                    ${
-                        currentRole === "Tutor"
-                        ? `
-                        <div
-                            class="private-note"
-                            style="margin-top:11px"
-                        >
-                            🔒 Private Notes · 私人備註
-
-                            <div class="private-sub">
                                 ${escapeHTML(
-                                    payment.notes ||
-                                    "No notes · 暫時未有備註"
+                                    payment.method
                                 )}
                             </div>
 
                         </div>
+
+                        <strong>
+                            $${payment.amount.toFixed(2)}
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="small"
+                        style="margin-top:9px"
+                    >
+                        ${
+                            payment.status === "Paid"
+                            ? "✓ Paid · 已付款"
+                            : "○ Unpaid · 未付款"
+                        }
+                    </div>
+
+
+                    ${
+                        currentRole === "Tutor"
+                        ? `
+                            <div
+                                class="private-note"
+                                style="margin-top:10px"
+                            >
+
+                                <div class="private-title">
+                                    🔒 Private Notes · 私人備註
+                                </div>
+
+                                <div class="private-text">
+                                    ${escapeHTML(
+                                        payment.notes ||
+                                        "No notes · 暫時未有備註"
+                                    )}
+                                </div>
+
+                            </div>
                         `
                         : ""
                     }
@@ -2803,19 +3786,17 @@ function renderPayments() {
             `;
 
         }).join("");
-
 }
 
 
-/* =====================================
+/* ========================================
    SELECTS
-===================================== */
+======================================== */
 
 function populateStudentSelects() {
 
     const options =
-        students.length
-        ? students.map(function(student) {
+        students.map(function(student) {
 
             return `
                 <option value="${student.id}">
@@ -2823,12 +3804,7 @@ function populateStudentSelects() {
                 </option>
             `;
 
-        }).join("")
-        : `
-            <option value="">
-                No students · 暫時未有學生
-            </option>
-        `;
+        }).join("");
 
 
     document
@@ -2838,13 +3814,12 @@ function populateStudentSelects() {
     document
         .getElementById("paymentStudent")
         .innerHTML = options;
-
 }
 
 
-/* =====================================
+/* ========================================
    DASHBOARD
-===================================== */
+======================================== */
 
 function renderDashboard() {
 
@@ -2852,6 +3827,7 @@ function renderDashboard() {
         .getElementById("studentCount")
         .textContent =
         students.length;
+
 
     document
         .getElementById("lessonCount")
@@ -2861,28 +3837,28 @@ function renderDashboard() {
 
     const unpaid =
         payments
-            .filter(function(payment) {
+            .filter(function(p) {
 
-                return payment.status === "Unpaid";
+                return p.status === "Unpaid";
 
             })
-            .reduce(function(total,payment) {
+            .reduce(function(total,p) {
 
-                return total + payment.amount;
+                return total + p.amount;
 
             },0);
 
 
     const income =
         payments
-            .filter(function(payment) {
+            .filter(function(p) {
 
-                return payment.status === "Paid";
+                return p.status === "Paid";
 
             })
-            .reduce(function(total,payment) {
+            .reduce(function(total,p) {
 
-                return total + payment.amount;
+                return total + p.amount;
 
             },0);
 
@@ -2900,96 +3876,209 @@ function renderDashboard() {
 
 
     const upcoming =
+        lessons
+            .filter(function(lesson) {
+
+                return lesson.date >=
+                    new Date()
+                        .toISOString()
+                        .slice(0,10);
+
+            })
+            .sort(function(a,b) {
+
+                return (
+                    a.date + a.time
+                ).localeCompare(
+                    b.date + b.time
+                );
+
+            })
+            .slice(0,3);
+
+
+    const container =
         document.getElementById(
             "upcomingLessons"
         );
 
 
-    if (!lessons.length) {
+    if (!upcoming.length) {
 
-        upcoming.innerHTML = `
+        container.innerHTML = `
             <div class="card">
-                <div style="text-align:center;color:#888;font-size:13px">
-                    No lessons yet · 暫時未有課堂
+                <div
+                    style="
+                    text-align:center;
+                    color:#888;
+                    font-size:13px
+                    "
+                >
+                    No upcoming lessons · 暫時未有即將課堂
                 </div>
             </div>
         `;
 
         return;
-
     }
 
 
-    upcoming.innerHTML =
-        lessons
-            .slice()
-            .sort(function(a,b) {
+    container.innerHTML =
+        upcoming.map(function(lesson) {
 
-                return (
-                    (a.date+a.time)
-                    .localeCompare(
-                        b.date+b.time
-                    )
-                );
+            const student =
+                students.find(function(s) {
 
-            })
-            .slice(0,3)
-            .map(function(lesson) {
+                    return s.id === lesson.studentId;
 
-                const student =
-                    students.find(function(s) {
-
-                        return s.id === lesson.studentId;
-
-                    });
+                });
 
 
-                return `
-                    <div class="card">
+            return `
+                <div class="card">
 
-                        <div style="font-weight:720">
-                            ${escapeHTML(
-                                student
-                                    ? student.name
-                                    : "Unknown Student"
-                            )}
-                        </div>
-
-                        <div
-                            style="
-                            margin-top:5px;
-                            color:#858782;
-                            font-size:12px
-                            "
-                        >
-                            📅 ${escapeHTML(lesson.date)}
-                            ·
-                            ${escapeHTML(lesson.time)}
-                        </div>
-
-                        <div
-                            style="
-                            margin-top:4px;
-                            color:#858782;
-                            font-size:12px
-                            "
-                        >
-                            📍 ${escapeHTML(
-                                lesson.location || "—"
-                            )}
-                        </div>
-
+                    <div class="lesson-name">
+                        ${escapeHTML(
+                            student
+                                ? student.name
+                                : "Unknown Student"
+                        )}
                     </div>
-                `;
 
-            }).join("");
+                    <div class="lesson-time">
+                        📅 ${escapeHTML(lesson.date)}
+                        ·
+                        ${escapeHTML(lesson.time)}
+                    </div>
 
+                    <div class="lesson-location">
+                        📍 ${escapeHTML(
+                            lesson.location || "—"
+                        )}
+                    </div>
+
+                </div>
+            `;
+
+        }).join("");
 }
 
 
-/* =====================================
-   RENDER ALL
-===================================== */
+/* ========================================
+   NOTIFICATIONS
+======================================== */
+
+function toggleNotification(id) {
+
+    notificationSettings[id] =
+        !notificationSettings[id];
+
+    const button =
+        document.getElementById(id);
+
+    button.classList.toggle(
+        "on",
+        notificationSettings[id]
+    );
+
+    saveData();
+}
+
+
+function requestNotifications() {
+
+    if (!("Notification" in window)) {
+
+        alert(
+            "Notifications are not supported by this browser.\n" +
+            "此瀏覽器不支援通知。"
+        );
+
+        return;
+    }
+
+
+    Notification
+        .requestPermission()
+        .then(function(permission) {
+
+            if (permission === "granted") {
+
+                new Notification(
+                    "Tutor Manager · 導師管理系統",
+                    {
+                        body:
+                            "Notifications enabled · 已開啟通知"
+                    }
+                );
+
+            }
+
+        });
+}
+
+
+function loadNotificationUI() {
+
+    Object.keys(notificationSettings)
+        .forEach(function(id) {
+
+            const button =
+                document.getElementById(id);
+
+            if (button) {
+
+                button.classList.toggle(
+                    "on",
+                    notificationSettings[id]
+                );
+
+            }
+
+        });
+}
+
+
+/* ========================================
+   MODALS
+======================================== */
+
+function closeModal(id) {
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+}
+
+
+function closeOutside(event,id) {
+
+    if (event.target.id === id) {
+
+        closeModal(id);
+
+    }
+}
+
+
+/* ========================================
+   SECURITY / HTML ESCAPE
+======================================== */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* ========================================
+   RENDER
+======================================== */
 
 function renderAll() {
 
@@ -3001,58 +4090,22 @@ function renderAll() {
 
     renderPayments();
 
-    applyRolePermissions();
+    renderCalendar();
 
+    loadNotificationUI();
+
+    updateRoleUI();
 }
 
 
-/* =====================================
-   MODALS
-===================================== */
-
-function closeModal(id) {
-
-    document
-        .getElementById(id)
-        .classList.remove("show");
-
-}
-
-
-function closeOutside(event,id) {
-
-    if (event.target.id === id) {
-
-        closeModal(id);
-
-    }
-
-}
-
-
-/* =====================================
-   HTML SAFETY
-===================================== */
-
-function escapeHTML(value) {
-
-    return String(value || "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-/* =====================================
+/* ========================================
    START
-===================================== */
+======================================== */
 
 renderAll();
 
 </script>
 
 </body>
+
 </html>
