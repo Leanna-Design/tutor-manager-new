@@ -1,26 +1,43 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-HK">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutor Management</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Tutor Manager · 補習管理</title>
+
+  <!-- App Icon / Favicon -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="./Tutor%20Manager%20Education%20Icon.png"
+  >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
-      --bg: #f6f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --primary: #5b5bd6;
-      --primary-dark: #4646b8;
-      --border: #e5e7eb;
-      --danger: #dc2626;
-      --success: #16a34a;
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+      --navy: #17243A;
+      --navy-dark: #101A2B;
+      --navy-soft: #263650;
+
+      --cream: #F7F5EF;
+      --cream-dark: #EEEAE0;
+
+      --gold: #C9A96E;
+      --gold-dark: #AA8952;
+      --gold-light: #F2E8D2;
+
+      --white: #FFFFFF;
+      --text: #17243A;
+      --muted: #747A84;
+      --border: #E5E1D8;
+
+      --success: #287A55;
+      --danger: #B84646;
+
+      --radius: 20px;
+      --shadow: 0 12px 35px rgba(23, 36, 58, 0.08);
     }
 
     * {
@@ -29,21 +46,29 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
+      min-height: 100vh;
+      background: var(--cream);
+      color: var(--text);
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
+        "SF Pro Display",
         "Segoe UI",
         Roboto,
         Arial,
         sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
     }
 
     button,
-    input {
+    input,
+    select,
+    textarea {
       font: inherit;
     }
 
@@ -55,23 +80,34 @@
       display: none !important;
     }
 
-    /* =========================
-       LOGIN
-    ========================= */
+    /* =========================================
+       AUTH SCREEN
+    ========================================= */
 
     #authScreen {
       min-height: 100vh;
+
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+
       padding: 24px;
+
       background:
-        radial-gradient(circle at top left, rgba(91,91,214,.12), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(91,91,214,.10), transparent 35%),
-        var(--bg);
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(201,169,110,0.16),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 90% 90%,
+          rgba(23,36,58,0.08),
+          transparent 35%
+        ),
+        var(--cream);
     }
 
-    .auth-container {
+    .auth-wrapper {
       width: 100%;
       max-width: 430px;
     }
@@ -81,76 +117,136 @@
       margin-bottom: 24px;
     }
 
-    .app-icon {
-      width: 76px;
-      height: 76px;
+    .brand-icon {
+      width: 88px;
+      height: 88px;
+
+      object-fit: contain;
+
       margin: 0 auto 16px;
-      border-radius: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--primary);
-      color: white;
-      font-size: 34px;
-      font-weight: 700;
-      box-shadow: 0 14px 30px rgba(91,91,214,.25);
+
+      border-radius: 25px;
+
+      box-shadow:
+        0 15px 35px rgba(23,36,58,0.16);
     }
 
     .brand h1 {
-      font-size: 27px;
-      margin-bottom: 5px;
+      font-size: 28px;
+      letter-spacing: -0.7px;
+      color: var(--navy);
     }
 
     .brand p {
+      margin-top: 6px;
       color: var(--muted);
       font-size: 14px;
     }
 
     .auth-card {
-      background: var(--card);
+      background: var(--white);
+
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 26px;
+
+      padding: 28px;
+
       box-shadow: var(--shadow);
     }
 
-    .auth-card h2 {
-      font-size: 21px;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 14px;
+    .auth-heading {
       margin-bottom: 22px;
     }
 
+    .auth-heading h2 {
+      font-size: 22px;
+      color: var(--navy);
+    }
+
+    .auth-heading p {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .login-method {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      background: var(--cream);
+
+      border-radius: 13px;
+      padding: 4px;
+
+      margin-bottom: 20px;
+    }
+
+    .method-button {
+      border: 0;
+      background: transparent;
+
+      border-radius: 10px;
+
+      padding: 10px 7px;
+
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .method-button.active {
+      background: var(--white);
+      color: var(--navy);
+
+      box-shadow:
+        0 3px 10px rgba(23,36,58,0.08);
+    }
+
     .field {
-      margin-bottom: 17px;
+      margin-bottom: 16px;
     }
 
     .field label {
       display: block;
-      font-size: 13px;
-      font-weight: 600;
+
       margin-bottom: 7px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      color: var(--navy);
     }
 
     .field input,
-    .phone-input {
+    .field select,
+    .field textarea {
       width: 100%;
+
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 13px;
+
       padding: 13px 14px;
+
+      background: var(--white);
+      color: var(--text);
+
       outline: none;
-      background: #fff;
-      transition: .2s;
+
+      transition: 0.2s;
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
     }
 
     .field input:focus,
-    .phone-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(91,91,214,.10);
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--gold);
+
+      box-shadow:
+        0 0 0 3px rgba(201,169,110,0.15);
     }
 
     .phone-row {
@@ -161,158 +257,238 @@
     .country-code {
       width: 82px;
       flex-shrink: 0;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #fafafa;
-      font-size: 14px;
-      font-weight: 600;
-    }
 
-    .primary-btn {
-      width: 100%;
-      border: 0;
-      border-radius: 12px;
-      padding: 14px;
-      background: var(--primary);
-      color: white;
-      font-weight: 700;
-      transition: .2s;
-    }
-
-    .primary-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    .secondary-btn {
-      width: 100%;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 13px;
-      background: white;
-      color: var(--text);
-      font-weight: 600;
+      border-radius: 13px;
+
+      background: var(--cream);
+
+      font-size: 13px;
+      font-weight: 800;
     }
 
-    .switch-mode {
-      margin-top: 17px;
+    .main-button {
+      width: 100%;
+
+      border: 0;
+      border-radius: 13px;
+
+      padding: 14px;
+
+      background: var(--navy);
+      color: var(--white);
+
+      font-weight: 800;
+
+      transition: 0.2s;
+    }
+
+    .main-button:hover {
+      background: var(--navy-dark);
+      transform: translateY(-1px);
+    }
+
+    .main-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .switch-area {
       text-align: center;
+
+      margin-top: 17px;
+
       color: var(--muted);
       font-size: 14px;
     }
 
-    .switch-mode button {
+    .switch-button {
       border: 0;
-      background: none;
-      color: var(--primary);
-      font-weight: 700;
+      background: transparent;
+
+      color: var(--gold-dark);
+
+      font-weight: 800;
     }
 
     .message {
-      margin-top: 14px;
-      padding: 11px 12px;
-      border-radius: 10px;
-      font-size: 13px;
       display: none;
+
+      margin-top: 15px;
+
+      padding: 12px 13px;
+
+      border-radius: 11px;
+
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .message.error {
       display: block;
-      background: #fef2f2;
+
+      background: #FFF1F1;
       color: var(--danger);
     }
 
     .message.success {
       display: block;
-      background: #f0fdf4;
+
+      background: #EFF8F3;
       color: var(--success);
     }
 
-    /* =========================
+    /* =========================================
        APP
-    ========================= */
+    ========================================= */
 
     #appScreen {
       min-height: 100vh;
     }
 
     .topbar {
-      height: 70px;
-      background: white;
-      border-bottom: 1px solid var(--border);
+      height: 72px;
+
+      background: var(--navy);
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       padding: 0 22px;
+
       position: sticky;
       top: 0;
-      z-index: 10;
+
+      z-index: 50;
+
+      box-shadow:
+        0 5px 20px rgba(23,36,58,0.14);
     }
 
-    .topbar-brand {
+    .topbar-left {
       display: flex;
       align-items: center;
       gap: 11px;
-      font-weight: 700;
-    }
 
-    .small-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--primary);
       color: white;
+
+      font-weight: 800;
+    }
+
+    .topbar-icon {
+      width: 43px;
+      height: 43px;
+
+      object-fit: contain;
+
+      border-radius: 12px;
+
+      background: white;
+    }
+
+    .logout-button {
+      border: 1px solid rgba(255,255,255,0.2);
+
+      background: rgba(255,255,255,0.08);
+
+      color: white;
+
+      border-radius: 10px;
+
+      padding: 9px 13px;
+
+      font-size: 13px;
       font-weight: 700;
     }
 
-    .logout-btn {
-      border: 1px solid var(--border);
-      background: white;
-      border-radius: 10px;
-      padding: 9px 13px;
-      font-size: 13px;
-      font-weight: 600;
+    .logout-button:hover {
+      background: rgba(255,255,255,0.15);
     }
 
-    .layout {
+    .app-layout {
       display: flex;
-      min-height: calc(100vh - 70px);
+
+      min-height:
+        calc(100vh - 72px);
     }
+
+    /* =========================================
+       SIDEBAR
+    ========================================= */
 
     .sidebar {
-      width: 230px;
-      background: white;
+      width: 245px;
+
+      flex-shrink: 0;
+
+      background: var(--white);
+
       border-right: 1px solid var(--border);
-      padding: 18px 12px;
+
+      padding: 20px 13px;
     }
 
-    .nav-btn {
+    .nav-section-title {
+      padding: 8px 12px;
+
+      margin-bottom: 7px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .nav-button {
       width: 100%;
+
       border: 0;
       background: transparent;
-      border-radius: 11px;
+
       padding: 12px;
+
+      border-radius: 12px;
+
       text-align: left;
+
       margin-bottom: 5px;
-      color: #4b5563;
-      font-weight: 600;
+
+      color: #59606B;
+
+      font-weight: 700;
+
+      transition: 0.2s;
     }
 
-    .nav-btn:hover,
-    .nav-btn.active {
-      background: #f0f0ff;
-      color: var(--primary);
+    .nav-button:hover {
+      background: var(--cream);
+      color: var(--navy);
     }
+
+    .nav-button.active {
+      background: var(--gold-light);
+      color: var(--navy);
+    }
+
+    /* =========================================
+       MAIN
+    ========================================= */
 
     .main {
       flex: 1;
-      padding: 28px;
-      max-width: 1400px;
+
+      padding: 30px;
+
+      max-width: 1450px;
     }
 
     .welcome {
@@ -320,70 +496,210 @@
     }
 
     .welcome h2 {
-      font-size: 27px;
-      margin-bottom: 5px;
+      font-size: 28px;
+
+      color: var(--navy);
+
+      letter-spacing: -0.6px;
     }
 
     .welcome p {
+      margin-top: 6px;
+
       color: var(--muted);
-    }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .stat-card,
-    .content-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: 0 5px 18px rgba(0,0,0,.04);
-    }
-
-    .stat-title {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .stat-value {
-      font-size: 28px;
-      font-weight: 750;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 18px;
-    }
-
-    .content-card h3 {
-      margin-bottom: 14px;
-      font-size: 17px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 35px 15px;
-      color: var(--muted);
       font-size: 14px;
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
+    /* =========================================
+       STATS
+    ========================================= */
 
-    @media (max-width: 800px) {
+    .stats {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 16px;
+
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--white);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      padding: 21px;
+
+      box-shadow:
+        0 5px 18px rgba(23,36,58,0.04);
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-label {
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .stat-icon {
+      width: 35px;
+      height: 35px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      background: var(--cream);
+
+      font-size: 17px;
+    }
+
+    .stat-value {
+      margin-top: 10px;
+
+      font-size: 30px;
+
+      color: var(--navy);
+
+      font-weight: 850;
+    }
+
+    /* =========================================
+       DASHBOARD CARDS
+    ========================================= */
+
+    .dashboard-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.35fr 1fr;
+
+      gap: 18px;
+    }
+
+    .content-card {
+      background: var(--white);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      padding: 21px;
+
+      box-shadow:
+        0 5px 18px rgba(23,36,58,0.04);
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 14px;
+    }
+
+    .card-heading h3 {
+      font-size: 17px;
+      color: var(--navy);
+    }
+
+    .card-heading span {
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .empty {
+      padding: 32px 10px;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+    /* =========================================
+       PRIVATE NOTES
+    ========================================= */
+
+    .private-note-box {
+      margin-top: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #FFFDF8,
+          #F7F1E5
+        );
+
+      border:
+        1px solid #E5D5B7;
+
+      border-radius: 16px;
+
+      padding: 17px;
+    }
+
+    .private-note-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      color: var(--navy);
+
+      font-size: 14px;
+      font-weight: 800;
+
+      margin-bottom: 7px;
+    }
+
+    .private-note-description {
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    /* =========================================
+       MOBILE NAV
+    ========================================= */
+
+    .mobile-nav {
+      display: none;
+    }
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 850px) {
+
       .sidebar {
         display: none;
       }
 
       .main {
-        padding: 20px 15px 90px;
+        padding: 22px 15px 95px;
       }
 
       .stats {
@@ -398,64 +714,185 @@
         padding: 0 15px;
       }
 
-      .topbar-brand span {
+      .topbar-left span {
         font-size: 14px;
       }
 
       .welcome h2 {
-        font-size: 23px;
+        font-size: 24px;
       }
+
+      .mobile-nav {
+        position: fixed;
+
+        display: flex;
+
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        height: 65px;
+
+        background:
+          rgba(255,255,255,0.96);
+
+        border:
+          1px solid var(--border);
+
+        border-radius: 19px;
+
+        box-shadow:
+          0 10px 35px rgba(23,36,58,0.14);
+
+        z-index: 100;
+
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .mobile-nav button {
+        border: 0;
+        background: transparent;
+
+        color: var(--muted);
+
+        font-size: 11px;
+        font-weight: 700;
+
+        padding: 7px;
+      }
+
+      .mobile-nav button.active {
+        color: var(--navy);
+      }
+
+    }
+
+    @media (max-width: 480px) {
+
+      #authScreen {
+        padding: 17px;
+      }
+
+      .auth-card {
+        padding: 22px;
+      }
+
+      .brand-icon {
+        width: 76px;
+        height: 76px;
+      }
+
+      .brand h1 {
+        font-size: 24px;
+      }
+
     }
   </style>
 </head>
 
+
 <body>
 
-  <!-- =========================
-       AUTH SCREEN
-  ========================= -->
+  <!-- =========================================
+       LOGIN / REGISTER
+  ========================================== -->
 
   <section id="authScreen">
 
-    <div class="auth-container">
+    <div class="auth-wrapper">
 
       <div class="brand">
-        <div class="app-icon">T</div>
 
-        <h1>Tutor Management</h1>
+        <img
+          class="brand-icon"
+          src="./Tutor%20Manager%20Education%20Icon.png"
+          alt="Tutor Manager"
+        >
 
-        <p>補習管理系統</p>
+        <h1>
+          Tutor Manager
+        </h1>
+
+        <p>
+          補習管理系統 · Tutor Management
+        </p>
+
       </div>
+
 
       <div class="auth-card">
 
-        <h2 id="authTitle">Welcome back</h2>
+        <div class="auth-heading">
 
-        <p class="subtitle" id="authSubtitle">
-          登入你的帳戶
-        </p>
+          <h2 id="authTitle">
+            Welcome back
+          </h2>
+
+          <p id="authSubtitle">
+            登入你的帳戶 · Sign in to your account
+          </p>
+
+        </div>
+
+
+        <!-- LOGIN METHOD -->
+
+        <div
+          class="login-method"
+          id="loginMethod"
+        >
+
+          <button
+            class="method-button active"
+            id="emailMethod"
+            type="button"
+          >
+            Email 電郵
+          </button>
+
+          <button
+            class="method-button"
+            id="phoneMethod"
+            type="button"
+          >
+            Phone 電話
+          </button>
+
+        </div>
+
 
         <form id="authForm">
 
-          <div class="field">
-            <label for="email">
-              Email 電郵
+
+          <!-- NAME -->
+
+          <div
+            class="field hidden"
+            id="nameField"
+          >
+
+            <label>
+              Name 姓名
             </label>
 
             <input
-              id="email"
-              type="email"
-              placeholder="example@email.com"
-              required
-            />
+              id="fullName"
+              type="text"
+              placeholder="你的姓名"
+            >
+
           </div>
 
+
+          <!-- PHONE -->
+
           <div
-            class="field"
+            class="field hidden"
             id="phoneField"
-            style="display:none;"
           >
-            <label for="phone">
+
+            <label>
               Phone 電話
             </label>
 
@@ -467,65 +904,30 @@
 
               <input
                 id="phone"
-                class="phone-input"
                 type="tel"
                 inputmode="numeric"
                 maxlength="8"
                 placeholder="91234567"
-              />
+              >
 
             </div>
+
           </div>
 
-          <div class="field">
-            <label for="password">
-              Password 密碼
-            </label>
 
-            <input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              minlength="6"
-              required
-            />
-          </div>
+          <!-- ROLE -->
 
           <div
-            class="field"
-            id="nameField"
-            style="display:none;"
-          >
-            <label for="fullName">
-              Name 姓名
-            </label>
-
-            <input
-              id="fullName"
-              type="text"
-              placeholder="你的姓名"
-            />
-          </div>
-
-          <div
-            class="field"
+            class="field hidden"
             id="roleField"
-            style="display:none;"
           >
-            <label for="role">
+
+            <label>
               Account Type 帳戶類型
             </label>
 
-            <select
-              id="role"
-              style="
-                width:100%;
-                padding:13px;
-                border:1px solid var(--border);
-                border-radius:12px;
-                background:white;
-              "
-            >
+            <select id="role">
+
               <option value="tutor">
                 Tutor 導師
               </option>
@@ -533,35 +935,84 @@
               <option value="parent">
                 Parent 家長
               </option>
+
             </select>
+
           </div>
 
+
+          <!-- EMAIL -->
+
+          <div
+            class="field"
+            id="emailField"
+          >
+
+            <label>
+              Email 電郵
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              autocomplete="email"
+              placeholder="example@email.com"
+            >
+
+          </div>
+
+
+          <!-- PASSWORD -->
+
+          <div class="field">
+
+            <label>
+              Password 密碼
+            </label>
+
+            <input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              minlength="6"
+              placeholder="至少 6 個字元"
+              required
+            >
+
+          </div>
+
+
           <button
-            class="primary-btn"
-            type="submit"
+            class="main-button"
             id="authButton"
+            type="submit"
           >
             Login 登入
           </button>
 
         </form>
 
+
         <div
-          id="authMessage"
           class="message"
+          id="authMessage"
         ></div>
 
-        <div class="switch-mode">
+
+        <div class="switch-area">
+
           <span id="switchText">
             還沒有帳戶？
           </span>
 
           <button
-            type="button"
+            class="switch-button"
             id="switchMode"
+            type="button"
           >
             建立帳戶
           </button>
+
         </div>
 
       </div>
@@ -571,9 +1022,9 @@
   </section>
 
 
-  <!-- =========================
-       APP SCREEN
-  ========================= -->
+  <!-- =========================================
+       MAIN APP
+  ========================================== -->
 
   <section
     id="appScreen"
@@ -582,20 +1033,23 @@
 
     <header class="topbar">
 
-      <div class="topbar-brand">
+      <div class="topbar-left">
 
-        <div class="small-icon">
-          T
-        </div>
+        <img
+          class="topbar-icon"
+          src="./Tutor%20Manager%20Education%20Icon.png"
+          alt="Tutor Manager"
+        >
 
         <span>
-          Tutor Management
+          Tutor Manager
         </span>
 
       </div>
 
+
       <button
-        class="logout-btn"
+        class="logout-button"
         id="logoutButton"
       >
         Logout 登出
@@ -604,41 +1058,96 @@
     </header>
 
 
-    <div class="layout">
+    <div class="app-layout">
+
+
+      <!-- =====================================
+           SIDEBAR
+      ====================================== -->
 
       <aside class="sidebar">
 
-        <button class="nav-btn active">
-          🏠 Dashboard
-        </button>
+        <div class="nav-section-title">
+          Management 管理
+        </div>
 
-        <button class="nav-btn">
-          📅 Calendar 日曆
-        </button>
-
-        <button class="nav-btn">
-          👨‍🎓 Students 學生
-        </button>
-
-        <button class="nav-btn">
-          💰 Payments 收款
-        </button>
-
-        <button class="nav-btn">
-          🔔 Notifications 通知
-        </button>
 
         <button
-          class="nav-btn"
-          id="privateNotesNav"
+          class="nav-button active"
+          data-page="dashboard"
         >
-          🔒 Private Notes 私人備註
+          🏠 Dashboard
+          <span> · 主頁</span>
         </button>
+
+
+        <button
+          class="nav-button"
+          data-page="calendar"
+        >
+          📅 Calendar
+          <span> · 日曆</span>
+        </button>
+
+
+        <button
+          class="nav-button"
+          data-page="students"
+        >
+          👨‍🎓 Students
+          <span> · 學生</span>
+        </button>
+
+
+        <button
+          class="nav-button"
+          data-page="payments"
+        >
+          💰 Payments
+          <span> · 收款</span>
+        </button>
+
+
+        <button
+          class="nav-button"
+          data-page="notifications"
+        >
+          🔔 Notifications
+          <span> · 通知</span>
+        </button>
+
+
+        <!-- Tutor Only -->
+
+        <div
+          id="privateNotesNavSection"
+        >
+
+          <div class="nav-section-title" style="margin-top:15px;">
+            Tutor Only 導師專用
+          </div>
+
+
+          <button
+            class="nav-button"
+            id="privateNotesButton"
+            data-page="private-notes"
+          >
+            🔒 Private Notes
+            <span> · 私人備註</span>
+          </button>
+
+        </div>
 
       </aside>
 
 
+      <!-- =====================================
+           MAIN CONTENT
+      ====================================== -->
+
       <main class="main">
+
 
         <div class="welcome">
 
@@ -653,12 +1162,23 @@
         </div>
 
 
+        <!-- STATS -->
+
         <div class="stats">
+
 
           <div class="stat-card">
 
-            <div class="stat-title">
-              Students 學生
+            <div class="stat-top">
+
+              <div class="stat-label">
+                Students · 學生
+              </div>
+
+              <div class="stat-icon">
+                👨‍🎓
+              </div>
+
             </div>
 
             <div
@@ -673,8 +1193,16 @@
 
           <div class="stat-card">
 
-            <div class="stat-title">
-              Upcoming Lessons 即將上堂
+            <div class="stat-top">
+
+              <div class="stat-label">
+                Upcoming Lessons · 即將上堂
+              </div>
+
+              <div class="stat-icon">
+                📅
+              </div>
+
             </div>
 
             <div
@@ -689,8 +1217,16 @@
 
           <div class="stat-card">
 
-            <div class="stat-title">
-              Notifications 通知
+            <div class="stat-top">
+
+              <div class="stat-label">
+                Notifications · 通知
+              </div>
+
+              <div class="stat-icon">
+                🔔
+              </div>
+
             </div>
 
             <div
@@ -702,24 +1238,38 @@
 
           </div>
 
+
         </div>
 
 
+        <!-- DASHBOARD -->
+
         <div class="dashboard-grid">
 
+
           <div class="content-card">
 
-            <h3>
-              Upcoming Lessons
-              <span style="font-weight:400;color:var(--muted);">
+            <div class="card-heading">
+
+              <h3>
+                Upcoming Lessons
+              </h3>
+
+              <span>
                 即將上堂
               </span>
-            </h3>
 
-            <div class="empty-state">
+            </div>
+
+
+            <div class="empty">
+
               暫時沒有課堂資料
-              <br />
+
+              <br>
+
               Lesson information will appear here.
+
             </div>
 
           </div>
@@ -727,21 +1277,63 @@
 
           <div class="content-card">
 
-            <h3>
-              Quick Notes
-              <span style="font-weight:400;color:var(--muted);">
+            <div class="card-heading">
+
+              <h3>
+                Quick Notes
+              </h3>
+
+              <span>
                 快速備註
               </span>
-            </h3>
+
+            </div>
+
+
+            <div class="empty">
+
+              暫時沒有備註
+
+              <br>
+
+              Notes will appear here.
+
+            </div>
+
+
+            <!-- PRIVATE -->
 
             <div
-              class="empty-state"
-              id="notesArea"
+              class="private-note-box"
+              id="privateNoteBox"
             >
-              暫時沒有備註
+
+              <div class="private-note-title">
+
+                🔒
+
+                Tutor Private Notes
+                · 導師私人備註
+
+              </div>
+
+
+              <div class="private-note-description">
+
+                只供導師使用。
+                家長帳戶不會顯示此區域。
+
+                <br>
+
+                For tutor use only.
+                Parents cannot access this area.
+
+              </div>
+
             </div>
 
           </div>
+
 
         </div>
 
@@ -749,20 +1341,60 @@
 
     </div>
 
+
+    <!-- =====================================
+         MOBILE NAV
+    ====================================== -->
+
+    <nav class="mobile-nav">
+
+      <button class="active">
+        🏠
+        <br>
+        主頁
+      </button>
+
+      <button>
+        📅
+        <br>
+        日曆
+      </button>
+
+      <button>
+        👨‍🎓
+        <br>
+        學生
+      </button>
+
+      <button>
+        💰
+        <br>
+        收款
+      </button>
+
+      <button>
+        🔔
+        <br>
+        通知
+      </button>
+
+    </nav>
+
   </section>
 
 
   <script>
 
-    /* ==========================================
-       SUPABASE CONFIGURATION
-    ========================================== */
+    /* =====================================================
+       SUPABASE CONFIG
+    ===================================================== */
 
     const SUPABASE_URL =
       "https://kswyvpxzbjvjksfijfvl.supabase.co";
 
     const SUPABASE_ANON_KEY =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzd3l2cHh6Ymp2amtzZmlqZnZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTI0NzAsImV4cCI6MjEwNDI2ODQ3MH0.4O2oKOLecu0JvxzLTPvUATb1mpfW5pUp9fiGeDwI0Qc";
+
 
     const supabaseClient =
       window.supabase.createClient(
@@ -771,9 +1403,9 @@
       );
 
 
-    /* ==========================================
+    /* =====================================================
        ELEMENTS
-    ========================================== */
+    ===================================================== */
 
     const authScreen =
       document.getElementById("authScreen");
@@ -793,51 +1425,74 @@
     const authButton =
       document.getElementById("authButton");
 
+    const authMessage =
+      document.getElementById("authMessage");
+
     const switchMode =
       document.getElementById("switchMode");
 
     const switchText =
       document.getElementById("switchText");
 
-    const authMessage =
-      document.getElementById("authMessage");
-
     const nameField =
       document.getElementById("nameField");
-
-    const roleField =
-      document.getElementById("roleField");
 
     const phoneField =
       document.getElementById("phoneField");
 
-    const logoutButton =
-      document.getElementById("logoutButton");
+    const roleField =
+      document.getElementById("roleField");
 
-    const privateNotesNav =
-      document.getElementById("privateNotesNav");
+    const emailField =
+      document.getElementById("emailField");
+
+    const loginMethod =
+      document.getElementById("loginMethod");
+
+    const emailMethod =
+      document.getElementById("emailMethod");
+
+    const phoneMethod =
+      document.getElementById("phoneMethod");
+
+    const privateNotesNavSection =
+      document.getElementById(
+        "privateNotesNavSection"
+      );
+
+    const privateNoteBox =
+      document.getElementById(
+        "privateNoteBox"
+      );
 
 
     let isSignUp = false;
 
+    let loginType = "email";
 
-    /* ==========================================
+
+    /* =====================================================
        MESSAGE
-    ========================================== */
+    ===================================================== */
 
-    function showMessage(message, type = "error") {
+    function showMessage(
+      message,
+      type = "error"
+    ) {
 
-      authMessage.textContent = message;
+      authMessage.textContent =
+        message;
 
       authMessage.className =
-        `message ${type}`;
+        "message " + type;
 
     }
 
 
     function clearMessage() {
 
-      authMessage.textContent = "";
+      authMessage.textContent =
+        "";
 
       authMessage.className =
         "message";
@@ -845,17 +1500,91 @@
     }
 
 
-    /* ==========================================
-       AUTH MODE
-    ========================================== */
+    /* =====================================================
+       LOGIN METHOD
+    ===================================================== */
+
+    emailMethod.addEventListener(
+      "click",
+      () => {
+
+        loginType = "email";
+
+        emailMethod.classList.add(
+          "active"
+        );
+
+        phoneMethod.classList.remove(
+          "active"
+        );
+
+        emailField.classList.remove(
+          "hidden"
+        );
+
+        phoneField.classList.add(
+          "hidden"
+        );
+
+        document.getElementById(
+          "email"
+        ).required = true;
+
+        document.getElementById(
+          "phone"
+        ).required = false;
+
+      }
+    );
+
+
+    phoneMethod.addEventListener(
+      "click",
+      () => {
+
+        loginType = "phone";
+
+        phoneMethod.classList.add(
+          "active"
+        );
+
+        emailMethod.classList.remove(
+          "active"
+        );
+
+        phoneField.classList.remove(
+          "hidden"
+        );
+
+        emailField.classList.add(
+          "hidden"
+        );
+
+        document.getElementById(
+          "email"
+        ).required = false;
+
+        document.getElementById(
+          "phone"
+        ).required = true;
+
+      }
+    );
+
+
+    /* =====================================================
+       REGISTER / LOGIN SWITCH
+    ===================================================== */
 
     switchMode.addEventListener(
       "click",
       () => {
 
-        isSignUp = !isSignUp;
+        isSignUp =
+          !isSignUp;
 
         clearMessage();
+
 
         if (isSignUp) {
 
@@ -863,10 +1592,10 @@
             "Create account";
 
           authSubtitle.textContent =
-            "建立你的帳戶";
+            "建立帳戶 · Create your account";
 
           authButton.textContent =
-            "Create Account 建立帳戶";
+            "Create Account · 建立帳戶";
 
           switchText.textContent =
             "已經有帳戶？";
@@ -874,23 +1603,43 @@
           switchMode.textContent =
             "登入";
 
-          nameField.style.display =
-            "block";
 
-          roleField.style.display =
-            "block";
+          nameField.classList.remove(
+            "hidden"
+          );
 
-          /*
-            Phone is collected as profile data.
-            Authentication remains Email + Password.
-          */
+          phoneField.classList.remove(
+            "hidden"
+          );
 
-          phoneField.style.display =
-            "block";
+          roleField.classList.remove(
+            "hidden"
+          );
 
-          document
-            .getElementById("phone")
-            .required = true;
+          loginMethod.classList.add(
+            "hidden"
+          );
+
+
+          document.getElementById(
+            "fullName"
+          ).required = true;
+
+          document.getElementById(
+            "phone"
+          ).required = true;
+
+          document.getElementById(
+            "email"
+          ).required = true;
+
+
+          emailField.classList.remove(
+            "hidden"
+          );
+
+          loginType =
+            "email";
 
         } else {
 
@@ -898,10 +1647,10 @@
             "Welcome back";
 
           authSubtitle.textContent =
-            "登入你的帳戶";
+            "登入你的帳戶 · Sign in to your account";
 
           authButton.textContent =
-            "Login 登入";
+            "Login · 登入";
 
           switchText.textContent =
             "還沒有帳戶？";
@@ -909,18 +1658,36 @@
           switchMode.textContent =
             "建立帳戶";
 
-          nameField.style.display =
-            "none";
 
-          roleField.style.display =
-            "none";
+          nameField.classList.add(
+            "hidden"
+          );
 
-          phoneField.style.display =
-            "none";
+          phoneField.classList.add(
+            "hidden"
+          );
 
-          document
-            .getElementById("phone")
-            .required = false;
+          roleField.classList.add(
+            "hidden"
+          );
+
+          loginMethod.classList.remove(
+            "hidden"
+          );
+
+
+          document.getElementById(
+            "fullName"
+          ).required = false;
+
+          document.getElementById(
+            "phone"
+          ).required = false;
+
+          document.getElementById(
+            "email"
+          ).required =
+            loginType === "email";
 
         }
 
@@ -928,9 +1695,57 @@
     );
 
 
-    /* ==========================================
-       SIGN UP / LOGIN
-    ========================================== */
+    /* =====================================================
+       NORMALIZE HK PHONE
+    ===================================================== */
+
+    function normalizeHKPhone(
+      phone
+    ) {
+
+      const clean =
+        phone
+          .replace(/\s/g, "")
+          .replace(/-/g, "");
+
+
+      if (
+        clean.startsWith("+852")
+      ) {
+
+        const number =
+          clean.substring(4);
+
+        if (
+          /^\d{8}$/.test(number)
+        ) {
+
+          return "+852" + number;
+
+        }
+
+      }
+
+
+      if (
+        /^\d{8}$/.test(clean)
+      ) {
+
+        return "+852" + clean;
+
+      }
+
+
+      throw new Error(
+        "請輸入有效的 8 位香港電話號碼。Please enter a valid 8-digit Hong Kong phone number."
+      );
+
+    }
+
+
+    /* =====================================================
+       AUTH FORM
+    ===================================================== */
 
     authForm.addEventListener(
       "submit",
@@ -940,50 +1755,57 @@
 
         clearMessage();
 
-        const email =
-          document
-            .getElementById("email")
-            .value
-            .trim();
+        authButton.disabled = true;
 
-        const password =
-          document
-            .getElementById("password")
-            .value;
 
         try {
 
-          authButton.disabled = true;
+          const password =
+            document.getElementById(
+              "password"
+            ).value;
+
+
+          /* ==========================================
+             REGISTER
+          ========================================== */
 
           if (isSignUp) {
 
             const fullName =
-              document
-                .getElementById("fullName")
-                .value
-                .trim();
+              document.getElementById(
+                "fullName"
+              ).value.trim();
+
 
             const phone =
-              document
-                .getElementById("phone")
-                .value
-                .trim();
+              normalizeHKPhone(
+                document.getElementById(
+                  "phone"
+                ).value
+              );
+
 
             const role =
-              document
-                .getElementById("role")
-                .value;
+              document.getElementById(
+                "role"
+              ).value;
 
-            if (!/^\d{8}$/.test(phone)) {
+
+            const email =
+              document.getElementById(
+                "email"
+              ).value.trim();
+
+
+            if (!fullName) {
 
               throw new Error(
-                "請輸入 8 位香港電話號碼。Please enter an 8-digit Hong Kong phone number."
+                "請輸入姓名。Please enter your name."
               );
 
             }
 
-            const normalizedPhone =
-              "+852" + phone;
 
             const {
               data,
@@ -991,79 +1813,168 @@
             } =
               await supabaseClient.auth.signUp({
                 email,
-                password
+                password,
+
+                options: {
+                  data: {
+                    full_name:
+                      fullName,
+
+                    phone:
+                      phone,
+
+                    role:
+                      role
+                  }
+                }
               });
 
+
             if (error) {
+
               throw error;
+
             }
+
 
             if (!data.user) {
+
               throw new Error(
-                "Unable to create account."
+                "無法建立帳戶。Unable to create account."
               );
+
             }
 
-            const {
-              error: profileError
-            } =
-              await supabaseClient
-                .from("profiles")
-                .insert({
-                  id: data.user.id,
-                  full_name: fullName,
-                  role: role,
-                  phone: normalizedPhone
-                });
 
-            if (profileError) {
-              throw profileError;
-            }
+            /*
+              NOTE:
+              Profile information is passed through
+              Supabase Auth metadata first.
+
+              We will connect this to the
+              profiles table + RLS in the next
+              database-security step.
+            */
+
 
             showMessage(
-              "Account created successfully. 帳戶建立成功。",
+              "帳戶建立成功！請按照 Supabase 的設定完成登入確認。Account created successfully.",
               "success"
             );
 
-            isSignUp = false;
 
             setTimeout(
               () => {
+
+                isSignUp =
+                  false;
+
                 window.location.reload();
+
               },
-              900
+              1300
             );
 
-          } else {
+
+            return;
+
+          }
+
+
+          /* ==========================================
+             LOGIN
+          ========================================== */
+
+          if (
+            loginType === "email"
+          ) {
+
+            const email =
+              document.getElementById(
+                "email"
+              ).value.trim();
+
 
             const {
               error
             } =
-              await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-              });
+              await supabaseClient.auth
+                .signInWithPassword({
+
+                  email,
+
+                  password
+
+                });
+
 
             if (error) {
+
               throw error;
+
             }
 
-            await loadApp();
+          } else {
+
+            /*
+              Phone login uses Supabase Auth.
+              No SMS is requested by this code.
+
+              Supabase Phone Auth must be configured
+              appropriately for password login.
+            */
+
+            const phone =
+              normalizeHKPhone(
+                document.getElementById(
+                  "phone"
+                ).value
+              );
+
+
+            const {
+              error
+            } =
+              await supabaseClient.auth
+                .signInWithPassword({
+
+                  phone,
+
+                  password
+
+                });
+
+
+            if (error) {
+
+              throw error;
+
+            }
 
           }
 
+
+          await loadApp();
+
+
         } catch (error) {
 
-          console.error(error);
+          console.error(
+            "Authentication error:",
+            error
+          );
+
 
           showMessage(
             error.message ||
-            "Login failed. 登入失敗。"
+            "登入失敗。Login failed."
           );
+
 
         } finally {
 
-          authButton.disabled = false;
+          authButton.disabled =
+            false;
 
         }
 
@@ -1071,9 +1982,9 @@
     );
 
 
-    /* ==========================================
+    /* =====================================================
        LOAD APP
-    ========================================== */
+    ===================================================== */
 
     async function loadApp() {
 
@@ -1082,104 +1993,222 @@
           user
         }
       } =
-        await supabaseClient.auth.getUser();
+        await supabaseClient.auth
+          .getUser();
+
 
       if (!user) {
+
         showAuth();
-        return;
-      }
-
-      const {
-        data: profile,
-        error
-      } =
-        await supabaseClient
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .single();
-
-      if (error) {
-
-        console.error(error);
-
-        showMessage(
-          "Unable to load profile."
-        );
 
         return;
+
       }
 
-      authScreen.classList.add("hidden");
 
-      appScreen.classList.remove("hidden");
+      authScreen.classList.add(
+        "hidden"
+      );
+
+      appScreen.classList.remove(
+        "hidden"
+      );
+
+
+      /*
+        Role is currently read from Auth metadata.
+
+        Later we will move authorization to
+        database RLS policies.
+      */
 
       const role =
-        profile.role;
+        user.user_metadata?.role ||
+        "tutor";
+
+
+      const name =
+        user.user_metadata?.full_name ||
+        "User";
+
 
       document.getElementById(
         "welcomeTitle"
       ).textContent =
-        `Welcome, ${profile.full_name || "User"} 👋`;
-
-      document.getElementById(
-        "welcomeSubtitle"
-      ).textContent =
-        role === "tutor"
-          ? "Tutor Dashboard · 導師管理中心"
-          : "Parent Dashboard · 家長管理中心";
+        `Welcome, ${name} 👋`;
 
 
-      /*
-        Private Notes navigation is Tutor-only.
-      */
+      if (
+        role === "parent"
+      ) {
 
-      if (role === "tutor") {
+        document.getElementById(
+          "welcomeSubtitle"
+        ).textContent =
+          "Parent Dashboard · 家長管理中心";
 
-        privateNotesNav.style.display =
-          "block";
+
+        privateNotesNavSection
+          .classList
+          .add("hidden");
+
+
+        privateNoteBox
+          .classList
+          .add("hidden");
+
 
       } else {
 
-        privateNotesNav.style.display =
-          "none";
+        document.getElementById(
+          "welcomeSubtitle"
+        ).textContent =
+          "Tutor Dashboard · 導師管理中心";
+
+
+        privateNotesNavSection
+          .classList
+          .remove("hidden");
+
+
+        privateNoteBox
+          .classList
+          .remove("hidden");
 
       }
 
     }
 
+
+    /* =====================================================
+       SHOW AUTH
+    ===================================================== */
 
     function showAuth() {
 
-      appScreen.classList.add("hidden");
+      appScreen.classList.add(
+        "hidden"
+      );
 
-      authScreen.classList.remove("hidden");
+      authScreen.classList.remove(
+        "hidden"
+      );
 
     }
 
 
-    /* ==========================================
+    /* =====================================================
        LOGOUT
-    ========================================== */
+    ===================================================== */
 
-    logoutButton.addEventListener(
-      "click",
-      async () => {
+    document
+      .getElementById(
+        "logoutButton"
+      )
+      .addEventListener(
+        "click",
+        async () => {
 
-        await supabaseClient.auth.signOut();
+          await supabaseClient.auth.signOut();
 
-        showAuth();
+          showAuth();
 
-      }
-    );
+        }
+      );
 
 
-    /* ==========================================
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    document
+      .querySelectorAll(
+        ".nav-button"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              document
+                .querySelectorAll(
+                  ".nav-button"
+                )
+                .forEach(
+                  item => {
+
+                    item.classList.remove(
+                      "active"
+                    );
+
+                  }
+                );
+
+
+              button.classList.add(
+                "active"
+              );
+
+
+              const page =
+                button.dataset.page;
+
+
+              console.log(
+                "Selected page:",
+                page
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =====================================================
        AUTH STATE
-    ========================================== */
+    ===================================================== */
 
-    supabaseClient.auth.onAuthStateChange(
-      async (event, session) => {
+    supabaseClient.auth
+      .onAuthStateChange(
+        async (
+          event,
+          session
+        ) => {
+
+          if (session) {
+
+            await loadApp();
+
+          } else {
+
+            showAuth();
+
+          }
+
+        }
+      );
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    async function initializeApp() {
+
+      try {
+
+        const {
+          data: {
+            session
+          }
+        } =
+          await supabaseClient.auth
+            .getSession();
+
 
         if (session) {
 
@@ -1191,28 +2220,11 @@
 
         }
 
-      }
-    );
+      } catch (error) {
 
-
-    /* ==========================================
-       INITIAL SESSION
-    ========================================== */
-
-    async function initialise() {
-
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
-
-      if (session) {
-
-        await loadApp();
-
-      } else {
+        console.error(
+          error
+        );
 
         showAuth();
 
@@ -1221,7 +2233,7 @@
     }
 
 
-    initialise();
+    initializeApp();
 
   </script>
 
