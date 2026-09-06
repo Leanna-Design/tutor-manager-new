@@ -2,21 +2,55 @@
 <html lang="zh-HK">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#17243A"
+  >
 
   <title>Tutor Manager · 補習管理</title>
 
-  <!-- App Icon / Favicon -->
+  <!-- =========================================
+       ICONS
+       ONLY:
+       icon-home-192.png
+       icon-home-512.png
+  ========================================== -->
+
   <link
     rel="icon"
     type="image/png"
-    href="./Tutor%20Manager%20Education%20Icon.png"
+    sizes="192x192"
+    href="./icon-home-192.png"
   >
 
+  <link
+    rel="apple-touch-icon"
+    href="./icon-home-192.png"
+  >
+
+  <link
+    rel="manifest"
+    href="./manifest.webmanifest"
+  >
+
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <style>
+
+    /* =========================================
+       ROOT
+    ========================================== */
+
     :root {
+
       --navy: #17243A;
       --navy-dark: #101A2B;
       --navy-soft: #263650;
@@ -29,16 +63,26 @@
       --gold-light: #F2E8D2;
 
       --white: #FFFFFF;
+
       --text: #17243A;
       --muted: #747A84;
+
       --border: #E5E1D8;
 
       --success: #287A55;
       --danger: #B84646;
+      --warning: #9A7225;
 
       --radius: 20px;
-      --shadow: 0 12px 35px rgba(23, 36, 58, 0.08);
+
+      --shadow:
+        0 12px 35px rgba(23, 36, 58, 0.08);
     }
+
+
+    /* =========================================
+       RESET
+    ========================================== */
 
     * {
       box-sizing: border-box;
@@ -46,13 +90,18 @@
       padding: 0;
     }
 
+
     html {
       scroll-behavior: smooth;
     }
 
+
     body {
+
       min-height: 100vh;
+
       background: var(--cream);
+
       color: var(--text);
 
       font-family:
@@ -65,6 +114,7 @@
         sans-serif;
     }
 
+
     button,
     input,
     select,
@@ -72,52 +122,68 @@
       font: inherit;
     }
 
+
     button {
       cursor: pointer;
     }
+
 
     .hidden {
       display: none !important;
     }
 
+
     /* =========================================
-       AUTH SCREEN
-    ========================================= */
+       AUTH
+    ========================================== */
 
     #authScreen {
+
       min-height: 100vh;
 
       display: flex;
+
       justify-content: center;
       align-items: center;
 
       padding: 24px;
 
       background:
+
         radial-gradient(
           circle at 10% 10%,
           rgba(201,169,110,0.16),
           transparent 32%
         ),
+
         radial-gradient(
           circle at 90% 90%,
           rgba(23,36,58,0.08),
           transparent 35%
         ),
+
         var(--cream);
     }
 
+
     .auth-wrapper {
+
       width: 100%;
+
       max-width: 430px;
     }
 
+
     .brand {
+
       text-align: center;
+
       margin-bottom: 24px;
     }
 
+
     .brand-icon {
+
       width: 88px;
       height: 88px;
 
@@ -131,22 +197,34 @@
         0 15px 35px rgba(23,36,58,0.16);
     }
 
+
     .brand h1 {
+
       font-size: 28px;
+
       letter-spacing: -0.7px;
+
       color: var(--navy);
     }
 
+
     .brand p {
+
       margin-top: 6px;
+
       color: var(--muted);
+
       font-size: 14px;
     }
 
+
     .auth-card {
+
       background: var(--white);
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: var(--radius);
 
       padding: 28px;
@@ -154,35 +232,51 @@
       box-shadow: var(--shadow);
     }
 
+
     .auth-heading {
+
       margin-bottom: 22px;
     }
 
+
     .auth-heading h2 {
+
       font-size: 22px;
+
       color: var(--navy);
     }
 
+
     .auth-heading p {
+
       margin-top: 5px;
+
       color: var(--muted);
+
       font-size: 14px;
     }
 
+
     .login-method {
+
       display: grid;
+
       grid-template-columns: 1fr 1fr;
 
       background: var(--cream);
 
       border-radius: 13px;
+
       padding: 4px;
 
       margin-bottom: 20px;
     }
 
+
     .method-button {
+
       border: 0;
+
       background: transparent;
 
       border-radius: 10px;
@@ -190,44 +284,59 @@
       padding: 10px 7px;
 
       color: var(--muted);
+
       font-size: 13px;
+
       font-weight: 700;
     }
 
+
     .method-button.active {
+
       background: var(--white);
+
       color: var(--navy);
 
       box-shadow:
         0 3px 10px rgba(23,36,58,0.08);
     }
 
+
     .field {
+
       margin-bottom: 16px;
     }
 
+
     .field label {
+
       display: block;
 
       margin-bottom: 7px;
 
       font-size: 13px;
+
       font-weight: 700;
 
       color: var(--navy);
     }
 
+
     .field input,
     .field select,
     .field textarea {
+
       width: 100%;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 13px;
 
       padding: 13px 14px;
 
       background: var(--white);
+
       color: var(--text);
 
       outline: none;
@@ -235,51 +344,63 @@
       transition: 0.2s;
     }
 
-    .field textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
 
     .field input:focus,
     .field select:focus,
     .field textarea:focus {
+
       border-color: var(--gold);
 
       box-shadow:
         0 0 0 3px rgba(201,169,110,0.15);
     }
 
+
     .phone-row {
+
       display: flex;
+
       gap: 8px;
     }
 
+
     .country-code {
+
       width: 82px;
+
       flex-shrink: 0;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 13px;
 
       background: var(--cream);
 
       font-size: 13px;
+
       font-weight: 800;
     }
 
+
     .main-button {
+
       width: 100%;
 
       border: 0;
+
       border-radius: 13px;
 
       padding: 14px;
 
       background: var(--navy);
+
       color: var(--white);
 
       font-weight: 800;
@@ -287,28 +408,41 @@
       transition: 0.2s;
     }
 
+
     .main-button:hover {
+
       background: var(--navy-dark);
+
       transform: translateY(-1px);
     }
 
+
     .main-button:disabled {
+
       opacity: 0.6;
+
       cursor: not-allowed;
+
       transform: none;
     }
 
+
     .switch-area {
+
       text-align: center;
 
       margin-top: 17px;
 
       color: var(--muted);
+
       font-size: 14px;
     }
 
+
     .switch-button {
+
       border: 0;
+
       background: transparent;
 
       color: var(--gold-dark);
@@ -316,7 +450,9 @@
       font-weight: 800;
     }
 
+
     .message {
+
       display: none;
 
       margin-top: 15px;
@@ -326,43 +462,57 @@
       border-radius: 11px;
 
       font-size: 13px;
+
       line-height: 1.5;
     }
 
+
     .message.error {
+
       display: block;
 
       background: #FFF1F1;
+
       color: var(--danger);
     }
 
+
     .message.success {
+
       display: block;
 
       background: #EFF8F3;
+
       color: var(--success);
     }
 
+
     /* =========================================
        APP
-    ========================================= */
+    ========================================== */
 
     #appScreen {
+
       min-height: 100vh;
     }
 
+
     .topbar {
+
       height: 72px;
 
       background: var(--navy);
 
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
 
       padding: 0 22px;
 
       position: sticky;
+
       top: 0;
 
       z-index: 50;
@@ -371,9 +521,13 @@
         0 5px 20px rgba(23,36,58,0.14);
     }
 
+
     .topbar-left {
+
       display: flex;
+
       align-items: center;
+
       gap: 11px;
 
       color: white;
@@ -381,7 +535,9 @@
       font-weight: 800;
     }
 
+
     .topbar-icon {
+
       width: 43px;
       height: 43px;
 
@@ -392,10 +548,14 @@
       background: white;
     }
 
-    .logout-button {
-      border: 1px solid rgba(255,255,255,0.2);
 
-      background: rgba(255,255,255,0.08);
+    .logout-button {
+
+      border:
+        1px solid rgba(255,255,255,0.2);
+
+      background:
+        rgba(255,255,255,0.08);
 
       color: white;
 
@@ -404,37 +564,48 @@
       padding: 9px 13px;
 
       font-size: 13px;
+
       font-weight: 700;
     }
 
+
     .logout-button:hover {
-      background: rgba(255,255,255,0.15);
+
+      background:
+        rgba(255,255,255,0.15);
     }
 
+
     .app-layout {
+
       display: flex;
 
       min-height:
         calc(100vh - 72px);
     }
 
+
     /* =========================================
        SIDEBAR
-    ========================================= */
+    ========================================== */
 
     .sidebar {
+
       width: 245px;
 
       flex-shrink: 0;
 
       background: var(--white);
 
-      border-right: 1px solid var(--border);
+      border-right:
+        1px solid var(--border);
 
       padding: 20px 13px;
     }
 
+
     .nav-section-title {
+
       padding: 8px 12px;
 
       margin-bottom: 7px;
@@ -442,16 +613,21 @@
       color: var(--muted);
 
       font-size: 11px;
+
       font-weight: 800;
 
       letter-spacing: 0.8px;
+
       text-transform: uppercase;
     }
 
+
     .nav-button {
+
       width: 100%;
 
       border: 0;
+
       background: transparent;
 
       padding: 12px;
@@ -469,21 +645,29 @@
       transition: 0.2s;
     }
 
+
     .nav-button:hover {
+
       background: var(--cream);
+
       color: var(--navy);
     }
 
+
     .nav-button.active {
+
       background: var(--gold-light);
+
       color: var(--navy);
     }
+
 
     /* =========================================
        MAIN
-    ========================================= */
+    ========================================== */
 
     .main {
+
       flex: 1;
 
       padding: 30px;
@@ -491,11 +675,15 @@
       max-width: 1450px;
     }
 
+
     .welcome {
+
       margin-bottom: 25px;
     }
 
+
     .welcome h2 {
+
       font-size: 28px;
 
       color: var(--navy);
@@ -503,7 +691,9 @@
       letter-spacing: -0.6px;
     }
 
+
     .welcome p {
+
       margin-top: 6px;
 
       color: var(--muted);
@@ -511,11 +701,29 @@
       font-size: 14px;
     }
 
+
+    /* =========================================
+       PAGE
+    ========================================== */
+
+    .page {
+
+      display: none;
+    }
+
+
+    .page.active {
+
+      display: block;
+    }
+
+
     /* =========================================
        STATS
-    ========================================= */
+    ========================================== */
 
     .stats {
+
       display: grid;
 
       grid-template-columns:
@@ -526,7 +734,9 @@
       margin-bottom: 20px;
     }
 
+
     .stat-card {
+
       background: var(--white);
 
       border:
@@ -540,24 +750,34 @@
         0 5px 18px rgba(23,36,58,0.04);
     }
 
+
     .stat-top {
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
     }
 
+
     .stat-label {
+
       color: var(--muted);
 
       font-size: 13px;
+
       font-weight: 700;
     }
 
+
     .stat-icon {
+
       width: 35px;
       height: 35px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -568,7 +788,9 @@
       font-size: 17px;
     }
 
+
     .stat-value {
+
       margin-top: 10px;
 
       font-size: 30px;
@@ -578,11 +800,13 @@
       font-weight: 850;
     }
 
+
     /* =========================================
-       DASHBOARD CARDS
-    ========================================= */
+       DASHBOARD
+    ========================================== */
 
     .dashboard-grid {
+
       display: grid;
 
       grid-template-columns:
@@ -591,7 +815,9 @@
       gap: 18px;
     }
 
+
     .content-card {
+
       background: var(--white);
 
       border:
@@ -605,27 +831,37 @@
         0 5px 18px rgba(23,36,58,0.04);
     }
 
+
     .card-heading {
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
 
       margin-bottom: 14px;
     }
 
+
     .card-heading h3 {
+
       font-size: 17px;
+
       color: var(--navy);
     }
 
+
     .card-heading span {
+
       color: var(--muted);
 
       font-size: 13px;
-      font-weight: 400;
     }
 
+
     .empty {
+
       padding: 32px 10px;
 
       text-align: center;
@@ -637,11 +873,13 @@
       line-height: 1.7;
     }
 
+
     /* =========================================
        PRIVATE NOTES
-    ========================================= */
+    ========================================== */
 
     .private-note-box {
+
       margin-top: 20px;
 
       background:
@@ -659,20 +897,27 @@
       padding: 17px;
     }
 
+
     .private-note-title {
+
       display: flex;
+
       align-items: center;
+
       gap: 8px;
 
       color: var(--navy);
 
       font-size: 14px;
+
       font-weight: 800;
 
       margin-bottom: 7px;
     }
 
+
     .private-note-description {
+
       color: var(--muted);
 
       font-size: 12px;
@@ -680,17 +925,184 @@
       line-height: 1.6;
     }
 
+
+    /* =========================================
+       TOOLBAR
+    ========================================== */
+
+    .toolbar {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-bottom: 16px;
+    }
+
+
+    .toolbar h3 {
+
+      color: var(--navy);
+
+      font-size: 20px;
+    }
+
+
+    .secondary-button {
+
+      border:
+        1px solid var(--border);
+
+      background: var(--white);
+
+      color: var(--navy);
+
+      border-radius: 11px;
+
+      padding: 10px 14px;
+
+      font-size: 13px;
+
+      font-weight: 800;
+    }
+
+
+    .secondary-button:hover {
+
+      background: var(--cream);
+    }
+
+
+    /* =========================================
+       DATA LIST
+    ========================================== */
+
+    .data-list {
+
+      display: grid;
+
+      gap: 10px;
+    }
+
+
+    .data-item {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding: 15px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--white);
+    }
+
+
+    .data-item-main {
+
+      min-width: 0;
+    }
+
+
+    .data-item-title {
+
+      font-weight: 800;
+
+      color: var(--navy);
+    }
+
+
+    .data-item-subtitle {
+
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 1.5;
+    }
+
+
+    .badge {
+
+      flex-shrink: 0;
+
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      font-size: 11px;
+
+      font-weight: 800;
+    }
+
+
+    .badge-success {
+
+      background: #EFF8F3;
+
+      color: var(--success);
+    }
+
+
+    .badge-warning {
+
+      background: #FFF7E5;
+
+      color: var(--warning);
+    }
+
+
+    .badge-danger {
+
+      background: #FFF1F1;
+
+      color: var(--danger);
+    }
+
+
+    /* =========================================
+       LOADING
+    ========================================== */
+
+    .loading {
+
+      text-align: center;
+
+      padding: 25px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+
     /* =========================================
        MOBILE NAV
-    ========================================= */
+    ========================================== */
 
     .mobile-nav {
+
       display: none;
     }
 
+
     /* =========================================
        MOBILE
-    ========================================= */
+    ========================================== */
 
     @media (max-width: 850px) {
 
@@ -698,37 +1110,55 @@
         display: none;
       }
 
+
       .main {
-        padding: 22px 15px 95px;
+
+        padding:
+          22px
+          15px
+          95px;
       }
+
 
       .stats {
+
         grid-template-columns: 1fr;
       }
+
 
       .dashboard-grid {
+
         grid-template-columns: 1fr;
       }
 
+
       .topbar {
+
         padding: 0 15px;
       }
 
+
       .topbar-left span {
+
         font-size: 14px;
       }
 
+
       .welcome h2 {
+
         font-size: 24px;
       }
 
+
       .mobile-nav {
+
         position: fixed;
 
         display: flex;
 
         left: 10px;
         right: 10px;
+
         bottom: 10px;
 
         height: 65px;
@@ -747,66 +1177,103 @@
         z-index: 100;
 
         align-items: center;
+
         justify-content: space-around;
       }
 
+
       .mobile-nav button {
+
         border: 0;
+
         background: transparent;
 
         color: var(--muted);
 
         font-size: 11px;
+
         font-weight: 700;
 
         padding: 7px;
       }
 
+
       .mobile-nav button.active {
+
         color: var(--navy);
       }
 
+
+      .toolbar {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
+
+
+      .data-item {
+
+        align-items: flex-start;
+      }
     }
+
 
     @media (max-width: 480px) {
 
       #authScreen {
+
         padding: 17px;
       }
 
+
       .auth-card {
+
         padding: 22px;
       }
 
+
       .brand-icon {
+
         width: 76px;
         height: 76px;
       }
 
+
       .brand h1 {
+
         font-size: 24px;
       }
 
+
+      .country-code {
+
+        width: 76px;
+      }
     }
+
   </style>
+
 </head>
 
 
 <body>
 
+
   <!-- =========================================
-       LOGIN / REGISTER
+       AUTH SCREEN
   ========================================== -->
 
   <section id="authScreen">
 
     <div class="auth-wrapper">
 
+
       <div class="brand">
 
         <img
           class="brand-icon"
-          src="./Tutor%20Manager%20Education%20Icon.png"
+          src="./icon-home-192.png"
           alt="Tutor Manager"
         >
 
@@ -822,6 +1289,7 @@
 
 
       <div class="auth-card">
+
 
         <div class="auth-heading">
 
@@ -879,6 +1347,7 @@
             <input
               id="fullName"
               type="text"
+              autocomplete="name"
               placeholder="你的姓名"
             >
 
@@ -907,6 +1376,7 @@
                 type="tel"
                 inputmode="numeric"
                 maxlength="8"
+                autocomplete="tel"
                 placeholder="91234567"
               >
 
@@ -987,8 +1457,9 @@
             id="authButton"
             type="submit"
           >
-            Login 登入
+            Login · 登入
           </button>
+
 
         </form>
 
@@ -1015,6 +1486,7 @@
 
         </div>
 
+
       </div>
 
     </div>
@@ -1022,8 +1494,9 @@
   </section>
 
 
+
   <!-- =========================================
-       MAIN APP
+       APP SCREEN
   ========================================== -->
 
   <section
@@ -1031,13 +1504,17 @@
     class="hidden"
   >
 
+
+    <!-- TOPBAR -->
+
     <header class="topbar">
+
 
       <div class="topbar-left">
 
         <img
           class="topbar-icon"
-          src="./Tutor%20Manager%20Education%20Icon.png"
+          src="./icon-home-192.png"
           alt="Tutor Manager"
         >
 
@@ -1055,7 +1532,9 @@
         Logout 登出
       </button>
 
+
     </header>
+
 
 
     <div class="app-layout">
@@ -1066,6 +1545,7 @@
       ====================================== -->
 
       <aside class="sidebar">
+
 
         <div class="nav-section-title">
           Management 管理
@@ -1117,33 +1597,35 @@
         </button>
 
 
-        <!-- Tutor Only -->
+        <div id="privateNotesNavSection">
 
-        <div
-          id="privateNotesNavSection"
-        >
 
-          <div class="nav-section-title" style="margin-top:15px;">
+          <div
+            class="nav-section-title"
+            style="margin-top:15px;"
+          >
             Tutor Only 導師專用
           </div>
 
 
           <button
             class="nav-button"
-            id="privateNotesButton"
             data-page="private-notes"
           >
             🔒 Private Notes
             <span> · 私人備註</span>
           </button>
 
+
         </div>
+
 
       </aside>
 
 
+
       <!-- =====================================
-           MAIN CONTENT
+           MAIN
       ====================================== -->
 
       <main class="main">
@@ -1162,184 +1644,401 @@
         </div>
 
 
-        <!-- STATS -->
 
-        <div class="stats">
+        <!-- =====================================
+             DASHBOARD PAGE
+        ====================================== -->
+
+        <section
+          id="page-dashboard"
+          class="page active"
+        >
 
 
-          <div class="stat-card">
+          <div class="stats">
 
-            <div class="stat-top">
 
-              <div class="stat-label">
-                Students · 學生
+            <div class="stat-card">
+
+              <div class="stat-top">
+
+                <div class="stat-label">
+                  Students · 學生
+                </div>
+
+                <div class="stat-icon">
+                  👨‍🎓
+                </div>
+
               </div>
 
-              <div class="stat-icon">
-                👨‍🎓
+              <div
+                class="stat-value"
+                id="studentCount"
+              >
+                0
               </div>
 
             </div>
 
-            <div
-              class="stat-value"
-              id="studentCount"
+
+            <div class="stat-card">
+
+              <div class="stat-top">
+
+                <div class="stat-label">
+                  Upcoming Lessons · 即將上堂
+                </div>
+
+                <div class="stat-icon">
+                  📅
+                </div>
+
+              </div>
+
+              <div
+                class="stat-value"
+                id="lessonCount"
+              >
+                0
+              </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+              <div class="stat-top">
+
+                <div class="stat-label">
+                  Notifications · 通知
+                </div>
+
+                <div class="stat-icon">
+                  🔔
+                </div>
+
+              </div>
+
+              <div
+                class="stat-value"
+                id="notificationCount"
+              >
+                0
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="dashboard-grid">
+
+
+            <!-- UPCOMING -->
+
+            <div class="content-card">
+
+              <div class="card-heading">
+
+                <h3>
+                  Upcoming Lessons
+                </h3>
+
+                <span>
+                  即將上堂
+                </span>
+
+              </div>
+
+
+              <div
+                id="dashboardLessons"
+                class="data-list"
+              >
+
+                <div class="loading">
+                  載入課堂資料中...
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+
+            <!-- QUICK NOTES -->
+
+            <div class="content-card">
+
+              <div class="card-heading">
+
+                <h3>
+                  Quick Notes
+                </h3>
+
+                <span>
+                  快速備註
+                </span>
+
+              </div>
+
+
+              <div
+                id="dashboardNotes"
+                class="empty"
+              >
+                暫時沒有備註
+              </div>
+
+
+              <div
+                class="private-note-box"
+                id="privateNoteBox"
+              >
+
+                <div class="private-note-title">
+
+                  🔒
+
+                  Tutor Private Notes
+                  · 導師私人備註
+
+                </div>
+
+
+                <div class="private-note-description">
+
+                  只供導師使用。
+                  家長帳戶不會顯示此區域。
+
+                  <br>
+
+                  For tutor use only.
+                  Parents cannot access this area.
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================
+             CALENDAR PAGE
+        ====================================== -->
+
+        <section
+          id="page-calendar"
+          class="page"
+        >
+
+          <div class="toolbar">
+
+            <h3>
+              Calendar · 日曆
+            </h3>
+
+            <button
+              class="secondary-button"
+              onclick="loadLessonsPage()"
             >
-              0
-            </div>
+              Refresh · 更新
+            </button>
 
           </div>
 
 
-          <div class="stat-card">
+          <div
+            id="calendarList"
+            class="content-card"
+          >
 
-            <div class="stat-top">
-
-              <div class="stat-label">
-                Upcoming Lessons · 即將上堂
-              </div>
-
-              <div class="stat-icon">
-                📅
-              </div>
-
+            <div class="loading">
+              載入課堂資料中...
             </div>
 
-            <div
-              class="stat-value"
-              id="lessonCount"
+          </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             STUDENTS PAGE
+        ====================================== -->
+
+        <section
+          id="page-students"
+          class="page"
+        >
+
+          <div class="toolbar">
+
+            <h3>
+              Students · 學生
+            </h3>
+
+            <button
+              class="secondary-button"
+              onclick="loadStudentsPage()"
             >
-              0
-            </div>
+              Refresh · 更新
+            </button>
 
           </div>
 
 
-          <div class="stat-card">
+          <div
+            id="studentsList"
+            class="content-card"
+          >
 
-            <div class="stat-top">
-
-              <div class="stat-label">
-                Notifications · 通知
-              </div>
-
-              <div class="stat-icon">
-                🔔
-              </div>
-
+            <div class="loading">
+              載入學生資料中...
             </div>
 
-            <div
-              class="stat-value"
-              id="notificationCount"
+          </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             PAYMENTS PAGE
+        ====================================== -->
+
+        <section
+          id="page-payments"
+          class="page"
+        >
+
+          <div class="toolbar">
+
+            <h3>
+              Payments · 收款
+            </h3>
+
+            <button
+              class="secondary-button"
+              onclick="loadPaymentsPage()"
             >
-              0
-            </div>
+              Refresh · 更新
+            </button>
 
           </div>
 
 
-        </div>
+          <div
+            id="paymentsList"
+            class="content-card"
+          >
 
-
-        <!-- DASHBOARD -->
-
-        <div class="dashboard-grid">
-
-
-          <div class="content-card">
-
-            <div class="card-heading">
-
-              <h3>
-                Upcoming Lessons
-              </h3>
-
-              <span>
-                即將上堂
-              </span>
-
-            </div>
-
-
-            <div class="empty">
-
-              暫時沒有課堂資料
-
-              <br>
-
-              Lesson information will appear here.
-
+            <div class="loading">
+              載入付款資料中...
             </div>
 
           </div>
 
-
-          <div class="content-card">
-
-            <div class="card-heading">
-
-              <h3>
-                Quick Notes
-              </h3>
-
-              <span>
-                快速備註
-              </span>
-
-            </div>
+        </section>
 
 
-            <div class="empty">
 
-              暫時沒有備註
+        <!-- =====================================
+             NOTIFICATIONS PAGE
+        ====================================== -->
 
-              <br>
+        <section
+          id="page-notifications"
+          class="page"
+        >
 
-              Notes will appear here.
+          <div class="toolbar">
 
-            </div>
+            <h3>
+              Notifications · 通知
+            </h3>
 
-
-            <!-- PRIVATE -->
-
-            <div
-              class="private-note-box"
-              id="privateNoteBox"
+            <button
+              class="secondary-button"
+              onclick="loadNotificationsPage()"
             >
-
-              <div class="private-note-title">
-
-                🔒
-
-                Tutor Private Notes
-                · 導師私人備註
-
-              </div>
-
-
-              <div class="private-note-description">
-
-                只供導師使用。
-                家長帳戶不會顯示此區域。
-
-                <br>
-
-                For tutor use only.
-                Parents cannot access this area.
-
-              </div>
-
-            </div>
+              Refresh · 更新
+            </button>
 
           </div>
 
 
-        </div>
+          <div
+            id="notificationsList"
+            class="content-card"
+          >
+
+            <div class="loading">
+              載入通知中...
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             PRIVATE NOTES PAGE
+        ====================================== -->
+
+        <section
+          id="page-private-notes"
+          class="page"
+        >
+
+          <div class="toolbar">
+
+            <h3>
+              Private Notes · 私人備註
+            </h3>
+
+            <button
+              class="secondary-button"
+              onclick="loadPrivateNotesPage()"
+            >
+              Refresh · 更新
+            </button>
+
+          </div>
+
+
+          <div
+            id="privateNotesList"
+            class="content-card"
+          >
+
+            <div class="loading">
+              載入私人備註中...
+            </div>
+
+          </div>
+
+        </section>
+
 
       </main>
 
+
     </div>
+
 
 
     <!-- =====================================
@@ -1348,52 +2047,72 @@
 
     <nav class="mobile-nav">
 
-      <button class="active">
+
+      <button
+        class="active"
+        data-page="dashboard"
+      >
         🏠
         <br>
         主頁
       </button>
 
-      <button>
+
+      <button
+        data-page="calendar"
+      >
         📅
         <br>
         日曆
       </button>
 
-      <button>
+
+      <button
+        data-page="students"
+      >
         👨‍🎓
         <br>
         學生
       </button>
 
-      <button>
+
+      <button
+        data-page="payments"
+      >
         💰
         <br>
         收款
       </button>
 
-      <button>
+
+      <button
+        data-page="notifications"
+      >
         🔔
         <br>
         通知
       </button>
 
+
     </nav>
 
+
   </section>
+
 
 
   <script>
 
     /* =====================================================
-       SUPABASE CONFIG
+       SUPABASE
     ===================================================== */
 
     const SUPABASE_URL =
       "https://kswyvpxzbjvjksfijfvl.supabase.co";
 
+
     const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzd3l2cHh6Ymp2amtzZmlqZnZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTI0NzAsImV4cCI6MjEwNDI2ODQ3MH0.4O2oKOLecu0JvxzLTPvUATb1mpfW5pUp9fiGeDwI0Qc";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoia3N3eXZweHpiandqa3NmaWpmZnZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTI0NzAsImV4cCI6MjEwNDI2ODQ3MH0.4O2oKOLecu0JvxzLTPvUATb1mpfW5pUp9fiGeDwI0Qc";
 
 
     const supabaseClient =
@@ -1403,62 +2122,112 @@
       );
 
 
+
     /* =====================================================
        ELEMENTS
     ===================================================== */
 
     const authScreen =
-      document.getElementById("authScreen");
+      document.getElementById(
+        "authScreen"
+      );
+
 
     const appScreen =
-      document.getElementById("appScreen");
+      document.getElementById(
+        "appScreen"
+      );
+
 
     const authForm =
-      document.getElementById("authForm");
+      document.getElementById(
+        "authForm"
+      );
+
 
     const authTitle =
-      document.getElementById("authTitle");
+      document.getElementById(
+        "authTitle"
+      );
+
 
     const authSubtitle =
-      document.getElementById("authSubtitle");
+      document.getElementById(
+        "authSubtitle"
+      );
+
 
     const authButton =
-      document.getElementById("authButton");
+      document.getElementById(
+        "authButton"
+      );
+
 
     const authMessage =
-      document.getElementById("authMessage");
+      document.getElementById(
+        "authMessage"
+      );
+
 
     const switchMode =
-      document.getElementById("switchMode");
+      document.getElementById(
+        "switchMode"
+      );
+
 
     const switchText =
-      document.getElementById("switchText");
+      document.getElementById(
+        "switchText"
+      );
+
 
     const nameField =
-      document.getElementById("nameField");
+      document.getElementById(
+        "nameField"
+      );
+
 
     const phoneField =
-      document.getElementById("phoneField");
+      document.getElementById(
+        "phoneField"
+      );
+
 
     const roleField =
-      document.getElementById("roleField");
+      document.getElementById(
+        "roleField"
+      );
+
 
     const emailField =
-      document.getElementById("emailField");
+      document.getElementById(
+        "emailField"
+      );
+
 
     const loginMethod =
-      document.getElementById("loginMethod");
+      document.getElementById(
+        "loginMethod"
+      );
+
 
     const emailMethod =
-      document.getElementById("emailMethod");
+      document.getElementById(
+        "emailMethod"
+      );
+
 
     const phoneMethod =
-      document.getElementById("phoneMethod");
+      document.getElementById(
+        "phoneMethod"
+      );
+
 
     const privateNotesNavSection =
       document.getElementById(
         "privateNotesNavSection"
       );
+
 
     const privateNoteBox =
       document.getElementById(
@@ -1466,13 +2235,23 @@
       );
 
 
+
+    /* =====================================================
+       STATE
+    ===================================================== */
+
     let isSignUp = false;
 
     let loginType = "email";
 
+    let currentUser = null;
+
+    let currentProfile = null;
+
+
 
     /* =====================================================
-       MESSAGE
+       HELPERS
     ===================================================== */
 
     function showMessage(
@@ -1485,7 +2264,6 @@
 
       authMessage.className =
         "message " + type;
-
     }
 
 
@@ -1496,207 +2274,128 @@
 
       authMessage.className =
         "message";
-
     }
 
 
-    /* =====================================================
-       LOGIN METHOD
-    ===================================================== */
+    function escapeHTML(
+      value
+    ) {
 
-    emailMethod.addEventListener(
-      "click",
-      () => {
+      if (
+        value === null ||
+        value === undefined
+      ) {
 
-        loginType = "email";
-
-        emailMethod.classList.add(
-          "active"
-        );
-
-        phoneMethod.classList.remove(
-          "active"
-        );
-
-        emailField.classList.remove(
-          "hidden"
-        );
-
-        phoneField.classList.add(
-          "hidden"
-        );
-
-        document.getElementById(
-          "email"
-        ).required = true;
-
-        document.getElementById(
-          "phone"
-        ).required = false;
-
+        return "";
       }
-    );
 
 
-    phoneMethod.addEventListener(
-      "click",
-      () => {
+      return String(value)
 
-        loginType = "phone";
+        .replace(
+          /&/g,
+          "&amp;"
+        )
 
-        phoneMethod.classList.add(
-          "active"
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
         );
+    }
 
-        emailMethod.classList.remove(
-          "active"
-        );
 
-        phoneField.classList.remove(
-          "hidden"
-        );
+    function formatDateTime(
+      value
+    ) {
 
-        emailField.classList.add(
-          "hidden"
-        );
+      if (!value) {
 
-        document.getElementById(
-          "email"
-        ).required = false;
-
-        document.getElementById(
-          "phone"
-        ).required = true;
-
+        return "未設定";
       }
-    );
 
 
-    /* =====================================================
-       REGISTER / LOGIN SWITCH
-    ===================================================== */
-
-    switchMode.addEventListener(
-      "click",
-      () => {
-
-        isSignUp =
-          !isSignUp;
-
-        clearMessage();
+      const date =
+        new Date(value);
 
 
-        if (isSignUp) {
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
 
-          authTitle.textContent =
-            "Create account";
-
-          authSubtitle.textContent =
-            "建立帳戶 · Create your account";
-
-          authButton.textContent =
-            "Create Account · 建立帳戶";
-
-          switchText.textContent =
-            "已經有帳戶？";
-
-          switchMode.textContent =
-            "登入";
+        return value;
+      }
 
 
-          nameField.classList.remove(
-            "hidden"
-          );
-
-          phoneField.classList.remove(
-            "hidden"
-          );
-
-          roleField.classList.remove(
-            "hidden"
-          );
-
-          loginMethod.classList.add(
-            "hidden"
-          );
-
-
-          document.getElementById(
-            "fullName"
-          ).required = true;
-
-          document.getElementById(
-            "phone"
-          ).required = true;
-
-          document.getElementById(
-            "email"
-          ).required = true;
-
-
-          emailField.classList.remove(
-            "hidden"
-          );
-
-          loginType =
-            "email";
-
-        } else {
-
-          authTitle.textContent =
-            "Welcome back";
-
-          authSubtitle.textContent =
-            "登入你的帳戶 · Sign in to your account";
-
-          authButton.textContent =
-            "Login · 登入";
-
-          switchText.textContent =
-            "還沒有帳戶？";
-
-          switchMode.textContent =
-            "建立帳戶";
-
-
-          nameField.classList.add(
-            "hidden"
-          );
-
-          phoneField.classList.add(
-            "hidden"
-          );
-
-          roleField.classList.add(
-            "hidden"
-          );
-
-          loginMethod.classList.remove(
-            "hidden"
-          );
-
-
-          document.getElementById(
-            "fullName"
-          ).required = false;
-
-          document.getElementById(
-            "phone"
-          ).required = false;
-
-          document.getElementById(
-            "email"
-          ).required =
-            loginType === "email";
-
+      return date.toLocaleString(
+        "zh-HK",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
         }
+      );
+    }
 
+
+    function formatDate(
+      value
+    ) {
+
+      if (!value) {
+
+        return "未設定";
       }
-    );
+
+
+      const date =
+        new Date(
+          value + "T00:00:00"
+        );
+
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
+        return value;
+      }
+
+
+      return date.toLocaleDateString(
+        "zh-HK",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }
+      );
+    }
+
 
 
     /* =====================================================
-       NORMALIZE HK PHONE
+       PHONE
     ===================================================== */
 
     function normalizeHKPhone(
@@ -1716,31 +2415,400 @@
         const number =
           clean.substring(4);
 
+
         if (
-          /^\d{8}$/.test(number)
+          /^\d{8}$/.test(
+            number
+          )
         ) {
 
           return "+852" + number;
-
         }
-
       }
 
 
       if (
-        /^\d{8}$/.test(clean)
+        /^\d{8}$/.test(
+          clean
+        )
       ) {
 
         return "+852" + clean;
-
       }
 
 
       throw new Error(
         "請輸入有效的 8 位香港電話號碼。Please enter a valid 8-digit Hong Kong phone number."
       );
-
     }
+
+
+
+    /* =====================================================
+       LOGIN METHOD
+    ===================================================== */
+
+    emailMethod.addEventListener(
+      "click",
+      () => {
+
+        loginType =
+          "email";
+
+
+        emailMethod.classList.add(
+          "active"
+        );
+
+
+        phoneMethod.classList.remove(
+          "active"
+        );
+
+
+        emailField.classList.remove(
+          "hidden"
+        );
+
+
+        phoneField.classList.add(
+          "hidden"
+        );
+
+
+        document.getElementById(
+          "email"
+        ).required = true;
+
+
+        document.getElementById(
+          "phone"
+        ).required = false;
+      }
+    );
+
+
+    phoneMethod.addEventListener(
+      "click",
+      () => {
+
+        loginType =
+          "phone";
+
+
+        phoneMethod.classList.add(
+          "active"
+        );
+
+
+        emailMethod.classList.remove(
+          "active"
+        );
+
+
+        phoneField.classList.remove(
+          "hidden"
+        );
+
+
+        emailField.classList.add(
+          "hidden"
+        );
+
+
+        document.getElementById(
+          "email"
+        ).required = false;
+
+
+        document.getElementById(
+          "phone"
+        ).required = true;
+      }
+    );
+
+
+
+    /* =====================================================
+       SIGN UP / LOGIN SWITCH
+    ===================================================== */
+
+    switchMode.addEventListener(
+      "click",
+      () => {
+
+        isSignUp =
+          !isSignUp;
+
+
+        clearMessage();
+
+
+        if (isSignUp) {
+
+          authTitle.textContent =
+            "Create account";
+
+
+          authSubtitle.textContent =
+            "建立帳戶 · Create your account";
+
+
+          authButton.textContent =
+            "Create Account · 建立帳戶";
+
+
+          switchText.textContent =
+            "已經有帳戶？";
+
+
+          switchMode.textContent =
+            "登入";
+
+
+          nameField.classList.remove(
+            "hidden"
+          );
+
+
+          phoneField.classList.remove(
+            "hidden"
+          );
+
+
+          roleField.classList.remove(
+            "hidden"
+          );
+
+
+          loginMethod.classList.add(
+            "hidden"
+          );
+
+
+          emailField.classList.remove(
+            "hidden"
+          );
+
+
+          document.getElementById(
+            "fullName"
+          ).required = true;
+
+
+          document.getElementById(
+            "phone"
+          ).required = true;
+
+
+          document.getElementById(
+            "role"
+          ).required = true;
+
+
+          document.getElementById(
+            "email"
+          ).required = true;
+
+
+          loginType =
+            "email";
+
+        } else {
+
+          authTitle.textContent =
+            "Welcome back";
+
+
+          authSubtitle.textContent =
+            "登入你的帳戶 · Sign in to your account";
+
+
+          authButton.textContent =
+            "Login · 登入";
+
+
+          switchText.textContent =
+            "還沒有帳戶？";
+
+
+          switchMode.textContent =
+            "建立帳戶";
+
+
+          nameField.classList.add(
+            "hidden"
+          );
+
+
+          phoneField.classList.add(
+            "hidden"
+          );
+
+
+          roleField.classList.add(
+            "hidden"
+          );
+
+
+          loginMethod.classList.remove(
+            "hidden"
+          );
+
+
+          document.getElementById(
+            "fullName"
+          ).required = false;
+
+
+          document.getElementById(
+            "phone"
+          ).required = false;
+
+
+          document.getElementById(
+            "role"
+          ).required = false;
+
+
+          document.getElementById(
+            "email"
+          ).required =
+            loginType === "email";
+        }
+      }
+    );
+
+
+
+    /* =====================================================
+       PROFILE
+    ===================================================== */
+
+    async function ensureProfile(
+      user
+    ) {
+
+      if (!user) {
+
+        return null;
+      }
+
+
+      const {
+        data: existingProfile,
+        error: selectError
+      } =
+        await supabaseClient
+          .from("profiles")
+          .select(
+            "id, full_name, role, phone, created_at"
+          )
+          .eq(
+            "id",
+            user.id
+          )
+          .maybeSingle();
+
+
+      if (selectError) {
+
+        console.error(
+          "Profile select error:",
+          selectError
+        );
+
+        return null;
+      }
+
+
+      if (existingProfile) {
+
+        return existingProfile;
+      }
+
+
+      const metadata =
+        user.user_metadata || {};
+
+
+      const role =
+        metadata.role === "parent"
+          ? "parent"
+          : "tutor";
+
+
+      const fullName =
+        (
+          metadata.full_name ||
+          user.email ||
+          "User"
+        ).trim();
+
+
+      const phone =
+        metadata.phone ||
+        null;
+
+
+      const {
+        data: newProfile,
+        error: insertError
+      } =
+        await supabaseClient
+          .from("profiles")
+          .insert({
+            id: user.id,
+
+            full_name:
+              fullName,
+
+            role:
+              role,
+
+            phone:
+              phone
+          })
+          .select()
+          .single();
+
+
+      if (insertError) {
+
+        console.error(
+          "Profile insert error:",
+          insertError
+        );
+
+
+        /*
+          If another request created the
+          profile at the same time,
+          try reading it again.
+        */
+
+        const {
+          data: retryProfile
+        } =
+          await supabaseClient
+            .from("profiles")
+            .select(
+              "id, full_name, role, phone, created_at"
+            )
+            .eq(
+              "id",
+              user.id
+            )
+            .maybeSingle();
+
+
+        return retryProfile || null;
+      }
+
+
+      return newProfile;
+    }
+
 
 
     /* =====================================================
@@ -1749,13 +2817,18 @@
 
     authForm.addEventListener(
       "submit",
-      async (event) => {
+      async (
+        event
+      ) => {
 
         event.preventDefault();
 
+
         clearMessage();
 
-        authButton.disabled = true;
+
+        authButton.disabled =
+          true;
 
 
         try {
@@ -1764,6 +2837,17 @@
             document.getElementById(
               "password"
             ).value;
+
+
+          if (
+            password.length < 6
+          ) {
+
+            throw new Error(
+              "密碼最少需要 6 個字元。Password must be at least 6 characters."
+            );
+          }
+
 
 
           /* ==========================================
@@ -1803,7 +2887,14 @@
               throw new Error(
                 "請輸入姓名。Please enter your name."
               );
+            }
 
+
+            if (!email) {
+
+              throw new Error(
+                "請輸入 Email。Please enter your email."
+              );
             }
 
 
@@ -1811,29 +2902,34 @@
               data,
               error
             } =
-              await supabaseClient.auth.signUp({
-                email,
-                password,
+              await supabaseClient
+                .auth
+                .signUp({
 
-                options: {
-                  data: {
-                    full_name:
-                      fullName,
+                  email,
 
-                    phone:
-                      phone,
+                  password,
 
-                    role:
-                      role
+                  options: {
+
+                    data: {
+
+                      full_name:
+                        fullName,
+
+                      phone:
+                        phone,
+
+                      role:
+                        role
+                    }
                   }
-                }
-              });
+                });
 
 
             if (error) {
 
               throw error;
-
             }
 
 
@@ -1842,43 +2938,137 @@
               throw new Error(
                 "無法建立帳戶。Unable to create account."
               );
-
             }
 
 
             /*
-              NOTE:
-              Profile information is passed through
-              Supabase Auth metadata first.
-
-              We will connect this to the
-              profiles table + RLS in the next
-              database-security step.
+              If email confirmation is disabled,
+              Supabase normally gives us a session
+              and we can create the profile immediately.
             */
 
+            if (data.session) {
+
+              const profile =
+                await ensureProfile(
+                  data.user
+                );
+
+
+              if (!profile) {
+
+                console.warn(
+                  "Account created but profile could not be created yet."
+                );
+              }
+
+
+              showMessage(
+                "帳戶建立成功！正在進入系統。Account created successfully.",
+                "success"
+              );
+
+
+              await loadApp();
+
+
+              return;
+            }
+
+
+            /*
+              If email confirmation is enabled,
+              there is no authenticated session yet.
+              Profile will be created automatically
+              after the user confirms email and logs in.
+            */
 
             showMessage(
-              "帳戶建立成功！請按照 Supabase 的設定完成登入確認。Account created successfully.",
+              "帳戶建立成功！請先到電郵確認帳戶，之後再登入。Account created. Please confirm your email before signing in.",
               "success"
             );
+
+
+            isSignUp =
+              false;
 
 
             setTimeout(
               () => {
 
-                isSignUp =
-                  false;
+                authTitle.textContent =
+                  "Welcome back";
 
-                window.location.reload();
+
+                authSubtitle.textContent =
+                  "登入你的帳戶 · Sign in to your account";
+
+
+                authButton.textContent =
+                  "Login · 登入";
+
+
+                switchText.textContent =
+                  "還沒有帳戶？";
+
+
+                switchMode.textContent =
+                  "建立帳戶";
+
+
+                nameField.classList.add(
+                  "hidden"
+                );
+
+
+                phoneField.classList.add(
+                  "hidden"
+                );
+
+
+                roleField.classList.add(
+                  "hidden"
+                );
+
+
+                loginMethod.classList.remove(
+                  "hidden"
+                );
+
+
+                document.getElementById(
+                  "email"
+                ).value =
+                  email;
+
+
+                document.getElementById(
+                  "fullName"
+                ).required = false;
+
+
+                document.getElementById(
+                  "phone"
+                ).required = false;
+
+
+                document.getElementById(
+                  "role"
+                ).required = false;
+
+
+                document.getElementById(
+                  "email"
+                ).required = true;
 
               },
-              1300
+              300
             );
 
 
             return;
-
           }
+
 
 
           /* ==========================================
@@ -1895,10 +3085,19 @@
               ).value.trim();
 
 
+            if (!email) {
+
+              throw new Error(
+                "請輸入 Email。Please enter your email."
+              );
+            }
+
+
             const {
               error
             } =
-              await supabaseClient.auth
+              await supabaseClient
+                .auth
                 .signInWithPassword({
 
                   email,
@@ -1911,18 +3110,9 @@
             if (error) {
 
               throw error;
-
             }
 
           } else {
-
-            /*
-              Phone login uses Supabase Auth.
-              No SMS is requested by this code.
-
-              Supabase Phone Auth must be configured
-              appropriately for password login.
-            */
 
             const phone =
               normalizeHKPhone(
@@ -1935,7 +3125,8 @@
             const {
               error
             } =
-              await supabaseClient.auth
+              await supabaseClient
+                .auth
                 .signInWithPassword({
 
                   phone,
@@ -1948,16 +3139,16 @@
             if (error) {
 
               throw error;
-
             }
-
           }
 
 
           await loadApp();
 
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             "Authentication error:",
@@ -1975,11 +3166,11 @@
 
           authButton.disabled =
             false;
-
         }
 
       }
     );
+
 
 
     /* =====================================================
@@ -1993,7 +3184,8 @@
           user
         }
       } =
-        await supabaseClient.auth
+        await supabaseClient
+          .auth
           .getUser();
 
 
@@ -2002,33 +3194,39 @@
         showAuth();
 
         return;
-
       }
+
+
+      currentUser =
+        user;
+
+
+      currentProfile =
+        await ensureProfile(
+          user
+        );
 
 
       authScreen.classList.add(
         "hidden"
       );
 
+
       appScreen.classList.remove(
         "hidden"
       );
 
 
-      /*
-        Role is currently read from Auth metadata.
-
-        Later we will move authorization to
-        database RLS policies.
-      */
-
       const role =
+        currentProfile?.role ||
         user.user_metadata?.role ||
         "tutor";
 
 
       const name =
+        currentProfile?.full_name ||
         user.user_metadata?.full_name ||
+        user.email ||
         "User";
 
 
@@ -2050,13 +3248,16 @@
 
         privateNotesNavSection
           .classList
-          .add("hidden");
+          .add(
+            "hidden"
+          );
 
 
         privateNoteBox
           .classList
-          .add("hidden");
-
+          .add(
+            "hidden"
+          );
 
       } else {
 
@@ -2068,16 +3269,22 @@
 
         privateNotesNavSection
           .classList
-          .remove("hidden");
+          .remove(
+            "hidden"
+          );
 
 
         privateNoteBox
           .classList
-          .remove("hidden");
-
+          .remove(
+            "hidden"
+          );
       }
 
+
+      await loadDashboard();
     }
+
 
 
     /* =====================================================
@@ -2090,11 +3297,1455 @@
         "hidden"
       );
 
+
       authScreen.classList.remove(
         "hidden"
       );
-
     }
+
+
+
+    /* =====================================================
+       DASHBOARD
+    ===================================================== */
+
+    async function loadDashboard() {
+
+      if (!currentUser) {
+
+        return;
+      }
+
+
+      const role =
+        currentProfile?.role ||
+        currentUser.user_metadata?.role ||
+        "tutor";
+
+
+
+      /* ==========================================
+         STUDENT COUNT
+      ========================================== */
+
+      let studentQuery =
+        supabaseClient
+          .from("students")
+          .select(
+            "id",
+            {
+              count: "exact",
+              head: true
+            }
+          );
+
+
+      if (
+        role === "parent"
+      ) {
+
+        studentQuery =
+          studentQuery.eq(
+            "parent_id",
+            currentUser.id
+          );
+
+      } else {
+
+        studentQuery =
+          studentQuery.eq(
+            "tutor_id",
+            currentUser.id
+          );
+      }
+
+
+      const {
+        count: studentCount
+      } =
+        await studentQuery;
+
+
+      document.getElementById(
+        "studentCount"
+      ).textContent =
+        studentCount || 0;
+
+
+
+      /* ==========================================
+         UPCOMING LESSON COUNT
+      ========================================== */
+
+      const now =
+        new Date()
+          .toISOString();
+
+
+      let lessonQuery =
+        supabaseClient
+          .from("lessons")
+          .select(
+            "id",
+            {
+              count: "exact",
+              head: true
+            }
+          )
+          .gte(
+            "start_time",
+            now
+          )
+          .neq(
+            "status",
+            "cancelled"
+          );
+
+
+      if (
+        role === "parent"
+      ) {
+
+        lessonQuery =
+          lessonQuery.eq(
+            "parent_id",
+            currentUser.id
+          );
+
+      } else {
+
+        lessonQuery =
+          lessonQuery.eq(
+            "tutor_id",
+            currentUser.id
+          );
+      }
+
+
+      const {
+        count: lessonCount
+      } =
+        await lessonQuery;
+
+
+      document.getElementById(
+        "lessonCount"
+      ).textContent =
+        lessonCount || 0;
+
+
+
+      /* ==========================================
+         NOTIFICATION COUNT
+      ========================================== */
+
+      const {
+        count: notificationCount
+      } =
+        await supabaseClient
+          .from("notifications")
+          .select(
+            "id",
+            {
+              count: "exact",
+              head: true
+            }
+          )
+          .eq(
+            "user_id",
+            currentUser.id
+          )
+          .eq(
+            "is_read",
+            false
+          );
+
+
+      document.getElementById(
+        "notificationCount"
+      ).textContent =
+        notificationCount || 0;
+
+
+
+      await loadDashboardLessons();
+    }
+
+
+
+    /* =====================================================
+       DASHBOARD LESSONS
+    ===================================================== */
+
+    async function loadDashboardLessons() {
+
+      const container =
+        document.getElementById(
+          "dashboardLessons"
+        );
+
+
+      container.innerHTML =
+        `<div class="loading">載入中...</div>`;
+
+
+      const role =
+        currentProfile?.role ||
+        "tutor";
+
+
+      let query =
+        supabaseClient
+          .from("lessons")
+          .select(`
+            id,
+            student_id,
+            start_time,
+            end_time,
+            location,
+            status
+          `)
+          .gte(
+            "start_time",
+            new Date()
+              .toISOString()
+          )
+          .neq(
+            "status",
+            "cancelled"
+          )
+          .order(
+            "start_time",
+            {
+              ascending: true
+            }
+          )
+          .limit(5);
+
+
+      if (
+        role === "parent"
+      ) {
+
+        query =
+          query.eq(
+            "parent_id",
+            currentUser.id
+          );
+
+      } else {
+
+        query =
+          query.eq(
+            "tutor_id",
+            currentUser.id
+          );
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await query;
+
+
+      if (error) {
+
+        console.error(
+          error
+        );
+
+
+        container.innerHTML =
+          `<div class="empty">
+             暫時未能載入課堂資料。
+           </div>`;
+
+        return;
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        container.innerHTML =
+          `<div class="empty">
+             暫時沒有即將上堂。
+             <br>
+             No upcoming lessons.
+           </div>`;
+
+        return;
+      }
+
+
+      const studentIds =
+        [
+          ...new Set(
+            data.map(
+              lesson =>
+                lesson.student_id
+            )
+          )
+        ];
+
+
+      const {
+        data: students
+      } =
+        await supabaseClient
+          .from("students")
+          .select(
+            "id, student_name"
+          )
+          .in(
+            "id",
+            studentIds
+          );
+
+
+      const studentMap =
+        new Map(
+          (
+            students || []
+          ).map(
+            student => [
+              student.id,
+              student.student_name
+            ]
+          )
+        );
+
+
+      container.innerHTML =
+        data.map(
+          lesson => {
+
+            const studentName =
+              studentMap.get(
+                lesson.student_id
+              ) ||
+              "Student";
+
+
+            return `
+              <div class="data-item">
+
+                <div class="data-item-main">
+
+                  <div class="data-item-title">
+                    ${escapeHTML(studentName)}
+                  </div>
+
+                  <div class="data-item-subtitle">
+
+                    ${escapeHTML(
+                      formatDateTime(
+                        lesson.start_time
+                      )
+                    )}
+
+                    ·
+
+                    ${escapeHTML(
+                      lesson.location ||
+                      "未設定地點"
+                    )}
+
+                  </div>
+
+                </div>
+
+                <span class="badge badge-success">
+                  ${escapeHTML(
+                    lesson.status ||
+                    "scheduled"
+                  )}
+                </span>
+
+              </div>
+            `;
+          }
+        ).join("");
+    }
+
+
+
+    /* =====================================================
+       STUDENTS
+    ===================================================== */
+
+    async function loadStudentsPage() {
+
+      const container =
+        document.getElementById(
+          "studentsList"
+        );
+
+
+      container.innerHTML =
+        `<div class="loading">載入中...</div>`;
+
+
+      const role =
+        currentProfile?.role ||
+        "tutor";
+
+
+      let query =
+        supabaseClient
+          .from("students")
+          .select(`
+            id,
+            student_name,
+            school,
+            grade,
+            phone,
+            created_at
+          `)
+          .order(
+            "student_name",
+            {
+              ascending: true
+            }
+          );
+
+
+      if (
+        role === "parent"
+      ) {
+
+        query =
+          query.eq(
+            "parent_id",
+            currentUser.id
+          );
+
+      } else {
+
+        query =
+          query.eq(
+            "tutor_id",
+            currentUser.id
+          );
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await query;
+
+
+      if (error) {
+
+        console.error(
+          error
+        );
+
+
+        container.innerHTML =
+          `<div class="empty">
+             無法載入學生資料。
+             <br>
+             ${escapeHTML(
+               error.message
+             )}
+           </div>`;
+
+        return;
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        container.innerHTML =
+          `<div class="empty">
+             暫時沒有學生。
+             <br>
+             No students yet.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        `<div class="data-list">
+
+          ${data.map(
+            student => `
+
+              <div class="data-item">
+
+                <div class="data-item-main">
+
+                  <div class="data-item-title">
+                    ${escapeHTML(
+                      student.student_name
+                    )}
+                  </div>
+
+                  <div class="data-item-subtitle">
+
+                    ${
+                      student.school
+                        ? escapeHTML(
+                            student.school
+                          )
+                        : "學校未設定"
+                    }
+
+                    ·
+
+                    ${
+                      student.grade
+                        ? escapeHTML(
+                            student.grade
+                          )
+                        : "年級未設定"
+                    }
+
+                    ${
+                      student.phone
+                        ? `<br>${escapeHTML(
+                            student.phone
+                          )}`
+                        : ""
+                    }
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            `
+          ).join("")}
+
+        </div>`;
+    }
+
+
+
+    /* =====================================================
+       LESSONS PAGE
+    ===================================================== */
+
+    async function loadLessonsPage() {
+
+      const container =
+        document.getElementById(
+          "calendarList"
+        );
+
+
+      container.innerHTML =
+        `<div class="loading">載入中...</div>`;
+
+
+      const role =
+        currentProfile?.role ||
+        "tutor";
+
+
+      let query =
+        supabaseClient
+          .from("lessons")
+          .select(`
+            id,
+            student_id,
+            start_time,
+            end_time,
+            location,
+            repeat_weekly,
+            repeat_until,
+            status
+          `)
+          .order(
+            "start_time",
+            {
+              ascending: true
+            }
+          )
+          .limit(50);
+
+
+      if (
+        role === "parent"
+      ) {
+
+        query =
+          query.eq(
+            "parent_id",
+            currentUser.id
+          );
+
+      } else {
+
+        query =
+          query.eq(
+            "tutor_id",
+            currentUser.id
+          );
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await query;
+
+
+      if (error) {
+
+        container.innerHTML =
+          `<div class="empty">
+             ${escapeHTML(
+               error.message
+             )}
+           </div>`;
+
+        return;
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        container.innerHTML =
+          `<div class="empty">
+             暫時沒有課堂資料。
+             <br>
+             No lesson records.
+           </div>`;
+
+        return;
+      }
+
+
+      const studentIds =
+        [
+          ...new Set(
+            data.map(
+              lesson =>
+                lesson.student_id
+            )
+          )
+        ];
+
+
+      const {
+        data: students
+      } =
+        await supabaseClient
+          .from("students")
+          .select(
+            "id, student_name"
+          )
+          .in(
+            "id",
+            studentIds
+          );
+
+
+      const studentMap =
+        new Map(
+          (
+            students || []
+          ).map(
+            student => [
+              student.id,
+              student.student_name
+            ]
+          )
+        );
+
+
+      container.innerHTML =
+        `<div class="data-list">
+
+          ${data.map(
+            lesson => `
+
+              <div class="data-item">
+
+                <div class="data-item-main">
+
+                  <div class="data-item-title">
+
+                    ${escapeHTML(
+                      studentMap.get(
+                        lesson.student_id
+                      ) ||
+                      "Student"
+                    )}
+
+                  </div>
+
+                  <div class="data-item-subtitle">
+
+                    ${escapeHTML(
+                      formatDateTime(
+                        lesson.start_time
+                      )
+                    )}
+
+                    →
+
+                    ${escapeHTML(
+                      formatDateTime(
+                        lesson.end_time
+                      )
+                    )}
+
+                    <br>
+
+                    ${escapeHTML(
+                      lesson.location ||
+                      "地點未設定"
+                    )}
+
+                  </div>
+
+                </div>
+
+                <span class="badge ${
+                  lesson.status ===
+                  "completed"
+                    ? "badge-success"
+                    : lesson.status ===
+                      "cancelled"
+                    ? "badge-danger"
+                    : "badge-warning"
+                }">
+
+                  ${escapeHTML(
+                    lesson.status ||
+                    "scheduled"
+                  )}
+
+                </span>
+
+              </div>
+
+            `
+          ).join("")}
+
+        </div>`;
+    }
+
+
+
+    /* =====================================================
+       PAYMENTS
+    ===================================================== */
+
+    async function loadPaymentsPage() {
+
+      const container =
+        document.getElementById(
+          "paymentsList"
+        );
+
+
+      container.innerHTML =
+        `<div class="loading">載入中...</div>`;
+
+
+      const role =
+        currentProfile?.role ||
+        "tutor";
+
+
+      let query =
+        supabaseClient
+          .from("payments")
+          .select(`
+            id,
+            student_id,
+            amount,
+            payment_date,
+            payment_method,
+            status,
+            note
+          `)
+          .order(
+            "payment_date",
+            {
+              ascending: false
+            }
+          )
+          .limit(50);
+
+
+      if (
+        role === "parent"
+      ) {
+
+        query =
+          query.eq(
+            "parent_id",
+            currentUser.id
+          );
+
+      } else {
+
+        query =
+          query.eq(
+            "tutor_id",
+            currentUser.id
+          );
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await query;
+
+
+      if (error) {
+
+        container.innerHTML =
+          `<div class="empty">
+             ${escapeHTML(
+               error.message
+             )}
+           </div>`;
+
+        return;
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        container.innerHTML =
+          `<div class="empty">
+             暫時沒有付款紀錄。
+             <br>
+             No payment records.
+           </div>`;
+
+        return;
+      }
+
+
+      const studentIds =
+        [
+          ...new Set(
+            data.map(
+              payment =>
+                payment.student_id
+            )
+          )
+        ];
+
+
+      const {
+        data: students
+      } =
+        await supabaseClient
+          .from("students")
+          .select(
+            "id, student_name"
+          )
+          .in(
+            "id",
+            studentIds
+          );
+
+
+      const studentMap =
+        new Map(
+          (
+            students || []
+          ).map(
+            student => [
+              student.id,
+              student.student_name
+            ]
+          )
+        );
+
+
+      container.innerHTML =
+        `<div class="data-list">
+
+          ${data.map(
+            payment => `
+
+              <div class="data-item">
+
+                <div class="data-item-main">
+
+                  <div class="data-item-title">
+
+                    $${escapeHTML(
+                      Number(
+                        payment.amount || 0
+                      ).toFixed(2)
+                    )}
+
+                    ·
+
+                    ${escapeHTML(
+                      studentMap.get(
+                        payment.student_id
+                      ) ||
+                      "Student"
+                    )}
+
+                  </div>
+
+                  <div class="data-item-subtitle">
+
+                    ${escapeHTML(
+                      formatDate(
+                        payment.payment_date
+                      )
+                    )}
+
+                    ·
+
+                    ${escapeHTML(
+                      payment.payment_method ||
+                      "付款方式未設定"
+                    )}
+
+                    ${
+                      payment.note
+                        ? `<br>${escapeHTML(
+                            payment.note
+                          )}`
+                        : ""
+                    }
+
+                  </div>
+
+                </div>
+
+                <span class="badge ${
+                  payment.status ===
+                  "paid"
+                    ? "badge-success"
+                    : payment.status ===
+                      "cancelled"
+                    ? "badge-danger"
+                    : "badge-warning"
+                }">
+
+                  ${escapeHTML(
+                    payment.status ||
+                    "pending"
+                  )}
+
+                </span>
+
+              </div>
+
+            `
+          ).join("")}
+
+        </div>`;
+    }
+
+
+
+    /* =====================================================
+       NOTIFICATIONS
+    ===================================================== */
+
+    async function loadNotificationsPage() {
+
+      const container =
+        document.getElementById(
+          "notificationsList"
+        );
+
+
+      container.innerHTML =
+        `<div class="loading">載入中...</div>`;
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("notifications")
+          .select(`
+            id,
+            title,
+            message,
+            type,
+            is_read,
+            created_at
+          `)
+          .eq(
+            "user_id",
+            currentUser.id
+          )
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          )
+          .limit(50);
+
+
+      if (error) {
+
+        container.innerHTML =
+          `<div class="empty">
+             ${escapeHTML(
+               error.message
+             )}
+           </div>`;
+
+        return;
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        container.innerHTML =
+          `<div class="empty">
+             暫時沒有通知。
+             <br>
+             No notifications.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        `<div class="data-list">
+
+          ${data.map(
+            notification => `
+
+              <div class="data-item">
+
+                <div class="data-item-main">
+
+                  <div class="data-item-title">
+
+                    ${escapeHTML(
+                      notification.title
+                    )}
+
+                  </div>
+
+                  <div class="data-item-subtitle">
+
+                    ${
+                      notification.message
+                        ? escapeHTML(
+                            notification.message
+                          )
+                        : ""
+                    }
+
+                    <br>
+
+                    ${escapeHTML(
+                      formatDateTime(
+                        notification.created_at
+                      )
+                    )}
+
+                  </div>
+
+                </div>
+
+                <span class="badge ${
+                  notification.is_read
+                    ? "badge-success"
+                    : "badge-warning"
+                }">
+
+                  ${
+                    notification.is_read
+                      ? "已讀"
+                      : "未讀"
+                  }
+
+                </span>
+
+              </div>
+
+            `
+          ).join("")}
+
+        </div>`;
+    }
+
+
+
+    /* =====================================================
+       PRIVATE NOTES
+    ===================================================== */
+
+    async function loadPrivateNotesPage() {
+
+      const container =
+        document.getElementById(
+          "privateNotesList"
+        );
+
+
+      container.innerHTML =
+        `<div class="loading">載入中...</div>`;
+
+
+      if (
+        currentProfile?.role !==
+        "tutor"
+      ) {
+
+        container.innerHTML =
+          `<div class="empty">
+             此區域只供導師使用。
+             <br>
+             Tutor only.
+           </div>`;
+
+        return;
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("private_notes")
+          .select(`
+            id,
+            student_id,
+            note,
+            created_at,
+            updated_at
+          `)
+          .eq(
+            "tutor_id",
+            currentUser.id
+          )
+          .order(
+            "updated_at",
+            {
+              ascending: false
+            }
+          )
+          .limit(50);
+
+
+      if (error) {
+
+        container.innerHTML =
+          `<div class="empty">
+             ${escapeHTML(
+               error.message
+             )}
+           </div>`;
+
+        return;
+      }
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        container.innerHTML =
+          `<div class="empty">
+             暫時沒有私人備註。
+             <br>
+             No private notes.
+           </div>`;
+
+        return;
+      }
+
+
+      const studentIds =
+        [
+          ...new Set(
+            data.map(
+              note =>
+                note.student_id
+            )
+          )
+        ];
+
+
+      const {
+        data: students
+      } =
+        await supabaseClient
+          .from("students")
+          .select(
+            "id, student_name"
+          )
+          .in(
+            "id",
+            studentIds
+          );
+
+
+      const studentMap =
+        new Map(
+          (
+            students || []
+          ).map(
+            student => [
+              student.id,
+              student.student_name
+            ]
+          )
+        );
+
+
+      container.innerHTML =
+        `<div class="data-list">
+
+          ${data.map(
+            note => `
+
+              <div class="data-item">
+
+                <div class="data-item-main">
+
+                  <div class="data-item-title">
+
+                    🔒
+
+                    ${escapeHTML(
+                      studentMap.get(
+                        note.student_id
+                      ) ||
+                      "Student"
+                    )}
+
+                  </div>
+
+                  <div class="data-item-subtitle">
+
+                    ${escapeHTML(
+                      note.note
+                    )}
+
+                    <br>
+
+                    ${escapeHTML(
+                      formatDateTime(
+                        note.updated_at ||
+                        note.created_at
+                      )
+                    )}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            `
+          ).join("")}
+
+        </div>`;
+    }
+
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    function navigateToPage(
+      page
+    ) {
+
+      document
+        .querySelectorAll(
+          ".page"
+        )
+        .forEach(
+          section => {
+
+            section.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+      const target =
+        document.getElementById(
+          "page-" + page
+        );
+
+
+      if (target) {
+
+        target.classList.add(
+          "active"
+        );
+      }
+
+
+      document
+        .querySelectorAll(
+          ".nav-button"
+        )
+        .forEach(
+          button => {
+
+            button.classList.toggle(
+              "active",
+              button.dataset.page ===
+                page
+            );
+
+          }
+        );
+
+
+      document
+        .querySelectorAll(
+          ".mobile-nav button"
+        )
+        .forEach(
+          button => {
+
+            button.classList.toggle(
+              "active",
+              button.dataset.page ===
+                page
+            );
+
+          }
+        );
+
+
+      if (
+        page === "dashboard"
+      ) {
+
+        loadDashboard();
+
+      } else if (
+        page === "calendar"
+      ) {
+
+        loadLessonsPage();
+
+      } else if (
+        page === "students"
+      ) {
+
+        loadStudentsPage();
+
+      } else if (
+        page === "payments"
+      ) {
+
+        loadPaymentsPage();
+
+      } else if (
+        page === "notifications"
+      ) {
+
+        loadNotificationsPage();
+
+      } else if (
+        page === "private-notes"
+      ) {
+
+        loadPrivateNotesPage();
+      }
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    document
+      .querySelectorAll(
+        ".nav-button"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const page =
+                button.dataset.page;
+
+
+              navigateToPage(
+                page
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".mobile-nav button"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const page =
+                button.dataset.page;
+
+
+              navigateToPage(
+                page
+              );
+
+            }
+          );
+
+        }
+      );
+
 
 
     /* =====================================================
@@ -2109,70 +4760,35 @@
         "click",
         async () => {
 
-          await supabaseClient.auth.signOut();
+          await supabaseClient
+            .auth
+            .signOut();
+
+
+          currentUser =
+            null;
+
+
+          currentProfile =
+            null;
+
 
           showAuth();
 
-        }
-      );
 
-
-    /* =====================================================
-       NAVIGATION
-    ===================================================== */
-
-    document
-      .querySelectorAll(
-        ".nav-button"
-      )
-      .forEach(
-        button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              document
-                .querySelectorAll(
-                  ".nav-button"
-                )
-                .forEach(
-                  item => {
-
-                    item.classList.remove(
-                      "active"
-                    );
-
-                  }
-                );
-
-
-              button.classList.add(
-                "active"
-              );
-
-
-              const page =
-                button.dataset.page;
-
-
-              console.log(
-                "Selected page:",
-                page
-              );
-
-            }
-          );
+          clearMessage();
 
         }
       );
+
 
 
     /* =====================================================
        AUTH STATE
     ===================================================== */
 
-    supabaseClient.auth
+    supabaseClient
+      .auth
       .onAuthStateChange(
         async (
           event,
@@ -2185,12 +4801,19 @@
 
           } else {
 
+            currentUser =
+              null;
+
+            currentProfile =
+              null;
+
             showAuth();
 
           }
 
         }
       );
+
 
 
     /* =====================================================
@@ -2206,7 +4829,8 @@
             session
           }
         } =
-          await supabaseClient.auth
+          await supabaseClient
+            .auth
             .getSession();
 
 
@@ -2220,22 +4844,26 @@
 
         }
 
-      } catch (error) {
+      } catch (
+        error
+      ) {
 
         console.error(
+          "Initialization error:",
           error
         );
 
+
         showAuth();
-
       }
-
     }
 
 
     initializeApp();
 
+
   </script>
+
 
 </body>
 </html>
