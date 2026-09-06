@@ -1,689 +1,3058 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-HK">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, viewport-fit=cover"
-    >
-
-    <meta
-        name="theme-color"
-        content="#f6f6f3"
-    >
-
-    <meta
-        name="apple-mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="default"
-    >
-
-    <meta
-        name="apple-mobile-web-app-title"
-        content="Tutor Manager"
-    >
-
-    <!-- Your app icon -->
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="192x192"
-        href="./icon-home-192.png"
-    >
-
-    <link
-        rel="apple-touch-icon"
-        sizes="192x192"
-        href="./icon-home-192.png"
-    >
-
-    <link
-        rel="apple-touch-icon"
-        sizes="512x512"
-        href="./icon-home-512.png"
-    >
-
-    <title>Tutor Manager</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            margin: 0;
-            padding: 0;
-            background: #f6f6f3;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-
-            background:
-                radial-gradient(
-                    circle at 15% 5%,
-                    #ffffff 0%,
-                    #f6f6f3 48%,
-                    #eeeeeb 100%
-                );
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta name="theme-color" content="#f7f7f5">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tutor Manager">
+
+<link rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./icon-home-192.png">
+
+<link rel="apple-touch-icon"
+      sizes="192x192"
+      href="./icon-home-192.png">
+
+<link rel="apple-touch-icon"
+      sizes="512x512"
+      href="./icon-home-512.png">
+
+<title>Tutor Manager｜導師管理系統</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at top left,
+            #ffffff 0%,
+            #f7f7f5 48%,
+            #eeeeeb 100%
+        );
+
+    color: #171717;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+
+    padding-bottom:
+        calc(105px + env(safe-area-inset-bottom));
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+}
 
-            color: #171717;
+input,
+select,
+textarea {
+    outline: none;
+}
 
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "SF Pro Display",
-                "SF Pro Text",
-                "Helvetica Neue",
-                Arial,
-                sans-serif;
 
-            -webkit-font-smoothing: antialiased;
-        }
+/* ================================
+   HEADER
+================================ */
 
-        button,
-        input {
-            font: inherit;
-        }
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
-        button {
-            border: 0;
-            cursor: pointer;
-            touch-action: manipulation;
-        }
+    padding:
+        calc(14px + env(safe-area-inset-top))
+        18px
+        13px;
 
-        input {
-            outline: none;
-        }
+    background: rgba(247,247,245,.9);
 
+    border-bottom:
+        1px solid rgba(0,0,0,.06);
 
-        /* ===============================
-           PAGE
-        =============================== */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
 
-        .page {
-            min-height: 100vh;
+.header-inner {
+    max-width: 760px;
+    margin: auto;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
 
-            padding:
-                calc(28px + env(safe-area-inset-top))
-                20px
-                calc(28px + env(safe-area-inset-bottom));
-        }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
 
+.logo {
+    width: 47px;
+    height: 47px;
 
-        /* ===============================
-           LOGIN CARD
-        =============================== */
+    border-radius: 15px;
+    overflow: hidden;
 
-        .login-card {
-            width: 100%;
-            max-width: 430px;
+    background: white;
 
-            padding: 30px 24px 25px;
+    border: 1px solid rgba(0,0,0,.07);
 
-            border-radius: 30px;
+    box-shadow:
+        0 7px 20px rgba(0,0,0,.1);
+}
 
-            background:
-                rgba(255,255,255,.88);
+.logo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
 
-            border:
-                1px solid rgba(0,0,0,.07);
+.brand-name {
+    font-size: 17px;
+    font-weight: 780;
+    letter-spacing: -.4px;
+}
 
-            box-shadow:
-                0 25px 70px rgba(0,0,0,.09);
+.brand-sub {
+    margin-top: 3px;
 
-            backdrop-filter:
-                blur(25px);
+    color: #858782;
 
-            -webkit-backdrop-filter:
-                blur(25px);
-        }
+    font-size: 11px;
+}
 
+.account {
+    width: 43px;
+    height: 43px;
 
-        /* ===============================
-           BRAND
-        =============================== */
+    border-radius: 50%;
 
-        .brand {
-            text-align: center;
-        }
+    background: #e9e9e6;
+    color: #555;
 
-        .app-icon {
-            width: 76px;
-            height: 76px;
+    font-size: 17px;
+}
 
-            margin: 0 auto 17px;
 
-            border-radius: 22px;
+/* ================================
+   MAIN
+================================ */
 
-            overflow: hidden;
+main {
+    width: 100%;
+    max-width: 760px;
 
-            background: #ffffff;
+    margin: auto;
 
-            border:
-                1px solid rgba(0,0,0,.07);
+    padding:
+        25px 18px 35px;
+}
 
-            box-shadow:
-                0 12px 28px rgba(0,0,0,.12);
-        }
 
-        .app-icon img {
-            width: 100%;
-            height: 100%;
+/* ================================
+   PAGE TITLE
+================================ */
 
-            display: block;
+.eyebrow {
+    margin: 0 0 6px;
 
-            object-fit: cover;
-        }
+    color: #8a8d89;
 
-        .brand h1 {
-            margin: 0;
+    font-size: 11px;
+    font-weight: 750;
 
-            font-size: 27px;
+    letter-spacing: .7px;
+}
 
-            line-height: 1.1;
+.page-title {
+    margin: 0;
 
-            font-weight: 780;
+    font-size: 31px;
+    line-height: 1.1;
 
-            letter-spacing: -.8px;
-        }
+    font-weight: 790;
 
-        .brand p {
-            margin: 7px 0 0;
+    letter-spacing: -1px;
+}
 
-            color: #858782;
+.page-description {
+    margin: 8px 0 0;
 
-            font-size: 13px;
-        }
+    color: #81847f;
 
+    font-size: 13px;
+}
 
-        /* ===============================
-           ROLE SELECTOR
-        =============================== */
 
-        .role-section {
-            margin-top: 28px;
-        }
+/* ================================
+   CARDS
+================================ */
 
-        .role-label {
-            margin-bottom: 9px;
+.card {
+    margin-top: 13px;
 
-            color: #666965;
+    padding: 17px;
 
-            font-size: 12px;
+    border-radius: 21px;
 
-            font-weight: 700;
-        }
+    background: rgba(255,255,255,.93);
 
-        .roles {
-            display: grid;
+    border:
+        1px solid rgba(0,0,0,.06);
 
-            grid-template-columns:
-                repeat(2, minmax(0,1fr));
+    box-shadow:
+        0 9px 28px rgba(0,0,0,.05);
+}
 
-            gap: 9px;
-        }
 
-        .role {
-            min-height: 76px;
+/* ================================
+   SECTION
+================================ */
 
-            padding: 11px;
+.section {
+    margin-top: 25px;
+}
 
-            display: flex;
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-            flex-direction: column;
+    margin-bottom: 11px;
+}
 
-            align-items: center;
+.section-title {
+    margin: 0;
 
-            justify-content: center;
+    font-size: 18px;
+    font-weight: 760;
 
-            gap: 5px;
+    letter-spacing: -.35px;
+}
 
-            border-radius: 18px;
+.section-link {
+    padding: 5px;
 
-            background: #f1f1ee;
+    background: transparent;
 
-            color: #777a76;
+    color: #777a76;
 
-            border:
-                1px solid transparent;
+    font-size: 12px;
+    font-weight: 650;
+}
 
-            transition:
-                background .18s ease,
-                color .18s ease,
-                border .18s ease,
-                transform .15s ease;
-        }
 
-        .role-icon {
-            font-size: 21px;
+/* ================================
+   QUICK ACTIONS
+================================ */
 
-            line-height: 1;
-        }
+.quick-grid {
+    display: grid;
 
-        .role-title {
-            font-size: 12px;
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
 
-            font-weight: 700;
-        }
+    gap: 10px;
 
-        .role.active {
-            background: #171717;
+    margin-top: 22px;
+}
 
-            color: #ffffff;
+.quick {
+    min-height: 82px;
 
-            border-color: #171717;
-        }
+    padding: 14px;
 
-        .role:active {
-            transform: scale(.97);
-        }
+    display: flex;
+    align-items: center;
 
+    gap: 10px;
 
-        /* ===============================
-           FORM
-        =============================== */
+    text-align: left;
 
-        .form {
-            margin-top: 23px;
-        }
+    border-radius: 20px;
 
-        .field {
-            margin-top: 15px;
-        }
+    background: rgba(255,255,255,.92);
 
-        .field:first-child {
-            margin-top: 0;
-        }
+    border:
+        1px solid rgba(0,0,0,.06);
 
-        .field label {
-            display: block;
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.045);
+}
 
-            margin-bottom: 7px;
+.quick-icon {
+    width: 42px;
+    height: 42px;
 
-            color: #5e615e;
+    flex: 0 0 42px;
 
-            font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            font-weight: 700;
-        }
+    border-radius: 14px;
 
-        .field input {
-            width: 100%;
+    background: #eeeeeb;
 
-            min-height: 52px;
+    font-size: 19px;
+}
 
-            padding: 13px 15px;
+.quick-title {
+    display: block;
 
-            border-radius: 16px;
+    font-size: 13px;
+    font-weight: 720;
+}
 
-            border:
-                1px solid #dedfdb;
+.quick-sub {
+    display: block;
 
-            background: #fafaf8;
+    margin-top: 3px;
 
-            color: #171717;
+    color: #898c88;
 
-            font-size: 15px;
+    font-size: 10px;
+}
 
-            transition:
-                border .2s ease,
-                box-shadow .2s ease,
-                background .2s ease;
-        }
 
-        .field input::placeholder {
-            color: #a0a29e;
-        }
+/* ================================
+   STATISTICS
+================================ */
 
-        .field input:focus {
-            background: #ffffff;
+.stats {
+    display: grid;
 
-            border-color: #8c908c;
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
 
-            box-shadow:
-                0 0 0 4px rgba(0,0,0,.045);
-        }
+    gap: 10px;
+}
 
+.stat {
+    min-height: 108px;
 
-        /* ===============================
-           LOGIN BUTTON
-        =============================== */
+    padding: 16px;
 
-        .login-button {
-            width: 100%;
+    border-radius: 20px;
 
-            min-height: 54px;
+    background: rgba(255,255,255,.93);
 
-            margin-top: 21px;
+    border:
+        1px solid rgba(0,0,0,.06);
 
-            border-radius: 17px;
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.045);
+}
 
-            background: #171717;
+.stat-label {
+    color: #858782;
 
-            color: #ffffff;
+    font-size: 11px;
+    font-weight: 650;
+}
 
-            font-size: 15px;
+.stat-value {
+    margin-top: 15px;
 
-            font-weight: 720;
+    font-size: 27px;
 
-            box-shadow:
-                0 9px 22px rgba(0,0,0,.15);
+    line-height: 1;
 
-            transition:
-                transform .15s ease,
-                opacity .15s ease;
-        }
+    font-weight: 780;
 
-        .login-button:active {
-            transform: scale(.98);
-        }
+    letter-spacing: -.8px;
+}
 
 
-        /* ===============================
-           DEMO NOTICE
-        =============================== */
+/* ================================
+   STUDENT
+================================ */
 
-        .demo-notice {
-            margin-top: 16px;
+.student {
+    display: flex;
+    align-items: center;
 
-            padding: 11px 13px;
+    gap: 12px;
 
-            border-radius: 14px;
+    padding: 13px;
 
-            background: #f2f2ef;
+    border-radius: 19px;
 
-            color: #777a76;
+    background: rgba(255,255,255,.93);
 
-            text-align: center;
+    border:
+        1px solid rgba(0,0,0,.06);
 
-            font-size: 11px;
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.045);
+}
 
-            line-height: 1.45;
-        }
+.avatar {
+    width: 46px;
+    height: 46px;
 
+    flex: 0 0 46px;
 
-        /* ===============================
-           FOOTER
-        =============================== */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .footer {
-            margin-top: 21px;
+    border-radius: 50%;
 
-            text-align: center;
+    background: #e9e9e6;
 
-            color: #a0a29e;
+    font-size: 18px;
+}
 
-            font-size: 10px;
-        }
+.student-info {
+    flex: 1;
+    min-width: 0;
+}
 
+.student-name {
+    font-size: 14px;
+    font-weight: 720;
+}
 
-        /* ===============================
-           SMALL PHONE
-        =============================== */
+.student-detail {
+    margin-top: 3px;
 
-        @media (max-width: 360px) {
+    color: #858782;
 
-            .page {
-                padding-left: 14px;
-                padding-right: 14px;
-            }
+    font-size: 11px;
+}
 
-            .login-card {
-                padding:
-                    25px 19px 21px;
-            }
 
-            .app-icon {
-                width: 68px;
-                height: 68px;
+/* ================================
+   PRIVATE NOTE
+================================ */
 
-                border-radius: 20px;
-            }
+.private-note {
+    padding: 14px;
 
-            .brand h1 {
-                font-size: 25px;
-            }
+    border-radius: 17px;
 
-        }
+    background: #f1f1ee;
 
+    border:
+        1px solid rgba(0,0,0,.06);
+}
 
-        /* ===============================
-           REDUCE MOTION
-        =============================== */
+.private-title {
+    font-size: 12px;
+    font-weight: 750;
+}
 
-        @media (prefers-reduced-motion: reduce) {
+.private-sub {
+    margin-top: 4px;
 
-            * {
-                transition: none !important;
-            }
+    color: #858782;
 
-        }
+    font-size: 10px;
+}
 
-    </style>
+
+/* ================================
+   BUTTON
+================================ */
+
+.primary {
+    width: 100%;
+
+    min-height: 52px;
+
+    padding: 13px 17px;
+
+    border-radius: 16px;
+
+    background: #171717;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 720;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.14);
+}
+
+.secondary {
+    min-height: 43px;
+
+    padding: 10px 15px;
+
+    border-radius: 14px;
+
+    background: #ededeb;
+
+    color: #242424;
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+/* ================================
+   BOTTOM NAV
+================================ */
+
+.bottom-nav {
+    position: fixed;
+
+    left: 12px;
+    right: 12px;
+
+    bottom:
+        calc(10px + env(safe-area-inset-bottom));
+
+    z-index: 500;
+
+    max-width: 570px;
+
+    margin: auto;
+
+    padding: 7px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0,1fr));
+
+    gap: 4px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.93);
+
+    border:
+        1px solid rgba(0,0,0,.08);
+
+    box-shadow:
+        0 14px 40px rgba(0,0,0,.13);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+.nav-button {
+    min-height: 58px;
+
+    padding: 6px 2px;
+
+    border-radius: 18px;
+
+    background: transparent;
+
+    color: #888b87;
+
+    font-size: 9px;
+    font-weight: 650;
+}
+
+.nav-button.active {
+    background: #171717;
+    color: white;
+}
+
+.nav-icon {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 18px;
+    line-height: 1;
+}
+
+
+/* ================================
+   MODAL
+================================ */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: none;
+
+    align-items: flex-end;
+    justify-content: center;
+
+    padding: 12px;
+
+    background: rgba(0,0,0,.38);
+
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 600px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 22px;
+
+    border-radius:
+        27px 27px 20px 20px;
+
+    background: #fafaf9;
+}
+
+.modal-title {
+    margin: 0;
+
+    font-size: 21px;
+    font-weight: 760;
+}
+
+.modal-sub {
+    margin: 5px 0 20px;
+
+    color: #858782;
+
+    font-size: 12px;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+.field {
+    margin-top: 15px;
+}
+
+.field:first-child {
+    margin-top: 0;
+}
+
+.field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #5e615e;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+    width: 100%;
+
+    min-height: 49px;
+
+    padding: 12px 14px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid #dedfdb;
+
+    background: #fafaf8;
+
+    color: #171717;
+}
+
+.field textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+
+/* ================================
+   LOGIN
+================================ */
+
+.login-screen {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #ffffff,
+            #f7f7f5 55%,
+            #eeeeeb
+        );
+}
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 30px 24px 25px;
+
+    border-radius: 29px;
+
+    background:
+        rgba(255,255,255,.9);
+
+    border:
+        1px solid rgba(0,0,0,.07);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.1);
+}
+
+.login-brand {
+    text-align: center;
+}
+
+.login-logo {
+    width: 76px;
+    height: 76px;
+
+    margin: auto auto 17px;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    background: white;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.12);
+}
+
+.login-logo img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.login-brand h1 {
+    margin: 0;
+
+    font-size: 27px;
+    font-weight: 780;
+}
+
+.login-brand p {
+    margin: 7px 0 0;
+
+    color: #858782;
+
+    font-size: 12px;
+}
+
+.roles {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 9px;
+
+    margin-top: 27px;
+}
+
+.role {
+    min-height: 73px;
+
+    border-radius: 17px;
+
+    background: #eeeeeb;
+
+    color: #777a76;
+
+    font-weight: 700;
+}
+
+.role.active {
+    background: #171717;
+    color: white;
+}
+
+.role-icon {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 20px;
+}
+
+
+/* ================================
+   HIDDEN
+================================ */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ================================
+   DESKTOP
+================================ */
+
+@media (min-width:700px) {
+
+    .stats {
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .modal {
+        align-items: center;
+    }
+
+    .modal-content {
+        border-radius: 27px;
+    }
+}
+
+</style>
 </head>
 
 
 <body>
 
-    <div class="page">
 
-        <main class="login-card">
+<!-- =====================================
+     LOGIN
+====================================== -->
 
+<section
+    id="loginScreen"
+    class="login-screen"
+>
 
-            <!-- =========================
-                 BRAND
-            ========================== -->
+    <div class="login-card">
 
-            <section class="brand">
+        <div class="login-brand">
 
-                <div class="app-icon">
+            <div class="login-logo">
 
-                    <img
-                        src="./icon-home-192.png"
-                        alt="Tutor Manager"
-                    >
+                <img
+                    src="./icon-home-192.png"
+                    alt="Tutor Manager"
+                >
 
-                </div>
+            </div>
 
-                <h1>
-                    Tutor Manager
-                </h1>
+            <h1>
+                Tutor Manager
+            </h1>
 
-                <p>
-                    Your teaching workspace
-                </p>
+            <p>
+                導師管理系統 · Your teaching workspace
+            </p>
 
-            </section>
-
-
-            <!-- =========================
-                 ROLE
-            ========================== -->
-
-            <section class="role-section">
-
-                <div class="role-label">
-                    SIGN IN AS
-                </div>
+        </div>
 
 
-                <div class="roles">
+        <div class="roles">
 
-                    <button
-                        class="role active"
-                        type="button"
-                        data-role="Tutor"
-                        onclick="selectRole(this)"
-                    >
-
-                        <span class="role-icon">
-                            👩🏻‍🏫
-                        </span>
-
-                        <span class="role-title">
-                            Tutor
-                        </span>
-
-                    </button>
-
-
-                    <button
-                        class="role"
-                        type="button"
-                        data-role="Parent"
-                        onclick="selectRole(this)"
-                    >
-
-                        <span class="role-icon">
-                            👨‍👩‍👧
-                        </span>
-
-                        <span class="role-title">
-                            Parent
-                        </span>
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <!-- =========================
-                 LOGIN FORM
-            ========================== -->
-
-            <form
-                class="form"
-                onsubmit="handleLogin(event)"
+            <button
+                class="role active"
+                data-role="Tutor"
+                onclick="chooseRole(this)"
             >
 
-                <div class="field">
+                <span class="role-icon">
+                    👩🏻‍🏫
+                </span>
 
-                    <label for="email">
-                        Email
-                    </label>
+                Tutor · 導師
 
-                    <input
-                        id="email"
-                        type="email"
-                        placeholder="Enter your email"
-                        autocomplete="email"
-                        required
-                    >
-
-                </div>
+            </button>
 
 
-                <div class="field">
+            <button
+                class="role"
+                data-role="Parent"
+                onclick="chooseRole(this)"
+            >
 
-                    <label for="password">
-                        Password
-                    </label>
+                <span class="role-icon">
+                    👨‍👩‍👧
+                </span>
 
-                    <input
-                        id="password"
-                        type="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                    >
+                Parent · 家長
 
-                </div>
+            </button>
+
+        </div>
 
 
-                <button
-                    class="login-button"
-                    type="submit"
+        <form
+            style="margin-top:22px"
+            onsubmit="login(event)"
+        >
+
+            <div class="field">
+
+                <label>
+                    Email · 電郵
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    required
                 >
-                    Sign In
-                </button>
-
-            </form>
-
-
-            <!-- =========================
-                 DEMO MESSAGE
-            ========================== -->
-
-            <div class="demo-notice">
-
-                Demo login for now.<br>
-                Real account authentication will be connected later.
 
             </div>
 
 
-            <div class="footer">
-                Tutor Manager · Private & Secure
+            <div class="field">
+
+                <label>
+                    Password · 密碼
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    required
+                >
+
             </div>
 
 
-        </main>
+            <button
+                class="primary"
+                style="margin-top:20px"
+            >
+                Sign In · 登入
+            </button>
+
+        </form>
 
     </div>
 
-
-    <script>
-
-        let selectedRole = "Tutor";
+</section>
 
 
-        function selectRole(button) {
+<!-- =====================================
+     APP
+====================================== -->
 
+<div id="app" class="hidden">
+
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="logo">
+
+                <img
+                    src="./icon-home-192.png"
+                    alt="Tutor Manager"
+                >
+
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    Tutor Manager
+                </div>
+
+                <div
+                    id="roleText"
+                    class="brand-sub"
+                >
+                    Tutor · 導師
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="account"
+            onclick="logout()"
+            title="Logout · 登出"
+        >
+            ●
+        </button>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboardPage">
+
+        <p class="eyebrow">
+            DASHBOARD · 主頁
+        </p>
+
+        <h1 class="page-title">
+            Good afternoon.
+        </h1>
+
+        <p class="page-description">
+            Manage your students, lessons and payments.
+            管理學生、課堂及付款。
+        </p>
+
+
+        <div
+            id="tutorQuickActions"
+            class="quick-grid"
+        >
+
+            <button
+                class="quick"
+                onclick="openStudentModal()"
+            >
+
+                <span class="quick-icon">
+                    ＋
+                </span>
+
+                <span>
+
+                    <span class="quick-title">
+                        Add Student · 新增學生
+                    </span>
+
+                    <span class="quick-sub">
+                        Create a student profile
+                    </span>
+
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="openLessonModal()"
+            >
+
+                <span class="quick-icon">
+                    □
+                </span>
+
+                <span>
+
+                    <span class="quick-title">
+                        Add Lesson · 新增課堂
+                    </span>
+
+                    <span class="quick-sub">
+                        Schedule a lesson
+                    </span>
+
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <section
+            id="overviewSection"
+            class="section"
+        >
+
+            <div class="section-head">
+
+                <h2 class="section-title">
+                    Overview · 概覽
+                </h2>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Students · 學生
+                    </div>
+
+                    <div
+                        id="studentCount"
+                        class="stat-value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Lessons · 課堂
+                    </div>
+
+                    <div
+                        id="lessonCount"
+                        class="stat-value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Unpaid · 未付款
+                    </div>
+
+                    <div
+                        id="unpaidAmount"
+                        class="stat-value"
+                    >
+                        $0
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Income · 收入
+                    </div>
+
+                    <div
+                        id="incomeAmount"
+                        class="stat-value"
+                    >
+                        $0
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-head">
+
+                <h2 class="section-title">
+                    Upcoming Lessons · 即將到來課堂
+                </h2>
+
+                <button
+                    class="section-link"
+                    onclick="showPage('lessons')"
+                >
+                    See all · 全部
+                </button>
+
+            </div>
+
+
+            <div id="upcomingLessons">
+
+                <div class="card">
+
+                    <div
+                        style="
+                        text-align:center;
+                        color:#888b87;
+                        font-size:13px;
+                        "
+                    >
+                        No lessons yet · 暫時未有課堂
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-head">
+
+                <h2 class="section-title">
+                    Students · 學生
+                </h2>
+
+                <button
+                    class="section-link"
+                    onclick="showPage('students')"
+                >
+                    See all · 全部
+                </button>
+
+            </div>
+
+
+            <div id="dashboardStudents">
+
+                <div class="student">
+
+                    <div class="avatar">
+                        ＋
+                    </div>
+
+                    <div class="student-info">
+
+                        <div class="student-name">
+                            Add your first student · 新增第一位學生
+                        </div>
+
+                        <div class="student-detail">
+                            Student information will appear here.
+                            學生資料會顯示喺呢度。
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+
+
+    <!-- STUDENTS PAGE -->
+
+    <section
+        id="studentsPage"
+        class="hidden"
+    >
+
+        <p class="eyebrow">
+            STUDENTS · 學生
+        </p>
+
+        <h1 class="page-title">
+            Students · 學生
+        </h1>
+
+        <div style="margin-top:20px">
+
+            <button
+                class="primary"
+                onclick="openStudentModal()"
+            >
+                ＋ Add Student · 新增學生
+            </button>
+
+        </div>
+
+
+        <div
+            id="studentsList"
+            class="section"
+        ></div>
+
+    </section>
+
+
+    <!-- LESSONS PAGE -->
+
+    <section
+        id="lessonsPage"
+        class="hidden"
+    >
+
+        <p class="eyebrow">
+            LESSONS · 課堂
+        </p>
+
+        <h1 class="page-title">
+            Lessons · 課堂
+        </h1>
+
+        <div style="margin-top:20px">
+
+            <button
+                class="primary"
+                onclick="openLessonModal()"
+            >
+                ＋ Add Lesson · 新增課堂
+            </button>
+
+        </div>
+
+
+        <div
+            id="lessonsList"
+            class="section"
+        ></div>
+
+    </section>
+
+
+    <!-- PAYMENTS PAGE -->
+
+    <section
+        id="paymentsPage"
+        class="hidden"
+    >
+
+        <p class="eyebrow">
+            PAYMENTS · 付款
+        </p>
+
+        <h1 class="page-title">
+            Payments · 付款
+        </h1>
+
+
+        <div class="section">
+
+            <button
+                class="primary"
+                onclick="openPaymentModal()"
+            >
+                ＋ Add Payment · 新增付款
+            </button>
+
+        </div>
+
+
+        <div
+            id="paymentsList"
+            class="section"
+        ></div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section
+        id="settingsPage"
+        class="hidden"
+    >
+
+        <p class="eyebrow">
+            SETTINGS · 設定
+        </p>
+
+        <h1 class="page-title">
+            Settings · 設定
+        </h1>
+
+
+        <div class="card">
+
+            <h3>
+                Account · 帳戶
+            </h3>
+
+            <p
+                id="settingsRole"
+                style="
+                color:#858782;
+                font-size:13px;
+                "
+            >
+                Tutor · 導師
+            </p>
+
+            <button
+                class="secondary"
+                onclick="logout()"
+            >
+                Logout · 登出
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Privacy · 私隱
+            </h3>
+
+            <div class="private-note">
+
+                <div class="private-title">
+                    🔒 Private Notes · 私人備註
+                </div>
+
+                <div class="private-sub">
+                    Tutor-only information is never shown in the Parent interface.
+                    導師私人資料不會顯示於家長介面。
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================
+     BOTTOM NAV
+====================================== -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-button active"
+        onclick="showPage('dashboard')"
+    >
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        Home · 主頁
+
+    </button>
+
+
+    <button
+        class="nav-button"
+        onclick="showPage('lessons')"
+    >
+
+        <span class="nav-icon">
+            □
+        </span>
+
+        Lessons · 課堂
+
+    </button>
+
+
+    <button
+        class="nav-button"
+        onclick="showPage('students')"
+    >
+
+        <span class="nav-icon">
+            ♙
+        </span>
+
+        Students · 學生
+
+    </button>
+
+
+    <button
+        class="nav-button"
+        onclick="showPage('payments')"
+    >
+
+        <span class="nav-icon">
+            $
+        </span>
+
+        Payments · 付款
+
+    </button>
+
+
+    <button
+        class="nav-button"
+        onclick="showPage('settings')"
+    >
+
+        <span class="nav-icon">
+            ⚙
+        </span>
+
+        Settings · 設定
+
+    </button>
+
+</nav>
+
+</div>
+
+
+<!-- =====================================
+     STUDENT MODAL
+====================================== -->
+
+<div
+    id="studentModal"
+    class="modal"
+    onclick="closeOutside(event,'studentModal')"
+>
+
+    <div class="modal-content">
+
+        <h2 class="modal-title">
+            Add Student · 新增學生
+        </h2>
+
+        <p class="modal-sub">
+            Create a complete student profile · 建立完整學生資料
+        </p>
+
+
+        <form onsubmit="saveStudent(event)">
+
+            <div class="field">
+
+                <label>
+                    Student Name · 學生姓名
+                </label>
+
+                <input
+                    id="studentName"
+                    required
+                    placeholder="Student name · 學生姓名"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    School / Grade · 學校／年級
+                </label>
+
+                <input
+                    id="studentGrade"
+                    placeholder="e.g. Primary 5 · 例如：小五"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Subject · 科目
+                </label>
+
+                <input
+                    id="studentSubject"
+                    placeholder="e.g. English · 例如：英文"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Lesson Type · 課堂形式
+                </label>
+
+                <select id="studentLessonType">
+
+                    <option value="Centre">
+                        Centre · 補習社
+                    </option>
+
+                    <option value="Home">
+                        Home · 上門
+                    </option>
+
+                    <option value="Online">
+                        Online · 網上
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Home Address · 上門地址
+                </label>
+
+                <input
+                    id="studentAddress"
+                    placeholder="Only needed for home lessons · 上門課堂使用"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Transport / Access Notes · 交通／進入備註
+                </label>
+
+                <textarea
+                    id="studentTransport"
+                    placeholder="Building entrance, transport, access information...&#10;大廈入口、交通、進入方法等..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    🔒 Private Notes · 私人備註
+                </label>
+
+                <textarea
+                    id="studentPrivateNotes"
+                    placeholder="Tutor-only notes · 僅限導師查看"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="primary"
+                style="margin-top:20px"
+            >
+                Save Student · 儲存學生
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     LESSON MODAL
+====================================== -->
+
+<div
+    id="lessonModal"
+    class="modal"
+    onclick="closeOutside(event,'lessonModal')"
+>
+
+    <div class="modal-content">
+
+        <h2 class="modal-title">
+            Add Lesson · 新增課堂
+        </h2>
+
+        <p class="modal-sub">
+            Schedule a lesson · 安排課堂
+        </p>
+
+
+        <form onsubmit="saveLesson(event)">
+
+            <div class="field">
+
+                <label>
+                    Student · 學生
+                </label>
+
+                <select id="lessonStudent">
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Date · 日期
+                </label>
+
+                <input
+                    id="lessonDate"
+                    type="date"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Time · 時間
+                </label>
+
+                <input
+                    id="lessonTime"
+                    type="time"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Location · 地點
+                </label>
+
+                <input
+                    id="lessonLocation"
+                    placeholder="Location · 地點"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    🔒 Private Notes · 私人備註
+                </label>
+
+                <textarea
+                    id="lessonNotes"
+                    placeholder="Tutor-only lesson notes · 僅限導師查看"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="primary"
+                style="margin-top:20px"
+            >
+                Save Lesson · 儲存課堂
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     PAYMENT MODAL
+====================================== -->
+
+<div
+    id="paymentModal"
+    class="modal"
+    onclick="closeOutside(event,'paymentModal')"
+>
+
+    <div class="modal-content">
+
+        <h2 class="modal-title">
+            Add Payment · 新增付款
+        </h2>
+
+        <p class="modal-sub">
+            Record a payment · 記錄付款
+        </p>
+
+
+        <form onsubmit="savePayment(event)">
+
+            <div class="field">
+
+                <label>
+                    Student · 學生
+                </label>
+
+                <select id="paymentStudent">
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Amount · 金額
+                </label>
+
+                <input
+                    id="paymentAmount"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Status · 狀態
+                </label>
+
+                <select id="paymentStatus">
+
+                    <option value="Paid">
+                        Paid · 已付款
+                    </option>
+
+                    <option value="Unpaid">
+                        Unpaid · 未付款
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Payment Method · 付款方式
+                </label>
+
+                <select id="paymentMethod">
+
+                    <option>
+                        Cash · 現金
+                    </option>
+
+                    <option>
+                        FPS · FPS
+                    </option>
+
+                    <option>
+                        PayMe · PayMe
+                    </option>
+
+                    <option>
+                        AlipayHK · 支付寶香港
+                    </option>
+
+                    <option>
+                        WeChat Pay · 微信支付
+                    </option>
+
+                    <option>
+                        Bank Transfer · 銀行轉帳
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    🔒 Private Notes · 私人備註
+                </label>
+
+                <textarea
+                    id="paymentNotes"
+                    placeholder="Tutor-only payment notes · 僅限導師查看"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="primary"
+                style="margin-top:20px"
+            >
+                Save Payment · 儲存付款
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   DATA
+===================================== */
+
+let currentRole = "Tutor";
+
+let students =
+    JSON.parse(
+        localStorage.getItem("tm_students") || "[]"
+    );
+
+let lessons =
+    JSON.parse(
+        localStorage.getItem("tm_lessons") || "[]"
+    );
+
+let payments =
+    JSON.parse(
+        localStorage.getItem("tm_payments") || "[]"
+    );
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+function chooseRole(button) {
+
+    document
+        .querySelectorAll(".role")
+        .forEach(function(item) {
+
+            item.classList.remove("active");
+
+        });
+
+    button.classList.add("active");
+
+    currentRole =
+        button.dataset.role;
+
+}
+
+
+function login(event) {
+
+    event.preventDefault();
+
+    document
+        .getElementById("loginScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("roleText")
+        .textContent =
+        currentRole === "Tutor"
+            ? "Tutor · 導師"
+            : "Parent · 家長";
+
+    document
+        .getElementById("settingsRole")
+        .textContent =
+        currentRole === "Tutor"
+            ? "Tutor · 導師"
+            : "Parent · 家長";
+
+    applyRolePermissions();
+
+    renderAll();
+
+}
+
+
+function logout() {
+
+    document
+        .getElementById("app")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginScreen")
+        .classList.remove("hidden");
+
+}
+
+
+/* =====================================
+   ROLE PERMISSIONS
+===================================== */
+
+function applyRolePermissions() {
+
+    const tutorOnly =
+        document.querySelectorAll(
+            "#tutorQuickActions"
+        );
+
+    tutorOnly.forEach(function(item) {
+
+        item.style.display =
+            currentRole === "Tutor"
+                ? ""
+                : "none";
+
+    });
+
+    document
+        .querySelectorAll(".private-note")
+        .forEach(function(item) {
+
+            item.style.display =
+                currentRole === "Tutor"
+                    ? ""
+                    : "none";
+
+        });
+
+}
+
+
+/* =====================================
+   NAVIGATION
+===================================== */
+
+function showPage(page) {
+
+    const pages = [
+        "dashboard",
+        "students",
+        "lessons",
+        "payments",
+        "settings"
+    ];
+
+    pages.forEach(function(name) {
+
+        const element =
+            document.getElementById(
+                name + "Page"
+            );
+
+        if (element) {
+
+            element.classList.add("hidden");
+
+        }
+
+    });
+
+
+    const target =
+        document.getElementById(
+            page + "Page"
+        );
+
+    if (target) {
+
+        target.classList.remove("hidden");
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-button")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    const index =
+        pages.indexOf(page);
+
+    const buttons =
+        document.querySelectorAll(
+            ".nav-button"
+        );
+
+    if (buttons[index]) {
+
+        buttons[index]
+            .classList.add("active");
+
+    }
+
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   STORAGE
+===================================== */
+
+function saveData() {
+
+    localStorage.setItem(
+        "tm_students",
+        JSON.stringify(students)
+    );
+
+    localStorage.setItem(
+        "tm_lessons",
+        JSON.stringify(lessons)
+    );
+
+    localStorage.setItem(
+        "tm_payments",
+        JSON.stringify(payments)
+    );
+
+}
+
+
+/* =====================================
+   STUDENTS
+===================================== */
+
+function openStudentModal() {
+
+    if (currentRole !== "Tutor") {
+
+        alert(
+            "Only Tutor accounts can add students.\n" +
+            "只有導師帳戶可以新增學生。"
+        );
+
+        return;
+
+    }
+
+    document
+        .getElementById("studentModal")
+        .classList.add("show");
+
+}
+
+
+function saveStudent(event) {
+
+    event.preventDefault();
+
+
+    const student = {
+
+        id: Date.now(),
+
+        name:
             document
-                .querySelectorAll(".role")
-                .forEach(function(role) {
+                .getElementById("studentName")
+                .value
+                .trim(),
 
-                    role.classList.remove("active");
+        grade:
+            document
+                .getElementById("studentGrade")
+                .value
+                .trim(),
+
+        subject:
+            document
+                .getElementById("studentSubject")
+                .value
+                .trim(),
+
+        lessonType:
+            document
+                .getElementById("studentLessonType")
+                .value,
+
+        address:
+            document
+                .getElementById("studentAddress")
+                .value
+                .trim(),
+
+        transport:
+            document
+                .getElementById("studentTransport")
+                .value
+                .trim(),
+
+        privateNotes:
+            document
+                .getElementById("studentPrivateNotes")
+                .value
+                .trim()
+
+    };
+
+
+    students.push(student);
+
+    saveData();
+
+    event.target.reset();
+
+    closeModal("studentModal");
+
+    renderAll();
+
+}
+
+
+function renderStudents() {
+
+    const list =
+        document.getElementById(
+            "studentsList"
+        );
+
+    const dashboard =
+        document.getElementById(
+            "dashboardStudents"
+        );
+
+
+    if (!students.length) {
+
+        list.innerHTML = `
+            <div class="card">
+                <div style="text-align:center;color:#888;font-size:13px">
+                    No students yet · 暫時未有學生
+                </div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        students.map(function(student) {
+
+            return `
+                <div class="card">
+
+                    <div class="student">
+
+                        <div class="avatar">
+                            ${escapeHTML(
+                                student.name
+                                    .charAt(0)
+                                    .toUpperCase()
+                            )}
+                        </div>
+
+                        <div class="student-info">
+
+                            <div class="student-name">
+                                ${escapeHTML(student.name)}
+                            </div>
+
+                            <div class="student-detail">
+                                ${escapeHTML(student.grade || "—")}
+                                ·
+                                ${escapeHTML(student.subject || "—")}
+                                ·
+                                ${escapeHTML(student.lessonType)}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    ${
+                        currentRole === "Tutor"
+                        ? `
+                        <div
+                            class="private-note"
+                            style="margin-top:12px"
+                        >
+
+                            <div class="private-title">
+                                🔒 Private Notes · 私人備註
+                            </div>
+
+                            <div class="private-sub">
+                                ${escapeHTML(
+                                    student.privateNotes ||
+                                    "No private notes · 暫時未有備註"
+                                )}
+                            </div>
+
+                        </div>
+                        `
+                        : ""
+                    }
+
+                    ${
+                        currentRole === "Tutor" &&
+                        student.lessonType === "Home"
+                        ? `
+                        <div
+                            class="private-note"
+                            style="margin-top:9px"
+                        >
+
+                            <div class="private-title">
+                                🏠 Home Address · 上門地址
+                            </div>
+
+                            <div class="private-sub">
+                                ${escapeHTML(
+                                    student.address ||
+                                    "No address added · 暫時未有地址"
+                                )}
+                            </div>
+
+                            <div
+                                class="private-sub"
+                                style="margin-top:7px"
+                            >
+                                🚗 ${escapeHTML(
+                                    student.transport ||
+                                    "No transport notes · 暫時未有交通備註"
+                                )}
+                            </div>
+
+                        </div>
+                        `
+                        : ""
+                    }
+
+                </div>
+            `;
+
+        }).join("");
+
+
+    dashboard.innerHTML =
+        students
+            .slice(0,3)
+            .map(function(student) {
+
+                return `
+                    <div class="student" style="margin-bottom:9px">
+
+                        <div class="avatar">
+                            ${escapeHTML(
+                                student.name
+                                    .charAt(0)
+                                    .toUpperCase()
+                            )}
+                        </div>
+
+                        <div class="student-info">
+
+                            <div class="student-name">
+                                ${escapeHTML(student.name)}
+                            </div>
+
+                            <div class="student-detail">
+                                ${escapeHTML(
+                                    student.subject || "—"
+                                )}
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("");
+
+}
+
+
+/* =====================================
+   LESSONS
+===================================== */
+
+function openLessonModal() {
+
+    if (currentRole !== "Tutor") {
+
+        alert(
+            "Only Tutor accounts can add lessons.\n" +
+            "只有導師帳戶可以新增課堂。"
+        );
+
+        return;
+
+    }
+
+
+    populateStudentSelects();
+
+
+    document
+        .getElementById("lessonModal")
+        .classList.add("show");
+
+}
+
+
+function saveLesson(event) {
+
+    event.preventDefault();
+
+
+    const lesson = {
+
+        id: Date.now(),
+
+        studentId:
+            Number(
+                document
+                    .getElementById("lessonStudent")
+                    .value
+            ),
+
+        date:
+            document
+                .getElementById("lessonDate")
+                .value,
+
+        time:
+            document
+                .getElementById("lessonTime")
+                .value,
+
+        location:
+            document
+                .getElementById("lessonLocation")
+                .value
+                .trim(),
+
+        notes:
+            document
+                .getElementById("lessonNotes")
+                .value
+                .trim()
+
+    };
+
+
+    lessons.push(lesson);
+
+    saveData();
+
+    event.target.reset();
+
+    closeModal("lessonModal");
+
+    renderAll();
+
+}
+
+
+function renderLessons() {
+
+    const list =
+        document.getElementById(
+            "lessonsList"
+        );
+
+    if (!lessons.length) {
+
+        list.innerHTML = `
+            <div class="card">
+                <div style="text-align:center;color:#888;font-size:13px">
+                    No lessons yet · 暫時未有課堂
+                </div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        lessons
+            .slice()
+            .sort(function(a,b) {
+
+                return (
+                    (a.date + a.time)
+                    .localeCompare(
+                        b.date + b.time
+                    )
+                );
+
+            })
+            .map(function(lesson) {
+
+                const student =
+                    students.find(function(s) {
+
+                        return s.id === lesson.studentId;
+
+                    });
+
+
+                return `
+                    <div class="card">
+
+                        <div style="font-weight:720">
+                            ${escapeHTML(
+                                student
+                                    ? student.name
+                                    : "Unknown Student"
+                            )}
+                        </div>
+
+                        <div
+                            style="
+                            margin-top:6px;
+                            color:#858782;
+                            font-size:12px
+                            "
+                        >
+                            📅 ${escapeHTML(lesson.date)}
+                            ·
+                            ${escapeHTML(lesson.time)}
+                        </div>
+
+                        <div
+                            style="
+                            margin-top:4px;
+                            color:#858782;
+                            font-size:12px
+                            "
+                        >
+                            📍 ${escapeHTML(
+                                lesson.location || "—"
+                            )}
+                        </div>
+
+                        ${
+                            currentRole === "Tutor"
+                            ? `
+                            <div
+                                class="private-note"
+                                style="margin-top:11px"
+                            >
+                                🔒 Private Notes · 私人備註
+                                <div class="private-sub">
+                                    ${escapeHTML(
+                                        lesson.notes ||
+                                        "No notes · 暫時未有備註"
+                                    )}
+                                </div>
+                            </div>
+                            `
+                            : ""
+                        }
+
+                    </div>
+                `;
+
+            }).join("");
+
+}
+
+
+/* =====================================
+   PAYMENTS
+===================================== */
+
+function openPaymentModal() {
+
+    if (currentRole !== "Tutor") {
+
+        alert(
+            "Only Tutor accounts can add payments.\n" +
+            "只有導師帳戶可以新增付款。"
+        );
+
+        return;
+
+    }
+
+
+    populateStudentSelects();
+
+
+    document
+        .getElementById("paymentModal")
+        .classList.add("show");
+
+}
+
+
+function savePayment(event) {
+
+    event.preventDefault();
+
+
+    const payment = {
+
+        id: Date.now(),
+
+        studentId:
+            Number(
+                document
+                    .getElementById("paymentStudent")
+                    .value
+            ),
+
+        amount:
+            Number(
+                document
+                    .getElementById("paymentAmount")
+                    .value
+            ),
+
+        status:
+            document
+                .getElementById("paymentStatus")
+                .value,
+
+        method:
+            document
+                .getElementById("paymentMethod")
+                .value,
+
+        notes:
+            document
+                .getElementById("paymentNotes")
+                .value
+                .trim()
+
+    };
+
+
+    payments.push(payment);
+
+    saveData();
+
+    event.target.reset();
+
+    closeModal("paymentModal");
+
+    renderAll();
+
+}
+
+
+function renderPayments() {
+
+    const list =
+        document.getElementById(
+            "paymentsList"
+        );
+
+
+    if (!payments.length) {
+
+        list.innerHTML = `
+            <div class="card">
+                <div style="text-align:center;color:#888;font-size:13px">
+                    No payments yet · 暫時未有付款記錄
+                </div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        payments.map(function(payment) {
+
+            const student =
+                students.find(function(s) {
+
+                    return s.id === payment.studentId;
 
                 });
 
 
-            button.classList.add("active");
+            return `
+                <div class="card">
 
-            selectedRole =
-                button.dataset.role;
+                    <div
+                        style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:10px
+                        "
+                    >
 
-        }
+                        <div>
+
+                            <div style="font-weight:720">
+                                ${escapeHTML(
+                                    student
+                                        ? student.name
+                                        : "Unknown Student"
+                                )}
+                            </div>
+
+                            <div
+                                style="
+                                margin-top:4px;
+                                color:#858782;
+                                font-size:11px
+                                "
+                            >
+                                ${escapeHTML(payment.method)}
+                            </div>
+
+                        </div>
+
+                        <div style="font-weight:780">
+                            $${payment.amount.toFixed(2)}
+                        </div>
+
+                    </div>
+
+                    <div
+                        style="
+                        margin-top:9px;
+                        font-size:11px;
+                        color:#777
+                        "
+                    >
+                        ${
+                            payment.status === "Paid"
+                                ? "✓ Paid · 已付款"
+                                : "○ Unpaid · 未付款"
+                        }
+                    </div>
+
+                    ${
+                        currentRole === "Tutor"
+                        ? `
+                        <div
+                            class="private-note"
+                            style="margin-top:11px"
+                        >
+                            🔒 Private Notes · 私人備註
+
+                            <div class="private-sub">
+                                ${escapeHTML(
+                                    payment.notes ||
+                                    "No notes · 暫時未有備註"
+                                )}
+                            </div>
+
+                        </div>
+                        `
+                        : ""
+                    }
+
+                </div>
+            `;
+
+        }).join("");
+
+}
 
 
-        function handleLogin(event) {
+/* =====================================
+   SELECTS
+===================================== */
 
-            event.preventDefault();
+function populateStudentSelects() {
 
-            const email =
-                document.getElementById("email").value;
+    const options =
+        students.length
+        ? students.map(function(student) {
 
-            if (!email) {
-                return;
-            }
+            return `
+                <option value="${student.id}">
+                    ${escapeHTML(student.name)}
+                </option>
+            `;
+
+        }).join("")
+        : `
+            <option value="">
+                No students · 暫時未有學生
+            </option>
+        `;
 
 
-            alert(
-                "Demo login\n\n" +
-                "Role: " +
-                selectedRole +
-                "\n\n" +
-                "Real authentication will be connected in the next step."
-            );
+    document
+        .getElementById("lessonStudent")
+        .innerHTML = options;
 
-        }
+    document
+        .getElementById("paymentStudent")
+        .innerHTML = options;
 
-    </script>
+}
+
+
+/* =====================================
+   DASHBOARD
+===================================== */
+
+function renderDashboard() {
+
+    document
+        .getElementById("studentCount")
+        .textContent =
+        students.length;
+
+    document
+        .getElementById("lessonCount")
+        .textContent =
+        lessons.length;
+
+
+    const unpaid =
+        payments
+            .filter(function(payment) {
+
+                return payment.status === "Unpaid";
+
+            })
+            .reduce(function(total,payment) {
+
+                return total + payment.amount;
+
+            },0);
+
+
+    const income =
+        payments
+            .filter(function(payment) {
+
+                return payment.status === "Paid";
+
+            })
+            .reduce(function(total,payment) {
+
+                return total + payment.amount;
+
+            },0);
+
+
+    document
+        .getElementById("unpaidAmount")
+        .textContent =
+        "$" + unpaid.toFixed(0);
+
+
+    document
+        .getElementById("incomeAmount")
+        .textContent =
+        "$" + income.toFixed(0);
+
+
+    const upcoming =
+        document.getElementById(
+            "upcomingLessons"
+        );
+
+
+    if (!lessons.length) {
+
+        upcoming.innerHTML = `
+            <div class="card">
+                <div style="text-align:center;color:#888;font-size:13px">
+                    No lessons yet · 暫時未有課堂
+                </div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    upcoming.innerHTML =
+        lessons
+            .slice()
+            .sort(function(a,b) {
+
+                return (
+                    (a.date+a.time)
+                    .localeCompare(
+                        b.date+b.time
+                    )
+                );
+
+            })
+            .slice(0,3)
+            .map(function(lesson) {
+
+                const student =
+                    students.find(function(s) {
+
+                        return s.id === lesson.studentId;
+
+                    });
+
+
+                return `
+                    <div class="card">
+
+                        <div style="font-weight:720">
+                            ${escapeHTML(
+                                student
+                                    ? student.name
+                                    : "Unknown Student"
+                            )}
+                        </div>
+
+                        <div
+                            style="
+                            margin-top:5px;
+                            color:#858782;
+                            font-size:12px
+                            "
+                        >
+                            📅 ${escapeHTML(lesson.date)}
+                            ·
+                            ${escapeHTML(lesson.time)}
+                        </div>
+
+                        <div
+                            style="
+                            margin-top:4px;
+                            color:#858782;
+                            font-size:12px
+                            "
+                        >
+                            📍 ${escapeHTML(
+                                lesson.location || "—"
+                            )}
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("");
+
+}
+
+
+/* =====================================
+   RENDER ALL
+===================================== */
+
+function renderAll() {
+
+    renderDashboard();
+
+    renderStudents();
+
+    renderLessons();
+
+    renderPayments();
+
+    applyRolePermissions();
+
+}
+
+
+/* =====================================
+   MODALS
+===================================== */
+
+function closeModal(id) {
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+function closeOutside(event,id) {
+
+    if (event.target.id === id) {
+
+        closeModal(id);
+
+    }
+
+}
+
+
+/* =====================================
+   HTML SAFETY
+===================================== */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+renderAll();
+
+</script>
 
 </body>
 </html>
