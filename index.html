@@ -1,5956 +1,5054 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
-  <meta name="theme-color" content="#17243A">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Tutor Manager">
-
-  <title>Tutor Manager · 補習管理</title>
-
-  <link rel="manifest" href="./manifest.json">
-
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="192x192"
-    href="./icon-home-192.png"
-  >
-
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="512x512"
-    href="./icon-home-512.png"
-  >
-
-  <link
-    rel="apple-touch-icon"
-    href="./icon-home-192.png"
-  >
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-    :root {
-      --navy: #17243A;
-      --navy-dark: #101A2B;
-      --navy-soft: #263650;
-
-      --cream: #F7F5EF;
-      --cream-dark: #EEEAE0;
-
-      --gold: #C9A96E;
-      --gold-dark: #AA8952;
-      --gold-light: #F2E8D2;
-
-      --white: #FFFFFF;
-      --text: #17243A;
-      --muted: #747A84;
-      --border: #E5E1D8;
-
-      --success: #287A55;
-      --success-bg: #EFF8F3;
-
-      --danger: #B84646;
-      --danger-bg: #FFF1F1;
-
-      --warning: #9A7225;
-      --warning-bg: #FFF7E5;
-
-      --blue: #356AE6;
-      --blue-bg: #EEF3FF;
-
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(23, 36, 58, 0.07);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      background: var(--cream);
-      color: var(--text);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    input,
-    select,
-    textarea {
-      font-size: 16px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* =====================================================
-       AUTH
-    ===================================================== */
-
-    #authScreen {
-      min-height: 100vh;
-      min-height: 100dvh;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      padding:
-        max(20px, env(safe-area-inset-top))
-        18px
-        max(20px, env(safe-area-inset-bottom));
-
-      background:
-        radial-gradient(
-          circle at 10% 10%,
-          rgba(201, 169, 110, 0.18),
-          transparent 34%
-        ),
-        radial-gradient(
-          circle at 90% 90%,
-          rgba(23, 36, 58, 0.08),
-          transparent 36%
-        ),
-        var(--cream);
-    }
-
-    .auth-wrapper {
-      width: 100%;
-      max-width: 430px;
-    }
-
-    .brand {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    .brand-icon {
-      display: block;
-
-      width: 82px;
-      height: 82px;
-
-      object-fit: cover;
-
-      margin: 0 auto 14px;
-
-      border-radius: 22px;
-
-      box-shadow:
-        0 15px 35px rgba(23, 36, 58, 0.15);
-    }
-
-    .brand h1 {
-      color: var(--navy);
-      font-size: 27px;
-      letter-spacing: -0.7px;
-    }
-
-    .brand p {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .auth-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .auth-heading {
-      margin-bottom: 20px;
-    }
-
-    .auth-heading h2 {
-      color: var(--navy);
-      font-size: 22px;
-    }
-
-    .auth-heading p {
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .login-method {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      background: var(--cream);
-
-      border-radius: 12px;
-      padding: 4px;
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<meta name="theme-color" content="#17243A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tutor Manager">
+
+<title>Tutor Manager · 補習管理</title>
+
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-home-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-home-512.png">
+<link rel="apple-touch-icon" href="./icon-home-192.png">
+<link rel="manifest" href="./manifest.json">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+  --navy: #17243A;
+  --navy-dark: #101A2B;
+  --navy-soft: #263650;
+
+  --cream: #F7F5EF;
+  --cream-dark: #EEEAE0;
+
+  --gold: #C9A96E;
+  --gold-dark: #AA8952;
+  --gold-light: #F2E8D2;
+
+  --white: #FFFFFF;
+
+  --text: #17243A;
+  --muted: #747A84;
+
+  --border: #E5E1D8;
+
+  --success: #287A55;
+  --danger: #B84646;
+  --warning: #9A7225;
+
+  --radius: 18px;
+
+  --shadow:
+    0 10px 30px rgba(23,36,58,0.07);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--text);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button,
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+#authScreen {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-      margin-bottom: 18px;
-    }
+  padding: 20px;
 
-    .method-button {
-      border: 0;
-      background: transparent;
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(201,169,110,0.16),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(23,36,58,0.08),
+      transparent 35%
+    ),
+    var(--cream);
+}
 
-      border-radius: 9px;
+.auth-wrapper {
+  width: 100%;
+  max-width: 430px;
+}
 
-      padding: 10px 7px;
+.brand {
+  text-align: center;
+  margin-bottom: 22px;
+}
 
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 800;
-    }
+.brand-icon {
+  width: 82px;
+  height: 82px;
 
-    .method-button.active {
-      background: var(--white);
-      color: var(--navy);
+  object-fit: contain;
 
-      box-shadow:
-        0 3px 10px rgba(23, 36, 58, 0.08);
-    }
+  margin: 0 auto 14px;
 
-    .field {
-      margin-bottom: 15px;
-    }
+  border-radius: 22px;
 
-    .field label {
-      display: block;
+  box-shadow:
+    0 12px 30px rgba(23,36,58,0.15);
+}
 
-      margin-bottom: 7px;
+.brand h1 {
+  font-size: 27px;
+  letter-spacing: -0.6px;
+  color: var(--navy);
+}
 
-      color: var(--navy);
+.brand p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
 
-      font-size: 13px;
-      font-weight: 800;
-    }
+.auth-card {
+  background: var(--white);
 
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
+  border:
+    1px solid var(--border);
 
-      border: 1px solid var(--border);
-      border-radius: 12px;
+  border-radius: 20px;
 
-      padding: 13px 14px;
+  padding: 25px;
 
-      background: var(--white);
-      color: var(--text);
+  box-shadow: var(--shadow);
+}
 
-      outline: none;
+.auth-heading {
+  margin-bottom: 20px;
+}
 
-      transition: 0.2s;
-    }
+.auth-heading h2 {
+  font-size: 22px;
+  color: var(--navy);
+}
 
-    .field textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
+.auth-heading p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
 
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      border-color: var(--gold);
+.login-method {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
-      box-shadow:
-        0 0 0 3px rgba(201, 169, 110, 0.15);
-    }
+  background: var(--cream);
 
-    .phone-row {
-      display: flex;
-      gap: 8px;
-    }
+  border-radius: 12px;
 
-    .country-code {
-      width: 78px;
-      flex-shrink: 0;
+  padding: 4px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  margin-bottom: 18px;
+}
 
-      border: 1px solid var(--border);
-      border-radius: 12px;
+.method-button {
+  border: 0;
+  background: transparent;
 
-      background: var(--cream);
+  border-radius: 9px;
 
-      font-size: 13px;
-      font-weight: 800;
-    }
+  padding: 10px 6px;
 
-    .main-button {
-      width: 100%;
+  color: var(--muted);
 
-      border: 0;
-      border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
 
-      padding: 14px;
+.method-button.active {
+  background: var(--white);
+  color: var(--navy);
 
-      background: var(--navy);
-      color: var(--white);
+  box-shadow:
+    0 3px 10px rgba(23,36,58,0.08);
+}
 
-      font-weight: 800;
+.field {
+  margin-bottom: 15px;
+}
 
-      transition: 0.2s;
-    }
+.field label {
+  display: block;
 
-    .main-button:active {
-      transform: scale(0.99);
-    }
+  margin-bottom: 7px;
 
-    .main-button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+  font-size: 13px;
+  font-weight: 700;
 
-    .switch-area {
-      margin-top: 16px;
+  color: var(--navy);
+}
 
-      text-align: center;
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
 
-      color: var(--muted);
-      font-size: 13px;
-    }
+  border:
+    1px solid var(--border);
 
-    .switch-button {
-      border: 0;
-      background: transparent;
+  border-radius: 12px;
 
-      color: var(--gold-dark);
+  padding: 13px;
 
-      font-weight: 800;
-    }
+  background: var(--white);
 
-    .message {
-      display: none;
+  color: var(--text);
 
-      margin-top: 14px;
+  outline: none;
 
-      padding: 11px 12px;
+  transition: 0.2s;
+}
 
-      border-radius: 10px;
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
 
-      font-size: 13px;
-      line-height: 1.5;
-    }
+  box-shadow:
+    0 0 0 3px rgba(201,169,110,0.14);
+}
 
-    .message.error {
-      display: block;
+.phone-row {
+  display: flex;
+  gap: 8px;
+}
 
-      background: var(--danger-bg);
-      color: var(--danger);
-    }
+.country-code {
+  width: 78px;
 
-    .message.success {
-      display: block;
+  flex-shrink: 0;
 
-      background: var(--success-bg);
-      color: var(--success);
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    /* =====================================================
-       APP
-    ===================================================== */
+  border:
+    1px solid var(--border);
 
-    #appScreen {
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
+  border-radius: 12px;
 
-    .topbar {
-      height: 68px;
+  background: var(--cream);
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  font-size: 12px;
+  font-weight: 800;
+}
 
-      padding:
-        0 18px;
+.main-button {
+  width: 100%;
 
-      background: var(--navy);
+  border: 0;
 
-      position: sticky;
-      top: 0;
+  border-radius: 12px;
 
-      z-index: 50;
+  padding: 14px;
 
-      box-shadow:
-        0 5px 20px rgba(23, 36, 58, 0.14);
-    }
+  background: var(--navy);
 
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+  color: white;
 
-      color: white;
+  font-weight: 800;
 
-      font-weight: 800;
-    }
+  transition: 0.2s;
+}
 
-    .topbar-icon {
-      width: 40px;
-      height: 40px;
+.main-button:active {
+  transform: scale(0.98);
+}
 
-      object-fit: cover;
+.main-button:disabled {
+  opacity: 0.6;
+}
 
-      border-radius: 11px;
+.switch-area {
+  text-align: center;
 
-      background: white;
-    }
+  margin-top: 16px;
 
-    .topbar-title {
-      font-size: 15px;
-    }
+  color: var(--muted);
 
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+  font-size: 13px;
+}
 
-    .sync-status {
-      color: rgba(255,255,255,0.8);
+.switch-button {
+  border: 0;
+  background: transparent;
 
-      font-size: 11px;
-      font-weight: 700;
-    }
+  color: var(--gold-dark);
 
-    .logout-button {
-      border:
-        1px solid rgba(255,255,255,0.2);
+  font-weight: 800;
+}
 
-      background:
-        rgba(255,255,255,0.08);
+.message {
+  display: none;
 
-      color: white;
+  margin-top: 14px;
 
-      border-radius: 9px;
+  padding: 11px 12px;
 
-      padding: 8px 11px;
+  border-radius: 10px;
 
-      font-size: 12px;
-      font-weight: 800;
-    }
+  font-size: 13px;
 
-    .app-layout {
-      display: flex;
+  line-height: 1.5;
+}
 
-      min-height:
-        calc(100vh - 68px);
-      min-height:
-        calc(100dvh - 68px);
-    }
+.message.error {
+  display: block;
 
-    /* =====================================================
-       SIDEBAR
-    ===================================================== */
+  background: #FFF1F1;
+  color: var(--danger);
+}
 
-    .sidebar {
-      width: 235px;
+.message.success {
+  display: block;
 
-      flex-shrink: 0;
+  background: #EFF8F3;
+  color: var(--success);
+}
 
-      background: var(--white);
+/* =========================================================
+   APP
+========================================================= */
 
-      border-right:
-        1px solid var(--border);
+#appScreen {
+  min-height: 100vh;
+}
 
-      padding: 18px 12px;
-    }
+/* =========================================================
+   TOPBAR
+========================================================= */
 
-    .nav-section-title {
-      padding: 8px 11px;
+.topbar {
+  height: 66px;
 
-      margin-bottom: 6px;
+  background: var(--navy);
 
-      color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-      font-size: 10px;
-      font-weight: 900;
+  padding: 0 22px;
 
-      letter-spacing: 0.8px;
+  position: sticky;
+  top: 0;
 
-      text-transform: uppercase;
-    }
+  z-index: 50;
 
-    .nav-button {
-      width: 100%;
+  box-shadow:
+    0 5px 20px rgba(23,36,58,0.14);
+}
 
-      border: 0;
+.topbar-left {
+  display: flex;
+  align-items: center;
 
-      background: transparent;
+  gap: 10px;
 
-      padding: 11px;
+  color: white;
 
-      border-radius: 11px;
+  font-weight: 800;
+}
 
-      text-align: left;
+.topbar-icon {
+  width: 38px;
+  height: 38px;
 
-      margin-bottom: 4px;
+  object-fit: contain;
 
-      color: #59606B;
+  border-radius: 10px;
 
-      font-size: 13px;
-      font-weight: 800;
+  background: white;
+}
 
-      transition: 0.2s;
-    }
+.topbar-title {
+  font-size: 14px;
+}
 
-    .nav-button:hover {
-      background: var(--cream);
-      color: var(--navy);
-    }
+.logout-button {
+  border:
+    1px solid rgba(255,255,255,0.2);
 
-    .nav-button.active {
-      background: var(--gold-light);
-      color: var(--navy);
-    }
+  background:
+    rgba(255,255,255,0.08);
 
-    /* =====================================================
-       MAIN
-    ===================================================== */
+  color: white;
 
-    .main {
-      flex: 1;
+  border-radius: 10px;
 
-      width: 100%;
+  padding: 8px 11px;
 
-      max-width: 1450px;
+  font-size: 12px;
 
-      padding: 25px;
-    }
+  font-weight: 700;
+}
 
-    .welcome {
-      margin-bottom: 20px;
-    }
+/* =========================================================
+   LAYOUT
+========================================================= */
 
-    .welcome h2 {
-      color: var(--navy);
+.app-layout {
+  display: flex;
 
-      font-size: 27px;
-      letter-spacing: -0.6px;
-    }
+  min-height:
+    calc(100vh - 66px);
+}
 
-    .welcome p {
-      margin-top: 5px;
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-      color: var(--muted);
+.sidebar {
+  width: 230px;
 
-      font-size: 13px;
-    }
+  flex-shrink: 0;
 
-    .page {
-      display: none;
-    }
+  background: white;
 
-    .page.active {
-      display: block;
-    }
+  border-right:
+    1px solid var(--border);
 
-    /* =====================================================
-       STATS
-    ===================================================== */
+  padding: 18px 12px;
+}
 
-    .stats {
-      display: grid;
+.nav-section-title {
+  padding: 8px 11px;
 
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+  margin-bottom: 6px;
 
-      gap: 13px;
+  color: var(--muted);
 
-      margin-bottom: 16px;
-    }
+  font-size: 10px;
 
-    .stat-card {
-      background: var(--white);
+  font-weight: 800;
 
-      border:
-        1px solid var(--border);
+  letter-spacing: 0.8px;
 
-      border-radius: var(--radius);
+  text-transform: uppercase;
+}
 
-      padding: 17px;
+.nav-button {
+  width: 100%;
 
-      box-shadow:
-        0 5px 18px rgba(23, 36, 58, 0.04);
-    }
+  border: 0;
 
-    .stat-top {
-      display: flex;
+  background: transparent;
 
-      align-items: center;
-      justify-content: space-between;
-    }
+  padding: 11px;
 
-    .stat-label {
-      color: var(--muted);
+  border-radius: 11px;
 
-      font-size: 12px;
-      font-weight: 800;
-    }
+  text-align: left;
 
-    .stat-icon {
-      width: 32px;
-      height: 32px;
+  margin-bottom: 4px;
 
-      display: flex;
+  color: #59606B;
 
-      align-items: center;
-      justify-content: center;
+  font-weight: 700;
 
-      border-radius: 9px;
+  font-size: 13px;
+}
 
-      background: var(--cream);
+.nav-button:hover {
+  background: var(--cream);
+}
 
-      font-size: 16px;
-    }
+.nav-button.active {
+  background: var(--gold-light);
 
-    .stat-value {
-      margin-top: 9px;
+  color: var(--navy);
+}
 
-      color: var(--navy);
+/* =========================================================
+   MAIN
+========================================================= */
 
-      font-size: 25px;
-      font-weight: 900;
-    }
+.main {
+  flex: 1;
 
-    .stat-extra {
-      margin-top: 4px;
+  padding: 25px;
 
-      color: var(--muted);
+  max-width: 1500px;
+}
 
-      font-size: 11px;
-    }
+.welcome {
+  margin-bottom: 20px;
+}
 
-    /* =====================================================
-       DASHBOARD
-    ===================================================== */
+.welcome h2 {
+  font-size: 26px;
 
-    .dashboard-grid {
-      display: grid;
+  color: var(--navy);
 
-      grid-template-columns:
-        1.3fr 1fr;
+  letter-spacing: -0.5px;
+}
 
-      gap: 16px;
-    }
+.welcome p {
+  margin-top: 5px;
 
-    .content-card {
-      background: var(--white);
+  color: var(--muted);
 
-      border:
-        1px solid var(--border);
+  font-size: 13px;
+}
 
-      border-radius: var(--radius);
+/* =========================================================
+   PAGES
+========================================================= */
 
-      padding: 18px;
+.page {
+  display: none;
+}
 
-      box-shadow:
-        0 5px 18px rgba(23, 36, 58, 0.04);
-    }
+.page.active {
+  display: block;
+}
 
-    .card-heading {
-      display: flex;
+/* =========================================================
+   DASHBOARD STATS
+========================================================= */
 
-      align-items: center;
-      justify-content: space-between;
+.stats {
+  display: grid;
 
-      gap: 10px;
+  grid-template-columns:
+    repeat(4, 1fr);
 
-      margin-bottom: 13px;
-    }
+  gap: 13px;
 
-    .card-heading h3 {
-      color: var(--navy);
+  margin-bottom: 17px;
+}
 
-      font-size: 16px;
-    }
+.stat-card {
+  background: white;
 
-    .card-heading span {
-      color: var(--muted);
+  border:
+    1px solid var(--border);
 
-      font-size: 11px;
-    }
+  border-radius: 17px;
 
-    .data-list {
-      display: grid;
-      gap: 9px;
-    }
+  padding: 17px;
 
-    .data-item {
-      display: flex;
+  box-shadow:
+    0 5px 18px rgba(23,36,58,0.04);
+}
 
-      align-items: center;
-      justify-content: space-between;
+.stat-top {
+  display: flex;
 
-      gap: 12px;
+  align-items: center;
 
-      padding: 13px;
+  justify-content: space-between;
+}
 
-      border:
-        1px solid var(--border);
+.stat-label {
+  color: var(--muted);
 
-      border-radius: 13px;
+  font-size: 11px;
 
-      background: var(--white);
-    }
+  font-weight: 700;
 
-    .data-item-main {
-      min-width: 0;
-      flex: 1;
-    }
+  line-height: 1.4;
+}
 
-    .data-item-title {
-      color: var(--navy);
+.stat-icon {
+  width: 31px;
+  height: 31px;
 
-      font-size: 13px;
-      font-weight: 850;
+  display: flex;
 
-      overflow-wrap: anywhere;
-    }
+  align-items: center;
+  justify-content: center;
 
-    .data-item-subtitle {
-      margin-top: 4px;
+  border-radius: 9px;
 
-      color: var(--muted);
+  background: var(--cream);
 
-      font-size: 11px;
+  font-size: 15px;
+}
 
-      line-height: 1.5;
+.stat-value {
+  margin-top: 9px;
 
-      overflow-wrap: anywhere;
-    }
+  font-size: 25px;
 
-    .badge {
-      flex-shrink: 0;
+  color: var(--navy);
 
-      padding: 5px 8px;
+  font-weight: 850;
+}
 
-      border-radius: 999px;
+.stat-small {
+  margin-top: 4px;
 
-      font-size: 10px;
-      font-weight: 900;
-    }
+  color: var(--muted);
 
-    .badge-success {
-      background: var(--success-bg);
-      color: var(--success);
-    }
+  font-size: 10px;
+}
 
-    .badge-warning {
-      background: var(--warning-bg);
-      color: var(--warning);
-    }
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
-    .badge-danger {
-      background: var(--danger-bg);
-      color: var(--danger);
-    }
+.dashboard-grid {
+  display: grid;
 
-    .badge-blue {
-      background: var(--blue-bg);
-      color: var(--blue);
-    }
+  grid-template-columns:
+    1.3fr 1fr;
 
-    .empty {
-      padding: 28px 10px;
+  gap: 15px;
+}
 
-      text-align: center;
+.content-card {
+  background: white;
 
-      color: var(--muted);
+  border:
+    1px solid var(--border);
 
-      font-size: 13px;
+  border-radius: 17px;
 
-      line-height: 1.7;
-    }
+  padding: 18px;
 
-    .loading {
-      padding: 25px 10px;
+  box-shadow:
+    0 5px 18px rgba(23,36,58,0.04);
 
-      text-align: center;
+  margin-bottom: 15px;
+}
 
-      color: var(--muted);
+.card-heading {
+  display: flex;
 
-      font-size: 13px;
-    }
+  align-items: center;
 
-    /* =====================================================
-       QUICK SUMMARY
-    ===================================================== */
+  justify-content: space-between;
 
-    .summary-grid {
-      display: grid;
+  margin-bottom: 13px;
+}
 
-      grid-template-columns:
-        repeat(2, 1fr);
+.card-heading h3 {
+  font-size: 16px;
 
-      gap: 10px;
+  color: var(--navy);
+}
 
-      margin-top: 10px;
-    }
+.card-heading span {
+  color: var(--muted);
 
-    .summary-box {
-      padding: 13px;
+  font-size: 11px;
+}
 
-      border-radius: 13px;
+.empty {
+  padding: 25px 10px;
 
-      background: var(--cream);
-    }
+  text-align: center;
 
-    .summary-label {
-      color: var(--muted);
+  color: var(--muted);
 
-      font-size: 11px;
-      font-weight: 800;
-    }
+  font-size: 13px;
 
-    .summary-value {
-      margin-top: 4px;
+  line-height: 1.7;
+}
 
-      color: var(--navy);
+/* =========================================================
+   TOOLBAR
+========================================================= */
 
-      font-size: 18px;
-      font-weight: 900;
-    }
+.toolbar {
+  display: flex;
 
-    /* =====================================================
-       TOOLBAR
-    ===================================================== */
+  align-items: center;
 
-    .toolbar {
-      display: flex;
+  justify-content: space-between;
 
-      align-items: center;
-      justify-content: space-between;
+  gap: 10px;
 
-      gap: 12px;
+  margin-bottom: 14px;
+}
 
-      margin-bottom: 14px;
-    }
+.toolbar h3 {
+  color: var(--navy);
 
-    .toolbar h3 {
-      color: var(--navy);
+  font-size: 19px;
+}
 
-      font-size: 20px;
-    }
+.secondary-button {
+  border:
+    1px solid var(--border);
 
-    .toolbar-actions {
-      display: flex;
+  background: white;
 
-      gap: 7px;
+  color: var(--navy);
 
-      flex-wrap: wrap;
-    }
+  border-radius: 10px;
 
-    .secondary-button {
-      border:
-        1px solid var(--border);
+  padding: 9px 12px;
 
-      background: var(--white);
+  font-size: 12px;
 
-      color: var(--navy);
+  font-weight: 800;
+}
 
-      border-radius: 10px;
+/* =========================================================
+   DATA LIST
+========================================================= */
 
-      padding: 9px 12px;
+.data-list {
+  display: grid;
 
-      font-size: 12px;
-      font-weight: 800;
-    }
+  gap: 9px;
+}
 
-    .secondary-button:hover {
-      background: var(--cream);
-    }
+.data-item {
+  display: flex;
 
-    /* =====================================================
-       MODAL
-    ===================================================== */
+  align-items: center;
 
-    .modal-overlay {
-      position: fixed;
+  justify-content: space-between;
 
-      inset: 0;
+  gap: 12px;
 
-      z-index: 200;
+  padding: 13px;
 
-      display: none;
+  border:
+    1px solid var(--border);
 
-      align-items: flex-end;
-      justify-content: center;
+  border-radius: 13px;
 
-      padding: 0;
-      
-      background:
-        rgba(16, 26, 43, 0.42);
-    }
+  background: white;
+}
 
-    .modal-overlay.show {
-      display: flex;
-    }
+.data-item-main {
+  min-width: 0;
+}
 
-    .modal {
-      width: 100%;
-      max-width: 600px;
+.data-item-title {
+  font-weight: 800;
 
-      max-height: 92vh;
-      max-height: 92dvh;
+  color: var(--navy);
 
-      overflow-y: auto;
+  font-size: 13px;
 
-      background: var(--white);
+  word-break: break-word;
+}
 
-      border-radius:
-        22px 22px 0 0;
+.data-item-subtitle {
+  margin-top: 4px;
 
-      padding: 20px;
+  color: var(--muted);
 
-      box-shadow:
-        0 -10px 40px rgba(0,0,0,0.15);
-    }
+  font-size: 11px;
 
-    .modal-header {
-      display: flex;
+  line-height: 1.55;
 
-      align-items: center;
-      justify-content: space-between;
+  word-break: break-word;
+}
 
-      margin-bottom: 17px;
-    }
+.badge {
+  flex-shrink: 0;
 
-    .modal-header h3 {
-      color: var(--navy);
+  padding: 5px 8px;
 
-      font-size: 18px;
-    }
+  border-radius: 999px;
 
-    .close-button {
-      width: 34px;
-      height: 34px;
+  font-size: 10px;
 
-      border: 0;
+  font-weight: 800;
+}
 
-      border-radius: 50%;
+.badge-success {
+  background: #EFF8F3;
+  color: var(--success);
+}
 
-      background: var(--cream);
+.badge-warning {
+  background: #FFF7E5;
+  color: var(--warning);
+}
 
-      color: var(--navy);
+.badge-danger {
+  background: #FFF1F1;
+  color: var(--danger);
+}
 
-      font-size: 18px;
-    }
+/* =========================================================
+   PROFILE
+========================================================= */
 
-    .form-actions {
-      display: flex;
+.profile-card {
+  max-width: 650px;
+}
 
-      gap: 8px;
+.profile-avatar {
+  width: 68px;
+  height: 68px;
 
-      margin-top: 17px;
-    }
+  border-radius: 20px;
 
-    .form-actions button {
-      flex: 1;
-    }
+  background: var(--navy);
 
-    /* =====================================================
-       MOBILE NAV
-    ===================================================== */
+  color: white;
 
-    .mobile-nav {
-      display: none;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    /* =====================================================
-       OFFLINE
-    ===================================================== */
+  font-size: 25px;
+  font-weight: 800;
 
-    .offline-banner {
-      position: fixed;
+  margin-bottom: 15px;
+}
 
-      left: 50%;
+.profile-info {
+  margin-bottom: 20px;
+}
 
-      bottom: 16px;
+.profile-info-row {
+  display: flex;
 
-      transform: translateX(-50%);
+  justify-content: space-between;
 
-      z-index: 300;
+  gap: 15px;
 
-      display: none;
+  padding: 13px 0;
 
-      width: calc(100% - 30px);
-      max-width: 480px;
+  border-bottom:
+    1px solid var(--border);
 
-      padding: 11px 14px;
+  font-size: 13px;
+}
 
-      border-radius: 13px;
+.profile-info-row:last-child {
+  border-bottom: 0;
+}
 
-      background: var(--navy);
+.profile-label {
+  color: var(--muted);
+}
 
-      color: white;
+.profile-value {
+  color: var(--navy);
 
-      text-align: center;
+  font-weight: 700;
 
-      font-size: 12px;
-      font-weight: 700;
+  text-align: right;
 
-      box-shadow:
-        0 10px 30px rgba(0,0,0,0.2);
-    }
+  word-break: break-word;
+}
 
-    .offline-banner.show {
-      display: block;
-    }
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
 
-    /* =====================================================
-       MOBILE
-    ===================================================== */
+.quick-actions {
+  display: grid;
 
-    @media (max-width: 850px) {
+  grid-template-columns:
+    repeat(2, 1fr);
 
-      .topbar {
-        height: 62px;
+  gap: 9px;
+}
 
-        padding:
-          0 13px;
-      }
+.quick-action {
+  border:
+    1px solid var(--border);
 
-      .topbar-icon {
-        width: 36px;
-        height: 36px;
-      }
+  background: white;
 
-      .topbar-title {
-        font-size: 14px;
-      }
+  border-radius: 13px;
 
-      .sync-status {
-        display: none;
-      }
+  padding: 13px;
 
-      .logout-button {
-        padding: 7px 9px;
-      }
+  color: var(--navy);
 
-      .sidebar {
-        display: none;
-      }
+  text-align: left;
 
-      .app-layout {
-        display: block;
+  font-size: 12px;
 
-        min-height:
-          calc(100vh - 62px);
-        min-height:
-          calc(100dvh - 62px);
-      }
+  font-weight: 800;
+}
 
-      .main {
-        width: 100%;
+.quick-action:active {
+  transform: scale(0.98);
+}
 
-        padding:
-          18px
-          13px
-          calc(92px + env(safe-area-inset-bottom));
-      }
+/* =========================================================
+   PRIVATE NOTES
+========================================================= */
 
-      .welcome {
-        margin-bottom: 17px;
-      }
+.private-note-box {
+  margin-top: 15px;
 
-      .welcome h2 {
-        font-size: 23px;
-      }
+  background:
+    linear-gradient(
+      135deg,
+      #FFFDF8,
+      #F7F1E5
+    );
 
-      .welcome p {
-        font-size: 12px;
-      }
+  border:
+    1px solid #E5D5B7;
 
-      .stats {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+  border-radius: 14px;
 
-        gap: 9px;
-      }
+  padding: 15px;
+}
 
-      .stat-card {
-        padding: 14px;
-      }
+.private-note-title {
+  display: flex;
 
-      .stat-value {
-        font-size: 22px;
-      }
+  align-items: center;
 
-      .dashboard-grid {
-        grid-template-columns: 1fr;
+  gap: 7px;
 
-        gap: 12px;
-      }
+  color: var(--navy);
 
-      .content-card {
-        padding: 15px;
-      }
+  font-size: 13px;
 
-      .toolbar {
-        align-items: flex-start;
+  font-weight: 800;
 
-        flex-direction: column;
-      }
+  margin-bottom: 5px;
+}
 
-      .toolbar-actions {
-        width: 100%;
-      }
+.private-note-description {
+  color: var(--muted);
 
-      .toolbar-actions button {
-        flex: 1;
-      }
+  font-size: 11px;
 
-      .mobile-nav {
-        position: fixed;
+  line-height: 1.6;
+}
 
-        display: flex;
+/* =========================================================
+   LOADING
+========================================================= */
 
-        left: 9px;
-        right: 9px;
+.loading {
+  text-align: center;
 
-        bottom:
-          calc(8px + env(safe-area-inset-bottom));
+  padding: 22px;
 
-        height: 67px;
+  color: var(--muted);
 
-        background:
-          rgba(255,255,255,0.96);
+  font-size: 13px;
+}
 
-        backdrop-filter:
-          blur(16px);
+/* =========================================================
+   MOBILE NAV
+========================================================= */
 
-        border:
-          1px solid var(--border);
+.mobile-nav {
+  display: none;
+}
 
-        border-radius: 19px;
+/* =========================================================
+   MOBILE
+========================================================= */
 
-        box-shadow:
-          0 10px 35px rgba(23,36,58,0.14);
+@media (max-width: 850px) {
 
-        z-index: 100;
+  body {
+    padding-bottom: 78px;
+  }
 
-        align-items: center;
-        justify-content: space-around;
-      }
+  .sidebar {
+    display: none;
+  }
 
-      .mobile-nav button {
-        flex: 1;
+  .app-layout {
+    min-height: auto;
+  }
 
-        border: 0;
+  .main {
+    width: 100%;
 
-        background: transparent;
+    padding:
+      18px
+      14px
+      25px;
+  }
 
-        color: var(--muted);
+  .topbar {
+    height: 62px;
 
-        font-size: 10px;
-        font-weight: 800;
+    padding: 0 13px;
+  }
 
-        padding: 7px 2px;
+  .topbar-icon {
+    width: 36px;
+    height: 36px;
+  }
 
-        line-height: 1.3;
-      }
+  .topbar-title {
+    font-size: 13px;
+  }
 
-      .mobile-nav button .nav-icon {
-        display: block;
+  .logout-button {
+    padding: 8px 9px;
 
-        font-size: 19px;
+    font-size: 11px;
+  }
 
-        margin-bottom: 2px;
-      }
+  .welcome {
+    margin-bottom: 16px;
+  }
 
-      .mobile-nav button.active {
-        color: var(--navy);
-      }
+  .welcome h2 {
+    font-size: 23px;
+  }
 
-      .modal {
-        max-height: 94vh;
-        max-height: 94dvh;
+  .welcome p {
+    font-size: 12px;
+  }
 
-        padding:
-          18px
-          16px
-          calc(18px + env(safe-area-inset-bottom));
-      }
-    }
+  .stats {
+    grid-template-columns:
+      repeat(2, 1fr);
 
-    @media (max-width: 480px) {
+    gap: 9px;
+  }
 
-      .brand-icon {
-        width: 74px;
-        height: 74px;
-      }
+  .stat-card {
+    padding: 14px;
+  }
 
-      .brand h1 {
-        font-size: 24px;
-      }
+  .stat-value {
+    font-size: 23px;
+  }
 
-      .auth-card {
-        padding: 20px;
-      }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
 
-      .summary-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+    gap: 0;
+  }
 
-      .data-item {
-        padding: 12px;
-      }
-    }
-  </style>
+  .content-card {
+    padding: 15px;
+
+    border-radius: 15px;
+  }
+
+  .toolbar {
+    align-items: stretch;
+  }
+
+  .toolbar h3 {
+    font-size: 18px;
+  }
+
+  .secondary-button {
+    white-space: nowrap;
+  }
+
+  .data-item {
+    align-items: flex-start;
+  }
+
+  .mobile-nav {
+    position: fixed;
+
+    display: flex;
+
+    left: 8px;
+    right: 8px;
+
+    bottom: 8px;
+
+    height: 62px;
+
+    background:
+      rgba(255,255,255,0.97);
+
+    border:
+      1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow:
+      0 8px 30px rgba(23,36,58,0.16);
+
+    z-index: 100;
+
+    align-items: center;
+
+    justify-content: space-around;
+
+    padding:
+      4px 3px;
+
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-nav button {
+    flex: 1;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    padding: 7px 2px;
+
+    border-radius: 12px;
+  }
+
+  .mobile-nav button.active {
+    color: var(--navy);
+
+    background: var(--gold-light);
+  }
+
+}
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .stats {
+    gap: 7px;
+  }
+
+  .stat-card {
+    padding: 12px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  .stat-value {
+    font-size: 21px;
+  }
+
+  .mobile-nav button {
+    font-size: 9px;
+  }
+
+}
+
+/* =========================================================
+   PROFILE MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .profile-info-row {
+    display: block;
+  }
+
+  .profile-value {
+    text-align: left;
+
+    margin-top: 4px;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- =====================================================
-       AUTH SCREEN
-  ====================================================== -->
+<!-- =========================================================
+     AUTH SCREEN
+========================================================= -->
 
-  <section id="authScreen">
+<section id="authScreen">
 
-    <div class="auth-wrapper">
+  <div class="auth-wrapper">
 
-      <div class="brand">
+    <div class="brand">
 
-        <img
-          class="brand-icon"
-          src="./icon-home-192.png"
-          alt="Tutor Manager"
-        >
+      <img
+        class="brand-icon"
+        src="./icon-home-192.png"
+        alt="Tutor Manager"
+      >
 
-        <h1>Tutor Manager</h1>
+      <h1>Tutor Manager</h1>
 
-        <p>
-          補習管理系統 · Tutor Management
+      <p>
+        補習管理系統 · Tutor Management
+      </p>
+
+    </div>
+
+    <div class="auth-card">
+
+      <div class="auth-heading">
+
+        <h2 id="authTitle">
+          Welcome back
+        </h2>
+
+        <p id="authSubtitle">
+          登入你的帳戶 · Sign in to your account
         </p>
 
       </div>
 
-      <div class="auth-card">
+      <div
+        class="login-method"
+        id="loginMethod"
+      >
 
-        <div class="auth-heading">
+        <button
+          class="method-button active"
+          id="emailMethod"
+          type="button"
+        >
+          Email 電郵
+        </button>
 
-          <h2 id="authTitle">
-            Welcome back
-          </h2>
+        <button
+          class="method-button"
+          id="phoneMethod"
+          type="button"
+        >
+          Phone 電話
+        </button>
 
-          <p id="authSubtitle">
-            登入你的帳戶 · Sign in to your account
-          </p>
+      </div>
+
+      <form id="authForm">
+
+        <div
+          class="field hidden"
+          id="nameField"
+        >
+
+          <label>
+            Name 姓名
+          </label>
+
+          <input
+            id="fullName"
+            type="text"
+            autocomplete="name"
+            placeholder="你的姓名"
+          >
 
         </div>
 
         <div
-          class="login-method"
-          id="loginMethod"
+          class="field hidden"
+          id="phoneField"
         >
 
-          <button
-            class="method-button active"
-            id="emailMethod"
-            type="button"
-          >
-            Email 電郵
-          </button>
-
-          <button
-            class="method-button"
-            id="phoneMethod"
-            type="button"
-          >
+          <label>
             Phone 電話
-          </button>
+          </label>
 
-        </div>
+          <div class="phone-row">
 
-        <form id="authForm">
-
-          <div
-            class="field hidden"
-            id="nameField"
-          >
-
-            <label>
-              Name 姓名
-            </label>
-
-            <input
-              id="fullName"
-              type="text"
-              autocomplete="name"
-              placeholder="你的姓名"
-            >
-
-          </div>
-
-          <div
-            class="field hidden"
-            id="phoneField"
-          >
-
-            <label>
-              Phone 電話
-            </label>
-
-            <div class="phone-row">
-
-              <div class="country-code">
-                🇭🇰 +852
-              </div>
-
-              <input
-                id="phone"
-                type="tel"
-                inputmode="numeric"
-                maxlength="8"
-                autocomplete="tel"
-                placeholder="91234567"
-              >
-
+            <div class="country-code">
+              🇭🇰 +852
             </div>
 
-          </div>
-
-          <div
-            class="field hidden"
-            id="roleField"
-          >
-
-            <label>
-              Account Type 帳戶類型
-            </label>
-
-            <select id="role">
-
-              <option value="tutor">
-                Tutor 導師
-              </option>
-
-              <option value="parent">
-                Parent 家長
-              </option>
-
-            </select>
-
-          </div>
-
-          <div
-            class="field"
-            id="emailField"
-          >
-
-            <label>
-              Email 電郵
-            </label>
-
             <input
-              id="email"
-              type="email"
-              autocomplete="email"
-              placeholder="example@email.com"
+              id="phone"
+              type="tel"
+              inputmode="numeric"
+              maxlength="8"
+              autocomplete="tel"
+              placeholder="91234567"
             >
 
           </div>
 
-          <div class="field">
-
-            <label>
-              Password 密碼
-            </label>
-
-            <input
-              id="password"
-              type="password"
-              autocomplete="current-password"
-              minlength="6"
-              placeholder="至少 6 個字元"
-              required
-            >
-
-          </div>
-
-          <button
-            class="main-button"
-            id="authButton"
-            type="submit"
-          >
-            Login · 登入
-          </button>
-
-        </form>
+        </div>
 
         <div
-          class="message"
-          id="authMessage"
-        ></div>
+          class="field hidden"
+          id="roleField"
+        >
 
-        <div class="switch-area">
+          <label>
+            Account Type 帳戶類型
+          </label>
 
-          <span id="switchText">
-            還沒有帳戶？
-          </span>
+          <select id="role">
 
-          <button
-            class="switch-button"
-            id="switchMode"
-            type="button"
-          >
-            建立帳戶
-          </button>
+            <option value="tutor">
+              Tutor 導師
+            </option>
+
+            <option value="parent">
+              Parent 家長
+            </option>
+
+          </select>
 
         </div>
+
+        <div
+          class="field"
+          id="emailField"
+        >
+
+          <label>
+            Email 電郵
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            placeholder="example@email.com"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>
+            Password 密碼
+          </label>
+
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            minlength="6"
+            placeholder="至少 6 個字元"
+            required
+          >
+
+        </div>
+
+        <button
+          class="main-button"
+          id="authButton"
+          type="submit"
+        >
+          Login · 登入
+        </button>
+
+      </form>
+
+      <div
+        class="message"
+        id="authMessage"
+      ></div>
+
+      <div class="switch-area">
+
+        <span id="switchText">
+          還沒有帳戶？
+        </span>
+
+        <button
+          class="switch-button"
+          id="switchMode"
+          type="button"
+        >
+          建立帳戶
+        </button>
 
       </div>
 
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- =====================================================
-       APP SCREEN
-  ====================================================== -->
+<!-- =========================================================
+     APP SCREEN
+========================================================= -->
 
-  <section
-    id="appScreen"
-    class="hidden"
+<section
+  id="appScreen"
+  class="hidden"
+>
+
+<header class="topbar">
+
+  <div class="topbar-left">
+
+    <img
+      class="topbar-icon"
+      src="./icon-home-192.png"
+      alt="Tutor Manager"
+    >
+
+    <span class="topbar-title">
+      Tutor Manager
+    </span>
+
+  </div>
+
+  <button
+    class="logout-button"
+    id="logoutButton"
   >
-
-    <header class="topbar">
-
-      <div class="topbar-left">
-
-        <img
-          class="topbar-icon"
-          src="./icon-home-192.png"
-          alt="Tutor Manager"
-        >
-
-        <span class="topbar-title">
-          Tutor Manager
-        </span>
-
-      </div>
-
-      <div class="topbar-right">
-
-        <span
-          class="sync-status"
-          id="syncStatus"
-        >
-          Online
-        </span>
-
-        <button
-          class="logout-button"
-          id="logoutButton"
-          type="button"
-        >
-          Logout
-        </button>
-
-      </div>
-
-    </header>
-
-
-    <div class="app-layout">
-
-      <!-- =================================================
-           DESKTOP SIDEBAR
-      ================================================== -->
-
-      <aside class="sidebar">
-
-        <div class="nav-section-title">
-          Management
-        </div>
-
-        <button
-          class="nav-button active"
-          data-page="dashboard"
-          type="button"
-        >
-          🏠 Dashboard · 主頁
-        </button>
-
-        <button
-          class="nav-button"
-          data-page="calendar"
-          type="button"
-        >
-          📅 Calendar · 日曆
-        </button>
-
-        <button
-          class="nav-button"
-          data-page="students"
-          type="button"
-        >
-          👨‍🎓 Students · 學生
-        </button>
-
-        <button
-          class="nav-button"
-          data-page="payments"
-          type="button"
-        >
-          💰 Payments · 收款
-        </button>
-
-        <button
-          class="nav-button"
-          data-page="notifications"
-          type="button"
-        >
-          🔔 Notifications · 通知
-        </button>
-
-        <div id="privateNotesNavSection">
-
-          <div
-            class="nav-section-title"
-            style="margin-top:15px;"
-          >
-            Tutor Only
-          </div>
-
-          <button
-            class="nav-button"
-            data-page="private-notes"
-            type="button"
-          >
-            🔒 Private Notes · 私人備註
-          </button>
-
-        </div>
-
-      </aside>
-
-
-      <!-- =================================================
-           MAIN
-      ================================================== -->
-
-      <main class="main">
-
-        <div class="welcome">
-
-          <h2 id="welcomeTitle">
-            Welcome 👋
-          </h2>
-
-          <p id="welcomeSubtitle">
-            歡迎使用補習管理系統
-          </p>
-
-        </div>
-
-
-        <!-- =================================================
-             DASHBOARD
-        ================================================== -->
-
-        <section
-          id="page-dashboard"
-          class="page active"
-        >
-
-          <div class="stats">
-
-            <div class="stat-card">
-
-              <div class="stat-top">
-
-                <div class="stat-label">
-                  Students · 學生
-                </div>
-
-                <div class="stat-icon">
-                  👨‍🎓
-                </div>
-
-              </div>
-
-              <div
-                class="stat-value"
-                id="studentCount"
-              >
-                0
-              </div>
-
-              <div class="stat-extra">
-                目前學生
-              </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-              <div class="stat-top">
-
-                <div class="stat-label">
-                  This Month · 本月
-                </div>
-
-                <div class="stat-icon">
-                  ⏱️
-                </div>
-
-              </div>
-
-              <div
-                class="stat-value"
-                id="monthHours"
-              >
-                0 hr
-              </div>
-
-              <div class="stat-extra">
-                上堂總時數
-              </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-              <div class="stat-top">
-
-                <div class="stat-label">
-                  Income · 收入
-                </div>
-
-                <div class="stat-icon">
-                  💰
-                </div>
-
-              </div>
-
-              <div
-                class="stat-value"
-                id="monthIncome"
-              >
-                $0
-              </div>
-
-              <div class="stat-extra">
-                本月已收
-              </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-              <div class="stat-top">
-
-                <div class="stat-label">
-                  Upcoming · 即將上堂
-                </div>
-
-                <div class="stat-icon">
-                  📅
-                </div>
-
-              </div>
-
-              <div
-                class="stat-value"
-                id="lessonCount"
-              >
-                0
-              </div>
-
-              <div class="stat-extra">
-                未來課堂
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="dashboard-grid">
-
-            <div class="content-card">
-
-              <div class="card-heading">
-
-                <h3>
-                  Upcoming Lessons
-                </h3>
-
-                <span>
-                  即將上堂
-                </span>
-
-              </div>
-
-              <div
-                id="dashboardLessons"
-                class="data-list"
-              >
-
-                <div class="loading">
-                  載入課堂資料中...
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="content-card">
-
-              <div class="card-heading">
-
-                <h3>
-                  Monthly Summary
-                </h3>
-
-                <span>
-                  本月統計
-                </span>
-
-              </div>
-
-              <div class="summary-grid">
-
-                <div class="summary-box">
-
-                  <div class="summary-label">
-                    堂數
-                  </div>
-
-                  <div
-                    class="summary-value"
-                    id="monthLessonCount"
-                  >
-                    0
-                  </div>
-
-                </div>
-
-                <div class="summary-box">
-
-                  <div class="summary-label">
-                    總時數
-                  </div>
-
-                  <div
-                    class="summary-value"
-                    id="monthHoursSummary"
-                  >
-                    0 hr
-                  </div>
-
-                </div>
-
-                <div class="summary-box">
-
-                  <div class="summary-label">
-                    已收
-                  </div>
-
-                  <div
-                    class="summary-value"
-                    id="monthPaid"
-                  >
-                    $0
-                  </div>
-
-                </div>
-
-                <div class="summary-box">
-
-                  <div class="summary-label">
-                    待收
-                  </div>
-
-                  <div
-                    class="summary-value"
-                    id="monthPending"
-                  >
-                    $0
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div
-                id="dashboardNotes"
-                class="empty"
-              >
-                暫時沒有備註
-              </div>
-
-              <div
-                class="private-note-box"
-                id="privateNoteBox"
-                style="
-                  margin-top:10px;
-                  background:linear-gradient(135deg,#FFFDF8,#F7F1E5);
-                  border:1px solid #E5D5B7;
-                  border-radius:14px;
-                  padding:14px;
-                "
-              >
-
-                <div
-                  style="
-                    color:var(--navy);
-                    font-size:13px;
-                    font-weight:800;
-                  "
-                >
-                  🔒 Tutor Private Notes
-                </div>
-
-                <div
-                  style="
-                    margin-top:5px;
-                    color:var(--muted);
-                    font-size:11px;
-                    line-height:1.5;
-                  "
-                >
-                  只供導師使用。家長帳戶不會顯示。
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CALENDAR
-        ================================================== -->
-
-        <section
-          id="page-calendar"
-          class="page"
-        >
-
-          <div class="toolbar">
-
-            <h3>
-              Calendar · 日曆
-            </h3>
-
-            <div class="toolbar-actions">
-
-              <button
-                class="secondary-button"
-                id="addLessonButton"
-                type="button"
-              >
-                ＋ 新增課堂
-              </button>
-
-              <button
-                class="secondary-button"
-                type="button"
-                onclick="loadLessonsPage()"
-              >
-                ↻ 更新
-              </button>
-
-            </div>
-
-          </div>
-
-          <div
-            id="calendarList"
-            class="content-card"
-          >
-
-            <div class="loading">
-              載入課堂資料中...
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             STUDENTS
-        ================================================== -->
-
-        <section
-          id="page-students"
-          class="page"
-        >
-
-          <div class="toolbar">
-
-            <h3>
-              Students · 學生
-            </h3>
-
-            <div class="toolbar-actions">
-
-              <button
-                class="secondary-button"
-                id="addStudentButton"
-                type="button"
-              >
-                ＋ 新增學生
-              </button>
-
-              <button
-                class="secondary-button"
-                type="button"
-                onclick="loadStudentsPage()"
-              >
-                ↻ 更新
-              </button>
-
-            </div>
-
-          </div>
-
-          <div
-            id="studentsList"
-            class="content-card"
-          >
-
-            <div class="loading">
-              載入學生資料中...
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             PAYMENTS
-        ================================================== -->
-
-        <section
-          id="page-payments"
-          class="page"
-        >
-
-          <div class="toolbar">
-
-            <h3>
-              Payments · 收款
-            </h3>
-
-            <div class="toolbar-actions">
-
-              <button
-                class="secondary-button"
-                id="addPaymentButton"
-                type="button"
-              >
-                ＋ 記錄收款
-              </button>
-
-              <button
-                class="secondary-button"
-                type="button"
-                onclick="loadPaymentsPage()"
-              >
-                ↻ 更新
-              </button>
-
-            </div>
-
-          </div>
-
-          <div
-            id="paymentsList"
-            class="content-card"
-          >
-
-            <div class="loading">
-              載入付款資料中...
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             NOTIFICATIONS
-        ================================================== -->
-
-        <section
-          id="page-notifications"
-          class="page"
-        >
-
-          <div class="toolbar">
-
-            <h3>
-              Notifications · 通知
-            </h3>
-
-            <button
-              class="secondary-button"
-              type="button"
-              onclick="loadNotificationsPage()"
-            >
-              ↻ 更新
-            </button>
-
-          </div>
-
-          <div
-            id="notificationsList"
-            class="content-card"
-          >
-
-            <div class="loading">
-              載入通知中...
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             PRIVATE NOTES
-        ================================================== -->
-
-        <section
-          id="page-private-notes"
-          class="page"
-        >
-
-          <div class="toolbar">
-
-            <h3>
-              Private Notes · 私人備註
-            </h3>
-
-            <div class="toolbar-actions">
-
-              <button
-                class="secondary-button"
-                id="addNoteButton"
-                type="button"
-              >
-                ＋ 新增備註
-              </button>
-
-              <button
-                class="secondary-button"
-                type="button"
-                onclick="loadPrivateNotesPage()"
-              >
-                ↻ 更新
-              </button>
-
-            </div>
-
-          </div>
-
-          <div
-            id="privateNotesList"
-            class="content-card"
-          >
-
-            <div class="loading">
-              載入私人備註中...
-            </div>
-
-          </div>
-
-        </section>
-
-      </main>
-
+    Logout
+  </button>
+
+</header>
+
+
+<div class="app-layout">
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+  <div class="nav-section-title">
+    Management
+  </div>
+
+  <button
+    class="nav-button active"
+    data-page="dashboard"
+  >
+    🏠 Dashboard
+  </button>
+
+  <button
+    class="nav-button"
+    data-page="calendar"
+  >
+    📅 Calendar
+  </button>
+
+  <button
+    class="nav-button"
+    data-page="students"
+  >
+    👨‍🎓 Students
+  </button>
+
+  <button
+    class="nav-button"
+    data-page="payments"
+  >
+    💰 Payments
+  </button>
+
+  <button
+    class="nav-button"
+    data-page="notifications"
+  >
+    🔔 Notifications
+  </button>
+
+  <div id="privateNotesNavSection">
+
+    <div
+      class="nav-section-title"
+      style="margin-top:14px;"
+    >
+      Tutor Only
     </div>
 
+    <button
+      class="nav-button"
+      data-page="private-notes"
+    >
+      🔒 Private Notes
+    </button>
 
-    <!-- =====================================================
-         MOBILE NAV
-    ====================================================== -->
+  </div>
 
-    <nav class="mobile-nav">
 
-      <button
-        class="active"
-        data-page="dashboard"
-        type="button"
-      >
-        <span class="nav-icon">🏠</span>
-        主頁
-      </button>
+  <div class="nav-section-title"
+       style="margin-top:14px;">
+    Account
+  </div>
 
-      <button
-        data-page="calendar"
-        type="button"
-      >
-        <span class="nav-icon">📅</span>
-        課堂
-      </button>
+  <button
+    class="nav-button"
+    data-page="profile"
+  >
+    👤 My Profile
+  </button>
 
-      <button
-        data-page="students"
-        type="button"
-      >
-        <span class="nav-icon">👨‍🎓</span>
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+<div class="welcome">
+
+  <h2 id="welcomeTitle">
+    Welcome 👋
+  </h2>
+
+  <p id="welcomeSubtitle">
+    歡迎使用補習管理系統
+  </p>
+
+</div>
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section
+  id="page-dashboard"
+  class="page active"
+>
+
+<div class="stats">
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div class="stat-label">
+        Students<br>
         學生
-      </button>
+      </div>
 
-      <button
-        data-page="payments"
-        type="button"
+      <div class="stat-icon">
+        👨‍🎓
+      </div>
+
+    </div>
+
+    <div
+      class="stat-value"
+      id="studentCount"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div class="stat-label">
+        Lessons<br>
+        本月課堂
+      </div>
+
+      <div class="stat-icon">
+        📅
+      </div>
+
+    </div>
+
+    <div
+      class="stat-value"
+      id="lessonCount"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div class="stat-label">
+        Hours<br>
+        本月工時
+      </div>
+
+      <div class="stat-icon">
+        ⏱️
+      </div>
+
+    </div>
+
+    <div
+      class="stat-value"
+      id="hoursCount"
+    >
+      0
+    </div>
+
+    <div class="stat-small">
+      小時
+    </div>
+
+  </div>
+
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div class="stat-label">
+        Income<br>
+        本月收入
+      </div>
+
+      <div class="stat-icon">
+        💰
+      </div>
+
+    </div>
+
+    <div
+      class="stat-value"
+      id="incomeCount"
+    >
+      $0
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="stats">
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div class="stat-label">
+        Pending<br>
+        待收款
+      </div>
+
+      <div class="stat-icon">
+        💵
+      </div>
+
+    </div>
+
+    <div
+      class="stat-value"
+      id="pendingIncome"
+    >
+      $0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div class="stat-label">
+        Notifications<br>
+        未讀通知
+      </div>
+
+      <div class="stat-icon">
+        🔔
+      </div>
+
+    </div>
+
+    <div
+      class="stat-value"
+      id="notificationCount"
+    >
+      0
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+
+<div class="content-card">
+
+  <div class="card-heading">
+
+    <h3>
+      Upcoming Lessons
+    </h3>
+
+    <span>
+      即將上堂
+    </span>
+
+  </div>
+
+  <div
+    id="dashboardLessons"
+    class="data-list"
+  >
+
+    <div class="loading">
+      載入課堂資料中...
+    </div>
+
+  </div>
+
+</div>
+
+
+<div>
+
+<div class="content-card">
+
+  <div class="card-heading">
+
+    <h3>
+      Quick Actions
+    </h3>
+
+    <span>
+      快速操作
+    </span>
+
+  </div>
+
+  <div class="quick-actions">
+
+    <button
+      class="quick-action"
+      onclick="navigateToPage('students')"
+    >
+      👨‍🎓<br>
+      查看學生
+    </button>
+
+    <button
+      class="quick-action"
+      onclick="navigateToPage('calendar')"
+    >
+      📅<br>
+      查看課堂
+    </button>
+
+    <button
+      class="quick-action"
+      onclick="navigateToPage('payments')"
+    >
+      💰<br>
+      查看收款
+    </button>
+
+    <button
+      class="quick-action"
+      onclick="navigateToPage('profile')"
+    >
+      👤<br>
+      個人資料
+    </button>
+
+  </div>
+
+</div>
+
+
+<div
+  class="private-note-box"
+  id="privateNoteBox"
+>
+
+  <div class="private-note-title">
+    🔒 Tutor Private Notes
+  </div>
+
+  <div class="private-note-description">
+    只供導師使用。
+    家長帳戶不會顯示此區域。
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     CALENDAR
+========================================================= -->
+
+<section
+  id="page-calendar"
+  class="page"
+>
+
+<div class="toolbar">
+
+  <h3>
+    Calendar · 日曆
+  </h3>
+
+  <button
+    class="secondary-button"
+    onclick="loadLessonsPage()"
+  >
+    Refresh
+  </button>
+
+</div>
+
+<div
+  id="calendarList"
+  class="content-card"
+>
+
+  <div class="loading">
+    載入課堂資料中...
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     STUDENTS
+========================================================= -->
+
+<section
+  id="page-students"
+  class="page"
+>
+
+<div class="toolbar">
+
+  <h3>
+    Students · 學生
+  </h3>
+
+  <button
+    class="secondary-button"
+    onclick="loadStudentsPage()"
+  >
+    Refresh
+  </button>
+
+</div>
+
+<div
+  id="studentsList"
+  class="content-card"
+>
+
+  <div class="loading">
+    載入學生資料中...
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PAYMENTS
+========================================================= -->
+
+<section
+  id="page-payments"
+  class="page"
+>
+
+<div class="toolbar">
+
+  <h3>
+    Payments · 收款
+  </h3>
+
+  <button
+    class="secondary-button"
+    onclick="loadPaymentsPage()"
+  >
+    Refresh
+  </button>
+
+</div>
+
+<div
+  id="paymentsList"
+  class="content-card"
+>
+
+  <div class="loading">
+    載入付款資料中...
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     NOTIFICATIONS
+========================================================= -->
+
+<section
+  id="page-notifications"
+  class="page"
+>
+
+<div class="toolbar">
+
+  <h3>
+    Notifications · 通知
+  </h3>
+
+  <button
+    class="secondary-button"
+    onclick="loadNotificationsPage()"
+  >
+    Refresh
+  </button>
+
+</div>
+
+<div
+  id="notificationsList"
+  class="content-card"
+>
+
+  <div class="loading">
+    載入通知中...
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PRIVATE NOTES
+========================================================= -->
+
+<section
+  id="page-private-notes"
+  class="page"
+>
+
+<div class="toolbar">
+
+  <h3>
+    Private Notes · 私人備註
+  </h3>
+
+  <button
+    class="secondary-button"
+    onclick="loadPrivateNotesPage()"
+  >
+    Refresh
+  </button>
+
+</div>
+
+<div
+  id="privateNotesList"
+  class="content-card"
+>
+
+  <div class="loading">
+    載入私人備註中...
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PROFILE
+========================================================= -->
+
+<section
+  id="page-profile"
+  class="page"
+>
+
+<div class="toolbar">
+
+  <h3>
+    My Profile · 個人資料
+  </h3>
+
+</div>
+
+
+<div class="content-card profile-card">
+
+  <div
+    class="profile-avatar"
+    id="profileAvatar"
+  >
+    U
+  </div>
+
+
+  <div class="profile-info">
+
+    <div class="profile-info-row">
+
+      <span class="profile-label">
+        Name 姓名
+      </span>
+
+      <span
+        class="profile-value"
+        id="profileNameDisplay"
       >
-        <span class="nav-icon">💰</span>
-        收款
-      </button>
+        -
+      </span>
 
-      <button
-        data-page="notifications"
-        type="button"
+    </div>
+
+
+    <div class="profile-info-row">
+
+      <span class="profile-label">
+        Email 電郵
+      </span>
+
+      <span
+        class="profile-value"
+        id="profileEmailDisplay"
       >
-        <span class="nav-icon">🔔</span>
-        通知
-      </button>
+        -
+      </span>
 
-    </nav>
-
-  </section>
+    </div>
 
 
-  <!-- =====================================================
-       STUDENT MODAL
-  ====================================================== -->
+    <div class="profile-info-row">
 
-  <div
-    class="modal-overlay"
-    id="studentModal"
-  >
+      <span class="profile-label">
+        Phone 電話
+      </span>
 
-    <div class="modal">
+      <span
+        class="profile-value"
+        id="profilePhoneDisplay"
+      >
+        -
+      </span>
 
-      <div class="modal-header">
+    </div>
 
-        <h3>
-          新增學生
-        </h3>
 
-        <button
-          class="close-button"
-          type="button"
-          onclick="closeModal('studentModal')"
-        >
-          ×
-        </button>
+    <div class="profile-info-row">
 
-      </div>
+      <span class="profile-label">
+        Account Type
+      </span>
 
-      <form id="studentForm">
-
-        <div class="field">
-
-          <label>
-            學生姓名
-          </label>
-
-          <input
-            id="studentName"
-            type="text"
-            placeholder="例如：陳小明"
-            required
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            學校
-          </label>
-
-          <input
-            id="studentSchool"
-            type="text"
-            placeholder="例如：XXX 中學"
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            年級
-          </label>
-
-          <input
-            id="studentGrade"
-            type="text"
-            placeholder="例如：中五"
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            電話
-          </label>
-
-          <input
-            id="studentPhone"
-            type="tel"
-            inputmode="numeric"
-            placeholder="91234567"
-          >
-
-        </div>
-
-        <div class="form-actions">
-
-          <button
-            class="secondary-button"
-            type="button"
-            onclick="closeModal('studentModal')"
-          >
-            取消
-          </button>
-
-          <button
-            class="main-button"
-            type="submit"
-          >
-            儲存學生
-          </button>
-
-        </div>
-
-      </form>
+      <span
+        class="profile-value"
+        id="profileRoleDisplay"
+      >
+        -
+      </span>
 
     </div>
 
   </div>
 
 
-  <!-- =====================================================
-       LESSON MODAL
-  ====================================================== -->
+  <div class="field">
 
-  <div
-    class="modal-overlay"
-    id="lessonModal"
-  >
+    <label>
+      修改姓名 · Change Name
+    </label>
 
-    <div class="modal">
-
-      <div class="modal-header">
-
-        <h3>
-          新增課堂
-        </h3>
-
-        <button
-          class="close-button"
-          type="button"
-          onclick="closeModal('lessonModal')"
-        >
-          ×
-        </button>
-
-      </div>
-
-      <form id="lessonForm">
-
-        <div class="field">
-
-          <label>
-            學生
-          </label>
-
-          <select
-            id="lessonStudent"
-            required
-          >
-            <option value="">
-              請選擇學生
-            </option>
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            開始時間
-          </label>
-
-          <input
-            id="lessonStart"
-            type="datetime-local"
-            required
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            完結時間
-          </label>
-
-          <input
-            id="lessonEnd"
-            type="datetime-local"
-            required
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            地點
-          </label>
-
-          <input
-            id="lessonLocation"
-            type="text"
-            placeholder="例如：學生家中 / Zoom"
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            課堂費用
-          </label>
-
-          <input
-            id="lessonAmount"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="例如：300"
-          >
-
-        </div>
-
-        <div class="form-actions">
-
-          <button
-            class="secondary-button"
-            type="button"
-            onclick="closeModal('lessonModal')"
-          >
-            取消
-          </button>
-
-          <button
-            class="main-button"
-            type="submit"
-          >
-            儲存課堂
-          </button>
-
-        </div>
-
-      </form>
-
-    </div>
+    <input
+      id="editFullName"
+      type="text"
+      autocomplete="name"
+      placeholder="輸入新姓名"
+    >
 
   </div>
 
 
-  <!-- =====================================================
-       PAYMENT MODAL
-  ====================================================== -->
+  <div class="field">
 
-  <div
-    class="modal-overlay"
-    id="paymentModal"
-  >
+    <label>
+      修改電話 · Change Phone
+    </label>
 
-    <div class="modal">
-
-      <div class="modal-header">
-
-        <h3>
-          記錄收款
-        </h3>
-
-        <button
-          class="close-button"
-          type="button"
-          onclick="closeModal('paymentModal')"
-        >
-          ×
-        </button>
-
-      </div>
-
-      <form id="paymentForm">
-
-        <div class="field">
-
-          <label>
-            學生
-          </label>
-
-          <select
-            id="paymentStudent"
-            required
-          >
-            <option value="">
-              請選擇學生
-            </option>
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            金額
-          </label>
-
-          <input
-            id="paymentAmount"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="例如：300"
-            required
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            收款日期
-          </label>
-
-          <input
-            id="paymentDate"
-            type="date"
-            required
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            付款方式
-          </label>
-
-          <select id="paymentMethod">
-
-            <option value="cash">
-              現金 Cash
-            </option>
-
-            <option value="fps">
-              FPS
-            </option>
-
-            <option value="payme">
-              PayMe
-            </option>
-
-            <option value="alipay">
-              AlipayHK
-            </option>
-
-            <option value="wechat">
-              WeChat Pay
-            </option>
-
-            <option value="bank">
-              Bank Transfer
-            </option>
-
-            <option value="other">
-              其他
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            備註
-          </label>
-
-          <textarea
-            id="paymentNote"
-            placeholder="例如：3月份補習費"
-          ></textarea>
-
-        </div>
-
-        <div class="form-actions">
-
-          <button
-            class="secondary-button"
-            type="button"
-            onclick="closeModal('paymentModal')"
-          >
-            取消
-          </button>
-
-          <button
-            class="main-button"
-            type="submit"
-          >
-            儲存收款
-          </button>
-
-        </div>
-
-      </form>
-
-    </div>
+    <input
+      id="editPhone"
+      type="tel"
+      inputmode="numeric"
+      maxlength="8"
+      placeholder="91234567"
+    >
 
   </div>
 
 
-  <!-- =====================================================
-       PRIVATE NOTE MODAL
-  ====================================================== -->
+  <button
+    class="main-button"
+    id="saveProfileButton"
+    type="button"
+  >
+    💾 Save Profile · 儲存資料
+  </button>
+
 
   <div
-    class="modal-overlay"
-    id="noteModal"
+    class="message"
+    id="profileMessage"
+  ></div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     MOBILE NAV
+========================================================= -->
+
+<nav class="mobile-nav">
+
+  <button
+    class="active"
+    data-page="dashboard"
   >
+    🏠<br>
+    主頁
+  </button>
 
-    <div class="modal">
-
-      <div class="modal-header">
-
-        <h3>
-          新增私人備註
-        </h3>
-
-        <button
-          class="close-button"
-          type="button"
-          onclick="closeModal('noteModal')"
-        >
-          ×
-        </button>
-
-      </div>
-
-      <form id="noteForm">
-
-        <div class="field">
-
-          <label>
-            學生
-          </label>
-
-          <select
-            id="noteStudent"
-            required
-          >
-            <option value="">
-              請選擇學生
-            </option>
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            私人備註
-          </label>
-
-          <textarea
-            id="noteText"
-            placeholder="輸入只有你可以查看的備註..."
-            required
-          ></textarea>
-
-        </div>
-
-        <div class="form-actions">
-
-          <button
-            class="secondary-button"
-            type="button"
-            onclick="closeModal('noteModal')"
-          >
-            取消
-          </button>
-
-          <button
-            class="main-button"
-            type="submit"
-          >
-            儲存備註
-          </button>
-
-        </div>
-
-      </form>
-
-    </div>
-
-  </div>
-
-
-  <!-- =====================================================
-       OFFLINE
-  ====================================================== -->
-
-  <div
-    class="offline-banner"
-    id="offlineBanner"
+  <button
+    data-page="calendar"
   >
-    📴 目前離線 · 已載入資料仍可查看
-  </div>
+    📅<br>
+    課堂
+  </button>
+
+  <button
+    data-page="students"
+  >
+    👨‍🎓<br>
+    學生
+  </button>
+
+  <button
+    data-page="payments"
+  >
+    💰<br>
+    收款
+  </button>
+
+  <button
+    data-page="profile"
+  >
+    👤<br>
+    更多
+  </button>
+
+</nav>
+
+</section>
 
 
-  <script>
-    /* =====================================================
-       SUPABASE CONFIGURATION
-    ====================================================== */
+<script>
 
-    const SUPABASE_URL =
-      "https://kswyvpxzbjvjksfijfvl.supabase.co";
+/* =========================================================
+   SUPABASE
+========================================================= */
 
-    const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzd3l2cHh6Ymp2amtzZmlqZnZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTI0NzAsImV4cCI6MjEwNDI2ODQ3MH0.4O2oKOLecu0JvxzLTPvUATb1mpfW5pUp9fiGeDwI0Qc";
+const SUPABASE_URL =
+  "https://kswyvpxzbjvjksfijfvl.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoia3N3eXZweHpiandqa3NmaWpmZnZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTI0NzAsImV4cCI6MjEwNDI2ODQ3MH0.4O2oKOLecu0JvxzLTPvUATb1mpfW5pUp9fiGeDwI0Qc";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
 
-    /* =====================================================
-       CREATE CLIENT
-    ====================================================== */
+/* =========================================================
+   STATE
+========================================================= */
 
-    let supabaseClient = null;
+let isSignUp = false;
+let loginType = "email";
+
+let currentUser = null;
+let currentProfile = null;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const authScreen =
+  document.getElementById("authScreen");
+
+const appScreen =
+  document.getElementById("appScreen");
+
+const authForm =
+  document.getElementById("authForm");
+
+const authTitle =
+  document.getElementById("authTitle");
+
+const authSubtitle =
+  document.getElementById("authSubtitle");
+
+const authButton =
+  document.getElementById("authButton");
+
+const authMessage =
+  document.getElementById("authMessage");
+
+const switchMode =
+  document.getElementById("switchMode");
+
+const switchText =
+  document.getElementById("switchText");
+
+const nameField =
+  document.getElementById("nameField");
+
+const phoneField =
+  document.getElementById("phoneField");
+
+const roleField =
+  document.getElementById("roleField");
+
+const emailField =
+  document.getElementById("emailField");
+
+const loginMethod =
+  document.getElementById("loginMethod");
+
+const emailMethod =
+  document.getElementById("emailMethod");
+
+const phoneMethod =
+  document.getElementById("phoneMethod");
+
+const privateNotesNavSection =
+  document.getElementById(
+    "privateNotesNavSection"
+  );
+
+const privateNoteBox =
+  document.getElementById(
+    "privateNoteBox"
+  );
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function showMessage(
+  message,
+  type = "error"
+) {
+
+  authMessage.textContent =
+    message;
+
+  authMessage.className =
+    "message " + type;
+
+}
+
+
+function clearMessage() {
+
+  authMessage.textContent = "";
+
+  authMessage.className =
+    "message";
+
+}
+
+
+function showProfileMessage(
+  message,
+  type = "error"
+) {
+
+  const box =
+    document.getElementById(
+      "profileMessage"
+    );
+
+  box.textContent =
+    message;
+
+  box.className =
+    "message " + type;
+
+}
+
+
+function escapeHTML(value) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function formatDateTime(value) {
+
+  if (!value) {
+    return "未設定";
+  }
+
+  const date =
+    new Date(value);
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return value;
+  }
+
+  return date.toLocaleString(
+    "zh-HK",
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  );
+
+}
+
+
+function formatDate(value) {
+
+  if (!value) {
+    return "未設定";
+  }
+
+  const date =
+    new Date(
+      value + "T00:00:00"
+    );
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return value;
+  }
+
+  return date.toLocaleDateString(
+    "zh-HK",
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    }
+  );
+
+}
+
+
+function normalizeHKPhone(phone) {
+
+  const clean =
+    String(phone || "")
+      .replace(/\s/g, "")
+      .replace(/-/g, "");
+
+  if (
+    clean.startsWith("+852")
+  ) {
+
+    const number =
+      clean.substring(4);
 
     if (
-      window.supabase &&
-      SUPABASE_URL &&
-      SUPABASE_ANON_KEY &&
-      SUPABASE_ANON_KEY !== "PASTE_YOUR_SUPABASE_ANON_KEY_HERE"
+      /^\d{8}$/.test(number)
     ) {
-      supabaseClient =
-        window.supabase.createClient(
-          SUPABASE_URL,
-          SUPABASE_ANON_KEY
-        );
+      return "+852" + number;
     }
 
+  }
 
-    /* =====================================================
-       STATE
-    ====================================================== */
+  if (
+    /^\d{8}$/.test(clean)
+  ) {
+    return "+852" + clean;
+  }
 
-    let isSignUp = false;
-    let loginType = "email";
+  throw new Error(
+    "請輸入有效的 8 位香港電話號碼。"
+  );
 
-    let currentUser = null;
-    let currentProfile = null;
+}
 
-    let cachedStudents = [];
 
+/* =========================================================
+   MONTH RANGE
+========================================================= */
 
-    /* =====================================================
-       DOM HELPERS
-    ====================================================== */
+function getCurrentMonthRange() {
 
-    const $ = (id) =>
-      document.getElementById(id);
+  const now =
+    new Date();
 
+  const start =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      1
+    );
 
-    function showMessage(message, type = "error") {
+  const end =
+    new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      1
+    );
 
-      const box = $("authMessage");
+  return {
+    start: start.toISOString(),
+    end: end.toISOString()
+  };
 
-      box.textContent = message;
+}
 
-      box.className =
-        "message " + type;
-    }
 
+/* =========================================================
+   LOGIN METHOD
+========================================================= */
 
-    function clearMessage() {
+emailMethod.addEventListener(
+  "click",
+  () => {
 
-      const box = $("authMessage");
+    loginType = "email";
 
-      box.textContent = "";
+    emailMethod.classList.add(
+      "active"
+    );
 
-      box.className = "message";
-    }
+    phoneMethod.classList.remove(
+      "active"
+    );
 
+    emailField.classList.remove(
+      "hidden"
+    );
 
-    function escapeHTML(value) {
+    phoneField.classList.add(
+      "hidden"
+    );
 
-      if (
-        value === null ||
-        value === undefined
-      ) {
-        return "";
-      }
+    document.getElementById(
+      "email"
+    ).required = true;
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
+    document.getElementById(
+      "phone"
+    ).required = false;
 
+  }
+);
 
-    function formatMoney(value) {
 
-      const number =
-        Number(value || 0);
+phoneMethod.addEventListener(
+  "click",
+  () => {
 
-      return "$" +
-        number.toLocaleString(
-          "en-HK",
-          {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
-          }
-        );
-    }
+    loginType = "phone";
 
+    phoneMethod.classList.add(
+      "active"
+    );
 
-    function formatDateTime(value) {
+    emailMethod.classList.remove(
+      "active"
+    );
 
-      if (!value) {
-        return "未設定";
-      }
+    phoneField.classList.remove(
+      "hidden"
+    );
 
-      const date =
-        new Date(value);
+    emailField.classList.add(
+      "hidden"
+    );
 
-      if (
-        Number.isNaN(
-          date.getTime()
-        )
-      ) {
-        return String(value);
-      }
+    document.getElementById(
+      "email"
+    ).required = false;
 
-      return date.toLocaleString(
-        "zh-HK",
-        {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit"
-        }
-      );
-    }
-
-
-    function formatDate(value) {
+    document.getElementById(
+      "phone"
+    ).required = true;
 
-      if (!value) {
-        return "未設定";
-      }
-
-      const date =
-        new Date(
-          value + "T00:00:00"
-        );
-
-      if (
-        Number.isNaN(
-          date.getTime()
-        )
-      ) {
-        return String(value);
-      }
-
-      return date.toLocaleDateString(
-        "zh-HK",
-        {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        }
-      );
-    }
-
-
-    function calculateHours(
-      start,
-      end
-    ) {
-
-      if (!start || !end) {
-        return 0;
-      }
-
-      const startDate =
-        new Date(start);
+  }
+);
 
-      const endDate =
-        new Date(end);
 
-      const milliseconds =
-        endDate.getTime() -
-        startDate.getTime();
+/* =========================================================
+   SIGN UP / LOGIN SWITCH
+========================================================= */
 
-      if (
-        milliseconds <= 0
-      ) {
-        return 0;
-      }
+switchMode.addEventListener(
+  "click",
+  () => {
 
-      return milliseconds /
-        1000 /
-        60 /
-        60;
-    }
+    isSignUp =
+      !isSignUp;
 
+    clearMessage();
 
-    function getRole() {
+    if (isSignUp) {
 
-      return (
-        currentProfile?.role ||
-        currentUser?.user_metadata?.role ||
-        "tutor"
-      );
-    }
+      authTitle.textContent =
+        "Create account";
 
+      authSubtitle.textContent =
+        "建立帳戶 · Create your account";
 
-    function getUserName() {
+      authButton.textContent =
+        "Create Account · 建立帳戶";
 
-      return (
-        currentProfile?.full_name ||
-        currentUser?.user_metadata?.full_name ||
-        currentUser?.email ||
-        "User"
-      );
-    }
+      switchText.textContent =
+        "已經有帳戶？";
 
+      switchMode.textContent =
+        "登入";
 
-    /* =====================================================
-       PHONE
-    ====================================================== */
-
-    function normalizeHKPhone(phone) {
-
-      const clean =
-        String(phone || "")
-          .replace(/\s/g, "")
-          .replace(/-/g, "");
-
-      if (
-        clean.startsWith("+852")
-      ) {
-
-        const number =
-          clean.substring(4);
-
-        if (
-          /^\d{8}$/.test(number)
-        ) {
-          return "+852" + number;
-        }
-
-      }
-
-      if (
-        /^\d{8}$/.test(clean)
-      ) {
-        return "+852" + clean;
-      }
-
-      throw new Error(
-        "請輸入有效的 8 位香港電話號碼。"
-      );
-    }
-
-
-    /* =====================================================
-       UI AUTH MODE
-    ====================================================== */
-
-    $("emailMethod")
-      .addEventListener(
-        "click",
-        () => {
-
-          loginType = "email";
-
-          $("emailMethod")
-            .classList
-            .add("active");
-
-          $("phoneMethod")
-            .classList
-            .remove("active");
-
-          $("emailField")
-            .classList
-            .remove("hidden");
-
-          $("phoneField")
-            .classList
-            .add("hidden");
-
-          $("email").required = true;
-
-          $("phone").required = false;
-        }
+      nameField.classList.remove(
+        "hidden"
       );
 
-
-    $("phoneMethod")
-      .addEventListener(
-        "click",
-        () => {
-
-          loginType = "phone";
-
-          $("phoneMethod")
-            .classList
-            .add("active");
-
-          $("emailMethod")
-            .classList
-            .remove("active");
-
-          $("phoneField")
-            .classList
-            .remove("hidden");
-
-          $("emailField")
-            .classList
-            .add("hidden");
-
-          $("email").required = false;
-
-          $("phone").required = true;
-        }
+      phoneField.classList.remove(
+        "hidden"
       );
 
-
-    $("switchMode")
-      .addEventListener(
-        "click",
-        () => {
-
-          isSignUp =
-            !isSignUp;
-
-          clearMessage();
-
-          if (isSignUp) {
-
-            $("authTitle")
-              .textContent =
-              "Create account";
-
-            $("authSubtitle")
-              .textContent =
-              "建立帳戶 · Create your account";
-
-            $("authButton")
-              .textContent =
-              "Create Account · 建立帳戶";
-
-            $("switchText")
-              .textContent =
-              "已經有帳戶？";
-
-            $("switchMode")
-              .textContent =
-              "登入";
-
-            $("nameField")
-              .classList
-              .remove("hidden");
-
-            $("phoneField")
-              .classList
-              .remove("hidden");
-
-            $("roleField")
-              .classList
-              .remove("hidden");
-
-            $("loginMethod")
-              .classList
-              .add("hidden");
-
-            $("emailField")
-              .classList
-              .remove("hidden");
-
-            $("fullName").required = true;
-            $("phone").required = true;
-            $("role").required = true;
-            $("email").required = true;
-
-          } else {
-
-            $("authTitle")
-              .textContent =
-              "Welcome back";
-
-            $("authSubtitle")
-              .textContent =
-              "登入你的帳戶 · Sign in to your account";
-
-            $("authButton")
-              .textContent =
-              "Login · 登入";
-
-            $("switchText")
-              .textContent =
-              "還沒有帳戶？";
-
-            $("switchMode")
-              .textContent =
-              "建立帳戶";
-
-            $("nameField")
-              .classList
-              .add("hidden");
-
-            $("phoneField")
-              .classList
-              .add("hidden");
-
-            $("roleField")
-              .classList
-              .add("hidden");
-
-            $("loginMethod")
-              .classList
-              .remove("hidden");
-
-            $("fullName").required = false;
-            $("phone").required = false;
-            $("role").required = false;
-
-            $("email").required =
-              loginType === "email";
-          }
-        }
+      roleField.classList.remove(
+        "hidden"
       );
 
-
-    /* =====================================================
-       PROFILE
-    ====================================================== */
-
-    async function ensureProfile(user) {
-
-      if (!supabaseClient || !user) {
-        return null;
-      }
-
-      const result =
-        await supabaseClient
-          .from("profiles")
-          .select(
-            "id, full_name, role, phone, created_at"
-          )
-          .eq("id", user.id)
-          .maybeSingle();
-
-      if (result.error) {
-
-        console.error(
-          "Profile select error:",
-          result.error
-        );
-
-        return null;
-      }
-
-      if (result.data) {
-        return result.data;
-      }
-
-      const metadata =
-        user.user_metadata || {};
-
-      const role =
-        metadata.role === "parent"
-          ? "parent"
-          : "tutor";
-
-      const fullName =
-        (
-          metadata.full_name ||
-          user.email ||
-          "User"
-        ).trim();
-
-      const phone =
-        metadata.phone || null;
-
-      const insertResult =
-        await supabaseClient
-          .from("profiles")
-          .insert({
-            id: user.id,
-            full_name: fullName,
-            role: role,
-            phone: phone
-          })
-          .select()
-          .single();
-
-      if (insertResult.error) {
-
-        console.error(
-          "Profile insert error:",
-          insertResult.error
-        );
-
-        return null;
-      }
-
-      return insertResult.data;
-    }
-
-
-    /* =====================================================
-       AUTH FORM
-    ====================================================== */
-
-    $("authForm")
-      .addEventListener(
-        "submit",
-        async (event) => {
-
-          event.preventDefault();
-
-          clearMessage();
-
-          $("authButton").disabled = true;
-
-          try {
-
-            if (!supabaseClient) {
-
-              throw new Error(
-                "Supabase API Key 尚未設定。請將 SUPABASE_ANON_KEY 放入 index.html。"
-              );
-            }
-
-            const password =
-              $("password").value;
-
-            if (
-              password.length < 6
-            ) {
-
-              throw new Error(
-                "密碼最少需要 6 個字元。"
-              );
-            }
-
-
-            /* =========================================
-               SIGN UP
-            ========================================== */
-
-            if (isSignUp) {
-
-              const fullName =
-                $("fullName")
-                  .value
-                  .trim();
-
-              const phone =
-                normalizeHKPhone(
-                  $("phone").value
-                );
-
-              const role =
-                $("role").value;
-
-              const email =
-                $("email")
-                  .value
-                  .trim();
-
-              if (!fullName) {
-
-                throw new Error(
-                  "請輸入姓名。"
-                );
-              }
-
-              if (!email) {
-
-                throw new Error(
-                  "請輸入 Email。"
-                );
-              }
-
-              const result =
-                await supabaseClient
-                  .auth
-                  .signUp({
-                    email,
-                    password,
-                    options: {
-                      data: {
-                        full_name:
-                          fullName,
-                        phone:
-                          phone,
-                        role:
-                          role
-                      }
-                    }
-                  });
-
-              if (result.error) {
-                throw result.error;
-              }
-
-              if (!result.data.user) {
-
-                throw new Error(
-                  "無法建立帳戶。"
-                );
-              }
-
-              if (result.data.session) {
-
-                await ensureProfile(
-                  result.data.user
-                );
-
-                showMessage(
-                  "帳戶建立成功！正在進入系統。",
-                  "success"
-                );
-
-                await loadApp();
-
-                return;
-              }
-
-              showMessage(
-                "帳戶建立成功！請先到電郵確認帳戶，之後再登入。",
-                "success"
-              );
-
-              return;
-            }
-
-
-            /* =========================================
-               LOGIN
-            ========================================== */
-
-            if (
-              loginType === "email"
-            ) {
-
-              const email =
-                $("email")
-                  .value
-                  .trim();
-
-              if (!email) {
-
-                throw new Error(
-                  "請輸入 Email。"
-                );
-              }
-
-              const result =
-                await supabaseClient
-                  .auth
-                  .signInWithPassword({
-                    email,
-                    password
-                  });
-
-              if (result.error) {
-                throw result.error;
-              }
-
-            } else {
-
-              const phone =
-                normalizeHKPhone(
-                  $("phone").value
-                );
-
-              const result =
-                await supabaseClient
-                  .auth
-                  .signInWithPassword({
-                    phone,
-                    password
-                  });
-
-              if (result.error) {
-                throw result.error;
-              }
-
-            }
-
-            await loadApp();
-
-          } catch (error) {
-
-            console.error(
-              "Authentication error:",
-              error
-            );
-
-            showMessage(
-              error?.message ||
-              "登入失敗。"
-            );
-
-          } finally {
-
-            $("authButton")
-              .disabled = false;
-          }
-        }
+      loginMethod.classList.add(
+        "hidden"
       );
 
-
-    /* =====================================================
-       LOAD APP
-    ====================================================== */
-
-    async function loadApp() {
-
-      if (!supabaseClient) {
-        showAuth();
-        return;
-      }
-
-      const result =
-        await supabaseClient
-          .auth
-          .getUser();
-
-      if (result.error) {
-
-        console.error(
-          result.error
-        );
-
-        showAuth();
-
-        return;
-      }
-
-      const user =
-        result.data.user;
-
-      if (!user) {
-
-        showAuth();
-
-        return;
-      }
-
-      currentUser = user;
-
-      currentProfile =
-        await ensureProfile(user);
-
-      $("authScreen")
-        .classList
-        .add("hidden");
-
-      $("appScreen")
-        .classList
-        .remove("hidden");
-
-      const role =
-        getRole();
-
-      $("welcomeTitle")
-        .textContent =
-        "Welcome, " +
-        getUserName() +
-        " 👋";
-
-      if (
-        role === "parent"
-      ) {
-
-        $("welcomeSubtitle")
-          .textContent =
-          "Parent Dashboard · 家長管理中心";
-
-        $("privateNotesNavSection")
-          .classList
-          .add("hidden");
-
-        $("privateNoteBox")
-          .classList
-          .add("hidden");
-
-        $("addNoteButton")
-          .classList
-          .add("hidden");
-
-      } else {
-
-        $("welcomeSubtitle")
-          .textContent =
-          "Tutor Dashboard · 導師管理中心";
-
-        $("privateNotesNavSection")
-          .classList
-          .remove("hidden");
-
-        $("privateNoteBox")
-          .classList
-          .remove("hidden");
-
-        $("addNoteButton")
-          .classList
-          .remove("hidden");
-      }
-
-      await loadDashboard();
-
-      await loadStudentsCache();
-    }
-
-
-    function showAuth() {
-
-      $("appScreen")
-        .classList
-        .add("hidden");
-
-      $("authScreen")
-        .classList
-        .remove("hidden");
-    }
-
-
-    /* =====================================================
-       DASHBOARD
-    ====================================================== */
-
-    async function loadDashboard() {
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      try {
-
-        const role =
-          getRole();
-
-
-        /* =========================================
-           STUDENT COUNT
-        ========================================== */
-
-        let studentQuery =
-          supabaseClient
-            .from("students")
-            .select(
-              "id",
-              {
-                count: "exact",
-                head: true
-              }
-            );
-
-        if (role === "parent") {
-
-          studentQuery =
-            studentQuery.eq(
-              "parent_id",
-              currentUser.id
-            );
-
-        } else {
-
-          studentQuery =
-            studentQuery.eq(
-              "tutor_id",
-              currentUser.id
-            );
-        }
-
-        const studentResult =
-          await studentQuery;
-
-        $("studentCount")
-          .textContent =
-          studentResult.count || 0;
-
-
-        /* =========================================
-           UPCOMING LESSONS
-        ========================================== */
-
-        const now =
-          new Date()
-            .toISOString();
-
-        let lessonQuery =
-          supabaseClient
-            .from("lessons")
-            .select(
-              "id, student_id, start_time, end_time, location, status, amount"
-            )
-            .gte(
-              "start_time",
-              now
-            )
-            .neq(
-              "status",
-              "cancelled"
-            );
-
-        if (role === "parent") {
-
-          lessonQuery =
-            lessonQuery.eq(
-              "parent_id",
-              currentUser.id
-            );
-
-        } else {
-
-          lessonQuery =
-            lessonQuery.eq(
-              "tutor_id",
-              currentUser.id
-            );
-        }
-
-        const lessonResult =
-          await lessonQuery;
-
-        $("lessonCount")
-          .textContent =
-          lessonResult.data?.length || 0;
-
-
-        /* =========================================
-           MONTHLY DATA
-        ========================================== */
-
-        const monthStart =
-          new Date();
-
-        monthStart.setDate(1);
-        monthStart.setHours(
-          0,
-          0,
-          0,
-          0
-        );
-
-        const monthStartISO =
-          monthStart.toISOString();
-
-        let monthlyLessonQuery =
-          supabaseClient
-            .from("lessons")
-            .select(
-              "id, student_id, start_time, end_time, amount, status"
-            )
-            .gte(
-              "start_time",
-              monthStartISO
-            )
-            .neq(
-              "status",
-              "cancelled"
-            );
-
-        if (role === "parent") {
-
-          monthlyLessonQuery =
-            monthlyLessonQuery.eq(
-              "parent_id",
-              currentUser.id
-            );
-
-        } else {
-
-          monthlyLessonQuery =
-            monthlyLessonQuery.eq(
-              "tutor_id",
-              currentUser.id
-            );
-        }
-
-        const monthlyLessonsResult =
-          await monthlyLessonQuery;
-
-        const monthlyLessons =
-          monthlyLessonsResult.data || [];
-
-        let totalHours = 0;
-        let totalAmount = 0;
-
-        monthlyLessons.forEach(
-          lesson => {
-
-            totalHours +=
-              calculateHours(
-                lesson.start_time,
-                lesson.end_time
-              );
-
-            totalAmount +=
-              Number(
-                lesson.amount || 0
-              );
-          }
-        );
-
-
-        $("monthHours")
-          .textContent =
-          totalHours.toFixed(1) +
-          " hr";
-
-        $("monthHoursSummary")
-          .textContent =
-          totalHours.toFixed(1) +
-          " hr";
-
-        $("monthLessonCount")
-          .textContent =
-          monthlyLessons.length;
-
-        $("monthIncome")
-          .textContent =
-          formatMoney(
-            totalAmount
-          );
-
-
-        /* =========================================
-           PAYMENTS
-        ========================================== */
-
-        let paymentQuery =
-          supabaseClient
-            .from("payments")
-            .select(
-              "amount, status, payment_date"
-            )
-            .gte(
-              "payment_date",
-              monthStart
-                .toISOString()
-                .slice(0, 10)
-            );
-
-        if (role === "parent") {
-
-          paymentQuery =
-            paymentQuery.eq(
-              "parent_id",
-              currentUser.id
-            );
-
-        } else {
-
-          paymentQuery =
-            paymentQuery.eq(
-              "tutor_id",
-              currentUser.id
-            );
-        }
-
-        const paymentResult =
-          await paymentQuery;
-
-        const payments =
-          paymentResult.data || [];
-
-        let paid = 0;
-
-        payments.forEach(
-          payment => {
-
-            if (
-              payment.status === "paid" ||
-              !payment.status
-            ) {
-
-              paid +=
-                Number(
-                  payment.amount || 0
-                );
-            }
-          }
-        );
-
-        const pending =
-          Math.max(
-            0,
-            totalAmount - paid
-          );
-
-        $("monthPaid")
-          .textContent =
-          formatMoney(paid);
-
-        $("monthPending")
-          .textContent =
-          formatMoney(pending);
-
-
-        await loadDashboardLessons();
-
-      } catch (error) {
-
-        console.error(
-          "Dashboard error:",
-          error
-        );
-      }
-    }
-
-
-    /* =====================================================
-       DASHBOARD LESSONS
-    ====================================================== */
-
-    async function loadDashboardLessons() {
-
-      const container =
-        $("dashboardLessons");
-
-      container.innerHTML =
-        '<div class="loading">載入中...</div>';
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      const role =
-        getRole();
-
-      let query =
-        supabaseClient
-          .from("lessons")
-          .select(
-            "id, student_id, start_time, end_time, location, status, amount"
-          )
-          .gte(
-            "start_time",
-            new Date().toISOString()
-          )
-          .neq(
-            "status",
-            "cancelled"
-          )
-          .order(
-            "start_time",
-            {
-              ascending: true
-            }
-          )
-          .limit(5);
-
-      if (role === "parent") {
-
-        query =
-          query.eq(
-            "parent_id",
-            currentUser.id
-          );
-
-      } else {
-
-        query =
-          query.eq(
-            "tutor_id",
-            currentUser.id
-          );
-      }
-
-      const result =
-        await query;
-
-      if (result.error) {
-
-        console.error(
-          result.error
-        );
-
-        container.innerHTML =
-          '<div class="empty">暫時未能載入課堂資料。</div>';
-
-        return;
-      }
-
-      const data =
-        result.data || [];
-
-      if (!data.length) {
-
-        container.innerHTML =
-          '<div class="empty">暫時沒有即將上堂。<br>No upcoming lessons.</div>';
-
-        return;
-      }
-
-      const studentIds =
-        [
-          ...new Set(
-            data.map(
-              lesson =>
-                lesson.student_id
-            )
-          )
-        ];
-
-      let students = [];
-
-      if (studentIds.length) {
-
-        const studentResult =
-          await supabaseClient
-            .from("students")
-            .select(
-              "id, student_name"
-            )
-            .in(
-              "id",
-              studentIds
-            );
-
-        students =
-          studentResult.data || [];
-      }
-
-      const studentMap =
-        new Map(
-          students.map(
-            student => [
-              student.id,
-              student.student_name
-            ]
-          )
-        );
-
-      container.innerHTML =
-        data
-          .map(
-            lesson => {
-
-              const studentName =
-                studentMap.get(
-                  lesson.student_id
-                ) ||
-                "Student";
-
-              const hours =
-                calculateHours(
-                  lesson.start_time,
-                  lesson.end_time
-                );
-
-              return `
-                <div class="data-item">
-
-                  <div class="data-item-main">
-
-                    <div class="data-item-title">
-                      ${escapeHTML(studentName)}
-                    </div>
-
-                    <div class="data-item-subtitle">
-                      ${escapeHTML(
-                        formatDateTime(
-                          lesson.start_time
-                        )
-                      )}
-                      ·
-                      ${hours.toFixed(1)} hr
-                      ${
-                        lesson.location
-                          ? " · " +
-                            escapeHTML(
-                              lesson.location
-                            )
-                          : ""
-                      }
-                    </div>
-
-                  </div>
-
-                  <span class="badge badge-success">
-                    ${escapeHTML(
-                      lesson.status ||
-                      "scheduled"
-                    )}
-                  </span>
-
-                </div>
-              `;
-            }
-          )
-          .join("");
-    }
-
-
-    /* =====================================================
-       STUDENTS CACHE
-    ====================================================== */
-
-    async function loadStudentsCache() {
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      const role =
-        getRole();
-
-      let query =
-        supabaseClient
-          .from("students")
-          .select(
-            "id, student_name, school, grade, phone, created_at"
-          )
-          .order(
-            "student_name",
-            {
-              ascending: true
-            }
-          );
-
-      if (role === "parent") {
-
-        query =
-          query.eq(
-            "parent_id",
-            currentUser.id
-          );
-
-      } else {
-
-        query =
-          query.eq(
-            "tutor_id",
-            currentUser.id
-          );
-      }
-
-      const result =
-        await query;
-
-      if (!result.error) {
-
-        cachedStudents =
-          result.data || [];
-
-        populateStudentSelects();
-      }
-    }
-
-
-    function populateStudentSelects() {
-
-      const selects = [
-        $("lessonStudent"),
-        $("paymentStudent"),
-        $("noteStudent")
-      ];
-
-      selects.forEach(
-        select => {
-
-          if (!select) {
-            return;
-          }
-
-          const current =
-            select.value;
-
-          select.innerHTML =
-            '<option value="">請選擇學生</option>' +
-            cachedStudents
-              .map(
-                student => `
-                  <option value="${escapeHTML(student.id)}">
-                    ${escapeHTML(student.student_name)}
-                  </option>
-                `
-              )
-              .join("");
-
-          select.value = current;
-        }
+      emailField.classList.remove(
+        "hidden"
       );
+
+      document.getElementById(
+        "fullName"
+      ).required = true;
+
+      document.getElementById(
+        "phone"
+      ).required = true;
+
+      document.getElementById(
+        "role"
+      ).required = true;
+
+      document.getElementById(
+        "email"
+      ).required = true;
+
+      loginType =
+        "email";
+
+    } else {
+
+      authTitle.textContent =
+        "Welcome back";
+
+      authSubtitle.textContent =
+        "登入你的帳戶 · Sign in to your account";
+
+      authButton.textContent =
+        "Login · 登入";
+
+      switchText.textContent =
+        "還沒有帳戶？";
+
+      switchMode.textContent =
+        "建立帳戶";
+
+      nameField.classList.add(
+        "hidden"
+      );
+
+      phoneField.classList.add(
+        "hidden"
+      );
+
+      roleField.classList.add(
+        "hidden"
+      );
+
+      loginMethod.classList.remove(
+        "hidden"
+      );
+
+      document.getElementById(
+        "fullName"
+      ).required = false;
+
+      document.getElementById(
+        "phone"
+      ).required = false;
+
+      document.getElementById(
+        "role"
+      ).required = false;
+
+      document.getElementById(
+        "email"
+      ).required =
+        loginType === "email";
+
     }
 
-
-    /* =====================================================
-       STUDENTS PAGE
-    ====================================================== */
-
-    async function loadStudentsPage() {
-
-      const container =
-        $("studentsList");
-
-      container.innerHTML =
-        '<div class="loading">載入中...</div>';
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      const role =
-        getRole();
-
-      let query =
-        supabaseClient
-          .from("students")
-          .select(
-            "id, student_name, school, grade, phone, created_at"
-          )
-          .order(
-            "student_name",
-            {
-              ascending: true
-            }
-          );
-
-      if (role === "parent") {
-
-        query =
-          query.eq(
-            "parent_id",
-            currentUser.id
-          );
-
-      } else {
-
-        query =
-          query.eq(
-            "tutor_id",
-            currentUser.id
-          );
-      }
-
-      const result =
-        await query;
-
-      if (result.error) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              無法載入學生資料。
-              <br>
-              ${escapeHTML(result.error.message)}
-            </div>
-          `;
-
-        return;
-      }
-
-      const data =
-        result.data || [];
-
-      cachedStudents = data;
-
-      populateStudentSelects();
-
-      if (!data.length) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              暫時沒有學生。
-              <br>
-              按右上角「＋ 新增學生」開始。
-            </div>
-          `;
-
-        return;
-      }
-
-      container.innerHTML =
-        `
-          <div class="data-list">
-
-            ${data.map(
-              student => `
-                <div class="data-item">
-
-                  <div class="data-item-main">
-
-                    <div class="data-item-title">
-                      ${escapeHTML(
-                        student.student_name
-                      )}
-                    </div>
-
-                    <div class="data-item-subtitle">
-
-                      ${
-                        student.school
-                          ? escapeHTML(
-                              student.school
-                            )
-                          : "學校未設定"
-                      }
-
-                      ·
-
-                      ${
-                        student.grade
-                          ? escapeHTML(
-                              student.grade
-                            )
-                          : "年級未設定"
-                      }
-
-                      ${
-                        student.phone
-                          ? "<br>" +
-                            escapeHTML(
-                              student.phone
-                            )
-                          : ""
-                      }
-
-                    </div>
-
-                  </div>
-
-                </div>
-              `
-            ).join("")}
-
-          </div>
-        `;
-    }
-
-
-    /* =====================================================
-       LESSONS PAGE
-    ====================================================== */
-
-    async function loadLessonsPage() {
-
-      const container =
-        $("calendarList");
-
-      container.innerHTML =
-        '<div class="loading">載入中...</div>';
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      const role =
-        getRole();
-
-      let query =
-        supabaseClient
-          .from("lessons")
-          .select(
-            "id, student_id, start_time, end_time, location, repeat_weekly, repeat_until, status, amount"
-          )
-          .order(
-            "start_time",
-            {
-              ascending: true
-            }
-          )
-          .limit(100);
-
-      if (role === "parent") {
-
-        query =
-          query.eq(
-            "parent_id",
-            currentUser.id
-          );
-
-      } else {
-
-        query =
-          query.eq(
-            "tutor_id",
-            currentUser.id
-          );
-      }
-
-      const result =
-        await query;
-
-      if (result.error) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              ${escapeHTML(
-                result.error.message
-              )}
-            </div>
-          `;
-
-        return;
-      }
-
-      const data =
-        result.data || [];
-
-      if (!data.length) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              暫時沒有課堂資料。
-              <br>
-              按「＋ 新增課堂」開始。
-            </div>
-          `;
-
-        return;
-      }
-
-      const studentIds =
-        [
-          ...new Set(
-            data.map(
-              lesson =>
-                lesson.student_id
-            )
-          )
-        ];
-
-      let students = [];
-
-      if (studentIds.length) {
-
-        const studentResult =
-          await supabaseClient
-            .from("students")
-            .select(
-              "id, student_name"
-            )
-            .in(
-              "id",
-              studentIds
-            );
-
-        students =
-          studentResult.data || [];
-      }
-
-      const studentMap =
-        new Map(
-          students.map(
-            student => [
-              student.id,
-              student.student_name
-            ]
-          )
-        );
-
-      container.innerHTML =
-        `
-          <div class="data-list">
-
-            ${data.map(
-              lesson => {
-
-                const hours =
-                  calculateHours(
-                    lesson.start_time,
-                    lesson.end_time
-                  );
-
-                let badgeClass =
-                  "badge-warning";
-
-                if (
-                  lesson.status ===
-                  "completed"
-                ) {
-                  badgeClass =
-                    "badge-success";
-                }
-
-                if (
-                  lesson.status ===
-                  "cancelled"
-                ) {
-                  badgeClass =
-                    "badge-danger";
-                }
-
-                return `
-                  <div class="data-item">
-
-                    <div class="data-item-main">
-
-                      <div class="data-item-title">
-                        ${escapeHTML(
-                          studentMap.get(
-                            lesson.student_id
-                          ) ||
-                          "Student"
-                        )}
-                      </div>
-
-                      <div class="data-item-subtitle">
-
-                        ${escapeHTML(
-                          formatDateTime(
-                            lesson.start_time
-                          )
-                        )}
-
-                        →
-
-                        ${escapeHTML(
-                          formatDateTime(
-                            lesson.end_time
-                          )
-                        )}
-
-                        <br>
-
-                        ${hours.toFixed(1)} hr
-
-                        ${
-                          lesson.location
-                            ? " · " +
-                              escapeHTML(
-                                lesson.location
-                              )
-                            : ""
-                        }
-
-                        ${
-                          lesson.amount
-                            ? " · " +
-                              formatMoney(
-                                lesson.amount
-                              )
-                            : ""
-                        }
-
-                      </div>
-
-                    </div>
-
-                    <span class="badge ${badgeClass}">
-                      ${escapeHTML(
-                        lesson.status ||
-                        "scheduled"
-                      )}
-                    </span>
-
-                  </div>
-                `;
-              }
-            ).join("")}
-
-          </div>
-        `;
-    }
-
-
-    /* =====================================================
-       PAYMENTS PAGE
-    ====================================================== */
-
-    async function loadPaymentsPage() {
-
-      const container =
-        $("paymentsList");
-
-      container.innerHTML =
-        '<div class="loading">載入中...</div>';
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      const role =
-        getRole();
-
-      let query =
-        supabaseClient
-          .from("payments")
-          .select(
-            "id, student_id, amount, payment_date, payment_method, status, note"
-          )
-          .order(
-            "payment_date",
-            {
-              ascending: false
-            }
-          )
-          .limit(100);
-
-      if (role === "parent") {
-
-        query =
-          query.eq(
-            "parent_id",
-            currentUser.id
-          );
-
-      } else {
-
-        query =
-          query.eq(
-            "tutor_id",
-            currentUser.id
-          );
-      }
-
-      const result =
-        await query;
-
-      if (result.error) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              ${escapeHTML(
-                result.error.message
-              )}
-            </div>
-          `;
-
-        return;
-      }
-
-      const data =
-        result.data || [];
-
-      if (!data.length) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              暫時沒有付款紀錄。
-              <br>
-              按「＋ 記錄收款」開始。
-            </div>
-          `;
-
-        return;
-      }
-
-      const studentIds =
-        [
-          ...new Set(
-            data.map(
-              payment =>
-                payment.student_id
-            )
-          )
-        ];
-
-      let students = [];
-
-      if (studentIds.length) {
-
-        const studentResult =
-          await supabaseClient
-            .from("students")
-            .select(
-              "id, student_name"
-            )
-            .in(
-              "id",
-              studentIds
-            );
-
-        students =
-          studentResult.data || [];
-      }
-
-      const studentMap =
-        new Map(
-          students.map(
-            student => [
-              student.id,
-              student.student_name
-            ]
-          )
-        );
-
-      container.innerHTML =
-        `
-          <div class="data-list">
-
-            ${data.map(
-              payment => {
-
-                const badgeClass =
-                  payment.status ===
-                  "cancelled"
-                    ? "badge-danger"
-                    : "badge-success";
-
-                return `
-                  <div class="data-item">
-
-                    <div class="data-item-main">
-
-                      <div class="data-item-title">
-
-                        ${formatMoney(
-                          payment.amount
-                        )}
-
-                        ·
-
-                        ${escapeHTML(
-                          studentMap.get(
-                            payment.student_id
-                          ) ||
-                          "Student"
-                        )}
-
-                      </div>
-
-                      <div class="data-item-subtitle">
-
-                        ${escapeHTML(
-                          formatDate(
-                            payment.payment_date
-                          )
-                        )}
-
-                        ·
-
-                        ${escapeHTML(
-                          payment.payment_method ||
-                          "付款方式未設定"
-                        )}
-
-                        ${
-                          payment.note
-                            ? "<br>" +
-                              escapeHTML(
-                                payment.note
-                              )
-                            : ""
-                        }
-
-                      </div>
-
-                    </div>
-
-                    <span class="badge ${badgeClass}">
-                      ${escapeHTML(
-                        payment.status ||
-                        "paid"
-                      )}
-                    </span>
-
-                  </div>
-                `;
-              }
-            ).join("")}
-
-          </div>
-        `;
-    }
-
-
-    /* =====================================================
-       NOTIFICATIONS
-    ====================================================== */
-
-    async function loadNotificationsPage() {
-
-      const container =
-        $("notificationsList");
-
-      container.innerHTML =
-        '<div class="loading">載入中...</div>';
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      const result =
-        await supabaseClient
-          .from("notifications")
-          .select(
-            "id, title, message, type, is_read, created_at"
-          )
-          .eq(
-            "user_id",
-            currentUser.id
-          )
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          )
-          .limit(50);
-
-      if (result.error) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              ${escapeHTML(
-                result.error.message
-              )}
-            </div>
-          `;
-
-        return;
-      }
-
-      const data =
-        result.data || [];
-
-      if (!data.length) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              暫時沒有通知。
-            </div>
-          `;
-
-        return;
-      }
-
-      container.innerHTML =
-        `
-          <div class="data-list">
-
-            ${data.map(
-              notification => `
-                <div class="data-item">
-
-                  <div class="data-item-main">
-
-                    <div class="data-item-title">
-                      ${escapeHTML(
-                        notification.title
-                      )}
-                    </div>
-
-                    <div class="data-item-subtitle">
-
-                      ${
-                        notification.message
-                          ? escapeHTML(
-                              notification.message
-                            ) +
-                            "<br>"
-                          : ""
-                      }
-
-                      ${escapeHTML(
-                        formatDateTime(
-                          notification.created_at
-                        )
-                      )}
-
-                    </div>
-
-                  </div>
-
-                  <span class="badge ${
-                    notification.is_read
-                      ? "badge-success"
-                      : "badge-warning"
-                  }">
-
-                    ${
-                      notification.is_read
-                        ? "已讀"
-                        : "未讀"
-                    }
-
-                  </span>
-
-                </div>
-              `
-            ).join("")}
-
-          </div>
-        `;
-    }
-
-
-    /* =====================================================
-       PRIVATE NOTES
-    ====================================================== */
-
-    async function loadPrivateNotesPage() {
-
-      const container =
-        $("privateNotesList");
-
-      container.innerHTML =
-        '<div class="loading">載入中...</div>';
-
-      if (
-        getRole() !== "tutor"
-      ) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              此區域只供導師使用。
-            </div>
-          `;
-
-        return;
-      }
-
-      if (!currentUser || !supabaseClient) {
-        return;
-      }
-
-      const result =
-        await supabaseClient
-          .from("private_notes")
-          .select(
-            "id, student_id, note, created_at, updated_at"
-          )
-          .eq(
-            "tutor_id",
-            currentUser.id
-          )
-          .order(
-            "updated_at",
-            {
-              ascending: false
-            }
-          )
-          .limit(100);
-
-      if (result.error) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              ${escapeHTML(
-                result.error.message
-              )}
-            </div>
-          `;
-
-        return;
-      }
-
-      const data =
-        result.data || [];
-
-      if (!data.length) {
-
-        container.innerHTML =
-          `
-            <div class="empty">
-              暫時沒有私人備註。
-              <br>
-              按「＋ 新增備註」開始。
-            </div>
-          `;
-
-        return;
-      }
-
-      const studentIds =
-        [
-          ...new Set(
-            data.map(
-              note =>
-                note.student_id
-            )
-          )
-        ];
-
-      let students = [];
-
-      if (studentIds.length) {
-
-        const studentResult =
-          await supabaseClient
-            .from("students")
-            .select(
-              "id, student_name"
-            )
-            .in(
-              "id",
-              studentIds
-            );
-
-        students =
-          studentResult.data || [];
-      }
-
-      const studentMap =
-        new Map(
-          students.map(
-            student => [
-              student.id,
-              student.student_name
-            ]
-          )
-        );
-
-      container.innerHTML =
-        `
-          <div class="data-list">
-
-            ${data.map(
-              note => `
-                <div class="data-item">
-
-                  <div class="data-item-main">
-
-                    <div class="data-item-title">
-                      🔒
-                      ${escapeHTML(
-                        studentMap.get(
-                          note.student_id
-                        ) ||
-                        "Student"
-                      )}
-                    </div>
-
-                    <div class="data-item-subtitle">
-
-                      ${escapeHTML(
-                        note.note
-                      )}
-
-                      <br>
-
-                      ${escapeHTML(
-                        formatDateTime(
-                          note.updated_at ||
-                          note.created_at
-                        )
-                      )}
-
-                    </div>
-
-                  </div>
-
-                </div>
-              `
-            ).join("")}
-
-          </div>
-        `;
-    }
-
-
-    /* =====================================================
-       NAVIGATION
-    ====================================================== */
-
-    function navigateToPage(page) {
-
-      document
-        .querySelectorAll(".page")
-        .forEach(
-          section => {
-            section.classList.remove(
-              "active"
-            );
-          }
-        );
-
-      const target =
-        document.getElementById(
-          "page-" + page
-        );
-
-      if (target) {
-        target.classList.add(
-          "active"
-        );
-      }
-
-      document
-        .querySelectorAll(
-          ".nav-button, .mobile-nav button"
-        )
-        .forEach(
-          button => {
-
-            button.classList.toggle(
-              "active",
-              button.dataset.page ===
-              page
-            );
-          }
-        );
-
-
-      if (page === "dashboard") {
-
-        loadDashboard();
-
-      } else if (
-        page === "calendar"
-      ) {
-
-        loadLessonsPage();
-
-      } else if (
-        page === "students"
-      ) {
-
-        loadStudentsPage();
-
-      } else if (
-        page === "payments"
-      ) {
-
-        loadPaymentsPage();
-
-      } else if (
-        page === "notifications"
-      ) {
-
-        loadNotificationsPage();
-
-      } else if (
-        page === "private-notes"
-      ) {
-
-        loadPrivateNotesPage();
-      }
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-
-
-    document
-      .querySelectorAll(
-        ".nav-button, .mobile-nav button"
+  }
+);
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+async function ensureProfile(user) {
+
+  if (!user) {
+    return null;
+  }
+
+  const {
+    data: existingProfile,
+    error: selectError
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select(
+        "id, full_name, role, phone, created_at"
       )
-      .forEach(
-        button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              navigateToPage(
-                button.dataset.page
-              );
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =====================================================
-       MODAL
-    ====================================================== */
-
-    function openModal(id) {
-
-      $(id)
-        .classList
-        .add("show");
-    }
-
-
-    function closeModal(id) {
-
-      $(id)
-        .classList
-        .remove("show");
-    }
-
-
-    document
-      .querySelectorAll(".modal-overlay")
-      .forEach(
-        overlay => {
-
-          overlay.addEventListener(
-            "click",
-            event => {
-
-              if (
-                event.target ===
-                overlay
-              ) {
-
-                overlay.classList.remove(
-                  "show"
-                );
-
-              }
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =====================================================
-       ADD STUDENT
-    ====================================================== */
-
-    $("addStudentButton")
-      .addEventListener(
-        "click",
-        () => {
-
-          $("studentForm").reset();
-
-          openModal(
-            "studentModal"
-          );
-        }
-      );
-
-
-    $("studentForm")
-      .addEventListener(
-        "submit",
-        async event => {
-
-          event.preventDefault();
-
-          if (
-            !currentUser ||
-            !supabaseClient
-          ) {
-            return;
-          }
-
-          const button =
-            event.target
-              .querySelector(
-                'button[type="submit"]'
-              );
-
-          button.disabled = true;
-
-          try {
-
-            const studentName =
-              $("studentName")
-                .value
-                .trim();
-
-            const school =
-              $("studentSchool")
-                .value
-                .trim();
-
-            const grade =
-              $("studentGrade")
-                .value
-                .trim();
-
-            const phone =
-              $("studentPhone")
-                .value
-                .trim();
-
-            if (!studentName) {
-
-              throw new Error(
-                "請輸入學生姓名。"
-              );
-            }
-
-            const payload = {
-              student_name:
-                studentName,
-              school:
-                school || null,
-              grade:
-                grade || null,
-              phone:
-                phone || null
-            };
-
-            if (
-              getRole() ===
-              "parent"
-            ) {
-
-              payload.parent_id =
-                currentUser.id;
-
-            } else {
-
-              payload.tutor_id =
-                currentUser.id;
-            }
-
-            const result =
-              await supabaseClient
-                .from("students")
-                .insert(payload);
-
-            if (result.error) {
-              throw result.error;
-            }
-
-            closeModal(
-              "studentModal"
-            );
-
-            await loadStudentsCache();
-
-            await loadStudentsPage();
-
-            await loadDashboard();
-
-          } catch (error) {
-
-            alert(
-              error?.message ||
-              "新增學生失敗。"
-            );
-
-          } finally {
-
-            button.disabled = false;
-          }
-        }
-      );
-
-
-    /* =====================================================
-       ADD LESSON
-    ====================================================== */
-
-    $("addLessonButton")
-      .addEventListener(
-        "click",
-        async () => {
-
-          await loadStudentsCache();
-
-          if (
-            cachedStudents.length === 0
-          ) {
-
-            alert(
-              "請先新增學生，再新增課堂。"
-            );
-
-            navigateToPage(
-              "students"
-            );
-
-            return;
-          }
-
-          $("lessonForm").reset();
-
-          const now =
-            new Date();
-
-          const later =
-            new Date(
-              now.getTime() +
-              60 * 60 * 1000
-            );
-
-          $("lessonStart")
-            .value =
-            toLocalDateTimeValue(
-              now
-            );
-
-          $("lessonEnd")
-            .value =
-            toLocalDateTimeValue(
-              later
-            );
-
-          openModal(
-            "lessonModal"
-          );
-        }
-      );
-
-
-    function toLocalDateTimeValue(
-      date
-    ) {
-
-      const pad =
-        number =>
-          String(number)
-            .padStart(2, "0");
-
-      return (
-        date.getFullYear() +
-        "-" +
-        pad(date.getMonth() + 1) +
-        "-" +
-        pad(date.getDate()) +
-        "T" +
-        pad(date.getHours()) +
-        ":" +
-        pad(date.getMinutes())
-      );
-    }
-
-
-    $("lessonForm")
-      .addEventListener(
-        "submit",
-        async event => {
-
-          event.preventDefault();
-
-          if (
-            !currentUser ||
-            !supabaseClient
-          ) {
-            return;
-          }
-
-          const button =
-            event.target
-              .querySelector(
-                'button[type="submit"]'
-              );
-
-          button.disabled = true;
-
-          try {
-
-            const studentId =
-              $("lessonStudent")
-                .value;
-
-            const start =
-              $("lessonStart")
-                .value;
-
-            const end =
-              $("lessonEnd")
-                .value;
-
-            const location =
-              $("lessonLocation")
-                .value
-                .trim();
-
-            const amount =
-              Number(
-                $("lessonAmount")
-                  .value || 0
-              );
-
-            if (!studentId) {
-
-              throw new Error(
-                "請選擇學生。"
-              );
-            }
-
-            if (!start || !end) {
-
-              throw new Error(
-                "請輸入完整時間。"
-              );
-            }
-
-            if (
-              new Date(end) <=
-              new Date(start)
-            ) {
-
-              throw new Error(
-                "完結時間必須晚於開始時間。"
-              );
-            }
-
-            const payload = {
-
-              student_id:
-                studentId,
-
-              start_time:
-                new Date(start)
-                  .toISOString(),
-
-              end_time:
-                new Date(end)
-                  .toISOString(),
-
-              location:
-                location || null,
-
-              amount:
-                amount,
-
-              status:
-                "scheduled"
-            };
-
-            if (
-              getRole() ===
-              "parent"
-            ) {
-
-              payload.parent_id =
-                currentUser.id;
-
-            } else {
-
-              payload.tutor_id =
-                currentUser.id;
-            }
-
-            const result =
-              await supabaseClient
-                .from("lessons")
-                .insert(payload);
-
-            if (result.error) {
-              throw result.error;
-            }
-
-            closeModal(
-              "lessonModal"
-            );
-
-            await loadLessonsPage();
-
-            await loadDashboard();
-
-          } catch (error) {
-
-            alert(
-              error?.message ||
-              "新增課堂失敗。"
-            );
-
-          } finally {
-
-            button.disabled = false;
-          }
-        }
-      );
-
-
-    /* =====================================================
-       ADD PAYMENT
-    ====================================================== */
-
-    $("addPaymentButton")
-      .addEventListener(
-        "click",
-        async () => {
-
-          await loadStudentsCache();
-
-          if (
-            cachedStudents.length === 0
-          ) {
-
-            alert(
-              "請先新增學生，再記錄收款。"
-            );
-
-            navigateToPage(
-              "students"
-            );
-
-            return;
-          }
-
-          $("paymentForm").reset();
-
-          const today =
-            new Date();
-
-          $("paymentDate")
-            .value =
-            today
-              .toISOString()
-              .slice(0, 10);
-
-          openModal(
-            "paymentModal"
-          );
-        }
-      );
-
-
-    $("paymentForm")
-      .addEventListener(
-        "submit",
-        async event => {
-
-          event.preventDefault();
-
-          if (
-            !currentUser ||
-            !supabaseClient
-          ) {
-            return;
-          }
-
-          const button =
-            event.target
-              .querySelector(
-                'button[type="submit"]'
-              );
-
-          button.disabled = true;
-
-          try {
-
-            const studentId =
-              $("paymentStudent")
-                .value;
-
-            const amount =
-              Number(
-                $("paymentAmount")
-                  .value || 0
-              );
-
-            const paymentDate =
-              $("paymentDate")
-                .value;
-
-            const paymentMethod =
-              $("paymentMethod")
-                .value;
-
-            const note =
-              $("paymentNote")
-                .value
-                .trim();
-
-            if (!studentId) {
-
-              throw new Error(
-                "請選擇學生。"
-              );
-            }
-
-            if (
-              amount <= 0
-            ) {
-
-              throw new Error(
-                "請輸入有效金額。"
-              );
-            }
-
-            if (!paymentDate) {
-
-              throw new Error(
-                "請選擇收款日期。"
-              );
-            }
-
-            const payload = {
-
-              student_id:
-                studentId,
-
-              amount:
-                amount,
-
-              payment_date:
-                paymentDate,
-
-              payment_method:
-                paymentMethod,
-
-              status:
-                "paid",
-
-              note:
-                note || null
-            };
-
-            if (
-              getRole() ===
-              "parent"
-            ) {
-
-              payload.parent_id =
-                currentUser.id;
-
-            } else {
-
-              payload.tutor_id =
-                currentUser.id;
-            }
-
-            const result =
-              await supabaseClient
-                .from("payments")
-                .insert(payload);
-
-            if (result.error) {
-              throw result.error;
-            }
-
-            closeModal(
-              "paymentModal"
-            );
-
-            await loadPaymentsPage();
-
-            await loadDashboard();
-
-          } catch (error) {
-
-            alert(
-              error?.message ||
-              "儲存收款失敗。"
-            );
-
-          } finally {
-
-            button.disabled = false;
-          }
-        }
-      );
-
-
-    /* =====================================================
-       ADD PRIVATE NOTE
-    ====================================================== */
-
-    $("addNoteButton")
-      .addEventListener(
-        "click",
-        async () => {
-
-          if (
-            getRole() !==
-            "tutor"
-          ) {
-
-            alert(
-              "只有導師可以使用私人備註。"
-            );
-
-            return;
-          }
-
-          await loadStudentsCache();
-
-          if (
-            cachedStudents.length === 0
-          ) {
-
-            alert(
-              "請先新增學生。"
-            );
-
-            navigateToPage(
-              "students"
-            );
-
-            return;
-          }
-
-          $("noteForm").reset();
-
-          openModal(
-            "noteModal"
-          );
-        }
-      );
-
-
-    $("noteForm")
-      .addEventListener(
-        "submit",
-        async event => {
-
-          event.preventDefault();
-
-          if (
-            !currentUser ||
-            !supabaseClient
-          ) {
-            return;
-          }
-
-          const button =
-            event.target
-              .querySelector(
-                'button[type="submit"]'
-              );
-
-          button.disabled = true;
-
-          try {
-
-            const studentId =
-              $("noteStudent")
-                .value;
-
-            const note =
-              $("noteText")
-                .value
-                .trim();
-
-            if (!studentId) {
-
-              throw new Error(
-                "請選擇學生。"
-              );
-            }
-
-            if (!note) {
-
-              throw new Error(
-                "請輸入私人備註。"
-              );
-            }
-
-            const result =
-              await supabaseClient
-                .from("private_notes")
-                .insert({
-                  tutor_id:
-                    currentUser.id,
-                  student_id:
-                    studentId,
-                  note:
-                    note
-                });
-
-            if (result.error) {
-              throw result.error;
-            }
-
-            closeModal(
-              "noteModal"
-            );
-
-            await loadPrivateNotesPage();
-
-          } catch (error) {
-
-            alert(
-              error?.message ||
-              "儲存私人備註失敗。"
-            );
-
-          } finally {
-
-            button.disabled = false;
-          }
-        }
-      );
-
-
-    /* =====================================================
-       LOGOUT
-    ====================================================== */
-
-    $("logoutButton")
-      .addEventListener(
-        "click",
-        async () => {
-
-          if (supabaseClient) {
-
-            await supabaseClient
-              .auth
-              .signOut();
-
-          }
-
-          currentUser = null;
-
-          currentProfile = null;
-
-          cachedStudents = [];
-
-          showAuth();
-
-          clearMessage();
-        }
-      );
-
-
-    /* =====================================================
-       ONLINE / OFFLINE
-    ====================================================== */
-
-    function updateConnectionStatus() {
-
-      const online =
-        navigator.onLine;
-
-      $("syncStatus")
-        .textContent =
-        online
-          ? "Online"
-          : "Offline";
-
-      $("offlineBanner")
-        .classList
-        .toggle(
-          "show",
-          !online
-        );
-    }
-
-
-    window.addEventListener(
-      "online",
-      async () => {
-
-        updateConnectionStatus();
-
-        if (currentUser) {
-
-          await loadDashboard();
-
-          await loadStudentsCache();
-        }
-      }
+      .eq(
+        "id",
+        user.id
+      )
+      .maybeSingle();
+
+  if (selectError) {
+
+    console.error(
+      "Profile select error:",
+      selectError
     );
 
+    return null;
+  }
 
-    window.addEventListener(
-      "offline",
-      () => {
+  if (existingProfile) {
+    return existingProfile;
+  }
 
-        updateConnectionStatus();
-      }
+  const metadata =
+    user.user_metadata || {};
+
+  const role =
+    metadata.role === "parent"
+      ? "parent"
+      : "tutor";
+
+  const fullName =
+    (
+      metadata.full_name ||
+      user.email ||
+      "User"
+    ).trim();
+
+  const phone =
+    metadata.phone ||
+    null;
+
+  const {
+    data: newProfile,
+    error: insertError
+  } =
+    await supabaseClient
+      .from("profiles")
+      .insert({
+        id: user.id,
+        full_name: fullName,
+        role: role,
+        phone: phone
+      })
+      .select()
+      .single();
+
+  if (insertError) {
+
+    console.error(
+      "Profile insert error:",
+      insertError
     );
 
+    const {
+      data: retryProfile
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "id, full_name, role, phone, created_at"
+        )
+        .eq(
+          "id",
+          user.id
+        )
+        .maybeSingle();
 
-    updateConnectionStatus();
+    return retryProfile || null;
+  }
+
+  return newProfile;
+
+}
 
 
-    /* =====================================================
-       AUTH STATE
-    ====================================================== */
+/* =========================================================
+   UPDATE PROFILE UI
+========================================================= */
 
-    if (supabaseClient) {
+function renderProfile() {
 
-      supabaseClient
-        .auth
-        .onAuthStateChange(
-          async (
-            event,
-            session
-          ) => {
+  if (!currentUser) {
+    return;
+  }
 
-            if (session) {
+  const name =
+    currentProfile?.full_name ||
+    currentUser.user_metadata?.full_name ||
+    currentUser.email ||
+    "User";
 
-              await loadApp();
+  const phone =
+    currentProfile?.phone ||
+    currentUser.user_metadata?.phone ||
+    "未設定";
 
-            } else {
+  const role =
+    currentProfile?.role ||
+    currentUser.user_metadata?.role ||
+    "tutor";
 
-              currentUser = null;
+  document.getElementById(
+    "profileNameDisplay"
+  ).textContent =
+    name;
 
-              currentProfile = null;
+  document.getElementById(
+    "profileEmailDisplay"
+  ).textContent =
+    currentUser.email ||
+    "未設定";
 
-              showAuth();
-            }
-          }
+  document.getElementById(
+    "profilePhoneDisplay"
+  ).textContent =
+    phone;
+
+  document.getElementById(
+    "profileRoleDisplay"
+  ).textContent =
+    role === "parent"
+      ? "Parent · 家長"
+      : "Tutor · 導師";
+
+  document.getElementById(
+    "editFullName"
+  ).value =
+    name;
+
+  document.getElementById(
+    "editPhone"
+  ).value =
+    phone === "未設定"
+      ? ""
+      : phone.replace("+852", "");
+
+  const avatar =
+    name
+      .trim()
+      .charAt(0)
+      .toUpperCase() ||
+    "U";
+
+  document.getElementById(
+    "profileAvatar"
+  ).textContent =
+    avatar;
+
+}
+
+
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
+
+document
+  .getElementById(
+    "saveProfileButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) {
+        return;
+      }
+
+      const button =
+        document.getElementById(
+          "saveProfileButton"
         );
 
-    }
+      const newName =
+        document.getElementById(
+          "editFullName"
+        ).value.trim();
 
+      const rawPhone =
+        document.getElementById(
+          "editPhone"
+        ).value.trim();
 
-    /* =====================================================
-       INITIALIZE
-    ====================================================== */
+      if (!newName) {
 
-    async function initializeApp() {
+        showProfileMessage(
+          "請輸入姓名。",
+          "error"
+        );
 
-      try {
+        return;
+      }
 
-        if (!supabaseClient) {
+      let normalizedPhone =
+        null;
 
-          showMessage(
-            "請先設定 Supabase Anon Key。",
+      if (rawPhone) {
+
+        try {
+
+          normalizedPhone =
+            normalizeHKPhone(
+              rawPhone
+            );
+
+        } catch (error) {
+
+          showProfileMessage(
+            error.message,
             "error"
           );
 
           return;
         }
 
-        const result =
+      }
+
+      button.disabled = true;
+
+      button.textContent =
+        "Saving...";
+
+      try {
+
+        const {
+          data,
+          error
+        } =
           await supabaseClient
-            .auth
-            .getSession();
+            .from("profiles")
+            .update({
+              full_name: newName,
+              phone: normalizedPhone
+            })
+            .eq(
+              "id",
+              currentUser.id
+            )
+            .select()
+            .single();
 
-        if (
-          result.error
-        ) {
-
-          console.error(
-            result.error
-          );
-
-          showAuth();
-
-          return;
+        if (error) {
+          throw error;
         }
 
-        if (
-          result.data.session
-        ) {
+        currentProfile =
+          data;
 
-          await loadApp();
+        await supabaseClient.auth.updateUser({
+          data: {
+            full_name: newName,
+            phone: normalizedPhone
+          }
+        });
 
-        } else {
+        renderProfile();
 
-          showAuth();
-        }
+        document.getElementById(
+          "welcomeTitle"
+        ).textContent =
+          `Welcome, ${newName} 👋`;
+
+        showProfileMessage(
+          "個人資料已成功更新！",
+          "success"
+        );
 
       } catch (error) {
 
         console.error(
-          "Initialization error:",
+          "Profile update error:",
           error
         );
 
-        showAuth();
+        showProfileMessage(
+          error.message ||
+          "無法更新個人資料。",
+          "error"
+        );
+
+      } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+          "💾 Save Profile · 儲存資料";
+
       }
+
+    }
+  );
+
+
+/* =========================================================
+   AUTH FORM
+========================================================= */
+
+authForm.addEventListener(
+  "submit",
+  async (event) => {
+
+    event.preventDefault();
+
+    clearMessage();
+
+    authButton.disabled =
+      true;
+
+    try {
+
+      const password =
+        document.getElementById(
+          "password"
+        ).value;
+
+      if (
+        password.length < 6
+      ) {
+        throw new Error(
+          "密碼最少需要 6 個字元。"
+        );
+      }
+
+
+      /* =====================================================
+         REGISTER
+      ===================================================== */
+
+      if (isSignUp) {
+
+        const fullName =
+          document.getElementById(
+            "fullName"
+          ).value.trim();
+
+        const phone =
+          normalizeHKPhone(
+            document.getElementById(
+              "phone"
+            ).value
+          );
+
+        const role =
+          document.getElementById(
+            "role"
+          ).value;
+
+        const email =
+          document.getElementById(
+            "email"
+          ).value.trim();
+
+        if (!fullName) {
+          throw new Error(
+            "請輸入姓名。"
+          );
+        }
+
+        if (!email) {
+          throw new Error(
+            "請輸入 Email。"
+          );
+        }
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signUp({
+              email,
+              password,
+              options: {
+                data: {
+                  full_name: fullName,
+                  phone: phone,
+                  role: role
+                }
+              }
+            });
+
+        if (error) {
+          throw error;
+        }
+
+        if (!data.user) {
+          throw new Error(
+            "無法建立帳戶。"
+          );
+        }
+
+        if (data.session) {
+
+          await ensureProfile(
+            data.user
+          );
+
+          showMessage(
+            "帳戶建立成功！正在進入系統。",
+            "success"
+          );
+
+          await loadApp();
+
+          return;
+
+        }
+
+        showMessage(
+          "帳戶建立成功！請先到電郵確認帳戶，之後再登入。",
+          "success"
+        );
+
+        isSignUp = false;
+
+        setTimeout(
+          () => {
+
+            authTitle.textContent =
+              "Welcome back";
+
+            authSubtitle.textContent =
+              "登入你的帳戶 · Sign in to your account";
+
+            authButton.textContent =
+              "Login · 登入";
+
+            switchText.textContent =
+              "還沒有帳戶？";
+
+            switchMode.textContent =
+              "建立帳戶";
+
+            nameField.classList.add(
+              "hidden"
+            );
+
+            phoneField.classList.add(
+              "hidden"
+            );
+
+            roleField.classList.add(
+              "hidden"
+            );
+
+            loginMethod.classList.remove(
+              "hidden"
+            );
+
+            document.getElementById(
+              "email"
+            ).value =
+              email;
+
+            document.getElementById(
+              "fullName"
+            ).required = false;
+
+            document.getElementById(
+              "phone"
+            ).required = false;
+
+            document.getElementById(
+              "role"
+            ).required = false;
+
+            document.getElementById(
+              "email"
+            ).required = true;
+
+          },
+          300
+        );
+
+        return;
+
+      }
+
+
+      /* =====================================================
+         LOGIN
+      ===================================================== */
+
+      if (
+        loginType === "email"
+      ) {
+
+        const email =
+          document.getElementById(
+            "email"
+          ).value.trim();
+
+        if (!email) {
+          throw new Error(
+            "請輸入 Email。"
+          );
+        }
+
+        const {
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signInWithPassword({
+              email,
+              password
+            });
+
+        if (error) {
+          throw error;
+        }
+
+      } else {
+
+        const phone =
+          normalizeHKPhone(
+            document.getElementById(
+              "phone"
+            ).value
+          );
+
+        const {
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signInWithPassword({
+              phone,
+              password
+            });
+
+        if (error) {
+          throw error;
+        }
+
+      }
+
+      await loadApp();
+
+    } catch (error) {
+
+      console.error(
+        "Authentication error:",
+        error
+      );
+
+      showMessage(
+        error.message ||
+        "登入失敗。"
+      );
+
+    } finally {
+
+      authButton.disabled =
+        false;
+
     }
 
+  }
+);
 
-    /* =====================================================
-       SERVICE WORKER
-    ====================================================== */
 
-    if (
-      "serviceWorker" in navigator
-    ) {
+/* =========================================================
+   LOAD APP
+========================================================= */
 
-      window.addEventListener(
-        "load",
+async function loadApp() {
+
+  const {
+    data: {
+      user
+    }
+  } =
+    await supabaseClient
+      .auth
+      .getUser();
+
+  if (!user) {
+
+    showAuth();
+
+    return;
+
+  }
+
+  currentUser =
+    user;
+
+  currentProfile =
+    await ensureProfile(
+      user
+    );
+
+  authScreen.classList.add(
+    "hidden"
+  );
+
+  appScreen.classList.remove(
+    "hidden"
+  );
+
+  const role =
+    currentProfile?.role ||
+    user.user_metadata?.role ||
+    "tutor";
+
+  const name =
+    currentProfile?.full_name ||
+    user.user_metadata?.full_name ||
+    user.email ||
+    "User";
+
+  document.getElementById(
+    "welcomeTitle"
+  ).textContent =
+    `Welcome, ${name} 👋`;
+
+  if (
+    role === "parent"
+  ) {
+
+    document.getElementById(
+      "welcomeSubtitle"
+    ).textContent =
+      "Parent Dashboard · 家長管理中心";
+
+    privateNotesNavSection
+      .classList
+      .add("hidden");
+
+    privateNoteBox
+      .classList
+      .add("hidden");
+
+  } else {
+
+    document.getElementById(
+      "welcomeSubtitle"
+    ).textContent =
+      "Tutor Dashboard · 導師管理中心";
+
+    privateNotesNavSection
+      .classList
+      .remove("hidden");
+
+    privateNoteBox
+      .classList
+      .remove("hidden");
+
+  }
+
+  renderProfile();
+
+  await loadDashboard();
+
+}
+
+
+/* =========================================================
+   SHOW AUTH
+========================================================= */
+
+function showAuth() {
+
+  appScreen.classList.add(
+    "hidden"
+  );
+
+  authScreen.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+async function loadDashboard() {
+
+  if (!currentUser) {
+    return;
+  }
+
+  const role =
+    currentProfile?.role ||
+    currentUser.user_metadata?.role ||
+    "tutor";
+
+
+  /* =====================================================
+     STUDENTS
+  ===================================================== */
+
+  let studentQuery =
+    supabaseClient
+      .from("students")
+      .select(
+        "id",
+        {
+          count: "exact",
+          head: true
+        }
+      );
+
+  if (
+    role === "parent"
+  ) {
+
+    studentQuery =
+      studentQuery.eq(
+        "parent_id",
+        currentUser.id
+      );
+
+  } else {
+
+    studentQuery =
+      studentQuery.eq(
+        "tutor_id",
+        currentUser.id
+      );
+
+  }
+
+  const {
+    count: studentCount
+  } =
+    await studentQuery;
+
+  document.getElementById(
+    "studentCount"
+  ).textContent =
+    studentCount || 0;
+
+
+  /* =====================================================
+     MONTH
+  ===================================================== */
+
+  const {
+    start,
+    end
+  } =
+    getCurrentMonthRange();
+
+
+  /* =====================================================
+     LESSONS THIS MONTH
+  ===================================================== */
+
+  let lessonQuery =
+    supabaseClient
+      .from("lessons")
+      .select(
+        "id, start_time, end_time, status"
+      )
+      .gte(
+        "start_time",
+        start
+      )
+      .lt(
+        "start_time",
+        end
+      )
+      .neq(
+        "status",
+        "cancelled"
+      );
+
+  if (
+    role === "parent"
+  ) {
+
+    lessonQuery =
+      lessonQuery.eq(
+        "parent_id",
+        currentUser.id
+      );
+
+  } else {
+
+    lessonQuery =
+      lessonQuery.eq(
+        "tutor_id",
+        currentUser.id
+      );
+
+  }
+
+  const {
+    data: monthLessons,
+    error: lessonError
+  } =
+    await lessonQuery;
+
+  if (lessonError) {
+
+    console.error(
+      "Lesson dashboard error:",
+      lessonError
+    );
+
+  }
+
+  const lessons =
+    monthLessons || [];
+
+  document.getElementById(
+    "lessonCount"
+  ).textContent =
+    lessons.length;
+
+
+  /* =====================================================
+     HOURS
+  ===================================================== */
+
+  let totalHours = 0;
+
+  lessons.forEach(
+    lesson => {
+
+      if (
+        !lesson.start_time ||
+        !lesson.end_time
+      ) {
+        return;
+      }
+
+      const startTime =
+        new Date(
+          lesson.start_time
+        );
+
+      const endTime =
+        new Date(
+          lesson.end_time
+        );
+
+      const milliseconds =
+        endTime.getTime() -
+        startTime.getTime();
+
+      if (
+        milliseconds > 0
+      ) {
+
+        totalHours +=
+          milliseconds /
+          1000 /
+          60 /
+          60;
+
+      }
+
+    }
+  );
+
+  document.getElementById(
+    "hoursCount"
+  ).textContent =
+    totalHours
+      .toFixed(1);
+
+
+  /* =====================================================
+     PAYMENTS
+  ===================================================== */
+
+  let paymentQuery =
+    supabaseClient
+      .from("payments")
+      .select(
+        "id, amount, payment_date, status"
+      )
+      .gte(
+        "payment_date",
+        start.substring(0,10)
+      )
+      .lt(
+        "payment_date",
+        end.substring(0,10)
+      );
+
+  if (
+    role === "parent"
+  ) {
+
+    paymentQuery =
+      paymentQuery.eq(
+        "parent_id",
+        currentUser.id
+      );
+
+  } else {
+
+    paymentQuery =
+      paymentQuery.eq(
+        "tutor_id",
+        currentUser.id
+      );
+
+  }
+
+  const {
+    data: monthPayments,
+    error: paymentError
+  } =
+    await paymentQuery;
+
+  if (paymentError) {
+
+    console.error(
+      "Payment dashboard error:",
+      paymentError
+    );
+
+  }
+
+  const payments =
+    monthPayments || [];
+
+
+  let income = 0;
+  let pending = 0;
+
+  payments.forEach(
+    payment => {
+
+      const amount =
+        Number(
+          payment.amount || 0
+        );
+
+      if (
+        payment.status ===
+        "paid"
+      ) {
+
+        income += amount;
+
+      } else {
+
+        pending += amount;
+
+      }
+
+    }
+  );
+
+
+  document.getElementById(
+    "incomeCount"
+  ).textContent =
+    "$" +
+    income.toFixed(0);
+
+
+  document.getElementById(
+    "pendingIncome"
+  ).textContent =
+    "$" +
+    pending.toFixed(0);
+
+
+  /* =====================================================
+     NOTIFICATIONS
+  ===================================================== */
+
+  const {
+    count: notificationCount
+  } =
+    await supabaseClient
+      .from("notifications")
+      .select(
+        "id",
+        {
+          count: "exact",
+          head: true
+        }
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .eq(
+        "is_read",
+        false
+      );
+
+  document.getElementById(
+    "notificationCount"
+  ).textContent =
+    notificationCount || 0;
+
+
+  await loadDashboardLessons();
+
+}
+
+
+/* =========================================================
+   DASHBOARD UPCOMING LESSONS
+========================================================= */
+
+async function loadDashboardLessons() {
+
+  const container =
+    document.getElementById(
+      "dashboardLessons"
+    );
+
+  container.innerHTML =
+    `<div class="loading">載入中...</div>`;
+
+  if (!currentUser) {
+    return;
+  }
+
+  const role =
+    currentProfile?.role ||
+    "tutor";
+
+  let query =
+    supabaseClient
+      .from("lessons")
+      .select(
+        "id, student_id, start_time, end_time, location, status"
+      )
+      .gte(
+        "start_time",
+        new Date().toISOString()
+      )
+      .neq(
+        "status",
+        "cancelled"
+      )
+      .order(
+        "start_time",
+        {
+          ascending: true
+        }
+      )
+      .limit(5);
+
+  if (
+    role === "parent"
+  ) {
+
+    query =
+      query.eq(
+        "parent_id",
+        currentUser.id
+      );
+
+  } else {
+
+    query =
+      query.eq(
+        "tutor_id",
+        currentUser.id
+      );
+
+  }
+
+  const {
+    data,
+    error
+  } =
+    await query;
+
+  if (error) {
+
+    console.error(error);
+
+    container.innerHTML =
+      `<div class="empty">
+        暫時未能載入課堂資料。
+      </div>`;
+
+    return;
+
+  }
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        暫時沒有即將上堂。<br>
+        No upcoming lessons.
+      </div>`;
+
+    return;
+
+  }
+
+  const studentIds =
+    [
+      ...new Set(
+        data.map(
+          lesson =>
+            lesson.student_id
+        )
+      )
+    ];
+
+  let students = [];
+
+  if (
+    studentIds.length > 0
+  ) {
+
+    const result =
+      await supabaseClient
+        .from("students")
+        .select(
+          "id, student_name"
+        )
+        .in(
+          "id",
+          studentIds
+        );
+
+    students =
+      result.data || [];
+
+  }
+
+  const studentMap =
+    new Map(
+      students.map(
+        student => [
+          student.id,
+          student.student_name
+        ]
+      )
+    );
+
+
+  container.innerHTML =
+    data
+      .map(
+        lesson => {
+
+          const studentName =
+            studentMap.get(
+              lesson.student_id
+            ) ||
+            "Student";
+
+          return `
+            <div class="data-item">
+
+              <div class="data-item-main">
+
+                <div class="data-item-title">
+                  ${escapeHTML(studentName)}
+                </div>
+
+                <div class="data-item-subtitle">
+
+                  ${escapeHTML(
+                    formatDateTime(
+                      lesson.start_time
+                    )
+                  )}
+
+                  <br>
+
+                  ${escapeHTML(
+                    lesson.location ||
+                    "未設定地點"
+                  )}
+
+                </div>
+
+              </div>
+
+              <span class="badge badge-success">
+                ${escapeHTML(
+                  lesson.status ||
+                  "scheduled"
+                )}
+              </span>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   STUDENTS
+========================================================= */
+
+async function loadStudentsPage() {
+
+  const container =
+    document.getElementById(
+      "studentsList"
+    );
+
+  container.innerHTML =
+    `<div class="loading">載入中...</div>`;
+
+  const role =
+    currentProfile?.role ||
+    "tutor";
+
+  let query =
+    supabaseClient
+      .from("students")
+      .select(
+        "id, student_name, school, grade, phone, created_at"
+      )
+      .order(
+        "student_name",
+        {
+          ascending: true
+        }
+      );
+
+  if (
+    role === "parent"
+  ) {
+
+    query =
+      query.eq(
+        "parent_id",
+        currentUser.id
+      );
+
+  } else {
+
+    query =
+      query.eq(
+        "tutor_id",
+        currentUser.id
+      );
+
+  }
+
+  const {
+    data,
+    error
+  } =
+    await query;
+
+  if (error) {
+
+    container.innerHTML =
+      `<div class="empty">
+        ${escapeHTML(
+          error.message
+        )}
+      </div>`;
+
+    return;
+
+  }
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        暫時沒有學生。<br>
+        No students yet.
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML =
+    `<div class="data-list">
+
+      ${data
+        .map(
+          student => `
+
+            <div class="data-item">
+
+              <div class="data-item-main">
+
+                <div class="data-item-title">
+                  ${escapeHTML(
+                    student.student_name
+                  )}
+                </div>
+
+                <div class="data-item-subtitle">
+
+                  ${
+                    student.school
+                      ? escapeHTML(
+                          student.school
+                        )
+                      : "學校未設定"
+                  }
+
+                  ·
+
+                  ${
+                    student.grade
+                      ? escapeHTML(
+                          student.grade
+                        )
+                      : "年級未設定"
+                  }
+
+                  ${
+                    student.phone
+                      ? `<br>${escapeHTML(
+                          student.phone
+                        )}`
+                      : ""
+                  }
+
+                </div>
+
+              </div>
+
+            </div>
+
+          `
+        )
+        .join("")}
+
+    </div>`;
+
+}
+
+
+/* =========================================================
+   LESSONS
+========================================================= */
+
+async function loadLessonsPage() {
+
+  const container =
+    document.getElementById(
+      "calendarList"
+    );
+
+  container.innerHTML =
+    `<div class="loading">載入中...</div>`;
+
+  const role =
+    currentProfile?.role ||
+    "tutor";
+
+  let query =
+    supabaseClient
+      .from("lessons")
+      .select(
+        "id, student_id, start_time, end_time, location, repeat_weekly, repeat_until, status"
+      )
+      .order(
+        "start_time",
+        {
+          ascending: true
+        }
+      )
+      .limit(50);
+
+  if (
+    role === "parent"
+  ) {
+
+    query =
+      query.eq(
+        "parent_id",
+        currentUser.id
+      );
+
+  } else {
+
+    query =
+      query.eq(
+        "tutor_id",
+        currentUser.id
+      );
+
+  }
+
+  const {
+    data,
+    error
+  } =
+    await query;
+
+  if (error) {
+
+    container.innerHTML =
+      `<div class="empty">
+        ${escapeHTML(
+          error.message
+        )}
+      </div>`;
+
+    return;
+
+  }
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        暫時沒有課堂資料。
+      </div>`;
+
+    return;
+
+  }
+
+  const studentIds =
+    [
+      ...new Set(
+        data.map(
+          lesson =>
+            lesson.student_id
+        )
+      )
+    ];
+
+  const {
+    data: students
+  } =
+    await supabaseClient
+      .from("students")
+      .select(
+        "id, student_name"
+      )
+      .in(
+        "id",
+        studentIds
+      );
+
+  const studentMap =
+    new Map(
+      (students || [])
+        .map(
+          student => [
+            student.id,
+            student.student_name
+          ]
+        )
+    );
+
+
+  container.innerHTML =
+    `<div class="data-list">
+
+      ${data
+        .map(
+          lesson => `
+
+            <div class="data-item">
+
+              <div class="data-item-main">
+
+                <div class="data-item-title">
+                  ${escapeHTML(
+                    studentMap.get(
+                      lesson.student_id
+                    ) ||
+                    "Student"
+                  )}
+                </div>
+
+                <div class="data-item-subtitle">
+
+                  ${escapeHTML(
+                    formatDateTime(
+                      lesson.start_time
+                    )
+                  )}
+
+                  <br>
+
+                  ${escapeHTML(
+                    formatDateTime(
+                      lesson.end_time
+                    )
+                  )}
+
+                  <br>
+
+                  ${escapeHTML(
+                    lesson.location ||
+                    "地點未設定"
+                  )}
+
+                </div>
+
+              </div>
+
+              <span class="badge ${
+                lesson.status === "completed"
+                  ? "badge-success"
+                  : lesson.status === "cancelled"
+                    ? "badge-danger"
+                    : "badge-warning"
+              }">
+
+                ${escapeHTML(
+                  lesson.status ||
+                  "scheduled"
+                )}
+
+              </span>
+
+            </div>
+
+          `
+        )
+        .join("")}
+
+    </div>`;
+
+}
+
+
+/* =========================================================
+   PAYMENTS
+========================================================= */
+
+async function loadPaymentsPage() {
+
+  const container =
+    document.getElementById(
+      "paymentsList"
+    );
+
+  container.innerHTML =
+    `<div class="loading">載入中...</div>`;
+
+  const role =
+    currentProfile?.role ||
+    "tutor";
+
+  let query =
+    supabaseClient
+      .from("payments")
+      .select(
+        "id, student_id, amount, payment_date, payment_method, status, note"
+      )
+      .order(
+        "payment_date",
+        {
+          ascending: false
+        }
+      )
+      .limit(50);
+
+  if (
+    role === "parent"
+  ) {
+
+    query =
+      query.eq(
+        "parent_id",
+        currentUser.id
+      );
+
+  } else {
+
+    query =
+      query.eq(
+        "tutor_id",
+        currentUser.id
+      );
+
+  }
+
+  const {
+    data,
+    error
+  } =
+    await query;
+
+  if (error) {
+
+    container.innerHTML =
+      `<div class="empty">
+        ${escapeHTML(
+          error.message
+        )}
+      </div>`;
+
+    return;
+
+  }
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        暫時沒有付款紀錄。
+      </div>`;
+
+    return;
+
+  }
+
+  const studentIds =
+    [
+      ...new Set(
+        data.map(
+          payment =>
+            payment.student_id
+        )
+      )
+    ];
+
+  const {
+    data: students
+  } =
+    await supabaseClient
+      .from("students")
+      .select(
+        "id, student_name"
+      )
+      .in(
+        "id",
+        studentIds
+      );
+
+  const studentMap =
+    new Map(
+      (students || [])
+        .map(
+          student => [
+            student.id,
+            student.student_name
+          ]
+        )
+    );
+
+
+  container.innerHTML =
+    `<div class="data-list">
+
+      ${data
+        .map(
+          payment => `
+
+            <div class="data-item">
+
+              <div class="data-item-main">
+
+                <div class="data-item-title">
+
+                  $${Number(
+                    payment.amount || 0
+                  ).toFixed(2)}
+
+                  ·
+
+                  ${escapeHTML(
+                    studentMap.get(
+                      payment.student_id
+                    ) ||
+                    "Student"
+                  )}
+
+                </div>
+
+                <div class="data-item-subtitle">
+
+                  ${escapeHTML(
+                    formatDate(
+                      payment.payment_date
+                    )
+                  )}
+
+                  ·
+
+                  ${escapeHTML(
+                    payment.payment_method ||
+                    "付款方式未設定"
+                  )}
+
+                  ${
+                    payment.note
+                      ? `<br>${escapeHTML(
+                          payment.note
+                        )}`
+                      : ""
+                  }
+
+                </div>
+
+              </div>
+
+              <span class="badge ${
+                payment.status === "paid"
+                  ? "badge-success"
+                  : payment.status === "cancelled"
+                    ? "badge-danger"
+                    : "badge-warning"
+              }">
+
+                ${escapeHTML(
+                  payment.status ||
+                  "pending"
+                )}
+
+              </span>
+
+            </div>
+
+          `
+        )
+        .join("")}
+
+    </div>`;
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+async function loadNotificationsPage() {
+
+  const container =
+    document.getElementById(
+      "notificationsList"
+    );
+
+  container.innerHTML =
+    `<div class="loading">載入中...</div>`;
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("notifications")
+      .select(
+        "id, title, message, type, is_read, created_at"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      )
+      .limit(50);
+
+  if (error) {
+
+    container.innerHTML =
+      `<div class="empty">
+        ${escapeHTML(
+          error.message
+        )}
+      </div>`;
+
+    return;
+
+  }
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        暫時沒有通知。
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML =
+    `<div class="data-list">
+
+      ${data
+        .map(
+          notification => `
+
+            <div class="data-item">
+
+              <div class="data-item-main">
+
+                <div class="data-item-title">
+                  ${escapeHTML(
+                    notification.title
+                  )}
+                </div>
+
+                <div class="data-item-subtitle">
+
+                  ${
+                    notification.message
+                      ? escapeHTML(
+                          notification.message
+                        )
+                      : ""
+                  }
+
+                  <br>
+
+                  ${escapeHTML(
+                    formatDateTime(
+                      notification.created_at
+                    )
+                  )}
+
+                </div>
+
+              </div>
+
+              <span class="badge ${
+                notification.is_read
+                  ? "badge-success"
+                  : "badge-warning"
+              }">
+
+                ${
+                  notification.is_read
+                    ? "已讀"
+                    : "未讀"
+                }
+
+              </span>
+
+            </div>
+
+          `
+        )
+        .join("")}
+
+    </div>`;
+
+}
+
+
+/* =========================================================
+   PRIVATE NOTES
+========================================================= */
+
+async function loadPrivateNotesPage() {
+
+  const container =
+    document.getElementById(
+      "privateNotesList"
+    );
+
+  container.innerHTML =
+    `<div class="loading">載入中...</div>`;
+
+  if (
+    currentProfile?.role !==
+    "tutor"
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        此區域只供導師使用。
+      </div>`;
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("private_notes")
+      .select(
+        "id, student_id, note, created_at, updated_at"
+      )
+      .eq(
+        "tutor_id",
+        currentUser.id
+      )
+      .order(
+        "updated_at",
+        {
+          ascending: false
+        }
+      )
+      .limit(50);
+
+  if (error) {
+
+    container.innerHTML =
+      `<div class="empty">
+        ${escapeHTML(
+          error.message
+        )}
+      </div>`;
+
+    return;
+
+  }
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    container.innerHTML =
+      `<div class="empty">
+        暫時沒有私人備註。
+      </div>`;
+
+    return;
+
+  }
+
+  const studentIds =
+    [
+      ...new Set(
+        data.map(
+          note =>
+            note.student_id
+        )
+      )
+    ];
+
+  const {
+    data: students
+  } =
+    await supabaseClient
+      .from("students")
+      .select(
+        "id, student_name"
+      )
+      .in(
+        "id",
+        studentIds
+      );
+
+  const studentMap =
+    new Map(
+      (students || [])
+        .map(
+          student => [
+            student.id,
+            student.student_name
+          ]
+        )
+    );
+
+
+  container.innerHTML =
+    `<div class="data-list">
+
+      ${data
+        .map(
+          note => `
+
+            <div class="data-item">
+
+              <div class="data-item-main">
+
+                <div class="data-item-title">
+
+                  🔒
+                  ${escapeHTML(
+                    studentMap.get(
+                      note.student_id
+                    ) ||
+                    "Student"
+                  )}
+
+                </div>
+
+                <div class="data-item-subtitle">
+
+                  ${escapeHTML(
+                    note.note
+                  )}
+
+                  <br>
+
+                  ${escapeHTML(
+                    formatDateTime(
+                      note.updated_at ||
+                      note.created_at
+                    )
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          `
+        )
+        .join("")}
+
+    </div>`;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigateToPage(page) {
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      section => {
+
+        section.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  const target =
+    document.getElementById(
+      "page-" + page
+    );
+
+  if (target) {
+
+    target.classList.add(
+      "active"
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".nav-button"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.page ===
+            page
+        );
+
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      ".mobile-nav button"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.page ===
+            page
+        );
+
+      }
+    );
+
+
+  if (
+    page === "dashboard"
+  ) {
+
+    loadDashboard();
+
+  } else if (
+    page === "calendar"
+  ) {
+
+    loadLessonsPage();
+
+  } else if (
+    page === "students"
+  ) {
+
+    loadStudentsPage();
+
+  } else if (
+    page === "payments"
+  ) {
+
+    loadPaymentsPage();
+
+  } else if (
+    page === "notifications"
+  ) {
+
+    loadNotificationsPage();
+
+  } else if (
+    page === "private-notes"
+  ) {
+
+    loadPrivateNotesPage();
+
+  } else if (
+    page === "profile"
+  ) {
+
+    renderProfile();
+
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================================
+   NAV BUTTONS
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".nav-button"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
         () => {
 
-          navigator.serviceWorker
-            .register(
-              "./sw.js"
-            )
-            .then(
-              registration => {
-
-                console.log(
-                  "Service Worker registered:",
-                  registration.scope
-                );
-
-              }
-            )
-            .catch(
-              error => {
-
-                console.warn(
-                  "Service Worker registration failed:",
-                  error
-                );
-
-              }
-            );
+          navigateToPage(
+            button.dataset.page
+          );
 
         }
       );
 
     }
+  );
 
 
-    initializeApp();
+document
+  .querySelectorAll(
+    ".mobile-nav button"
+  )
+  .forEach(
+    button => {
 
-  </script>
+      button.addEventListener(
+        "click",
+        () => {
+
+          navigateToPage(
+            button.dataset.page
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document
+  .getElementById(
+    "logoutButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      await supabaseClient
+        .auth
+        .signOut();
+
+      currentUser =
+        null;
+
+      currentProfile =
+        null;
+
+      showAuth();
+
+      clearMessage();
+
+    }
+  );
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+supabaseClient
+  .auth
+  .onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
+
+      if (session) {
+
+        await loadApp();
+
+      } else {
+
+        currentUser =
+          null;
+
+        currentProfile =
+          null;
+
+        showAuth();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+async function initializeApp() {
+
+  try {
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+
+    if (session) {
+
+      await loadApp();
+
+    } else {
+
+      showAuth();
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Initialization error:",
+      error
+    );
+
+    showAuth();
+
+  }
+
+}
+
+initializeApp();
+
+</script>
 
 </body>
 </html>
