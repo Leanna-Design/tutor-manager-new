@@ -2,4207 +2,5241 @@
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6366f1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#F7F3EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tutor Manager">
 
-<title>Tutor Manager | 補習管理系統</title>
+<title>Tutor Manager</title>
+
+<!-- 保留原本 Tutor Manager Icon -->
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-home-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-home-512.png">
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-home-192.png">
 
 <style>
-:root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --bg: #f5f7fb;
-    --card: #ffffff;
-    --text: #111827;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --danger: #ef4444;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --sidebar: #ffffff;
-    --shadow: 0 4px 20px rgba(0,0,0,.06);
+/* =========================================================
+   TUTOR MANAGER
+   PART 1 / 2
+   ========================================================= */
+
+:root{
+  --bg:#f7f3ee;
+  --surface:#ffffff;
+  --surface-soft:#fbf9f6;
+
+  --text:#292724;
+  --text-soft:#77716b;
+  --text-light:#a19a92;
+
+  --primary:#756a5c;
+  --primary-dark:#5e554a;
+  --primary-soft:#eee9e2;
+
+  --green:#5f806d;
+  --green-soft:#e9f1eb;
+
+  --orange:#b47b48;
+  --orange-soft:#f7eee5;
+
+  --red:#b45e5e;
+  --red-soft:#f8eaea;
+
+  --blue:#657f9a;
+  --blue-soft:#eaf0f5;
+
+  --border:#e9e3dc;
+
+  --shadow:0 8px 30px rgba(65,57,48,.07);
+  --shadow-small:0 3px 14px rgba(65,57,48,.06);
+
+  --sidebar-width:260px;
+  --bottom-nav-height:70px;
+
+  --radius:16px;
+  --radius-small:11px;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* =========================================================
+   THEMES
+   ========================================================= */
+
+body.theme-sage{
+  --bg:#f2f6f2;
+  --surface:#ffffff;
+  --surface-soft:#f7faf7;
+
+  --primary:#607968;
+  --primary-dark:#4c6254;
+  --primary-soft:#e5eee8;
+
+  --border:#dce7df;
 }
 
-body {
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "Noto Sans HK",
-        "PingFang HK",
-        Arial,
-        sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
+body.theme-ocean{
+  --bg:#f1f5f8;
+  --surface:#ffffff;
+  --surface-soft:#f7fafc;
+
+  --primary:#617b91;
+  --primary-dark:#4f6679;
+  --primary-soft:#e5edf3;
+
+  --border:#dce5ec;
+}
+
+body.theme-lavender{
+  --bg:#f5f2f8;
+  --surface:#ffffff;
+  --surface-soft:#faf8fc;
+
+  --primary:#786b87;
+  --primary-dark:#61566e;
+  --primary-soft:#eeeaf2;
+
+  --border:#e5dfea;
+}
+
+body.theme-light{
+  --bg:#f7f7f7;
+  --surface:#ffffff;
+  --surface-soft:#fafafa;
+
+  --primary:#555555;
+  --primary-dark:#333333;
+  --primary-soft:#ededed;
+
+  --border:#e3e3e3;
+}
+
+body.theme-dark{
+  --bg:#171717;
+  --surface:#222222;
+  --surface-soft:#292929;
+
+  --text:#f3f3f3;
+  --text-soft:#b9b9b9;
+  --text-light:#858585;
+
+  --primary:#c2b7a8;
+  --primary-dark:#e0d5c7;
+  --primary-soft:#3a3631;
+
+  --border:#393939;
+
+  --green:#83a98f;
+  --green-soft:#29382e;
+
+  --orange:#d09a67;
+  --orange-soft:#3b3025;
+
+  --red:#d18484;
+  --red-soft:#3b2929;
+
+  --blue:#88a5c0;
+  --blue-soft:#29343d;
+
+  --shadow:0 8px 30px rgba(0,0,0,.25);
+  --shadow-small:0 3px 14px rgba(0,0,0,.2);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  width:100%;
+  min-height:100vh;
+
+  background:var(--bg);
+  color:var(--text);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans TC",
+    sans-serif;
+
+  -webkit-font-smoothing:antialiased;
+  transition:
+    background .25s ease,
+    color .25s ease;
 }
 
 button,
 input,
 select,
-textarea {
-    font: inherit;
+textarea{
+  font:inherit;
 }
 
-button {
-    cursor: pointer;
-}
-
-.app {
-    display: flex;
-    min-height: 100vh;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar {
-    width: 260px;
-    background: var(--sidebar);
-    border-right: 1px solid var(--border);
-    padding: 22px 14px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 100;
-    overflow-y: auto;
-}
-
-.logo {
-    padding: 8px 12px 25px;
-    font-size: 20px;
-    font-weight: 800;
-}
-
-.logo small {
-    display: block;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 3px;
-}
-
-.nav-section {
-    margin-top: 20px;
-}
-
-.nav-title {
-    font-size: 11px;
-    color: var(--muted);
-    font-weight: 700;
-    padding: 0 12px 8px;
-    letter-spacing: .5px;
-}
-
-.nav-item {
-    width: 100%;
-    border: 0;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 12px;
-    margin-bottom: 3px;
-    border-radius: 10px;
-    color: var(--text);
-    text-align: left;
-}
-
-.nav-item:hover {
-    background: #f3f4f6;
-}
-
-.nav-item.active {
-    background: #eef2ff;
-    color: var(--primary);
-    font-weight: 700;
-}
-
-.nav-icon {
-    width: 24px;
-    text-align: center;
-    font-size: 18px;
-}
-
-.nav-text {
-    flex: 1;
-}
-
-.nav-en {
-    display: block;
-    font-size: 11px;
-    opacity: .65;
-    font-weight: 500;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.main {
-    margin-left: 260px;
-    width: calc(100% - 260px);
-    min-height: 100vh;
-}
-
-.topbar {
-    height: 72px;
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 28px;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-}
-
-.page-title {
-    font-size: 22px;
-    font-weight: 800;
-}
-
-.page-title small {
-    display: block;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 2px;
-}
-
-.user-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #eef2ff;
-    color: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-}
-
-.content {
-    padding: 28px;
-    max-width: 1500px;
-    margin: auto;
-}
-
-/* =========================
-   COMMON
-========================= */
-
-.hidden {
-    display: none !important;
-}
-
-.grid {
-    display: grid;
-    gap: 18px;
-}
-
-.grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 18px;
-}
-
-.card-title {
-    font-size: 16px;
-    font-weight: 800;
-}
-
-.card-title small {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 500;
-    margin-top: 3px;
-}
-
-.stat {
-    position: relative;
-}
-
-.stat-icon {
-    font-size: 26px;
-    margin-bottom: 12px;
-}
-
-.stat-number {
-    font-size: 28px;
-    font-weight: 850;
-}
-
-.stat-label {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 3px;
-}
-
-.btn {
-    border: 0;
-    border-radius: 9px;
-    padding: 9px 14px;
-    font-weight: 700;
-    transition: .15s;
-}
-
-.btn:hover {
-    transform: translateY(-1px);
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-}
-
-.btn-secondary {
-    background: #f3f4f6;
-    color: var(--text);
-}
-
-.btn-danger {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.btn-success {
-    background: #d1fae5;
-    color: #047857;
-}
-
-.btn-warning {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.btn-small {
-    padding: 6px 9px;
-    font-size: 12px;
-}
-
-.actions {
-    display: flex;
-    gap: 7px;
-    flex-wrap: wrap;
-}
-
-.table-wrapper {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 13px 10px;
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-    font-size: 13px;
-    white-space: nowrap;
-}
-
-th {
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 800;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 9px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 800;
-}
-
-.badge-success {
-    background: #d1fae5;
-    color: #047857;
-}
-
-.badge-warning {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.badge-danger {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.badge-info {
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-.muted {
-    color: var(--muted);
-}
-
-/* =========================
-   FORMS
-========================= */
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.form-group {
-    margin-bottom: 14px;
-}
-
-.form-group.full {
-    grid-column: 1 / -1;
-}
-
-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 6px;
+button{
+  border:0;
+  cursor:pointer;
 }
 
 input,
 select,
-textarea {
-    width: 100%;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--text);
-    border-radius: 9px;
-    padding: 10px 11px;
-    outline: none;
+textarea{
+  outline:none;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(99,102,241,.1);
+a{
+  color:inherit;
+  text-decoration:none;
 }
 
-textarea {
-    min-height: 110px;
-    resize: vertical;
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar{
+  width:7px;
+  height:7px;
 }
 
-/* =========================
+::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background:var(--border);
+  border-radius:20px;
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+#authScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:24px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      var(--primary-soft),
+      transparent 40%
+    ),
+    var(--bg);
+}
+
+.auth-card{
+  width:100%;
+  max-width:430px;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:24px;
+
+  padding:38px 32px;
+
+  box-shadow:var(--shadow);
+}
+
+.auth-logo{
+  display:flex;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.auth-logo img{
+  width:82px;
+  height:82px;
+  object-fit:contain;
+  border-radius:20px;
+}
+
+.auth-title{
+  text-align:center;
+  font-size:27px;
+  font-weight:800;
+  letter-spacing:-.5px;
+}
+
+.auth-subtitle{
+  text-align:center;
+  margin-top:7px;
+
+  color:var(--text-soft);
+
+  font-size:14px;
+  line-height:1.5;
+}
+
+.auth-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  margin:28px 0 22px;
+
+  padding:4px;
+
+  background:var(--surface-soft);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.auth-tab{
+  padding:11px;
+
+  background:transparent;
+  color:var(--text-soft);
+
+  border-radius:9px;
+
+  font-weight:700;
+  transition:.2s;
+}
+
+.auth-tab.active{
+  background:var(--surface);
+  color:var(--text);
+  box-shadow:var(--shadow-small);
+}
+
+.auth-form{
+  display:none;
+}
+
+.auth-form.active{
+  display:block;
+}
+
+.form-group{
+  margin-bottom:16px;
+}
+
+.form-label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:var(--text-soft);
+
+  font-size:13px;
+  font-weight:700;
+}
+
+.form-input,
+.form-select,
+.form-textarea{
+  width:100%;
+
+  padding:12px 14px;
+
+  color:var(--text);
+  background:var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:11px;
+
+  transition:border .2s,box-shadow .2s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus{
+  border-color:var(--primary);
+
+  box-shadow:
+    0 0 0 3px var(--primary-soft);
+}
+
+.form-textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.primary-btn{
+  width:100%;
+
+  padding:13px 16px;
+
+  background:var(--primary);
+  color:#fff;
+
+  border-radius:11px;
+
+  font-weight:800;
+
+  transition:
+    transform .15s,
+    background .2s;
+}
+
+.primary-btn:hover{
+  background:var(--primary-dark);
+}
+
+.primary-btn:active{
+  transform:scale(.98);
+}
+
+.auth-message{
+  min-height:20px;
+
+  margin-top:12px;
+
+  text-align:center;
+
+  color:var(--red);
+
+  font-size:13px;
+}
+
+/* =========================================================
+   APP LAYOUT
+   ========================================================= */
+
+#app{
+  display:none;
+  min-height:100vh;
+}
+
+.app-layout{
+  display:flex;
+  min-height:100vh;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar{
+  position:fixed;
+
+  top:0;
+  left:0;
+  bottom:0;
+
+  width:var(--sidebar-width);
+
+  display:flex;
+  flex-direction:column;
+
+  padding:22px 15px;
+
+  background:var(--surface);
+
+  border-right:1px solid var(--border);
+
+  z-index:1000;
+
+  overflow-y:auto;
+}
+
+.sidebar-brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  padding:5px 10px 24px;
+}
+
+.sidebar-brand-icon{
+  width:43px;
+  height:43px;
+
+  border-radius:12px;
+
+  object-fit:contain;
+}
+
+.sidebar-brand-text{
+  min-width:0;
+}
+
+.sidebar-brand-title{
+  font-size:17px;
+  font-weight:900;
+
+  letter-spacing:-.3px;
+}
+
+.sidebar-brand-subtitle{
+  margin-top:2px;
+
+  color:var(--text-soft);
+
+  font-size:11px;
+}
+
+.sidebar-section{
+  margin:15px 8px 7px;
+
+  color:var(--text-light);
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.sidebar-nav{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.nav-item{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  width:100%;
+
+  padding:11px 12px;
+
+  background:transparent;
+  color:var(--text-soft);
+
+  border-radius:11px;
+
+  text-align:left;
+
+  font-size:14px;
+  font-weight:700;
+
+  transition:
+    background .2s,
+    color .2s;
+}
+
+.nav-item:hover{
+  background:var(--surface-soft);
+  color:var(--text);
+}
+
+.nav-item.active{
+  background:var(--primary-soft);
+  color:var(--primary-dark);
+}
+
+.nav-icon{
+  width:22px;
+  height:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex:0 0 22px;
+
+  font-size:18px;
+}
+
+.nav-text{
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+}
+
+.nav-text-en{
+  font-size:13px;
+  line-height:1.2;
+}
+
+.nav-text-zh{
+  color:var(--text-light);
+  font-size:10px;
+  font-weight:600;
+}
+
+.nav-item.active .nav-text-zh{
+  color:var(--primary);
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+
+  padding-top:15px;
+
+  border-top:1px solid var(--border);
+}
+
+.sidebar-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:10px;
+
+  border-radius:12px;
+}
+
+.sidebar-avatar{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--primary-soft);
+  color:var(--primary);
+
+  border-radius:50%;
+
+  font-size:15px;
+  font-weight:900;
+}
+
+.sidebar-user-info{
+  min-width:0;
+}
+
+.sidebar-user-name{
+  overflow:hidden;
+
+  font-size:12px;
+  font-weight:800;
+
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.sidebar-user-role{
+  margin-top:2px;
+
+  color:var(--text-light);
+
+  font-size:10px;
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.main-content{
+  width:100%;
+  min-width:0;
+
+  margin-left:var(--sidebar-width);
+
+  padding:28px 30px 90px;
+}
+
+.page{
+  display:none;
+
+  width:100%;
+  max-width:1450px;
+
+  margin:0 auto;
+}
+
+.page.active{
+  display:block;
+}
+
+.page-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+
+  margin-bottom:25px;
+}
+
+.page-title{
+  font-size:27px;
+  font-weight:900;
+
+  letter-spacing:-.6px;
+}
+
+.page-subtitle{
+  margin-top:5px;
+
+  color:var(--text-soft);
+
+  font-size:13px;
+}
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+
+  padding:10px 14px;
+
+  background:var(--surface);
+  color:var(--text);
+
+  border:1px solid var(--border);
+  border-radius:10px;
+
+  font-size:13px;
+  font-weight:800;
+
+  transition:.2s;
+}
+
+.btn:hover{
+  background:var(--surface-soft);
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+
+.btn-primary:hover{
+  background:var(--primary-dark);
+}
+
+.btn-danger{
+  background:var(--red-soft);
+  color:var(--red);
+  border-color:transparent;
+}
+
+.btn-success{
+  background:var(--green-soft);
+  color:var(--green);
+  border-color:transparent;
+}
+
+.btn-small{
+  padding:7px 10px;
+  font-size:11px;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card{
+  background:var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+
+  box-shadow:var(--shadow-small);
+}
+
+.card-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:17px 19px;
+
+  border-bottom:1px solid var(--border);
+}
+
+.card-title{
+  font-size:14px;
+  font-weight:900;
+}
+
+.card-title-en{
+  font-size:14px;
+}
+
+.card-title-zh{
+  margin-left:5px;
+
+  color:var(--text-soft);
+
+  font-size:11px;
+  font-weight:600;
+}
+
+.card-body{
+  padding:19px;
+}
+
+/* =========================================================
+   DASHBOARD STATS
+   ========================================================= */
+
+.stats-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:14px;
+
+  margin-bottom:18px;
+}
+
+.stat-card{
+  padding:18px;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+
+  box-shadow:var(--shadow-small);
+}
+
+.stat-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.stat-icon{
+  width:38px;
+  height:38px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--primary-soft);
+  color:var(--primary);
+
+  border-radius:11px;
+
+  font-size:18px;
+}
+
+.stat-label{
+  margin-top:15px;
+
+  color:var(--text-soft);
+
+  font-size:11px;
+  font-weight:700;
+}
+
+.stat-value{
+  margin-top:4px;
+
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-.5px;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.two-column{
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1.5fr)
+    minmax(280px,1fr);
+
+  gap:18px;
+}
+
+.three-column{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:14px;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+
+.data-table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  font-size:12px;
+}
+
+.data-table th{
+  padding:11px 12px;
+
+  background:var(--surface-soft);
+
+  color:var(--text-soft);
+
+  text-align:left;
+
+  font-size:10px;
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+.data-table td{
+  padding:13px 12px;
+
+  border-top:1px solid var(--border);
+
+  vertical-align:middle;
+}
+
+.data-table tr:hover td{
+  background:var(--surface-soft);
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:5px 8px;
+
+  border-radius:7px;
+
+  font-size:10px;
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+.badge-green{
+  background:var(--green-soft);
+  color:var(--green);
+}
+
+.badge-orange{
+  background:var(--orange-soft);
+  color:var(--orange);
+}
+
+.badge-red{
+  background:var(--red-soft);
+  color:var(--red);
+}
+
+.badge-blue{
+  background:var(--blue-soft);
+  color:var(--blue);
+}
+
+.badge-neutral{
+  background:var(--primary-soft);
+  color:var(--primary);
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state{
+  padding:45px 20px;
+
+  text-align:center;
+
+  color:var(--text-soft);
+}
+
+.empty-icon{
+  margin-bottom:10px;
+
+  font-size:35px;
+}
+
+.empty-title{
+  color:var(--text);
+
+  font-size:14px;
+  font-weight:800;
+}
+
+.empty-text{
+  margin-top:5px;
+
+  font-size:11px;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-box{
+  position:relative;
+}
+
+.search-box input{
+  min-width:220px;
+
+  padding-left:36px;
+}
+
+.search-icon{
+  position:absolute;
+
+  left:12px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  color:var(--text-light);
+
+  pointer-events:none;
+}
+
+/* =========================================================
    MODAL
-========================= */
+   ========================================================= */
 
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15,23,42,.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    z-index: 500;
+.modal-overlay{
+  position:fixed;
+
+  inset:0;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(20,18,16,.48);
+
+  z-index:3000;
+
+  backdrop-filter:blur(3px);
 }
 
-.modal {
-    width: min(650px, 100%);
-    max-height: 90vh;
-    overflow-y: auto;
-    background: var(--card);
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 25px 80px rgba(0,0,0,.2);
+.modal-overlay.show{
+  display:flex;
 }
 
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.modal{
+  width:100%;
+  max-width:600px;
+  max-height:90vh;
+
+  overflow-y:auto;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:20px;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.18);
 }
 
-.close {
-    border: 0;
-    background: transparent;
-    font-size: 24px;
-    color: var(--muted);
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:18px 20px;
+
+  border-bottom:1px solid var(--border);
 }
 
-/* =========================
+.modal-title{
+  font-size:17px;
+  font-weight:900;
+}
+
+.modal-close{
+  width:32px;
+  height:32px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--surface-soft);
+  color:var(--text-soft);
+
+  border-radius:9px;
+
+  font-size:18px;
+}
+
+.modal-body{
+  padding:20px;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:9px;
+
+  padding:15px 20px;
+
+  border-top:1px solid var(--border);
+}
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.form-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:14px;
+}
+
+.form-grid .full{
+  grid-column:1 / -1;
+}
+
+/* =========================================================
    CALENDAR
-========================= */
+   ========================================================= */
 
-.calendar-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+.calendar-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:14px;
 }
 
-.calendar-title {
-    text-align: center;
-    font-weight: 800;
+.calendar-nav{
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 
-.calendar-week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    border: 1px solid var(--border);
-    border-bottom: 0;
+.calendar-nav-btn{
+  width:34px;
+  height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:9px;
+
+  color:var(--text);
+
+  font-size:15px;
 }
 
-.weekday {
-    padding: 10px 5px;
-    text-align: center;
-    background: #f9fafb;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 800;
-    border-right: 1px solid var(--border);
+.calendar-month{
+  min-width:160px;
+
+  text-align:center;
+
+  font-size:16px;
+  font-weight:900;
 }
 
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    border-left: 1px solid var(--border);
+.calendar-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(7,minmax(0,1fr));
+
+  border-top:1px solid var(--border);
+  border-left:1px solid var(--border);
+
+  border-radius:14px;
+  overflow:hidden;
 }
 
-.day {
-    min-height: 120px;
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 7px;
-    background: var(--card);
+.calendar-weekday{
+  min-height:38px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--surface-soft);
+
+  color:var(--text-soft);
+
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+
+  font-size:10px;
+  font-weight:900;
 }
 
-.day.other-month {
-    background: #fafafa;
-    color: #c4c7ce;
+.calendar-day{
+  position:relative;
+
+  min-height:105px;
+
+  padding:8px;
+
+  background:var(--surface);
+
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+
+  cursor:pointer;
+
+  transition:background .15s;
 }
 
-.day.today {
-    box-shadow: inset 0 0 0 2px var(--primary);
+.calendar-day:hover{
+  background:var(--surface-soft);
 }
 
-.day-number {
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 5px;
+.calendar-day.other-month{
+  background:var(--surface-soft);
+
+  color:var(--text-light);
 }
 
-.lesson {
-    background: #eef2ff;
-    border-left: 3px solid var(--primary);
-    border-radius: 6px;
-    padding: 5px;
-    margin-top: 4px;
-    cursor: pointer;
-    font-size: 10px;
+.calendar-day.today{
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary-soft),
+      var(--surface)
+    );
 }
 
-.lesson:hover {
-    background: #e0e7ff;
+.calendar-day-number{
+  width:25px;
+  height:25px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  font-size:11px;
+  font-weight:900;
 }
 
-.lesson-time {
-    font-weight: 800;
+.calendar-day.today .calendar-day-number{
+  background:var(--primary);
+  color:#fff;
 }
 
-.lesson-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
+.calendar-event{
+  margin-top:5px;
+
+  padding:4px 5px;
+
+  background:var(--primary-soft);
+  color:var(--primary-dark);
+
+  border-radius:5px;
+
+  font-size:9px;
+  font-weight:800;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
-/* =========================
-   MOBILE NAV
-========================= */
+/* =========================================================
+   MOBILE BOTTOM NAVIGATION
+   ========================================================= */
 
-.bottom-nav {
-    display: none;
+.bottom-nav{
+  display:none;
+
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:var(--bottom-nav-height);
+
+  background:var(--surface);
+
+  border-top:1px solid var(--border);
+
+  z-index:1500;
+
+  padding:
+    6px
+    max(6px,env(safe-area-inset-left))
+    max(6px,env(safe-area-inset-bottom))
+    max(6px,env(safe-area-inset-right));
 }
 
-/* =========================
-   EMPTY
-========================= */
+.bottom-nav-inner{
+  width:100%;
+  height:100%;
 
-.empty {
-    text-align: center;
-    padding: 45px 20px;
-    color: var(--muted);
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  gap:3px;
 }
 
-.empty-icon {
-    font-size: 38px;
-    margin-bottom: 10px;
+.bottom-nav-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:2px;
+
+  background:transparent;
+
+  color:var(--text-light);
+
+  border-radius:9px;
 }
 
-/* =========================
+.bottom-nav-item.active{
+  background:var(--primary-soft);
+  color:var(--primary);
+}
+
+.bottom-nav-icon{
+  font-size:17px;
+  line-height:1;
+}
+
+.bottom-nav-label{
+  font-size:8px;
+  font-weight:800;
+}
+
+/* =========================================================
+   MOBILE SIDEBAR OVERLAY
+   ========================================================= */
+
+.mobile-sidebar-overlay{
+  display:none;
+
+  position:fixed;
+  inset:0;
+
+  background:rgba(20,18,16,.42);
+
+  z-index:900;
+}
+
+.mobile-menu-btn{
+  display:none;
+
+  width:38px;
+  height:38px;
+
+  align-items:center;
+  justify-content:center;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:10px;
+
+  font-size:19px;
+}
+
+/* =========================================================
+   APPEARANCE
+   ========================================================= */
+
+.theme-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:10px;
+}
+
+.theme-option{
+  position:relative;
+
+  padding:13px;
+
+  background:var(--surface);
+
+  border:2px solid var(--border);
+  border-radius:13px;
+
+  text-align:left;
+
+  transition:.2s;
+}
+
+.theme-option:hover{
+  border-color:var(--primary);
+}
+
+.theme-option.active{
+  border-color:var(--primary);
+
+  background:var(--primary-soft);
+}
+
+.theme-preview{
+  height:45px;
+
+  display:flex;
+
+  overflow:hidden;
+
+  border-radius:8px;
+
+  margin-bottom:9px;
+}
+
+.theme-preview-a{
+  flex:1;
+}
+
+.theme-preview-b{
+  width:35%;
+}
+
+.theme-name{
+  font-size:12px;
+  font-weight:900;
+}
+
+.theme-name-zh{
+  margin-top:2px;
+
+  color:var(--text-soft);
+
+  font-size:10px;
+}
+
+.theme-check{
+  position:absolute;
+
+  top:9px;
+  right:9px;
+
+  width:20px;
+  height:20px;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--primary);
+  color:#fff;
+
+  border-radius:50%;
+
+  font-size:11px;
+}
+
+.theme-option.active .theme-check{
+  display:flex;
+}
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+.notification-dot{
+  position:absolute;
+
+  top:6px;
+  right:6px;
+
+  width:7px;
+  height:7px;
+
+  background:var(--red);
+
+  border-radius:50%;
+}
+
+.notification-item{
+  display:flex;
+
+  gap:12px;
+
+  padding:13px 0;
+
+  border-bottom:1px solid var(--border);
+}
+
+.notification-item:last-child{
+  border-bottom:0;
+}
+
+.notification-icon{
+  width:35px;
+  height:35px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--primary-soft);
+  color:var(--primary);
+
+  border-radius:10px;
+
+  flex:0 0 35px;
+}
+
+.notification-title{
+  font-size:12px;
+  font-weight:800;
+}
+
+.notification-text{
+  margin-top:3px;
+
+  color:var(--text-soft);
+
+  font-size:10px;
+  line-height:1.5;
+}
+
+.notification-time{
+  margin-top:4px;
+
+  color:var(--text-light);
+
+  font-size:9px;
+}
+
+/* =========================================================
+   PRIVATE NOTES
+   ========================================================= */
+
+.private-warning{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+
+  padding:13px 15px;
+
+  background:var(--orange-soft);
+  color:var(--orange);
+
+  border-radius:11px;
+
+  margin-bottom:15px;
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+.private-warning-icon{
+  flex:0 0 auto;
+}
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile-avatar{
+  width:72px;
+  height:72px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--primary-soft);
+  color:var(--primary);
+
+  border-radius:20px;
+
+  font-size:27px;
+  font-weight:900;
+}
+
+/* =========================================================
    TOAST
-========================= */
+   ========================================================= */
 
-.toast {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    background: #111827;
-    color: white;
-    padding: 12px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    z-index: 1000;
-    box-shadow: var(--shadow);
+.toast-container{
+  position:fixed;
+
+  right:20px;
+  bottom:20px;
+
+  z-index:5000;
+
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
-/* =========================
+.toast{
+  max-width:330px;
+
+  padding:12px 15px;
+
+  background:var(--text);
+  color:var(--surface);
+
+  border-radius:11px;
+
+  box-shadow:var(--shadow);
+
+  font-size:12px;
+  font-weight:700;
+
+  animation:
+    toastIn .2s ease;
+}
+
+@keyframes toastIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================================================
    RESPONSIVE
-========================= */
+   ========================================================= */
 
-@media (max-width: 1000px) {
-    .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
+@media(max-width:1050px){
 
-    .grid-3 {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  :root{
+    --sidebar-width:230px;
+  }
+
+  .stats-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .two-column{
+    grid-template-columns:1fr;
+  }
+
 }
 
-@media (max-width: 700px) {
+@media(max-width:760px){
 
-    .sidebar {
-        display: none;
-    }
+  .sidebar{
+    transform:translateX(-100%);
 
-    .main {
-        margin-left: 0;
-        width: 100%;
-        padding-bottom: 75px;
-    }
+    transition:
+      transform .25s ease;
 
-    .topbar {
-        height: 62px;
-        padding: 0 15px;
-    }
+    box-shadow:
+      10px 0 30px rgba(0,0,0,.12);
 
-    .page-title {
-        font-size: 18px;
-    }
+    z-index:2000;
+  }
 
-    .content {
-        padding: 15px;
-    }
+  .sidebar.mobile-open{
+    transform:translateX(0);
+  }
 
-    .grid-4,
-    .grid-3,
-    .grid-2 {
-        grid-template-columns: 1fr;
-    }
+  .mobile-sidebar-overlay.show{
+    display:block;
+  }
 
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
+  .mobile-menu-btn{
+    display:flex;
+  }
 
-    .form-group.full {
-        grid-column: auto;
-    }
+  .main-content{
+    margin-left:0;
 
-    .bottom-nav {
-        display: flex;
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 66px;
-        background: var(--card);
-        border-top: 1px solid var(--border);
-        z-index: 200;
-        justify-content: space-around;
-        align-items: center;
-    }
+    padding:
+      17px
+      15px
+      calc(var(--bottom-nav-height) + 22px);
+  }
 
-    .bottom-nav button {
-        border: 0;
-        background: transparent;
-        color: var(--muted);
-        font-size: 10px;
-        font-weight: 700;
-        text-align: center;
-    }
+  .bottom-nav{
+    display:block;
+  }
 
-    .bottom-nav button.active {
-        color: var(--primary);
-    }
+  .page-header{
+    align-items:center;
 
-    .bottom-icon {
-        display: block;
-        font-size: 20px;
-        margin-bottom: 2px;
-    }
+    margin-bottom:18px;
+  }
 
-    .calendar-grid,
-    .calendar-week {
-        min-width: 650px;
-    }
+  .page-title{
+    font-size:22px;
+  }
 
-    .calendar-scroll {
-        overflow-x: auto;
-    }
+  .page-subtitle{
+    font-size:11px;
+  }
 
-    .day {
-        min-height: 100px;
-    }
+  .header-actions{
+    gap:6px;
+  }
 
-    .topbar .user-area {
-        display: none;
-    }
+  .header-actions .btn:not(.btn-primary){
+    display:none;
+  }
+
+  .stats-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:9px;
+  }
+
+  .stat-card{
+    padding:13px;
+  }
+
+  .stat-value{
+    font-size:20px;
+  }
+
+  .stat-label{
+    font-size:9px;
+  }
+
+  .stat-icon{
+    width:32px;
+    height:32px;
+
+    font-size:15px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid .full{
+    grid-column:auto;
+  }
+
+  .calendar-day{
+    min-height:75px;
+
+    padding:5px;
+  }
+
+  .calendar-event{
+    font-size:7px;
+  }
+
+  .calendar-month{
+    min-width:auto;
+
+    font-size:14px;
+  }
+
+  .calendar-weekday{
+    font-size:8px;
+  }
+
+  .theme-grid{
+    grid-template-columns:1fr;
+  }
+
+  .search-box input{
+    min-width:0;
+    width:150px;
+  }
+
+  .modal{
+    max-height:94vh;
+  }
+
+}
+
+@media(max-width:420px){
+
+  .main-content{
+    padding-left:11px;
+    padding-right:11px;
+  }
+
+  .page-title{
+    font-size:20px;
+  }
+
+  .stats-grid{
+    gap:7px;
+  }
+
+  .stat-card{
+    padding:11px;
+  }
+
+  .stat-value{
+    font-size:18px;
+  }
+
+  .calendar-day{
+    min-height:66px;
+  }
+
+  .calendar-day-number{
+    width:22px;
+    height:22px;
+
+    font-size:10px;
+  }
+
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print{
+
+  .sidebar,
+  .bottom-nav,
+  .mobile-menu-btn,
+  .header-actions{
+    display:none !important;
+  }
+
+  .main-content{
+    margin-left:0;
+    padding:0;
+  }
+
+  body{
+    background:#fff;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- =======================================================
+     LOGIN / AUTH SCREEN
+     ======================================================= -->
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
+<div id="authScreen">
 
-<aside class="sidebar">
+  <div class="auth-card">
 
-    <div class="logo">
-        🎓 Tutor Manager
-        <small>補習管理系統</small>
+    <div class="auth-logo">
+      <img
+        src="./icon-home-192.png"
+        alt="Tutor Manager"
+      >
     </div>
 
-    <div class="nav-section">
-
-        <div class="nav-title">MAIN / 主頁</div>
-
-        <button class="nav-item active" data-page="dashboard">
-            <span class="nav-icon">🏠</span>
-            <span class="nav-text">
-                Dashboard
-                <span class="nav-en">總覽</span>
-            </span>
-        </button>
-
+    <div class="auth-title">
+      Tutor Manager
     </div>
 
-    <div class="nav-section">
+    <div class="auth-subtitle">
+      私人補習管理系統 · Private Tutoring Management
+    </div>
 
-        <div class="nav-title">MANAGEMENT / 管理</div>
+    <div class="auth-tabs">
 
-        <button class="nav-item" data-page="calendar">
-            <span class="nav-icon">📅</span>
-            <span class="nav-text">
-                Calendar
-                <span class="nav-en">日曆</span>
-            </span>
-        </button>
+      <button
+        type="button"
+        class="auth-tab active"
+        data-auth-tab="login"
+        onclick="switchAuthTab('login')"
+      >
+        Login<br>
+        <small>登入</small>
+      </button>
 
-        <button class="nav-item" data-page="students">
-            <span class="nav-icon">👨‍🎓</span>
-            <span class="nav-text">
-                Students
-                <span class="nav-en">學生</span>
-            </span>
-        </button>
-
-        <button class="nav-item" data-page="parents">
-            <span class="nav-icon">👨‍👩‍👧</span>
-            <span class="nav-text">
-                Parents
-                <span class="nav-en">家長</span>
-            </span>
-        </button>
+      <button
+        type="button"
+        class="auth-tab"
+        data-auth-tab="signup"
+        onclick="switchAuthTab('signup')"
+      >
+        Sign Up<br>
+        <small>註冊</small>
+      </button>
 
     </div>
 
-    <div class="nav-section">
-
-        <div class="nav-title">FINANCE / 財務</div>
-
-        <button class="nav-item" data-page="payments">
-            <span class="nav-icon">💰</span>
-            <span class="nav-text">
-                Payments
-                <span class="nav-en">付款</span>
-            </span>
-        </button>
-
-    </div>
-
-    <div class="nav-section">
-
-        <div class="nav-title">SYSTEM / 系統</div>
-
-        <button class="nav-item" data-page="notifications">
-            <span class="nav-icon">🔔</span>
-            <span class="nav-text">
-                Notifications
-                <span class="nav-en">通知</span>
-            </span>
-        </button>
-
-    </div>
-
-    <div class="nav-section">
-
-        <div class="nav-title">PRIVATE / 私人</div>
-
-        <button class="nav-item" data-page="notes">
-            <span class="nav-icon">🔒</span>
-            <span class="nav-text">
-                Private Notes
-                <span class="nav-en">私人備註</span>
-            </span>
-        </button>
-
-    </div>
-
-    <div class="nav-section">
-
-        <div class="nav-title">ACCOUNT / 帳戶</div>
-
-        <button class="nav-item" data-page="profile">
-            <span class="nav-icon">👤</span>
-            <span class="nav-text">
-                Profile
-                <span class="nav-en">個人資料</span>
-            </span>
-        </button>
-
-    </div>
-
-</aside>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="main">
-
-<header class="topbar">
-
-    <div>
-        <div class="page-title" id="pageTitle">
-            Dashboard
-            <small>總覽</small>
-        </div>
-    </div>
-
-    <div class="user-area">
-        <div>
-            <strong id="topUserName">Tutor</strong>
-            <div class="muted" style="font-size:11px;">Tutor / 導師</div>
-        </div>
-
-        <div class="avatar" id="topAvatar">T</div>
-    </div>
-
-</header>
-
-
-<div class="content">
-
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
-
-<section id="page-dashboard" class="page">
-
-    <div class="grid grid-4">
-
-        <div class="card stat">
-            <div class="stat-icon">👨‍🎓</div>
-            <div class="stat-number" id="statStudents">0</div>
-            <div class="stat-label">
-                Students / 學生
-            </div>
-        </div>
-
-        <div class="card stat">
-            <div class="stat-icon">📅</div>
-            <div class="stat-number" id="statLessons">0</div>
-            <div class="stat-label">
-                Upcoming Lessons / 即將上堂
-            </div>
-        </div>
-
-        <div class="card stat">
-            <div class="stat-icon">💰</div>
-            <div class="stat-number" id="statPaid">$0</div>
-            <div class="stat-label">
-                Paid / 已付款
-            </div>
-        </div>
-
-        <div class="card stat">
-            <div class="stat-icon">⏳</div>
-            <div class="stat-number" id="statDue">$0</div>
-            <div class="stat-label">
-                Amount Due / 應付
-            </div>
-        </div>
-
-    </div>
-
-    <div style="height:18px"></div>
-
-    <div class="grid grid-2">
-
-        <div class="card">
-
-            <div class="card-header">
-                <div class="card-title">
-                    Upcoming Lessons
-                    <small>即將上堂</small>
-                </div>
-
-                <button class="btn btn-primary btn-small"
-                        onclick="openLessonModal()">
-                    ＋ Add / 新增
-                </button>
-            </div>
-
-            <div id="dashboardLessons"></div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-header">
-                <div class="card-title">
-                    Payment Overview
-                    <small>付款概覽</small>
-                </div>
-            </div>
-
-            <div id="dashboardPayments"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CALENDAR
-===================================================== -->
-
-<section id="page-calendar" class="page hidden">
-
-    <div class="card">
-
-        <div class="calendar-toolbar">
-
-            <div class="actions">
-                <button class="btn btn-secondary"
-                        onclick="changeMonth(-1)">
-                    ←
-                </button>
-
-                <button class="btn btn-secondary"
-                        onclick="goToday()">
-                    Today / 今日
-                </button>
-
-                <button class="btn btn-secondary"
-                        onclick="changeMonth(1)">
-                    →
-                </button>
-            </div>
-
-            <div class="calendar-title" id="calendarTitle"></div>
-
-            <button class="btn btn-primary"
-                    onclick="openLessonModal()">
-                ＋ Add Lesson / 新增課堂
-            </button>
-
-        </div>
-
-        <div class="calendar-scroll">
-
-            <div class="calendar-week">
-                <div class="weekday">Sun 日</div>
-                <div class="weekday">Mon 一</div>
-                <div class="weekday">Tue 二</div>
-                <div class="weekday">Wed 三</div>
-                <div class="weekday">Thu 四</div>
-                <div class="weekday">Fri 五</div>
-                <div class="weekday">Sat 六</div>
-            </div>
-
-            <div class="calendar-grid"
-                 id="calendarGrid"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     STUDENTS
-===================================================== -->
-
-<section id="page-students" class="page hidden">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <div class="card-title">
-                Students
-                <small>學生管理</small>
-            </div>
-
-            <button class="btn btn-primary"
-                    onclick="openStudentModal()">
-                ＋ Add Student / 新增學生
-            </button>
-
-        </div>
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Name / 姓名</th>
-                        <th>Phone / 電話</th>
-                        <th>Parent / 家長</th>
-                        <th>Fee / 堂費</th>
-                        <th>Actions / 操作</th>
-                    </tr>
-                </thead>
-
-                <tbody id="studentsTable"></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PARENTS
-===================================================== -->
-
-<section id="page-parents" class="page hidden">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <div class="card-title">
-                Parents
-                <small>家長管理</small>
-            </div>
-
-            <button class="btn btn-primary"
-                    onclick="openParentModal()">
-                ＋ Add Parent / 新增家長
-            </button>
-
-        </div>
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Name / 姓名</th>
-                        <th>Phone / 電話</th>
-                        <th>Email / 電郵</th>
-                        <th>Actions / 操作</th>
-                    </tr>
-                </thead>
-
-                <tbody id="parentsTable"></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PAYMENTS
-===================================================== -->
-
-<section id="page-payments" class="page hidden">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <div class="card-title">
-                Payments
-                <small>付款管理</small>
-            </div>
-
-            <button class="btn btn-primary"
-                    onclick="openPaymentModal()">
-                ＋ Add Payment / 新增付款
-            </button>
-
-        </div>
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Date / 日期</th>
-                        <th>Student / 學生</th>
-                        <th>Lesson / 課堂</th>
-                        <th>Amount / 金額</th>
-                        <th>Status / 狀態</th>
-                        <th>Actions / 操作</th>
-                    </tr>
-                </thead>
-
-                <tbody id="paymentsTable"></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     NOTIFICATIONS
-===================================================== -->
-
-<section id="page-notifications" class="page hidden">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <div class="card-title">
-                Notifications
-                <small>通知</small>
-            </div>
-
-            <button class="btn btn-danger"
-                    onclick="deleteAllNotifications()">
-                Delete All / 全部刪除
-            </button>
-
-        </div>
-
-        <div id="notificationsList"></div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PRIVATE NOTES
-===================================================== -->
-
-<section id="page-notes" class="page hidden">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <div class="card-title">
-                🔒 Private Notes
-                <small>私人備註 · Tutor Only / 只限導師</small>
-            </div>
-
-            <button class="btn btn-primary"
-                    onclick="openNoteModal()">
-                ＋ Add Note / 新增備註
-            </button>
-
-        </div>
-
-        <div id="notesList"></div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PROFILE
-===================================================== -->
-
-<section id="page-profile" class="page hidden">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <div class="card-title">
-                Profile
-                <small>個人資料</small>
-            </div>
-
-        </div>
-
-        <div class="form-grid">
-
-            <div class="form-group">
-
-                <label>
-                    Name / 姓名
-                </label>
-
-                <input id="profileName"
-                       placeholder="Your name / 你的姓名">
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    Email / 電郵
-                </label>
-
-                <input id="profileEmail"
-                       type="email"
-                       placeholder="Email">
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    Phone / 電話
-                </label>
-
-                <input id="profilePhone"
-                       placeholder="Phone">
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    Appearance / 外觀
-                </label>
-
-                <select id="appearance">
-                    <option value="light">
-                        Light / 淺色
-                    </option>
-
-                    <option value="dark">
-                        Dark / 深色
-                    </option>
-                </select>
-
-            </div>
-
-        </div>
-
-        <button class="btn btn-primary"
-                onclick="saveProfile()">
-            Save / 儲存
-        </button>
-
-    </div>
-
-</section>
-
-</div>
-
-</main>
+    <!-- LOGIN -->
+
+    <form
+      id="loginForm"
+      class="auth-form active"
+      onsubmit="handleLogin(event)"
+    >
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Email / 電郵
+        </label>
+
+        <input
+          id="loginEmail"
+          class="form-input"
+          type="email"
+          placeholder="example@email.com"
+          required
+          autocomplete="email"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Password / 密碼
+        </label>
+
+        <input
+          id="loginPassword"
+          class="form-input"
+          type="password"
+          placeholder="••••••••"
+          required
+          autocomplete="current-password"
+        >
+
+      </div>
+
+      <button
+        class="primary-btn"
+        type="submit"
+      >
+        Login / 登入
+      </button>
+
+      <div
+        id="loginMessage"
+        class="auth-message"
+      ></div>
+
+    </form>
+
+    <!-- SIGN UP -->
+
+    <form
+      id="signupForm"
+      class="auth-form"
+      onsubmit="handleSignup(event)"
+    >
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Name / 姓名
+        </label>
+
+        <input
+          id="signupName"
+          class="form-input"
+          type="text"
+          placeholder="Your name"
+          required
+          autocomplete="name"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Email / 電郵
+        </label>
+
+        <input
+          id="signupEmail"
+          class="form-input"
+          type="email"
+          placeholder="example@email.com"
+          required
+          autocomplete="email"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Password / 密碼
+        </label>
+
+        <input
+          id="signupPassword"
+          class="form-input"
+          type="password"
+          placeholder="至少 6 個字元"
+          minlength="6"
+          required
+          autocomplete="new-password"
+        >
+
+      </div>
+
+      <button
+        class="primary-btn"
+        type="submit"
+      >
+        Create Account / 建立帳戶
+      </button>
+
+      <div
+        id="signupMessage"
+        class="auth-message"
+      ></div>
+
+    </form>
+
+  </div>
 
 </div>
 
 
-<!-- =====================================================
-     MOBILE BOTTOM NAV
-===================================================== -->
+<!-- =======================================================
+     MAIN APPLICATION
+     ======================================================= -->
 
-<nav class="bottom-nav">
+<div id="app">
 
-    <button data-page="dashboard" class="active">
-        <span class="bottom-icon">🏠</span>
-        Home
-    </button>
+  <div class="app-layout">
 
-    <button data-page="calendar">
-        <span class="bottom-icon">📅</span>
-        Calendar
-    </button>
+    <!-- MOBILE SIDEBAR OVERLAY -->
 
-    <button data-page="students">
-        <span class="bottom-icon">👨‍🎓</span>
-        Students
-    </button>
-
-    <button data-page="payments">
-        <span class="bottom-icon">💰</span>
-        Payments
-    </button>
-
-    <button data-page="profile">
-        <span class="bottom-icon">👤</span>
-        Profile
-    </button>
-
-</nav>
+    <div
+      id="mobileSidebarOverlay"
+      class="mobile-sidebar-overlay"
+      onclick="closeMobileSidebar()"
+    ></div>
 
 
-<!-- =====================================================
-     MODAL
-===================================================== -->
+    <!-- ===================================================
+         SIDEBAR
+         =================================================== -->
 
-<div id="modalOverlay"
-     class="modal-overlay hidden">
+    <aside
+      id="sidebar"
+      class="sidebar"
+    >
+
+      <div class="sidebar-brand">
+
+        <img
+          class="sidebar-brand-icon"
+          src="./icon-home-192.png"
+          alt="Tutor Manager"
+        >
+
+        <div class="sidebar-brand-text">
+
+          <div class="sidebar-brand-title">
+            Tutor Manager
+          </div>
+
+          <div class="sidebar-brand-subtitle">
+            私人補習管理
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MANAGEMENT -->
+
+      <div class="sidebar-section">
+        MANAGEMENT · 管理
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button
+          class="nav-item active"
+          data-page="dashboard"
+          onclick="navigateTo('dashboard')"
+        >
+
+          <span class="nav-icon">🏠</span>
+
+          <span class="nav-text">
+            <span class="nav-text-en">Dashboard</span>
+            <span class="nav-text-zh">主頁</span>
+          </span>
+
+        </button>
+
+
+        <button
+          class="nav-item"
+          data-page="calendar"
+          onclick="navigateTo('calendar')"
+        >
+
+          <span class="nav-icon">📅</span>
+
+          <span class="nav-text">
+            <span class="nav-text-en">Calendar</span>
+            <span class="nav-text-zh">日曆</span>
+          </span>
+
+        </button>
+
+
+        <button
+          class="nav-item"
+          data-page="students"
+          onclick="navigateTo('students')"
+        >
+
+          <span class="nav-icon">👨‍🎓</span>
+
+          <span class="nav-text">
+            <span class="nav-text-en">Students</span>
+            <span class="nav-text-zh">學生</span>
+          </span>
+
+        </button>
+
+
+        <button
+          class="nav-item"
+          data-page="parents"
+          onclick="navigateTo('parents')"
+        >
+
+          <span class="nav-icon">👨‍👩‍👧</span>
+
+          <span class="nav-text">
+            <span class="nav-text-en">Parents</span>
+            <span class="nav-text-zh">家長</span>
+          </span>
+
+        </button>
+
+      </nav>
+
+
+      <!-- FINANCE -->
+
+      <div class="sidebar-section">
+        FINANCE · 財務
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button
+          class="nav-item"
+          data-page="payments"
+          onclick="navigateTo('payments')"
+        >
+
+          <span class="nav-icon">💰</span>
+
+          <span class="nav-text">
+            <span class="nav-text-en">Payments</span>
+            <span class="nav-text-zh">付款</span>
+          </span>
+
+        </button>
+
+      </nav>
+
+
+      <!-- SYSTEM -->
+
+      <div class="sidebar-section">
+        SYSTEM · 系統
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button
+          class="nav-item"
+          data-page="notifications"
+          onclick="navigateTo('notifications')"
+        >
+
+          <span class="nav-icon">
+            🔔
+          </span>
+
+          <span class="nav-text">
+            <span class="nav-text-en">
+              Notifications
+            </span>
+
+            <span class="nav-text-zh">
+              通知
+            </span>
+          </span>
+
+        </button>
+
+      </nav>
+
+
+      <!-- PRIVATE -->
+
+      <div class="sidebar-section">
+        PRIVATE · 私人
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button
+          class="nav-item"
+          data-page="private"
+          onclick="navigateTo('private')"
+        >
+
+          <span class="nav-icon">
+            🔒
+          </span>
+
+          <span class="nav-text">
+
+            <span class="nav-text-en">
+              Private Notes
+            </span>
+
+            <span class="nav-text-zh">
+              私人筆記
+            </span>
+
+          </span>
+
+        </button>
+
+      </nav>
+
+
+      <!-- ACCOUNT -->
+
+      <div class="sidebar-section">
+        ACCOUNT · 帳戶
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button
+          class="nav-item"
+          data-page="profile"
+          onclick="navigateTo('profile')"
+        >
+
+          <span class="nav-icon">
+            👤
+          </span>
+
+          <span class="nav-text">
+
+            <span class="nav-text-en">
+              Profile
+            </span>
+
+            <span class="nav-text-zh">
+              個人資料
+            </span>
+
+          </span>
+
+        </button>
+
+
+        <button
+          class="nav-item"
+          data-page="appearance"
+          onclick="navigateTo('appearance')"
+        >
+
+          <span class="nav-icon">
+            🎨
+          </span>
+
+          <span class="nav-text">
+
+            <span class="nav-text-en">
+              Appearance
+            </span>
+
+            <span class="nav-text-zh">
+              外觀 / 主題
+            </span>
+
+          </span>
+
+        </button>
+
+      </nav>
+
+
+      <!-- USER -->
+
+      <div class="sidebar-bottom">
+
+        <div class="sidebar-user">
+
+          <div
+            id="sidebarAvatar"
+            class="sidebar-avatar"
+          >
+            T
+          </div>
+
+          <div class="sidebar-user-info">
+
+            <div
+              id="sidebarUserName"
+              class="sidebar-user-name"
+            >
+              Tutor
+            </div>
+
+            <div class="sidebar-user-role">
+              Tutor · 導師
+            </div>
+
+          </div>
+
+        </div>
+
+        <button
+          class="nav-item"
+          onclick="handleLogout()"
+        >
+
+          <span class="nav-icon">
+            🚪
+          </span>
+
+          <span class="nav-text">
+
+            <span class="nav-text-en">
+              Logout
+            </span>
+
+            <span class="nav-text-zh">
+              登出
+            </span>
+
+          </span>
+
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ===================================================
+         MAIN CONTENT
+         =================================================== -->
+
+    <main class="main-content">
+
+      <!-- MOBILE HEADER -->
+
+      <div
+        style="
+          display:flex;
+          align-items:center;
+          gap:10px;
+          margin-bottom:15px;
+        "
+      >
+
+        <button
+          class="mobile-menu-btn"
+          onclick="openMobileSidebar()"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+
+        <div
+          style="
+            color:var(--text-soft);
+            font-size:11px;
+            font-weight:700;
+          "
+        >
+          Tutor Manager · 私人補習管理
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           DASHBOARD
+           ================================================= -->
+
+      <section
+        id="page-dashboard"
+        class="page active"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Dashboard
+            </div>
+
+            <div class="page-subtitle">
+              主頁 · Overview of your tutoring
+            </div>
+
+          </div>
+
+          <div class="header-actions">
+
+            <button
+              class="btn btn-primary"
+              onclick="openLessonModal()"
+            >
+              ＋ Add Lesson · 新增課堂
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-icon">
+                👨‍🎓
+              </div>
+
+            </div>
+
+            <div class="stat-label">
+              STUDENTS · 學生
+            </div>
+
+            <div
+              id="statStudents"
+              class="stat-value"
+            >
+              0
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-icon">
+                📅
+              </div>
+
+            </div>
+
+            <div class="stat-label">
+              LESSONS · 課堂
+            </div>
+
+            <div
+              id="statLessons"
+              class="stat-value"
+            >
+              0
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-icon">
+                💰
+              </div>
+
+            </div>
+
+            <div class="stat-label">
+              OUTSTANDING · 待收款
+            </div>
+
+            <div
+              id="statOutstanding"
+              class="stat-value"
+            >
+              $0
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-icon">
+                ✅
+              </div>
+
+            </div>
+
+            <div class="stat-label">
+              PAID · 已付款
+            </div>
+
+            <div
+              id="statPaid"
+              class="stat-value"
+            >
+              $0
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="two-column">
+
+          <!-- UPCOMING LESSONS -->
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <span class="card-title-en">
+                  Upcoming Lessons
+                </span>
+
+                <span class="card-title-zh">
+                  即將到來的課堂
+                </span>
+
+              </div>
+
+              <button
+                class="btn btn-small"
+                onclick="navigateTo('calendar')"
+              >
+                View All · 查看全部
+              </button>
+
+            </div>
+
+            <div
+              id="dashboardLessons"
+              class="card-body"
+            ></div>
+
+          </div>
+
+
+          <!-- QUICK ACTIONS -->
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <span class="card-title-en">
+                  Quick Actions
+                </span>
+
+                <span class="card-title-zh">
+                  快速操作
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="card-body">
+
+              <div
+                style="
+                  display:grid;
+                  gap:9px;
+                "
+              >
+
+                <button
+                  class="btn"
+                  style="justify-content:flex-start"
+                  onclick="openStudentModal()"
+                >
+                  👨‍🎓
+                  Add Student · 新增學生
+                </button>
+
+                <button
+                  class="btn"
+                  style="justify-content:flex-start"
+                  onclick="openParentModal()"
+                >
+                  👨‍👩‍👧
+                  Add Parent · 新增家長
+                </button>
+
+                <button
+                  class="btn"
+                  style="justify-content:flex-start"
+                  onclick="openLessonModal()"
+                >
+                  📅
+                  Add Lesson · 新增課堂
+                </button>
+
+                <button
+                  class="btn"
+                  style="justify-content:flex-start"
+                  onclick="navigateTo('payments')"
+                >
+                  💰
+                  View Payments · 查看付款
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           CALENDAR
+           ================================================= -->
+
+      <section
+        id="page-calendar"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Calendar
+            </div>
+
+            <div class="page-subtitle">
+              日曆 · Lessons & schedule
+            </div>
+
+          </div>
+
+          <div class="header-actions">
+
+            <button
+              class="btn"
+              onclick="calendarToday()"
+            >
+              Today · 今日
+            </button>
+
+            <button
+              class="btn btn-primary"
+              onclick="openLessonModal()"
+            >
+              ＋ Add Lesson · 新增課堂
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-body">
+
+            <div class="calendar-toolbar">
+
+              <div class="calendar-nav">
+
+                <button
+                  class="calendar-nav-btn"
+                  onclick="changeCalendarMonth(-1)"
+                >
+                  ‹
+                </button>
+
+                <button
+                  class="calendar-nav-btn"
+                  onclick="changeCalendarMonth(1)"
+                >
+                  ›
+                </button>
+
+              </div>
+
+              <div
+                id="calendarMonth"
+                class="calendar-month"
+              >
+                September 2026
+              </div>
+
+              <div></div>
+
+            </div>
+
+
+            <div
+              id="calendarGrid"
+              class="calendar-grid"
+            ></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           STUDENTS
+           ================================================= -->
+
+      <section
+        id="page-students"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Students
+            </div>
+
+            <div class="page-subtitle">
+              學生 · Manage your students
+            </div>
+
+          </div>
+
+          <div class="header-actions">
+
+            <button
+              class="btn btn-primary"
+              onclick="openStudentModal()"
+            >
+              ＋ Add Student · 新增學生
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+              Student List · 學生列表
+            </div>
+
+            <div class="search-box">
+
+              <span class="search-icon">
+                🔎
+              </span>
+
+              <input
+                id="studentSearch"
+                class="form-input"
+                type="search"
+                placeholder="Search / 搜尋..."
+                oninput="renderStudents()"
+              >
+
+            </div>
+
+          </div>
+
+          <div
+            id="studentsTable"
+            class="card-body"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           PARENTS
+           ================================================= -->
+
+      <section
+        id="page-parents"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Parents
+            </div>
+
+            <div class="page-subtitle">
+              家長 · Manage parent contacts
+            </div>
+
+          </div>
+
+          <div class="header-actions">
+
+            <button
+              class="btn btn-primary"
+              onclick="openParentModal()"
+            >
+              ＋ Add Parent · 新增家長
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+              Parent List · 家長列表
+            </div>
+
+          </div>
+
+          <div
+            id="parentsTable"
+            class="card-body"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           PAYMENTS
+           ================================================= -->
+
+      <section
+        id="page-payments"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Payments
+            </div>
+
+            <div class="page-subtitle">
+              付款 · Fees & payment status
+            </div>
+
+          </div>
+
+          <div class="header-actions">
+
+            <button
+              class="btn btn-primary"
+              onclick="openPaymentModal()"
+            >
+              ＋ Record Payment · 記錄付款
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              💰
+            </div>
+
+            <div class="stat-label">
+              TOTAL · 總額
+            </div>
+
+            <div
+              id="paymentTotal"
+              class="stat-value"
+            >
+              $0
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ⏳
+            </div>
+
+            <div class="stat-label">
+              OUTSTANDING · 待收
+            </div>
+
+            <div
+              id="paymentOutstanding"
+              class="stat-value"
+            >
+              $0
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ✅
+            </div>
+
+            <div class="stat-label">
+              PAID · 已收
+            </div>
+
+            <div
+              id="paymentPaid"
+              class="stat-value"
+            >
+              $0
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              📊
+            </div>
+
+            <div class="stat-label">
+              LESSON FEES · 課堂費
+            </div>
+
+            <div
+              id="paymentLessonFees"
+              class="stat-value"
+            >
+              $0
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+              Payment Records · 付款記錄
+            </div>
+
+          </div>
+
+          <div
+            id="paymentsTable"
+            class="card-body"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           NOTIFICATIONS
+           ================================================= -->
+
+      <section
+        id="page-notifications"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Notifications
+            </div>
+
+            <div class="page-subtitle">
+              通知 · System alerts & reminders
+            </div>
+
+          </div>
+
+          <div class="header-actions">
+
+            <button
+              class="btn"
+              onclick="markAllNotificationsRead()"
+            >
+              ✓ Mark All Read · 全部已讀
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div
+            id="notificationsList"
+            class="card-body"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           PRIVATE NOTES
+           ================================================= -->
+
+      <section
+        id="page-private"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Private Notes
+            </div>
+
+            <div class="page-subtitle">
+              私人筆記 · Tutor-only notes
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="private-warning">
+
+          <div class="private-warning-icon">
+            🔒
+          </div>
+
+          <div>
+            <strong>
+              Private · 私人內容
+            </strong>
+            <br>
+            These notes are for the tutor only and should never be
+            displayed to parents.
+            <br>
+            呢度嘅筆記只供導師本人查看，絕對唔應該顯示俾家長。
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+              Tutor Notes · 導師筆記
+            </div>
+
+          </div>
+
+          <div
+            id="privateNotesContent"
+            class="card-body"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           PROFILE
+           ================================================= -->
+
+      <section
+        id="page-profile"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Profile
+            </div>
+
+            <div class="page-subtitle">
+              個人資料 · Your account
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="two-column">
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+                Account · 帳戶
+              </div>
+
+            </div>
+
+            <div class="card-body">
+
+              <div
+                style="
+                  display:flex;
+                  align-items:center;
+                  gap:15px;
+                  margin-bottom:22px;
+                "
+              >
+
+                <div
+                  id="profileAvatar"
+                  class="profile-avatar"
+                >
+                  T
+                </div>
+
+                <div>
+
+                  <div
+                    id="profileNameDisplay"
+                    style="
+                      font-size:17px;
+                      font-weight:900;
+                    "
+                  >
+                    Tutor
+                  </div>
+
+                  <div
+                    id="profileEmailDisplay"
+                    style="
+                      margin-top:3px;
+                      color:var(--text-soft);
+                      font-size:11px;
+                    "
+                  >
+                    -
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label class="form-label">
+                  Name / 姓名
+                </label>
+
+                <input
+                  id="profileName"
+                  class="form-input"
+                  type="text"
+                >
+
+              </div>
+
+
+              <button
+                class="btn btn-primary"
+                onclick="saveProfile()"
+              >
+                Save Profile · 儲存資料
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+                Security · 安全
+              </div>
+
+            </div>
+
+            <div class="card-body">
+
+              <button
+                class="btn btn-danger"
+                onclick="handleLogout()"
+              >
+                🚪 Logout · 登出
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           APPEARANCE
+           ================================================= -->
+
+      <section
+        id="page-appearance"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <div class="page-title">
+              Appearance
+            </div>
+
+            <div class="page-subtitle">
+              外觀 · Theme & colour
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+              Choose Theme · 選擇主題
+            </div>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="theme-grid">
+
+
+              <button
+                class="theme-option"
+                data-theme="warm"
+                onclick="setTheme('warm')"
+              >
+
+                <div class="theme-preview">
+
+                  <div
+                    class="theme-preview-a"
+                    style="background:#f7f3ee"
+                  ></div>
+
+                  <div
+                    class="theme-preview-b"
+                    style="background:#756a5c"
+                  ></div>
+
+                </div>
+
+                <div class="theme-name">
+                  Warm
+                </div>
+
+                <div class="theme-name-zh">
+                  暖色
+                </div>
+
+                <div class="theme-check">
+                  ✓
+                </div>
+
+              </button>
+
+
+              <button
+                class="theme-option"
+                data-theme="sage"
+                onclick="setTheme('sage')"
+              >
+
+                <div class="theme-preview">
+
+                  <div
+                    class="theme-preview-a"
+                    style="background:#f2f6f2"
+                  ></div>
+
+                  <div
+                    class="theme-preview-b"
+                    style="background:#607968"
+                  ></div>
+
+                </div>
+
+                <div class="theme-name">
+                  Sage
+                </div>
+
+                <div class="theme-name-zh">
+                  鼠尾草綠
+                </div>
+
+                <div class="theme-check">
+                  ✓
+                </div>
+
+              </button>
+
+
+              <button
+                class="theme-option"
+                data-theme="ocean"
+                onclick="setTheme('ocean')"
+              >
+
+                <div class="theme-preview">
+
+                  <div
+                    class="theme-preview-a"
+                    style="background:#f1f5f8"
+                  ></div>
+
+                  <div
+                    class="theme-preview-b"
+                    style="background:#617b91"
+                  ></div>
+
+                </div>
+
+                <div class="theme-name">
+                  Ocean
+                </div>
+
+                <div class="theme-name-zh">
+                  海洋藍
+                </div>
+
+                <div class="theme-check">
+                  ✓
+                </div>
+
+              </button>
+
+
+              <button
+                class="theme-option"
+                data-theme="lavender"
+                onclick="setTheme('lavender')"
+              >
+
+                <div class="theme-preview">
+
+                  <div
+                    class="theme-preview-a"
+                    style="background:#f5f2f8"
+                  ></div>
+
+                  <div
+                    class="theme-preview-b"
+                    style="background:#786b87"
+                  ></div>
+
+                </div>
+
+                <div class="theme-name">
+                  Lavender
+                </div>
+
+                <div class="theme-name-zh">
+                  薰衣草紫
+                </div>
+
+                <div class="theme-check">
+                  ✓
+                </div>
+
+              </button>
+
+
+              <button
+                class="theme-option"
+                data-theme="light"
+                onclick="setTheme('light')"
+              >
+
+                <div class="theme-preview">
+
+                  <div
+                    class="theme-preview-a"
+                    style="background:#f7f7f7"
+                  ></div>
+
+                  <div
+                    class="theme-preview-b"
+                    style="background:#555"
+                  ></div>
+
+                </div>
+
+                <div class="theme-name">
+                  Light
+                </div>
+
+                <div class="theme-name-zh">
+                  淺色
+                </div>
+
+                <div class="theme-check">
+                  ✓
+                </div>
+
+              </button>
+
+
+              <button
+                class="theme-option"
+                data-theme="dark"
+                onclick="setTheme('dark')"
+              >
+
+                <div class="theme-preview">
+
+                  <div
+                    class="theme-preview-a"
+                    style="background:#171717"
+                  ></div>
+
+                  <div
+                    class="theme-preview-b"
+                    style="background:#c2b7a8"
+                  ></div>
+
+                </div>
+
+                <div class="theme-name">
+                  Dark
+                </div>
+
+                <div class="theme-name-zh">
+                  深色
+                </div>
+
+                <div class="theme-check">
+                  ✓
+                </div>
+
+              </button>
+
+
+              <button
+                class="theme-option"
+                data-theme="system"
+                onclick="setTheme('system')"
+              >
+
+                <div class="theme-preview">
+
+                  <div
+                    class="theme-preview-a"
+                    style="background:linear-gradient(135deg,#fff 50%,#171717 50%)"
+                  ></div>
+
+                  <div
+                    class="theme-preview-b"
+                    style="background:#756a5c"
+                  ></div>
+
+                </div>
+
+                <div class="theme-name">
+                  System
+                </div>
+
+                <div class="theme-name-zh">
+                  跟隨系統
+                </div>
+
+                <div class="theme-check">
+                  ✓
+                </div>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       MOBILE BOTTOM NAVIGATION
+       ===================================================== -->
+
+  <nav class="bottom-nav">
+
+    <div class="bottom-nav-inner">
+
+      <button
+        class="bottom-nav-item active"
+        data-bottom-page="dashboard"
+        onclick="navigateTo('dashboard')"
+      >
+
+        <span class="bottom-nav-icon">
+          🏠
+        </span>
+
+        <span class="bottom-nav-label">
+          主頁
+        </span>
+
+      </button>
+
+
+      <button
+        class="bottom-nav-item"
+        data-bottom-page="calendar"
+        onclick="navigateTo('calendar')"
+      >
+
+        <span class="bottom-nav-icon">
+          📅
+        </span>
+
+        <span class="bottom-nav-label">
+          日曆
+        </span>
+
+      </button>
+
+
+      <button
+        class="bottom-nav-item"
+        data-bottom-page="students"
+        onclick="navigateTo('students')"
+      >
+
+        <span class="bottom-nav-icon">
+          👨‍🎓
+        </span>
+
+        <span class="bottom-nav-label">
+          學生
+        </span>
+
+      </button>
+
+
+      <button
+        class="bottom-nav-item"
+        data-bottom-page="payments"
+        onclick="navigateTo('payments')"
+      >
+
+        <span class="bottom-nav-icon">
+          💰
+        </span>
+
+        <span class="bottom-nav-label">
+          付款
+        </span>
+
+      </button>
+
+
+      <button
+        class="bottom-nav-item"
+        data-bottom-page="profile"
+        onclick="navigateTo('profile')"
+      >
+
+        <span class="bottom-nav-icon">
+          👤
+        </span>
+
+        <span class="bottom-nav-label">
+          帳戶
+        </span>
+
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =====================================================
+       MODALS
+       ===================================================== -->
+
+  <!-- STUDENT MODAL -->
+
+  <div
+    id="studentModal"
+    class="modal-overlay"
+    onclick="closeModalOnOverlay(event,'studentModal')"
+  >
 
     <div class="modal">
 
-        <div class="modal-header">
+      <div class="modal-header">
 
-            <div id="modalTitle"
-                 style="font-size:18px;font-weight:800;">
+        <div class="modal-title">
+          Add Student · 新增學生
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeModal('studentModal')"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <form
+        onsubmit="saveStudent(event)"
+      >
+
+        <div class="modal-body">
+
+          <input
+            id="studentEditId"
+            type="hidden"
+          >
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Student Name / 學生姓名
+              </label>
+
+              <input
+                id="studentName"
+                class="form-input"
+                required
+              >
+
             </div>
 
-            <button class="close"
-                    onclick="closeModal()">
-                ×
-            </button>
+            <div class="form-group">
+
+              <label class="form-label">
+                School / 學校
+              </label>
+
+              <input
+                id="studentSchool"
+                class="form-input"
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Grade / 年級
+              </label>
+
+              <input
+                id="studentGrade"
+                class="form-input"
+                placeholder="e.g. P4 / 中四"
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Subject / 科目
+              </label>
+
+              <input
+                id="studentSubject"
+                class="form-input"
+                placeholder="Chinese / English / Math"
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Hourly Rate / 每小時收費
+              </label>
+
+              <input
+                id="studentRate"
+                class="form-input"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="300"
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Parent / 家長
+              </label>
+
+              <select
+                id="studentParent"
+                class="form-select"
+              >
+                <option value="">
+                  Select / 選擇
+                </option>
+              </select>
+
+            </div>
+
+            <div class="form-group full">
+
+              <label class="form-label">
+                Notes / 備註
+              </label>
+
+              <textarea
+                id="studentNotes"
+                class="form-textarea"
+              ></textarea>
+
+            </div>
+
+          </div>
 
         </div>
 
-        <div id="modalBody"></div>
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeModal('studentModal')"
+          >
+            Cancel · 取消
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save · 儲存
+          </button>
+
+        </div>
+
+      </form>
 
     </div>
+
+  </div>
+
+
+  <!-- PARENT MODAL -->
+
+  <div
+    id="parentModal"
+    class="modal-overlay"
+    onclick="closeModalOnOverlay(event,'parentModal')"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div class="modal-title">
+          Add Parent · 新增家長
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeModal('parentModal')"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <form
+        onsubmit="saveParent(event)"
+      >
+
+        <div class="modal-body">
+
+          <input
+            id="parentEditId"
+            type="hidden"
+          >
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Parent Name / 家長姓名
+              </label>
+
+              <input
+                id="parentName"
+                class="form-input"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Phone / 電話
+              </label>
+
+              <input
+                id="parentPhone"
+                class="form-input"
+                type="tel"
+              >
+
+            </div>
+
+            <div class="form-group full">
+
+              <label class="form-label">
+                Email / 電郵
+              </label>
+
+              <input
+                id="parentEmail"
+                class="form-input"
+                type="email"
+              >
+
+            </div>
+
+            <div class="form-group full">
+
+              <label class="form-label">
+                Notes / 備註
+              </label>
+
+              <textarea
+                id="parentNotes"
+                class="form-textarea"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeModal('parentModal')"
+          >
+            Cancel · 取消
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save · 儲存
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- LESSON MODAL -->
+
+  <div
+    id="lessonModal"
+    class="modal-overlay"
+    onclick="closeModalOnOverlay(event,'lessonModal')"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div class="modal-title">
+          Add Lesson · 新增課堂
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeModal('lessonModal')"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <form
+        onsubmit="saveLesson(event)"
+      >
+
+        <div class="modal-body">
+
+          <input
+            id="lessonEditId"
+            type="hidden"
+          >
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Student / 學生
+              </label>
+
+              <select
+                id="lessonStudent"
+                class="form-select"
+                required
+              >
+                <option value="">
+                  Select / 選擇
+                </option>
+              </select>
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Date / 日期
+              </label>
+
+              <input
+                id="lessonDate"
+                class="form-input"
+                type="date"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Start Time / 開始時間
+              </label>
+
+              <input
+                id="lessonStart"
+                class="form-input"
+                type="time"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                End Time / 完結時間
+              </label>
+
+              <input
+                id="lessonEnd"
+                class="form-input"
+                type="time"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Hourly Rate / 每小時收費
+              </label>
+
+              <input
+                id="lessonRate"
+                class="form-input"
+                type="number"
+                min="0"
+                step="0.01"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Status / 狀態
+              </label>
+
+              <select
+                id="lessonStatus"
+                class="form-select"
+              >
+
+                <option value="scheduled">
+                  Scheduled · 已安排
+                </option>
+
+                <option value="completed">
+                  Completed · 已完成
+                </option>
+
+                <option value="cancelled">
+                  Cancelled · 已取消
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group full">
+
+              <label class="form-label">
+                Notes / 備註
+              </label>
+
+              <textarea
+                id="lessonNotes"
+                class="form-textarea"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeModal('lessonModal')"
+          >
+            Cancel · 取消
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Lesson · 儲存課堂
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- PAYMENT MODAL -->
+
+  <div
+    id="paymentModal"
+    class="modal-overlay"
+    onclick="closeModalOnOverlay(event,'paymentModal')"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div class="modal-title">
+          Record Payment · 記錄付款
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeModal('paymentModal')"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <form
+        onsubmit="savePayment(event)"
+      >
+
+        <div class="modal-body">
+
+          <input
+            id="paymentEditId"
+            type="hidden"
+          >
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Student / 學生
+              </label>
+
+              <select
+                id="paymentStudent"
+                class="form-select"
+                required
+              >
+                <option value="">
+                  Select / 選擇
+                </option>
+              </select>
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Amount / 金額
+              </label>
+
+              <input
+                id="paymentAmount"
+                class="form-input"
+                type="number"
+                min="0"
+                step="0.01"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Date / 日期
+              </label>
+
+              <input
+                id="paymentDate"
+                class="form-input"
+                type="date"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Method / 付款方式
+              </label>
+
+              <select
+                id="paymentMethod"
+                class="form-select"
+              >
+
+                <option value="cash">
+                  Cash · 現金
+                </option>
+
+                <option value="fps">
+                  FPS
+                </option>
+
+                <option value="payme">
+                  PayMe
+                </option>
+
+                <option value="alipay">
+                  AlipayHK
+                </option>
+
+                <option value="wechat">
+                  WeChat Pay
+                </option>
+
+                <option value="bank">
+                  Bank Transfer · 銀行轉帳
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group full">
+
+              <label class="form-label">
+                Notes / 備註
+              </label>
+
+              <textarea
+                id="paymentNotes"
+                class="form-textarea"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="btn"
+            onclick="closeModal('paymentModal')"
+          >
+            Cancel · 取消
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Payment · 儲存付款
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div
+    id="toastContainer"
+    class="toast-container"
+  ></div>
 
 </div>
 
 
+<!-- END PART 1 -->
 <script>
 
-/* =====================================================
-   DATA
-===================================================== */
+<script>
+/* =========================================================
+   SUPABASE CONFIGURATION
+   ========================================================= */
+const SUPABASE_URL = "https://kswyvpxzbjvjksfijfvl.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtzd3l2cHh6Ymp2amtzZmlqZnZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTI0NzAsImV4cCI6MjEwNDI2ODQ3MH0.4O2oKOLecu0JvxzLTPvUATb1mpfW5pUp9fiGeDwI0Qc";
 
-let students =
-    JSON.parse(localStorage.getItem("tm_students") || "[]");
+/* =========================================================
+   TUTOR MANAGER — PART 2 / 2
+   Core Logic, Data Persistence, Navigation, and UI Controllers
+   ========================================================= */
 
-let parents =
-    JSON.parse(localStorage.getItem("tm_parents") || "[]");
-
-let lessons =
-    JSON.parse(localStorage.getItem("tm_lessons") || "[]");
-
-let payments =
-    JSON.parse(localStorage.getItem("tm_payments") || "[]");
-
-let notifications =
-    JSON.parse(localStorage.getItem("tm_notifications") || "[]");
-
-let notes =
-    JSON.parse(localStorage.getItem("tm_notes") || "[]");
-
-let profile =
-    JSON.parse(localStorage.getItem("tm_profile") || "{}");
-
-
-/* =====================================================
-   SAVE
-===================================================== */
-
-function saveData() {
-
-    localStorage.setItem(
-        "tm_students",
-        JSON.stringify(students)
-    );
-
-    localStorage.setItem(
-        "tm_parents",
-        JSON.stringify(parents)
-    );
-
-    localStorage.setItem(
-        "tm_lessons",
-        JSON.stringify(lessons)
-    );
-
-    localStorage.setItem(
-        "tm_payments",
-        JSON.stringify(payments)
-    );
-
-    localStorage.setItem(
-        "tm_notifications",
-        JSON.stringify(notifications)
-    );
-
-    localStorage.setItem(
-        "tm_notes",
-        JSON.stringify(notes)
-    );
-
-    localStorage.setItem(
-        "tm_profile",
-        JSON.stringify(profile)
-    );
-}
-
-
-/* =====================================================
-   ID
-===================================================== */
-
-function generateId(prefix = "id") {
-
-    return prefix + "_" +
-        Date.now().toString(36) +
-        "_" +
-        Math.random()
-            .toString(36)
-            .substring(2, 8);
-
-}
-
-
-/* =====================================================
-   DATE HELPERS
-   IMPORTANT:
-   Do NOT use new Date("YYYY-MM-DD")
-===================================================== */
-
-function localDate(year, month, day) {
-
-    return new Date(
-        year,
-        month,
-        day,
-        12,
-        0,
-        0,
-        0
-    );
-
-}
-
-
-function dateKey(date) {
-
-    const y = date.getFullYear();
-
-    const m = String(
-        date.getMonth() + 1
-    ).padStart(2, "0");
-
-    const d = String(
-        date.getDate()
-    ).padStart(2, "0");
-
-    return `${y}-${m}-${d}`;
-
-}
-
-
-function parseLocalDate(value) {
-
-    if (!value) return null;
-
-    const parts = value.split("-").map(Number);
-
-    return localDate(
-        parts[0],
-        parts[1] - 1,
-        parts[2]
-    );
-
-}
-
-
-function formatDate(value) {
-
-    const d =
-        value instanceof Date
-            ? value
-            : parseLocalDate(value);
-
-    if (!d) return "";
-
-    return d.toLocaleDateString(
-        "zh-HK",
-        {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit"
-        }
-    );
-
-}
-
-
-function formatMoney(value) {
-
-    return "$" +
-        Number(value || 0)
-            .toLocaleString(
-                "en-HK",
-                {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2
-                }
-            );
-
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-const pageNames = {
-
-    dashboard: ["Dashboard", "總覽"],
-    calendar: ["Calendar", "日曆"],
-    students: ["Students", "學生"],
-    parents: ["Parents", "家長"],
-    payments: ["Payments", "付款"],
-    notifications: ["Notifications", "通知"],
-    notes: ["Private Notes", "私人備註"],
-    profile: ["Profile", "個人資料"]
-
+// ---------------------------------------------------------
+// STATE MANAGEMENT & STORAGE KEYS
+// ---------------------------------------------------------
+const STORAGE_KEYS = {
+  USER: 'tm_user',
+  THEME: 'tm_theme',
+  STUDENTS: 'tm_students',
+  PARENTS: 'tm_parents',
+  LESSONS: 'tm_lessons',
+  PAYMENTS: 'tm_payments',
+  NOTIFICATIONS: 'tm_notifications',
+  NOTES: 'tm_private_notes'
 };
 
+let currentState = {
+  currentUser: null,
+  activePage: 'dashboard',
+  currentCalendarDate: new Date(),
+  theme: 'warm',
+  students: [],
+  parents: [],
+  lessons: [],
+  payments: [],
+  notifications: [],
+  notes: ''
+};
 
-document
-    .querySelectorAll("[data-page]")
-    .forEach(button => {
+// ---------------------------------------------------------
+// INITIALIZATION
+// ---------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  initStorage();
+  loadState();
+  applyTheme(currentState.theme);
+  
+  if (currentState.currentUser) {
+    showApp();
+  } else {
+    showAuth();
+  }
+});
 
-        button.addEventListener(
-            "click",
-            () => {
-
-                const page =
-                    button.dataset.page;
-
-                showPage(page);
-
-            }
-        );
-
-    });
-
-
-function showPage(page) {
-
-    document
-        .querySelectorAll(".page")
-        .forEach(el => {
-            el.classList.add("hidden");
-        });
-
-    const target =
-        document.getElementById(
-            "page-" + page
-        );
-
-    if (target) {
-        target.classList.remove("hidden");
-    }
-
-    document
-        .querySelectorAll(".nav-item")
-        .forEach(el => {
-            el.classList.toggle(
-                "active",
-                el.dataset.page === page
-            );
-        });
-
-    document
-        .querySelectorAll(".bottom-nav button")
-        .forEach(el => {
-            el.classList.toggle(
-                "active",
-                el.dataset.page === page
-            );
-        });
-
-    const name =
-        pageNames[page] ||
-        pageNames.dashboard;
-
-    document.getElementById(
-        "pageTitle"
-    ).innerHTML =
-        `${name[0]}<small>${name[1]}</small>`;
-
-    renderAll();
-
+function initStorage() {
+  if (!localStorage.getItem(STORAGE_KEYS.STUDENTS)) {
+    localStorage.setItem(STORAGE_KEYS.STUDENTS, JSON.stringify([
+      { id: 's1', name: 'Alex Chan', school: 'DBS', grade: 'S3', subject: 'Mathematics', rate: 350, parentId: 'p1', notes: 'Focus on Geometry and Algebra.' },
+      { id: 's2', name: 'Emily Lee', school: 'MSS', grade: 'P6', subject: 'English', rate: 300, parentId: 'p2', notes: 'Preparing for Secondary School Allocation.' }
+    ]));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.PARENTS)) {
+    localStorage.setItem(STORAGE_KEYS.PARENTS, JSON.stringify([
+      { id: 'p1', name: 'Mrs. Chan', phone: '91234567', email: 'chan@example.com', notes: 'Prefers weekend classes.' },
+      { id: 'p2', name: 'Mr. Lee', phone: '98765432', email: 'lee@example.com', notes: 'Settles payments via FPS.' }
+    ]));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.LESSONS)) {
+    const today = new Date().toISOString().split('T')[0];
+    localStorage.setItem(STORAGE_KEYS.LESSONS, JSON.stringify([
+      { id: 'l1', studentId: 's1', date: today, start: '16:00', end: '17:30', rate: 350, status: 'scheduled', notes: 'Chapter 4 review.' },
+      { id: 'l2', studentId: 's2', date: today, start: '18:00', end: '19:00', rate: 300, status: 'scheduled', notes: 'Grammar worksheet.' }
+    ]));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.PAYMENTS)) {
+    localStorage.setItem(STORAGE_KEYS.PAYMENTS, JSON.stringify([
+      { id: 'pay1', studentId: 's1', amount: 1400, date: '2026-09-01', method: 'fps', notes: '4 sessions advance payment' }
+    ]));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS)) {
+    localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify([
+      { id: 'n1', title: 'Welcome to Tutor Manager', text: 'Manage all your private tutoring schedules and payments seamlessly.', time: 'Just now', read: false },
+      { id: 'n2', title: 'Payment Reminder', text: 'Alex Chan has 1 unpaid session recorded.', time: '1 hour ago', read: false }
+    ]));
+  }
+  if (!localStorage.getItem(STORAGE_KEYS.NOTES)) {
+    localStorage.setItem(STORAGE_KEYS.NOTES, '• Remember to prepare mock exams for Alex (Oct 15).\n• Emily needs extra reading practice.');
+  }
 }
 
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-function openModal(title, html) {
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent = title;
-
-    document.getElementById(
-        "modalBody"
-    ).innerHTML = html;
-
-    document
-        .getElementById("modalOverlay")
-        .classList.remove("hidden");
-
+function loadState() {
+  currentState.currentUser = JSON.parse(localStorage.getItem(STORAGE_KEYS.USER) || 'null');
+  currentState.theme = localStorage.getItem(STORAGE_KEYS.THEME) || 'warm';
+  currentState.students = JSON.parse(localStorage.getItem(STORAGE_KEYS.STUDENTS) || '[]');
+  currentState.parents = JSON.parse(localStorage.getItem(STORAGE_KEYS.PARENTS) || '[]');
+  currentState.lessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.LESSONS) || '[]');
+  currentState.payments = JSON.parse(localStorage.getItem(STORAGE_KEYS.PAYMENTS) || '[]');
+  currentState.notifications = JSON.parse(localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS) || '[]');
+  currentState.notes = localStorage.getItem(STORAGE_KEYS.NOTES) || '';
 }
 
-
-function closeModal() {
-
-    document
-        .getElementById("modalOverlay")
-        .classList.add("hidden");
-
+function saveData(key, value) {
+  localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
 }
 
-
-document
-    .getElementById("modalOverlay")
-    .addEventListener(
-        "click",
-        function(e) {
-
-            if (e.target === this) {
-                closeModal();
-            }
-
-        }
-    );
-
-
-/* =====================================================
-   STUDENTS
-===================================================== */
-
-function openStudentModal(id = null) {
-
-    const student =
-        students.find(s => s.id === id);
-
-    const parentOptions =
-        parents
-            .map(p =>
-                `<option value="${p.id}"
-                    ${student?.parentId === p.id ? "selected" : ""}>
-                    ${escapeHtml(p.name)}
-                </option>`
-            )
-            .join("");
-
-    openModal(
-        id
-            ? "Edit Student / 編輯學生"
-            : "Add Student / 新增學生",
-
-        `
-        <div class="form-grid">
-
-            <div class="form-group">
-                <label>Name / 姓名</label>
-                <input id="studentName"
-                    value="${escapeAttr(student?.name || "")}">
-            </div>
-
-            <div class="form-group">
-                <label>Phone / 電話</label>
-                <input id="studentPhone"
-                    value="${escapeAttr(student?.phone || "")}">
-            </div>
-
-            <div class="form-group">
-                <label>Parent / 家長</label>
-                <select id="studentParent">
-                    <option value="">No Parent / 沒有家長</option>
-                    ${parentOptions}
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Lesson Fee / 堂費</label>
-                <input id="studentFee"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value="${student?.fee ?? ""}">
-            </div>
-
-        </div>
-
-        <div class="actions">
-
-            <button class="btn btn-primary"
-                onclick="saveStudent('${id || ""}')">
-                Save / 儲存
-            </button>
-
-            ${
-                id
-                ? `
-                <button class="btn btn-danger"
-                    onclick="deleteStudent('${id}')">
-                    Delete / 刪除
-                </button>
-                `
-                : ""
-            }
-
-        </div>
-        `
-    );
-
+// ---------------------------------------------------------
+// AUTHENTICATION
+// ---------------------------------------------------------
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+  
+  document.querySelector(`[data-auth-tab="${tab}"]`).classList.add('active');
+  document.getElementById(`${tab}Form`).classList.add('active');
 }
 
-
-function saveStudent(id) {
-
-    const data = {
-
-        name:
-            document
-                .getElementById("studentName")
-                .value.trim(),
-
-        phone:
-            document
-                .getElementById("studentPhone")
-                .value.trim(),
-
-        parentId:
-            document
-                .getElementById("studentParent")
-                .value || null,
-
-        fee:
-            Number(
-                document
-                    .getElementById("studentFee")
-                    .value || 0
-            )
-
-    };
-
-
-    if (!data.name) {
-
-        alert(
-            "Please enter student name.\n請輸入學生姓名。"
-        );
-
-        return;
-    }
-
-
-    if (id) {
-
-        const index =
-            students.findIndex(
-                s => s.id === id
-            );
-
-        if (index !== -1) {
-
-            students[index] = {
-                ...students[index],
-                ...data
-            };
-
-        }
-
-    } else {
-
-        students.push({
-            id: generateId("stu"),
-            ...data,
-            createdAt: new Date().toISOString()
-        });
-
-    }
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Student saved / 學生已儲存");
-
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const user = { name: email.split('@')[0] || 'Tutor', email: email };
+  
+  currentState.currentUser = user;
+  saveData(STORAGE_KEYS.USER, user);
+  showToast('Logged in successfully!');
+  showApp();
 }
 
-
-function deleteStudent(id) {
-
-    const student =
-        students.find(s => s.id === id);
-
-    if (!student) return;
-
-    if (
-        !confirm(
-            `Delete "${student.name}"?\n\n` +
-            `刪除學生後，相關課堂及付款資料亦會一併刪除。\n\n` +
-            `確定刪除？`
-        )
-    ) return;
-
-
-    students =
-        students.filter(
-            s => s.id !== id
-        );
-
-    lessons =
-        lessons.filter(
-            l => l.studentId !== id
-        );
-
-    payments =
-        payments.filter(
-            p => p.studentId !== id
-        );
-
-    notes =
-        notes.filter(
-            n => n.studentId !== id
-        );
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Student deleted / 學生已刪除");
-
+function handleSignup(e) {
+  e.preventDefault();
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const user = { name, email };
+  
+  currentState.currentUser = user;
+  saveData(STORAGE_KEYS.USER, user);
+  showToast('Account created successfully!');
+  showApp();
 }
 
-
-function renderStudents() {
-
-    const tbody =
-        document.getElementById(
-            "studentsTable"
-        );
-
-    if (!students.length) {
-
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="5">
-                    <div class="empty">
-                        <div class="empty-icon">👨‍🎓</div>
-                        No students / 暫時沒有學生
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    tbody.innerHTML =
-        students.map(s => {
-
-            const parent =
-                parents.find(
-                    p => p.id === s.parentId
-                );
-
-            return `
-                <tr>
-
-                    <td>
-                        <strong>${escapeHtml(s.name)}</strong>
-                    </td>
-
-                    <td>
-                        ${escapeHtml(s.phone || "-")}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(parent?.name || "-")}
-                    </td>
-
-                    <td>
-                        ${formatMoney(s.fee)}
-                    </td>
-
-                    <td>
-
-                        <div class="actions">
-
-                            <button
-                                class="btn btn-secondary btn-small"
-                                onclick="openStudentModal('${s.id}')">
-                                Edit / 編輯
-                            </button>
-
-                            <button
-                                class="btn btn-danger btn-small"
-                                onclick="deleteStudent('${s.id}')">
-                                Delete / 刪除
-                            </button>
-
-                        </div>
-
-                    </td>
-
-                </tr>
-            `;
-
-        }).join("");
-
+function handleLogout() {
+  currentState.currentUser = null;
+  localStorage.removeItem(STORAGE_KEYS.USER);
+  showAuth();
+  showToast('Logged out');
 }
 
-
-/* =====================================================
-   PARENTS
-===================================================== */
-
-function openParentModal(id = null) {
-
-    const parent =
-        parents.find(p => p.id === id);
-
-    openModal(
-
-        id
-            ? "Edit Parent / 編輯家長"
-            : "Add Parent / 新增家長",
-
-        `
-        <div class="form-grid">
-
-            <div class="form-group">
-                <label>Name / 姓名</label>
-                <input id="parentName"
-                    value="${escapeAttr(parent?.name || "")}">
-            </div>
-
-            <div class="form-group">
-                <label>Phone / 電話</label>
-                <input id="parentPhone"
-                    value="${escapeAttr(parent?.phone || "")}">
-            </div>
-
-            <div class="form-group full">
-                <label>Email / 電郵</label>
-                <input id="parentEmail"
-                    type="email"
-                    value="${escapeAttr(parent?.email || "")}">
-            </div>
-
-        </div>
-
-        <div class="actions">
-
-            <button class="btn btn-primary"
-                onclick="saveParent('${id || ""}')">
-                Save / 儲存
-            </button>
-
-            ${
-                id
-                ? `
-                <button class="btn btn-danger"
-                    onclick="deleteParent('${id}')">
-                    Delete / 刪除
-                </button>
-                `
-                : ""
-            }
-
-        </div>
-        `
-    );
-
+function showAuth() {
+  document.getElementById('authScreen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
 }
 
-
-function saveParent(id) {
-
-    const data = {
-
-        name:
-            document
-                .getElementById("parentName")
-                .value.trim(),
-
-        phone:
-            document
-                .getElementById("parentPhone")
-                .value.trim(),
-
-        email:
-            document
-                .getElementById("parentEmail")
-                .value.trim()
-
-    };
-
-
-    if (!data.name) {
-
-        alert(
-            "Please enter parent name.\n請輸入家長姓名。"
-        );
-
-        return;
-    }
-
-
-    if (id) {
-
-        const index =
-            parents.findIndex(
-                p => p.id === id
-            );
-
-        if (index !== -1) {
-
-            parents[index] = {
-                ...parents[index],
-                ...data
-            };
-
-        }
-
-    } else {
-
-        parents.push({
-            id: generateId("par"),
-            ...data
-        });
-
-    }
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Parent saved / 家長已儲存");
-
+function showApp() {
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  
+  updateUserUI();
+  populateDropdowns();
+  renderAllViews();
 }
 
-
-function deleteParent(id) {
-
-    const parent =
-        parents.find(p => p.id === id);
-
-    if (!parent) return;
-
-    if (
-        !confirm(
-            `Delete "${parent.name}"?\n\n` +
-            `刪除家長後，相關資料會失去家長連結。\n\n` +
-            `確定刪除？`
-        )
-    ) return;
-
-
-    parents =
-        parents.filter(
-            p => p.id !== id
-        );
-
-
-    students.forEach(s => {
-
-        if (s.parentId === id) {
-            s.parentId = null;
-        }
-
-    });
-
-
-    lessons.forEach(l => {
-
-        if (l.parentId === id) {
-            l.parentId = null;
-        }
-
-    });
-
-
-    payments.forEach(p => {
-
-        if (p.parentId === id) {
-            p.parentId = null;
-        }
-
-    });
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Parent deleted / 家長已刪除");
-
+function updateUserUI() {
+  if (!currentState.currentUser) return;
+  const name = currentState.currentUser.name || 'Tutor';
+  const initial = name.charAt(0).toUpperCase();
+  
+  document.getElementById('sidebarUserName').textContent = name;
+  document.getElementById('sidebarAvatar').textContent = initial;
+  document.getElementById('profileAvatar').textContent = initial;
+  document.getElementById('profileNameDisplay').textContent = name;
+  document.getElementById('profileEmailDisplay').textContent = currentState.currentUser.email || '-';
+  document.getElementById('profileName').value = name;
 }
-
-
-function renderParents() {
-
-    const tbody =
-        document.getElementById(
-            "parentsTable"
-        );
-
-    if (!parents.length) {
-
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="4">
-                    <div class="empty">
-                        <div class="empty-icon">👨‍👩‍👧</div>
-                        No parents / 暫時沒有家長
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    tbody.innerHTML =
-        parents.map(p => `
-
-            <tr>
-
-                <td>
-                    <strong>
-                        ${escapeHtml(p.name)}
-                    </strong>
-                </td>
-
-                <td>
-                    ${escapeHtml(p.phone || "-")}
-                </td>
-
-                <td>
-                    ${escapeHtml(p.email || "-")}
-                </td>
-
-                <td>
-
-                    <div class="actions">
-
-                        <button
-                            class="btn btn-secondary btn-small"
-                            onclick="openParentModal('${p.id}')">
-                            Edit / 編輯
-                        </button>
-
-                        <button
-                            class="btn btn-danger btn-small"
-                            onclick="deleteParent('${p.id}')">
-                            Delete / 刪除
-                        </button>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `).join("");
-
-}
-
-
-/* =====================================================
-   LESSONS
-===================================================== */
-
-let calendarDate = new Date();
-
-function openLessonModal(id = null, selectedDate = null) {
-
-    const lesson =
-        lessons.find(l => l.id === id);
-
-    const defaultDate =
-        lesson?.date ||
-        selectedDate ||
-        dateKey(calendarDate);
-
-    const studentOptions =
-        students.map(s => `
-
-            <option value="${s.id}"
-                ${lesson?.studentId === s.id ? "selected" : ""}>
-
-                ${escapeHtml(s.name)}
-                ${s.fee ? " · " + formatMoney(s.fee) : ""}
-
-            </option>
-
-        `).join("");
-
-
-    openModal(
-
-        id
-            ? "Edit Lesson / 編輯課堂"
-            : "Add Lesson / 新增課堂",
-
-        `
-        <div class="form-grid">
-
-            <div class="form-group">
-
-                <label>
-                    Date / 日期
-                </label>
-
-                <input
-                    id="lessonDate"
-                    type="date"
-                    value="${defaultDate}">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Time / 時間
-                </label>
-
-                <input
-                    id="lessonTime"
-                    type="time"
-                    value="${lesson?.time || "18:00"}">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Student / 學生
-                </label>
-
-                <select id="lessonStudent"
-                        onchange="autoFillLessonFee()">
-
-                    <option value="">
-                        Select / 選擇學生
-                    </option>
-
-                    ${studentOptions}
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Duration / 時長（分鐘）
-                </label>
-
-                <input
-                    id="lessonDuration"
-                    type="number"
-                    min="1"
-                    value="${lesson?.duration || 60}">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Lesson Fee / 堂費
-                </label>
-
-                <input
-                    id="lessonFee"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value="${lesson?.fee ?? ""}">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Status / 狀態
-                </label>
-
-                <select id="lessonStatus">
-
-                    <option value="scheduled"
-                        ${lesson?.status === "scheduled" ? "selected" : ""}>
-                        Scheduled / 已安排
-                    </option>
-
-                    <option value="completed"
-                        ${lesson?.status === "completed" ? "selected" : ""}>
-                        Completed / 已完成
-                    </option>
-
-                    <option value="cancelled"
-                        ${lesson?.status === "cancelled" ? "selected" : ""}>
-                        Cancelled / 已取消
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group full">
-
-                <label>
-                    Notes / 備註
-                </label>
-
-                <textarea
-                    id="lessonNotes">${escapeHtml(
-                        lesson?.notes || ""
-                    )}</textarea>
-
-            </div>
-
-        </div>
-
-
-        <div class="actions">
-
-            <button class="btn btn-primary"
-                onclick="saveLesson('${id || ""}')">
-                Save / 儲存
-            </button>
-
-            ${
-                id
-                ? `
-                <button class="btn btn-danger"
-                    onclick="deleteLesson('${id}')">
-                    Delete / 刪除
-                </button>
-                `
-                : ""
-            }
-
-        </div>
-        `
-    );
-
-    autoFillLessonFee();
-
-}
-
-
-function autoFillLessonFee() {
-
-    const studentId =
-        document.getElementById(
-            "lessonStudent"
-        )?.value;
-
-    const student =
-        students.find(
-            s => s.id === studentId
-        );
-
-    const feeInput =
-        document.getElementById(
-            "lessonFee"
-        );
-
-    if (
-        student &&
-        feeInput &&
-        !feeInput.value
-    ) {
-
-        feeInput.value =
-            student.fee || "";
-
-    }
-
-}
-
-
-function saveLesson(id) {
-
-    const studentId =
-        document.getElementById(
-            "lessonStudent"
-        ).value;
-
-    const student =
-        students.find(
-            s => s.id === studentId
-        );
-
-
-    if (!studentId || !student) {
-
-        alert(
-            "Please select a student.\n請選擇學生。"
-        );
-
-        return;
-    }
-
-
-    const data = {
-
-        date:
-            document.getElementById(
-                "lessonDate"
-            ).value,
-
-        time:
-            document.getElementById(
-                "lessonTime"
-            ).value,
-
-        studentId,
-
-        parentId:
-            student.parentId || null,
-
-        duration:
-            Number(
-                document.getElementById(
-                    "lessonDuration"
-                ).value || 60
-            ),
-
-        fee:
-            Number(
-                document.getElementById(
-                    "lessonFee"
-                ).value ||
-                student.fee ||
-                0
-            ),
-
-        status:
-            document.getElementById(
-                "lessonStatus"
-            ).value,
-
-        notes:
-            document.getElementById(
-                "lessonNotes"
-            ).value.trim()
-
-    };
-
-
-    if (!data.date) {
-
-        alert(
-            "Please select a date.\n請選擇日期。"
-        );
-
-        return;
-    }
-
-
-    if (id) {
-
-        const index =
-            lessons.findIndex(
-                l => l.id === id
-            );
-
-        if (index !== -1) {
-
-            lessons[index] = {
-                ...lessons[index],
-                ...data
-            };
-
-        }
-
-    } else {
-
-        const lessonId =
-            generateId("lesson");
-
-        lessons.push({
-            id: lessonId,
-            ...data,
-            createdAt:
-                new Date().toISOString()
-        });
-
-
-        /*
-         * Automatic payment record
-         */
-        payments.push({
-
-            id:
-                generateId("pay"),
-
-            lessonId,
-
-            studentId,
-
-            parentId:
-                student.parentId || null,
-
-            date:
-                data.date,
-
-            amount:
-                data.fee,
-
-            status:
-                "unpaid",
-
-            paidAt:
-                null
-
-        });
-
-    }
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Lesson saved / 課堂已儲存");
-
-}
-
-
-function deleteLesson(id) {
-
-    const lesson =
-        lessons.find(
-            l => l.id === id
-        );
-
-    if (!lesson) return;
-
-
-    if (
-        !confirm(
-            "Delete this lesson?\n刪除呢一堂課？"
-        )
-    ) return;
-
-
-    lessons =
-        lessons.filter(
-            l => l.id !== id
-        );
-
-
-    /*
-     * Also remove automatically-created
-     * payment records belonging to lesson.
-     */
-    payments =
-        payments.filter(
-            p => p.lessonId !== id
-        );
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Lesson deleted / 課堂已刪除");
-
-}
-
-
-/* =====================================================
-   CALENDAR
-===================================================== */
-
-function renderCalendar() {
-
-    const year =
-        calendarDate.getFullYear();
-
-    const month =
-        calendarDate.getMonth();
-
-
-    const monthName =
-        calendarDate.toLocaleDateString(
-            "zh-HK",
-            {
-                year: "numeric",
-                month: "long"
-            }
-        );
-
-
-    document.getElementById(
-        "calendarTitle"
-    ).textContent =
-        monthName;
-
-
-    const firstDay =
-        localDate(
-            year,
-            month,
-            1
-        );
-
-
-    const lastDay =
-        localDate(
-            year,
-            month + 1,
-            0
-        );
-
-
-    const startDay =
-        firstDay.getDay();
-
-
-    const daysInMonth =
-        lastDay.getDate();
-
-
-    const previousMonthLast =
-        localDate(
-            year,
-            month,
-            0
-        ).getDate();
-
-
-    const todayKey =
-        dateKey(new Date());
-
-
-    let html = "";
-
-
-    /*
-     * Previous month
-     */
-    for (
-        let i = startDay - 1;
-        i >= 0;
-        i--
-    ) {
-
-        const day =
-            previousMonthLast - i;
-
-        const date =
-            localDate(
-                year,
-                month - 1,
-                day
-            );
-
-        html += renderCalendarDay(
-            date,
-            true
-        );
-
-    }
-
-
-    /*
-     * Current month
-     */
-    for (
-        let day = 1;
-        day <= daysInMonth;
-        day++
-    ) {
-
-        const date =
-            localDate(
-                year,
-                month,
-                day
-            );
-
-        html += renderCalendarDay(
-            date,
-            false
-        );
-
-    }
-
-
-    /*
-     * Next month
-     */
-    const totalCells =
-        startDay + daysInMonth;
-
-    const remaining =
-        totalCells % 7 === 0
-            ? 0
-            : 7 - (totalCells % 7);
-
-
-    for (
-        let day = 1;
-        day <= remaining;
-        day++
-    ) {
-
-        const date =
-            localDate(
-                year,
-                month + 1,
-                day
-            );
-
-        html += renderCalendarDay(
-            date,
-            true
-        );
-
-    }
-
-
-    document.getElementById(
-        "calendarGrid"
-    ).innerHTML = html;
-
-}
-
-
-function renderCalendarDay(
-    date,
-    otherMonth
-) {
-
-    const key =
-        dateKey(date);
-
-
-    const isToday =
-        key === dateKey(new Date());
-
-
-    const dayLessons =
-        lessons
-            .filter(
-                l => l.date === key
-            )
-            .sort(
-                (a,b) =>
-                    (a.time || "")
-                    .localeCompare(
-                        b.time || ""
-                    )
-            );
-
-
-    return `
-
-        <div class="day
-            ${otherMonth ? "other-month" : ""}
-            ${isToday ? "today" : ""}"
-            onclick="openLessonModal(null, '${key}')">
-
-            <div class="day-number">
-                ${date.getDate()}
-            </div>
-
-            ${dayLessons.map(
-                lesson => {
-
-                    const student =
-                        students.find(
-                            s =>
-                                s.id ===
-                                lesson.studentId
-                        );
-
-                    return `
-
-                        <div
-                            class="lesson"
-                            onclick="event.stopPropagation();
-                                openLessonModal('${lesson.id}')">
-
-                            <div class="lesson-time">
-                                ${escapeHtml(
-                                    lesson.time || ""
-                                )}
-                            </div>
-
-                            <div class="lesson-name">
-                                ${escapeHtml(
-                                    student?.name ||
-                                    "Student"
-                                )}
-                            </div>
-
-                            <div>
-                                ${formatMoney(
-                                    lesson.fee
-                                )}
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }
-            ).join("")}
-
-        </div>
-
-    `;
-
-}
-
-
-function changeMonth(amount) {
-
-    calendarDate =
-        localDate(
-            calendarDate.getFullYear(),
-            calendarDate.getMonth() + amount,
-            1
-        );
-
-    renderCalendar();
-
-}
-
-
-function goToday() {
-
-    const now =
-        new Date();
-
-    calendarDate =
-        localDate(
-            now.getFullYear(),
-            now.getMonth(),
-            1
-        );
-
-    renderCalendar();
-
-}
-
-
-/* =====================================================
-   PAYMENTS
-===================================================== */
-
-function openPaymentModal(id = null) {
-
-    const payment =
-        payments.find(
-            p => p.id === id
-        );
-
-
-    const studentOptions =
-        students.map(
-            s => `
-
-                <option
-                    value="${s.id}"
-                    ${payment?.studentId === s.id
-                        ? "selected"
-                        : ""}>
-
-                    ${escapeHtml(s.name)}
-
-                </option>
-
-            `
-        ).join("");
-
-
-    openModal(
-
-        id
-            ? "Edit Payment / 編輯付款"
-            : "Add Payment / 新增付款",
-
-        `
-
-        <div class="form-grid">
-
-            <div class="form-group">
-
-                <label>
-                    Date / 日期
-                </label>
-
-                <input
-                    id="paymentDate"
-                    type="date"
-                    value="${
-                        payment?.date ||
-                        dateKey(new Date())
-                    }">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Student / 學生
-                </label>
-
-                <select id="paymentStudent">
-
-                    ${studentOptions}
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Amount / 金額
-                </label>
-
-                <input
-                    id="paymentAmount"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value="${payment?.amount ?? ""}">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Status / 狀態
-                </label>
-
-                <select id="paymentStatus">
-
-                    <option value="unpaid"
-                        ${payment?.status === "unpaid"
-                            ? "selected"
-                            : ""}>
-                        Unpaid / 未付款
-                    </option>
-
-                    <option value="paid"
-                        ${payment?.status === "paid"
-                            ? "selected"
-                            : ""}>
-                        Paid / 已付款
-                    </option>
-
-                    <option value="partial"
-                        ${payment?.status === "partial"
-                            ? "selected"
-                            : ""}>
-                        Partial / 部分付款
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="btn btn-primary"
-                onclick="savePayment('${id || ""}')">
-                Save / 儲存
-            </button>
-
-            ${
-                id
-                ? `
-                <button
-                    class="btn btn-danger"
-                    onclick="deletePayment('${id}')">
-                    Delete / 刪除
-                </button>
-                `
-                : ""
-            }
-
-        </div>
-
-        `
-    );
-
-}
-
-
-function savePayment(id) {
-
-    const studentId =
-        document.getElementById(
-            "paymentStudent"
-        ).value;
-
-
-    const student =
-        students.find(
-            s => s.id === studentId
-        );
-
-
-    const data = {
-
-        date:
-            document.getElementById(
-                "paymentDate"
-            ).value,
-
-        studentId,
-
-        parentId:
-            student?.parentId || null,
-
-        amount:
-            Number(
-                document.getElementById(
-                    "paymentAmount"
-                ).value || 0
-            ),
-
-        status:
-            document.getElementById(
-                "paymentStatus"
-            ).value,
-
-        paidAt:
-            document.getElementById(
-                "paymentStatus"
-            ).value === "paid"
-                ? new Date().toISOString()
-                : null
-
-    };
-
-
-    if (id) {
-
-        const index =
-            payments.findIndex(
-                p => p.id === id
-            );
-
-        if (index !== -1) {
-
-            payments[index] = {
-                ...payments[index],
-                ...data
-            };
-
-        }
-
-    } else {
-
-        payments.push({
-            id: generateId("pay"),
-            ...data
-        });
-
-    }
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Payment saved / 付款已儲存");
-
-}
-
-
-function deletePayment(id) {
-
-    if (
-        !confirm(
-            "Delete this payment?\n刪除呢筆付款？"
-        )
-    ) return;
-
-
-    payments =
-        payments.filter(
-            p => p.id !== id
-        );
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast("Payment deleted / 付款已刪除");
-
-}
-
-
-function renderPayments() {
-
-    const tbody =
-        document.getElementById(
-            "paymentsTable"
-        );
-
-
-    if (!payments.length) {
-
-        tbody.innerHTML = `
-
-            <tr>
-                <td colspan="6">
-
-                    <div class="empty">
-
-                        <div class="empty-icon">
-                            💰
-                        </div>
-
-                        No payments / 暫時沒有付款
-
-                    </div>
-
-                </td>
-            </tr>
-
-        `;
-
-        return;
-    }
-
-
-    tbody.innerHTML =
-        payments
-            .sort(
-                (a,b) =>
-                    (b.date || "")
-                    .localeCompare(
-                        a.date || ""
-                    )
-            )
-            .map(p => {
-
-                const student =
-                    students.find(
-                        s =>
-                            s.id ===
-                            p.studentId
-                    );
-
-
-                let badge =
-                    "badge-warning";
-
-                let status =
-                    "Unpaid / 未付款";
-
-
-                if (p.status === "paid") {
-
-                    badge =
-                        "badge-success";
-
-                    status =
-                        "Paid / 已付款";
-
-                } else if (
-                    p.status === "partial"
-                ) {
-
-                    badge =
-                        "badge-info";
-
-                    status =
-                        "Partial / 部分付款";
-
-                }
-
-
-                return `
-
-                    <tr>
-
-                        <td>
-                            ${formatDate(p.date)}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                student?.name ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${
-                                p.lessonId
-                                    ? "Lesson / 課堂"
-                                    : "-"
-                            }
-                        </td>
-
-                        <td>
-                            <strong>
-                                ${formatMoney(p.amount)}
-                            </strong>
-                        </td>
-
-                        <td>
-                            <span class="badge ${badge}">
-                                ${status}
-                            </span>
-                        </td>
-
-                        <td>
-
-                            <div class="actions">
-
-                                <button
-                                    class="btn btn-secondary btn-small"
-                                    onclick="openPaymentModal('${p.id}')">
-                                    Edit / 編輯
-                                </button>
-
-                                <button
-                                    class="btn btn-danger btn-small"
-                                    onclick="deletePayment('${p.id}')">
-                                    Delete / 刪除
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-            }).join("");
-
-}
-
-
-/* =====================================================
-   NOTES
-===================================================== */
-
-function openNoteModal(id = null) {
-
-    const note =
-        notes.find(
-            n => n.id === id
-        );
-
-
-    const studentOptions =
-        students.map(
-            s => `
-
-                <option
-                    value="${s.id}"
-                    ${note?.studentId === s.id
-                        ? "selected"
-                        : ""}>
-
-                    ${escapeHtml(s.name)}
-
-                </option>
-
-            `
-        ).join("");
-
-
-    openModal(
-
-        id
-            ? "Edit Private Note / 編輯私人備註"
-            : "Add Private Note / 新增私人備註",
-
-        `
-
-        <div class="form-group">
-
-            <label>
-                Student / 學生
-            </label>
-
-            <select id="noteStudent">
-
-                <option value="">
-                    General / 一般
-                </option>
-
-                ${studentOptions}
-
-            </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>
-                Note / 備註
-            </label>
-
-            <textarea
-                id="noteText"
-                placeholder="Tutor-only notes / 只限導師查看">
-                ${escapeHtml(note?.text || "")}
-            </textarea>
-
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="btn btn-primary"
-                onclick="saveNote('${id || ""}')">
-                Save / 儲存
-            </button>
-
-            ${
-                id
-                ? `
-                <button
-                    class="btn btn-danger"
-                    onclick="deleteNote('${id}')">
-                    Delete / 刪除
-                </button>
-                `
-                : ""
-            }
-
-        </div>
-
-        `
-    );
-
-}
-
-
-function saveNote(id) {
-
-    const data = {
-
-        studentId:
-            document.getElementById(
-                "noteStudent"
-            ).value || null,
-
-        text:
-            document.getElementById(
-                "noteText"
-            ).value.trim()
-
-    };
-
-
-    if (!data.text) {
-
-        alert(
-            "Please enter a note.\n請輸入備註。"
-        );
-
-        return;
-    }
-
-
-    if (id) {
-
-        const index =
-            notes.findIndex(
-                n => n.id === id
-            );
-
-        if (index !== -1) {
-
-            notes[index] = {
-                ...notes[index],
-                ...data,
-                updatedAt:
-                    new Date().toISOString()
-            };
-
-        }
-
-    } else {
-
-        notes.push({
-
-            id:
-                generateId("note"),
-
-            ...data,
-
-            createdAt:
-                new Date().toISOString()
-
-        });
-
-    }
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast(
-        "Private note saved / 私人備註已儲存"
-    );
-
-}
-
-
-function deleteNote(id) {
-
-    if (
-        !confirm(
-            "Delete this private note?\n刪除呢個私人備註？"
-        )
-    ) return;
-
-
-    notes =
-        notes.filter(
-            n => n.id !== id
-        );
-
-
-    saveData();
-    closeModal();
-    renderAll();
-
-    toast(
-        "Private note deleted / 私人備註已刪除"
-    );
-
-}
-
-
-function renderNotes() {
-
-    const container =
-        document.getElementById(
-            "notesList"
-        );
-
-
-    if (!notes.length) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🔒
-                </div>
-
-                No private notes /
-                暫時沒有私人備註
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        notes
-            .slice()
-            .reverse()
-            .map(n => {
-
-                const student =
-                    students.find(
-                        s =>
-                            s.id ===
-                            n.studentId
-                    );
-
-
-                return `
-
-                    <div
-                        class="card"
-                        style="
-                            margin-bottom:12px;
-                            box-shadow:none;
-                        ">
-
-                        <div class="card-header">
-
-                            <div>
-
-                                <strong>
-                                    🔒
-                                    ${
-                                        escapeHtml(
-                                            student?.name ||
-                                            "General / 一般"
-                                        )
-                                    }
-                                </strong>
-
-                                <div
-                                    class="muted"
-                                    style="font-size:11px;">
-                                    Tutor Only /
-                                    只限導師
-                                </div>
-
-                            </div>
-
-
-                            <div class="actions">
-
-                                <button
-                                    class="btn btn-secondary btn-small"
-                                    onclick="openNoteModal('${n.id}')">
-                                    Edit / 編輯
-                                </button>
-
-                                <button
-                                    class="btn btn-danger btn-small"
-                                    onclick="deleteNote('${n.id}')">
-                                    Delete / 刪除
-                                </button>
-
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            style="
-                                white-space:pre-wrap;
-                                line-height:1.6;
-                            ">
-                            ${escapeHtml(n.text)}
-                        </div>
-
-                    </div>
-
-                `;
-
-            }).join("");
-
-}
-
-
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
-
-function renderNotifications() {
-
-    const container =
-        document.getElementById(
-            "notificationsList"
-        );
-
-
-    if (!notifications.length) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🔔
-                </div>
-
-                No notifications /
-                暫時沒有通知
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        notifications
-            .slice()
-            .reverse()
-            .map(n => `
-
-                <div
-                    class="card"
-                    style="
-                        margin-bottom:10px;
-                        box-shadow:none;
-                    ">
-
-                    <div
-                        style="
-                            display:flex;
-                            justify-content:space-between;
-                            gap:15px;
-                        ">
-
-                        <div>
-
-                            <strong>
-                                ${escapeHtml(
-                                    n.title ||
-                                    "Notification / 通知"
-                                )}
-                            </strong>
-
-                            <div
-                                class="muted"
-                                style="
-                                    margin-top:5px;
-                                    line-height:1.5;
-                                ">
-
-                                ${escapeHtml(
-                                    n.message ||
-                                    ""
-                                )}
-
-                            </div>
-
-                        </div>
-
-                        <button
-                            class="btn btn-danger btn-small"
-                            onclick="deleteNotification('${n.id}')">
-                            Delete / 刪除
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `).join("");
-
-}
-
-
-function deleteNotification(id) {
-
-    notifications =
-        notifications.filter(
-            n => n.id !== id
-        );
-
-    saveData();
-    renderAll();
-
-    toast(
-        "Notification deleted / 通知已刪除"
-    );
-
-}
-
-
-function deleteAllNotifications() {
-
-    if (!notifications.length) return;
-
-
-    if (
-        !confirm(
-            "Delete all notifications?\n刪除全部通知？"
-        )
-    ) return;
-
-
-    notifications = [];
-
-    saveData();
-    renderAll();
-
-    toast(
-        "All notifications deleted / 已刪除全部通知"
-    );
-
-}
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-function renderProfile() {
-
-    document.getElementById(
-        "profileName"
-    ).value =
-        profile.name || "";
-
-    document.getElementById(
-        "profileEmail"
-    ).value =
-        profile.email || "";
-
-    document.getElementById(
-        "profilePhone"
-    ).value =
-        profile.phone || "";
-
-    document.getElementById(
-        "appearance"
-    ).value =
-        profile.appearance || "light";
-
-
-    document.getElementById(
-        "topUserName"
-    ).textContent =
-        profile.name ||
-        "Tutor";
-
-    document.getElementById(
-        "topAvatar"
-    ).textContent =
-        (
-            profile.name ||
-            "T"
-        ).charAt(0).toUpperCase();
-
-
-    applyAppearance(
-        profile.appearance || "light"
-    );
-
-}
-
 
 function saveProfile() {
-
-    profile = {
-
-        ...profile,
-
-        name:
-            document.getElementById(
-                "profileName"
-            ).value.trim(),
-
-        email:
-            document.getElementById(
-                "profileEmail"
-            ).value.trim(),
-
-        phone:
-            document.getElementById(
-                "profilePhone"
-            ).value.trim(),
-
-        appearance:
-            document.getElementById(
-                "appearance"
-            ).value
-
-    };
-
-
-    saveData();
-    renderProfile();
-
-    toast(
-        "Profile saved / 個人資料已儲存"
-    );
-
+  const newName = document.getElementById('profileName').value.trim();
+  if (!newName) return;
+  currentState.currentUser.name = newName;
+  saveData(STORAGE_KEYS.USER, currentState.currentUser);
+  updateUserUI();
+  showToast('Profile updated');
 }
 
+// ---------------------------------------------------------
+// NAVIGATION & LAYOUT
+// ---------------------------------------------------------
+function navigateTo(pageId) {
+  currentState.activePage = pageId;
+  
+  // Sidebar Nav Active
+  document.querySelectorAll('.sidebar .nav-item').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.page === pageId);
+  });
 
-function applyAppearance(mode) {
+  // Bottom Nav Active
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.bottomPage === pageId);
+  });
 
-    if (mode === "dark") {
+  // Page Visibility
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  const target = document.getElementById(`page-${pageId}`);
+  if (target) target.classList.add('active');
 
-        document.documentElement.style.setProperty(
-            "--bg",
-            "#111827"
-        );
-
-        document.documentElement.style.setProperty(
-            "--card",
-            "#1f2937"
-        );
-
-        document.documentElement.style.setProperty(
-            "--text",
-            "#f9fafb"
-        );
-
-        document.documentElement.style.setProperty(
-            "--muted",
-            "#9ca3af"
-        );
-
-        document.documentElement.style.setProperty(
-            "--border",
-            "#374151"
-        );
-
-        document.documentElement.style.setProperty(
-            "--sidebar",
-            "#111827"
-        );
-
-    } else {
-
-        document.documentElement.style.setProperty(
-            "--bg",
-            "#f5f7fb"
-        );
-
-        document.documentElement.style.setProperty(
-            "--card",
-            "#ffffff"
-        );
-
-        document.documentElement.style.setProperty(
-            "--text",
-            "#111827"
-        );
-
-        document.documentElement.style.setProperty(
-            "--muted",
-            "#6b7280"
-        );
-
-        document.documentElement.style.setProperty(
-            "--border",
-            "#e5e7eb"
-        );
-
-        document.documentElement.style.setProperty(
-            "--sidebar",
-            "#ffffff"
-        );
-
-    }
-
+  closeMobileSidebar();
+  renderAllViews();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function openMobileSidebar() {
+  document.getElementById('sidebar').classList.add('mobile-open');
+  document.getElementById('mobileSidebarOverlay').classList.add('show');
+}
 
-/* =====================================================
-   DASHBOARD
-===================================================== */
+function closeMobileSidebar() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('mobileSidebarOverlay').classList.remove('show');
+}
 
+// ---------------------------------------------------------
+// THEME CONTROLLER
+// ---------------------------------------------------------
+function setTheme(themeName) {
+  currentState.theme = themeName;
+  saveData(STORAGE_KEYS.THEME, themeName);
+  applyTheme(themeName);
+}
+
+function applyTheme(themeName) {
+  document.body.className = '';
+  
+  if (themeName === 'system') {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.body.classList.add(isDark ? 'theme-dark' : 'theme-warm');
+  } else if (themeName !== 'warm') {
+    document.body.classList.add(`theme-${themeName}`);
+  }
+
+  document.querySelectorAll('.theme-option').forEach(opt => {
+    opt.classList.toggle('active', opt.dataset.theme === themeName);
+  });
+}
+
+// ---------------------------------------------------------
+// RENDERERS
+// ---------------------------------------------------------
+function renderAllViews() {
+  renderDashboard();
+  renderCalendar();
+  renderStudents();
+  renderParents();
+  renderPayments();
+  renderNotifications();
+  renderPrivateNotes();
+}
+
+// 1. DASHBOARD
 function renderDashboard() {
+  document.getElementById('statStudents').textContent = currentState.students.length;
+  document.getElementById('statLessons').textContent = currentState.lessons.length;
 
-    document.getElementById(
-        "statStudents"
-    ).textContent =
-        students.length;
-
-
-    const today =
-        dateKey(new Date());
-
-
-    const upcoming =
-        lessons.filter(
-            l =>
-                l.date >= today &&
-                l.status !== "cancelled"
-        );
-
-
-    document.getElementById(
-        "statLessons"
-    ).textContent =
-        upcoming.length;
-
-
-    const paid =
-        payments
-            .filter(
-                p =>
-                    p.status === "paid"
-            )
-            .reduce(
-                (sum,p) =>
-                    sum + Number(p.amount || 0),
-                0
-            );
-
-
-    const due =
-        payments
-            .filter(
-                p =>
-                    p.status !== "paid"
-            )
-            .reduce(
-                (sum,p) =>
-                    sum + Number(p.amount || 0),
-                0
-            );
-
-
-    document.getElementById(
-        "statPaid"
-    ).textContent =
-        formatMoney(paid);
-
-
-    document.getElementById(
-        "statDue"
-    ).textContent =
-        formatMoney(due);
-
-
-    const lessonsContainer =
-        document.getElementById(
-            "dashboardLessons"
-        );
-
-
-    if (!upcoming.length) {
-
-        lessonsContainer.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    📅
-                </div>
-
-                No upcoming lessons /
-                沒有即將到來的課堂
-
-            </div>
-
-        `;
-
-    } else {
-
-        lessonsContainer.innerHTML =
-            upcoming
-                .sort(
-                    (a,b) =>
-                        `${a.date}${a.time}`
-                        .localeCompare(
-                            `${b.date}${b.time}`
-                        )
-                )
-                .slice(0,5)
-                .map(l => {
-
-                    const student =
-                        students.find(
-                            s =>
-                                s.id ===
-                                l.studentId
-                        );
-
-                    return `
-
-                        <div
-                            style="
-                                display:flex;
-                                justify-content:space-between;
-                                padding:11px 0;
-                                border-bottom:1px solid var(--border);
-                                gap:10px;
-                            ">
-
-                            <div>
-
-                                <strong>
-                                    ${escapeHtml(
-                                        student?.name ||
-                                        "-"
-                                    )}
-                                </strong>
-
-                                <div
-                                    class="muted"
-                                    style="font-size:11px;">
-
-                                    ${formatDate(l.date)}
-                                    ·
-                                    ${escapeHtml(l.time || "")}
-
-                                </div>
-
-                            </div>
-
-                            <div>
-                                ${formatMoney(l.fee)}
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }).join("");
-
+  let totalEarned = 0;
+  currentState.lessons.forEach(l => {
+    if (l.status === 'completed') {
+      const dur = calculateHours(l.start, l.end);
+      totalEarned += (parseFloat(l.rate) || 0) * dur;
     }
+  });
 
+  let totalPaid = currentState.payments.reduce((acc, p) => acc + (parseFloat(p.amount) || 0), 0);
+  let outstanding = Math.max(0, totalEarned - totalPaid);
 
-    const paymentContainer =
-        document.getElementById(
-            "dashboardPayments"
-        );
+  document.getElementById('statOutstanding').textContent = `$${outstanding.toLocaleString()}`;
+  document.getElementById('statPaid').textContent = `$${totalPaid.toLocaleString()}`;
 
+  // Dashboard Upcoming Lessons
+  const container = document.getElementById('dashboardLessons');
+  const sorted = [...currentState.lessons].sort((a, b) => new Date(`${a.date}T${a.start}`) - new Date(`${b.date}T${b.start}`));
+  
+  if (sorted.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📅</div>
+        <div class="empty-title">No Lessons Scheduled</div>
+        <div class="empty-text">Click "Add Lesson" to start scheduling sessions.</div>
+      </div>`;
+    return;
+  }
 
-    const unpaid =
-        payments.filter(
-            p =>
-                p.status !== "paid"
-        );
+  let html = `<div style="display:grid; gap:10px;">`;
+  sorted.slice(0, 5).forEach(l => {
+    const student = currentState.students.find(s => s.id === l.studentId);
+    const badgeClass = l.status === 'completed' ? 'badge-green' : l.status === 'cancelled' ? 'badge-red' : 'badge-blue';
+    
+    html += `
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; background:var(--surface-soft); border-radius:var(--radius-small); border:1px solid var(--border);">
+        <div>
+          <div style="font-weight:800; font-size:13px;">${escapeHtml(student ? student.name : 'Unknown Student')}</div>
+          <div style="font-size:11px; color:var(--text-soft); margin-top:2px;">
+            🕒 ${l.date} (${l.start} - ${l.end})
+          </div>
+        </div>
+        <span class="badge ${badgeClass}">${l.status.toUpperCase()}</span>
+      </div>`;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
 
+// 2. CALENDAR
+function renderCalendar() {
+  const date = currentState.currentCalendarDate;
+  const year = date.getFullYear();
+  const month = date.getMonth();
 
-    if (!unpaid.length) {
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  document.getElementById('calendarMonth').textContent = `${monthNames[month]} ${year}`;
 
-        paymentContainer.innerHTML = `
+  const grid = document.getElementById('calendarGrid');
+  grid.innerHTML = '';
 
-            <div class="empty">
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weekdays.forEach(wd => {
+    const el = document.createElement('div');
+    el.className = 'calendar-weekday';
+    el.textContent = wd;
+    grid.appendChild(el);
+  });
 
-                <div class="empty-icon">
-                    ✅
-                </div>
+  const firstDay = new Date(year, month, 1).getDay();
+  const totalDays = new Date(year, month + 1, 0).getDate();
+  const prevMonthTotalDays = new Date(year, month, 0).getDate();
 
-                All paid / 全部已付款
+  const todayStr = new Date().toISOString().split('T')[0];
 
-            </div>
+  // Previous Month Days
+  for (let i = firstDay - 1; i >= 0; i--) {
+    const dayNum = prevMonthTotalDays - i;
+    const cell = document.createElement('div');
+    cell.className = 'calendar-day other-month';
+    cell.innerHTML = `<div class="calendar-day-number">${dayNum}</div>`;
+    grid.appendChild(cell);
+  }
 
-        `;
+  // Current Month Days
+  for (let day = 1; day <= totalDays; day++) {
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = (month + 1) < 10 ? `0${month + 1}` : (month + 1);
+    const dateStr = `${year}-${formattedMonth}-${formattedDay}`;
 
-    } else {
+    const cell = document.createElement('div');
+    cell.className = 'calendar-day' + (dateStr === todayStr ? ' today' : '');
+    cell.onclick = () => openLessonModalWithDate(dateStr);
 
-        paymentContainer.innerHTML =
-            unpaid
-                .slice(0,5)
-                .map(p => {
+    let dayHtml = `<div class="calendar-day-number">${day}</div>`;
 
-                    const student =
-                        students.find(
-                            s =>
-                                s.id ===
-                                p.studentId
-                        );
+    const dayLessons = currentState.lessons.filter(l => l.date === dateStr);
+    dayLessons.forEach(l => {
+      const student = currentState.students.find(s => s.id === l.studentId);
+      dayHtml += `
+        <div class="calendar-event" onclick="event.stopPropagation(); editLesson('${l.id}')">
+          ${l.start} ${escapeHtml(student ? student.name : 'Lesson')}
+        </div>`;
+    });
 
-                    return `
+    cell.innerHTML = dayHtml;
+    grid.appendChild(cell);
+  }
+}
 
-                        <div
-                            style="
-                                display:flex;
-                                justify-content:space-between;
-                                padding:11px 0;
-                                border-bottom:1px solid var(--border);
-                            ">
+function changeCalendarMonth(delta) {
+  currentState.currentCalendarDate.setMonth(currentState.currentCalendarDate.getMonth() + delta);
+  renderCalendar();
+}
 
-                            <div>
+function calendarToday() {
+  currentState.currentCalendarDate = new Date();
+  renderCalendar();
+}
 
-                                <strong>
-                                    ${escapeHtml(
-                                        student?.name ||
-                                        "-"
-                                    )}
-                                </strong>
+// 3. STUDENTS
+function renderStudents() {
+  const container = document.getElementById('studentsTable');
+  const search = (document.getElementById('studentSearch')?.value || '').toLowerCase();
 
-                                <div
-                                    class="muted"
-                                    style="font-size:11px;">
-                                    ${formatDate(p.date)}
-                                </div>
+  const filtered = currentState.students.filter(s => 
+    s.name.toLowerCase().includes(search) || 
+    (s.school && s.school.toLowerCase().includes(search)) ||
+    (s.subject && s.subject.toLowerCase().includes(search))
+  );
 
-                            </div>
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">👨‍🎓</div>
+        <div class="empty-title">No Students Found</div>
+        <div class="empty-text">Add your first student to get started.</div>
+      </div>`;
+    return;
+  }
 
-                            <strong>
-                                ${formatMoney(p.amount)}
-                            </strong>
+  let html = `
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>NAME / 姓名</th>
+            <th>SCHOOL / 年級</th>
+            <th>SUBJECT / 科目</th>
+            <th>HOURLY RATE</th>
+            <th>PARENT / 家長</th>
+            <th style="text-align:right;">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>`;
 
-                        </div>
+  filtered.forEach(s => {
+    const parent = currentState.parents.find(p => p.id === s.parentId);
+    html += `
+      <tr>
+        <td><strong>${escapeHtml(s.name)}</strong></td>
+        <td>${escapeHtml(s.school || '-')} ${s.grade ? `(${escapeHtml(s.grade)})` : ''}</td>
+        <td><span class="badge badge-neutral">${escapeHtml(s.subject || '-')}</span></td>
+        <td><strong>$${s.rate || 0}</strong>/hr</td>
+        <td>${escapeHtml(parent ? parent.name : '-')}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-small" onclick="editStudent('${s.id}')">Edit</button>
+          <button class="btn btn-small btn-danger" onclick="deleteStudent('${s.id}')">Delete</button>
+        </td>
+      </tr>`;
+  });
 
-                    `;
+  html += `</tbody></table></div>`;
+  container.innerHTML = html;
+}
 
-                }).join("");
+// 4. PARENTS
+function renderParents() {
+  const container = document.getElementById('parentsTable');
 
+  if (currentState.parents.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">👨‍👩‍👧</div>
+        <div class="empty-title">No Parents Recorded</div>
+        <div class="empty-text">Add parent contacts to link with students.</div>
+      </div>`;
+    return;
+  }
+
+  let html = `
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>NAME / 姓名</th>
+            <th>PHONE / 電話</th>
+            <th>EMAIL / 電郵</th>
+            <th>CHILDREN / 學生</th>
+            <th>NOTES / 備註</th>
+            <th style="text-align:right;">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+  currentState.parents.forEach(p => {
+    const children = currentState.students.filter(s => s.parentId === p.id).map(s => s.name).join(', ');
+    html += `
+      <tr>
+        <td><strong>${escapeHtml(p.name)}</strong></td>
+        <td>${escapeHtml(p.phone || '-')}</td>
+        <td>${escapeHtml(p.email || '-')}</td>
+        <td>${escapeHtml(children || 'None')}</td>
+        <td>${escapeHtml(p.notes || '-')}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-small" onclick="editParent('${p.id}')">Edit</button>
+          <button class="btn btn-small btn-danger" onclick="deleteParent('${p.id}')">Delete</button>
+        </td>
+      </tr>`;
+  });
+
+  html += `</tbody></table></div>`;
+  container.innerHTML = html;
+}
+
+// 5. PAYMENTS
+function renderPayments() {
+  let lessonFees = 0;
+  currentState.lessons.forEach(l => {
+    if (l.status === 'completed') {
+      lessonFees += (parseFloat(l.rate) || 0) * calculateHours(l.start, l.end);
     }
+  });
 
+  let totalPaid = currentState.payments.reduce((acc, p) => acc + (parseFloat(p.amount) || 0), 0);
+  let outstanding = Math.max(0, lessonFees - totalPaid);
+
+  document.getElementById('paymentTotal').textContent = `$${(lessonFees).toLocaleString()}`;
+  document.getElementById('paymentOutstanding').textContent = `$${outstanding.toLocaleString()}`;
+  document.getElementById('paymentPaid').textContent = `$${totalPaid.toLocaleString()}`;
+  document.getElementById('paymentLessonFees').textContent = `$${lessonFees.toLocaleString()}`;
+
+  const container = document.getElementById('paymentsTable');
+
+  if (currentState.payments.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">💰</div>
+        <div class="empty-title">No Payment Records</div>
+        <div class="empty-text">Record fees received from parents.</div>
+      </div>`;
+    return;
+  }
+
+  let html = `
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>DATE / 日期</th>
+            <th>STUDENT / 學生</th>
+            <th>AMOUNT / 金額</th>
+            <th>METHOD / 方式</th>
+            <th>NOTES / 備註</th>
+            <th style="text-align:right;">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+  currentState.payments.forEach(p => {
+    const student = currentState.students.find(s => s.id === p.studentId);
+    html += `
+      <tr>
+        <td>${p.date}</td>
+        <td><strong>${escapeHtml(student ? student.name : 'Unknown')}</strong></td>
+        <td><strong style="color:var(--green);">$${p.amount}</strong></td>
+        <td><span class="badge badge-blue">${p.method.toUpperCase()}</span></td>
+        <td>${escapeHtml(p.notes || '-')}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-small btn-danger" onclick="deletePayment('${p.id}')">Delete</button>
+        </td>
+      </tr>`;
+  });
+
+  html += `</tbody></table></div>`;
+  container.innerHTML = html;
 }
 
+// 6. NOTIFICATIONS
+function renderNotifications() {
+  const container = document.getElementById('notificationsList');
 
-/* =====================================================
-   RENDER ALL
-===================================================== */
+  if (currentState.notifications.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🔔</div>
+        <div class="empty-title">All Clear</div>
+        <div class="empty-text">You have no new notifications.</div>
+      </div>`;
+    return;
+  }
 
-function renderAll() {
+  let html = '';
+  currentState.notifications.forEach(n => {
+    html += `
+      <div class="notification-item">
+        <div class="notification-icon">🔔</div>
+        <div>
+          <div class="notification-title">${escapeHtml(n.title)}</div>
+          <div class="notification-text">${escapeHtml(n.text)}</div>
+          <div class="notification-time">${n.time}</div>
+        </div>
+      </div>`;
+  });
 
-    renderDashboard();
-    renderCalendar();
-    renderStudents();
-    renderParents();
-    renderPayments();
-    renderNotifications();
-    renderNotes();
-    renderProfile();
-
+  container.innerHTML = html;
 }
 
-
-/* =====================================================
-   UTILITIES
-===================================================== */
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
+function markAllNotificationsRead() {
+  currentState.notifications = [];
+  saveData(STORAGE_KEYS.NOTIFICATIONS, currentState.notifications);
+  renderNotifications();
+  showToast('Notifications cleared');
 }
 
-
-function escapeAttr(value) {
-
-    return escapeHtml(value);
-
+// 7. PRIVATE NOTES
+function renderPrivateNotes() {
+  const container = document.getElementById('privateNotesContent');
+  container.innerHTML = `
+    <div class="form-group">
+      <label class="form-label">Tutor Confidential Notes (Auto-saved)</label>
+      <textarea id="privateNotesTextarea" class="form-textarea" style="min-height:220px;" oninput="savePrivateNotes()">${escapeHtml(currentState.notes)}</textarea>
+    </div>`;
 }
 
-
-function toast(message) {
-
-    const old =
-        document.querySelector(".toast");
-
-    if (old) old.remove();
-
-
-    const el =
-        document.createElement("div");
-
-    el.className = "toast";
-    el.textContent = message;
-
-    document.body.appendChild(el);
-
-
-    setTimeout(
-        () => el.remove(),
-        2500
-    );
-
+function savePrivateNotes() {
+  const val = document.getElementById('privateNotesTextarea').value;
+  currentState.notes = val;
+  saveData(STORAGE_KEYS.NOTES, val);
 }
 
+// ---------------------------------------------------------
+// MODAL & CRUD CONTROLLERS
+// ---------------------------------------------------------
+function populateDropdowns() {
+  const studentSelects = [document.getElementById('lessonStudent'), document.getElementById('paymentStudent')];
+  studentSelects.forEach(sel => {
+    if (!sel) return;
+    sel.innerHTML = '<option value="">Select / 選擇</option>';
+    currentState.students.forEach(s => {
+      sel.innerHTML += `<option value="${s.id}">${escapeHtml(s.name)}</option>`;
+    });
+  });
 
-/* =====================================================
-   INITIALISE
-===================================================== */
+  const parentSelect = document.getElementById('studentParent');
+  if (parentSelect) {
+    parentSelect.innerHTML = '<option value="">Select / 選擇</option>';
+    currentState.parents.forEach(p => {
+      parentSelect.innerHTML += `<option value="${p.id}">${escapeHtml(p.name)}</option>`;
+    });
+  }
+}
 
-renderAll();
+// STUDENT MODAL
+function openStudentModal() {
+  document.getElementById('studentEditId').value = '';
+  document.getElementById('studentName').value = '';
+  document.getElementById('studentSchool').value = '';
+  document.getElementById('studentGrade').value = '';
+  document.getElementById('studentSubject').value = '';
+  document.getElementById('studentRate').value = '';
+  document.getElementById('studentParent').value = '';
+  document.getElementById('studentNotes').value = '';
+  
+  openModal('studentModal');
+}
 
-showPage("dashboard");
+function saveStudent(e) {
+  e.preventDefault();
+  const id = document.getElementById('studentEditId').value || 's_' + Date.now();
+  const student = {
+    id,
+    name: document.getElementById('studentName').value.trim(),
+    school: document.getElementById('studentSchool').value.trim(),
+    grade: document.getElementById('studentGrade').value.trim(),
+    subject: document.getElementById('studentSubject').value.trim(),
+    rate: parseFloat(document.getElementById('studentRate').value) || 0,
+    parentId: document.getElementById('studentParent').value,
+    notes: document.getElementById('studentNotes').value.trim()
+  };
 
+  const idx = currentState.students.findIndex(s => s.id === id);
+  if (idx > -1) {
+    currentState.students[idx] = student;
+  } else {
+    currentState.students.push(student);
+  }
+
+  saveData(STORAGE_KEYS.STUDENTS, currentState.students);
+  closeModal('studentModal');
+  populateDropdowns();
+  renderAllViews();
+  showToast('Student saved');
+}
+
+function editStudent(id) {
+  const s = currentState.students.find(item => item.id === id);
+  if (!s) return;
+
+  document.getElementById('studentEditId').value = s.id;
+  document.getElementById('studentName').value = s.name;
+  document.getElementById('studentSchool').value = s.school || '';
+  document.getElementById('studentGrade').value = s.grade || '';
+  document.getElementById('studentSubject').value = s.subject || '';
+  document.getElementById('studentRate').value = s.rate || '';
+  document.getElementById('studentParent').value = s.parentId || '';
+  document.getElementById('studentNotes').value = s.notes || '';
+
+  openModal('studentModal');
+}
+
+function deleteStudent(id) {
+  if (!confirm('Are you sure you want to delete this student?')) return;
+  currentState.students = currentState.students.filter(s => s.id !== id);
+  saveData(STORAGE_KEYS.STUDENTS, currentState.students);
+  populateDropdowns();
+  renderAllViews();
+  showToast('Student deleted');
+}
+
+// PARENT MODAL
+function openParentModal() {
+  document.getElementById('parentEditId').value = '';
+  document.getElementById('parentName').value = '';
+  document.getElementById('parentPhone').value = '';
+  document.getElementById('parentEmail').value = '';
+  document.getElementById('parentNotes').value = '';
+  
+  openModal('parentModal');
+}
+
+function saveParent(e) {
+  e.preventDefault();
+  const id = document.getElementById('parentEditId').value || 'p_' + Date.now();
+  const parent = {
+    id,
+    name: document.getElementById('parentName').value.trim(),
+    phone: document.getElementById('parentPhone').value.trim(),
+    email: document.getElementById('parentEmail').value.trim(),
+    notes: document.getElementById('parentNotes').value.trim()
+  };
+
+  const idx = currentState.parents.findIndex(p => p.id === id);
+  if (idx > -1) {
+    currentState.parents[idx] = parent;
+  } else {
+    currentState.parents.push(parent);
+  }
+
+  saveData(STORAGE_KEYS.PARENTS, currentState.parents);
+  closeModal('parentModal');
+  populateDropdowns();
+  renderAllViews();
+  showToast('Parent saved');
+}
+
+function editParent(id) {
+  const p = currentState.parents.find(item => item.id === id);
+  if (!p) return;
+
+  document.getElementById('parentEditId').value = p.id;
+  document.getElementById('parentName').value = p.name;
+  document.getElementById('parentPhone').value = p.phone || '';
+  document.getElementById('parentEmail').value = p.email || '';
+  document.getElementById('parentNotes').value = p.notes || '';
+
+  openModal('parentModal');
+}
+
+function deleteParent(id) {
+  if (!confirm('Are you sure you want to delete this parent?')) return;
+  currentState.parents = currentState.parents.filter(p => p.id !== id);
+  saveData(STORAGE_KEYS.PARENTS, currentState.parents);
+  populateDropdowns();
+  renderAllViews();
+  showToast('Parent deleted');
+}
+
+// LESSON MODAL
+function openLessonModal() {
+  const today = new Date().toISOString().split('T')[0];
+  openLessonModalWithDate(today);
+}
+
+function openLessonModalWithDate(dateStr) {
+  document.getElementById('lessonEditId').value = '';
+  document.getElementById('lessonStudent').value = currentState.students[0]?.id || '';
+  document.getElementById('lessonDate').value = dateStr;
+  document.getElementById('lessonStart').value = '16:00';
+  document.getElementById('lessonEnd').value = '17:00';
+  
+  const student = currentState.students[0];
+  document.getElementById('lessonRate').value = student ? student.rate : 300;
+  document.getElementById('lessonStatus').value = 'scheduled';
+  document.getElementById('lessonNotes').value = '';
+
+  openModal('lessonModal');
+}
+
+function saveLesson(e) {
+  e.preventDefault();
+  const id = document.getElementById('lessonEditId').value || 'l_' + Date.now();
+  const lesson = {
+    id,
+    studentId: document.getElementById('lessonStudent').value,
+    date: document.getElementById('lessonDate').value,
+    start: document.getElementById('lessonStart').value,
+    end: document.getElementById('lessonEnd').value,
+    rate: parseFloat(document.getElementById('lessonRate').value) || 0,
+    status: document.getElementById('lessonStatus').value,
+    notes: document.getElementById('lessonNotes').value.trim()
+  };
+
+  const idx = currentState.lessons.findIndex(l => l.id === id);
+  if (idx > -1) {
+    currentState.lessons[idx] = lesson;
+  } else {
+    currentState.lessons.push(lesson);
+  }
+
+  saveData(STORAGE_KEYS.LESSONS, currentState.lessons);
+  closeModal('lessonModal');
+  renderAllViews();
+  showToast('Lesson saved');
+}
+
+function editLesson(id) {
+  const l = currentState.lessons.find(item => item.id === id);
+  if (!l) return;
+
+  document.getElementById('lessonEditId').value = l.id;
+  document.getElementById('lessonStudent').value = l.studentId;
+  document.getElementById('lessonDate').value = l.date;
+  document.getElementById('lessonStart').value = l.start;
+  document.getElementById('lessonEnd').value = l.end;
+  document.getElementById('lessonRate').value = l.rate;
+  document.getElementById('lessonStatus').value = l.status;
+  document.getElementById('lessonNotes').value = l.notes || '';
+
+  openModal('lessonModal');
+}
+
+// PAYMENT MODAL
+function openPaymentModal() {
+  document.getElementById('paymentEditId').value = '';
+  document.getElementById('paymentStudent').value = currentState.students[0]?.id || '';
+  document.getElementById('paymentAmount').value = '';
+  document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('paymentMethod').value = 'fps';
+  document.getElementById('paymentNotes').value = '';
+
+  openModal('paymentModal');
+}
+
+function savePayment(e) {
+  e.preventDefault();
+  const id = document.getElementById('paymentEditId').value || 'pay_' + Date.now();
+  const payment = {
+    id,
+    studentId: document.getElementById('paymentStudent').value,
+    amount: parseFloat(document.getElementById('paymentAmount').value) || 0,
+    date: document.getElementById('paymentDate').value,
+    method: document.getElementById('paymentMethod').value,
+    notes: document.getElementById('paymentNotes').value.trim()
+  };
+
+  currentState.payments.push(payment);
+  saveData(STORAGE_KEYS.PAYMENTS, currentState.payments);
+  closeModal('paymentModal');
+  renderAllViews();
+  showToast('Payment recorded');
+}
+
+function deletePayment(id) {
+  if (!confirm('Are you sure you want to delete this payment record?')) return;
+  currentState.payments = currentState.payments.filter(p => p.id !== id);
+  saveData(STORAGE_KEYS.PAYMENTS, currentState.payments);
+  renderAllViews();
+  showToast('Payment deleted');
+}
+
+// ---------------------------------------------------------
+// UTILITIES & HELPERS
+// ---------------------------------------------------------
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+function closeModalOnOverlay(e, id) {
+  if (e.target.classList.contains('modal-overlay')) {
+    closeModal(id);
+  }
+}
+
+function showToast(message) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    toast.style.transition = 'all 0.2s ease';
+    setTimeout(() => toast.remove(), 200);
+  }, 2500);
+}
+
+function calculateHours(startStr, endStr) {
+  if (!startStr || !endStr) return 0;
+  const [sH, sM] = startStr.split(':').map(Number);
+  const [eH, eM] = endStr.split(':').map(Number);
+  const startMin = sH * 60 + sM;
+  const endMin = eH * 60 + eM;
+  return Math.max(0, (endMin - startMin) / 60);
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, match => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[match]));
+}
 </script>
-
 </body>
 </html>
